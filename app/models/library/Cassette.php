@@ -1,14 +1,14 @@
 <?php
 
-namespace Library;
+/*namespace Library;
 
-use Eloquent;
+use Eloquent;*/
 
 class Cassette extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    //protected $connection = 'mysql2-library';
     
-    protected $table = 'CASSETTE';
+    protected $table = 'cassette';
 
     public $timestamps = false;
 

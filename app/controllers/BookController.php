@@ -88,37 +88,26 @@ class BookController extends Controller{
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
     $book['setdvd_data']   = $bookEloquent->setdvd_data ;
 
-    $arrOfdata['book']=$book;
+//----braile
+    $braille = Braille::All();
+//----cassette
+    $cassette = Cassette::where('book_id','=',$book['id']);
+//----daisy
+    $daisy = Daisy::where('book_id','=',$book['id']);
+//----cd
+    $cd = CD::where('book_id','=',$book['id']);
+//----dvd
+    $dvd = DVD::where('book_id','=',$book['id']);
+
     $arrOfdata['field']=$field;
-    return View::make('library.book.index')
-    ->with($arrOfdata);
+    $arrOfdata['book']=$book;
+
+    $arrOfdata['braille']=$braille;
+    $arrOfdata['cassette']=$cassette;
+    $arrOfdata['daisy']=$daisy;
+    $arrOfdata['cd']=$cd;
+    $arrOfdata['dvd']=$dvd;
+    return View::make('library.book.view')
+      ->with($arrOfdata);
   }
 }
-
-/*
-เรื่อง
-ผู้แต่ง
-ผู้แปล
-ประเภทหนังสือ
-สำนักพิมพ์
-พิมพ์ครั้งที่
-วันลงทะเบียน
-ทะเบียนการผลิต
-ทะเบียนหนังสือฉบับตาดีเลขที่
-หนังสือ CD
-เลขที่ CD
-หนังสือเทป
-CM เลขที่
-สถานะหนังสือ
-วันที่หนังสือ
-บันทึกเกี่ยวหับหนังสือ
-สถานะเทป
-วันที่เทป
-บันทึกเกี่ยวกับเทป
-สถานะ CD
-วันที่ CD
-บันทึกเกี่ยวกับ CD
-สถานะ DVD
-วันที่ DVD
-บันทึกเกี่ยวกับ DVD
-*/
