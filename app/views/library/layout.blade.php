@@ -14,6 +14,60 @@
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	@yield('head')
+
+	<style type="text/css">
+
+      /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      .container {
+        width: auto;
+        max-width: 1000px;
+      }
+      .container .credit {
+        margin: 20px 0;
+      }
+	</style>
 	</head>
 	<body>
 		<div class="navbar navbar-default">
@@ -23,16 +77,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Brand</a>
+				<a class="navbar-brand" href="#">LeafBox</a>
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Active</a></li>
-					<li><a href="#">Link</a></li>
+					<li class="active"><a href="#">หนังสือ</a></li>
+					<li><a href="#">สมาชิก</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">การยืม <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
+							<li><a href="#"></a></li>
 							<li><a href="#">Another action</a></li>
 							<li><a href="#">Something else here</a></li>
 							<li class="divider"></li>
@@ -43,26 +97,53 @@
 					</li>
 				</ul>
 				<form class="navbar-form navbar-left">
-					<input class="form-control col-lg-8" placeholder="Search" type="text">
+					<input class="form-control col-lg-8" placeholder="ค้นหา" type="text">
 				</form>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Link</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in<b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
+							<li><a href="#">Profile</a></li>
+							<li><a href="#">Setting</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li><a href="#">Log out</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="container">
-			@yield('body')
+		<div id ="wrap">
+			<div class="container-fluid">
+				<div class= "col-md-3" >
+					<ul class="list-group">
+					  <li class="list-group-item">
+					    <span class="badge">14</span>
+					    หนังสือ
+					  </li>
+					  <li class="list-group-item">
+					    <span class="badge">2</span>
+					    การยืม
+					   </li>
+					</ul>
+				</div>
+				<div class = "col-md-9 well">
+					<div class = "col-md-10 col-md-offset-1">
+							@yield('body')
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<div id="footer">
+   		   <div class="container-fluid">
+   		   	<div class = "col-md-1">
+   		   		<img src="{{ asset('/img/logo.png') }}" class = "img-responsive">
+   		   	</div>
+   		   	<div class = "col-md-10">
+   		   		<p class="muted credit"><b>ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</b></p>
+   		   	</div>
+      		</div>
+    	</div>
 
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
