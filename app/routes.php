@@ -23,3 +23,5 @@ Route::get('add','BookController@newBook');
 Route::post('add',function(){
 	return 'hello';
 });
+
+Route::post('loginUser','HomeController@doLogin');

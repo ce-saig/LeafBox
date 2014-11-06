@@ -148,7 +148,7 @@
 			        <h4 class="modal-title" id="myModalLabel">Login</h4>
 			      </div>
 			      <div class="modal-body">
-			        	{{ Form::open(array('url' => 'login')) }}
+			        	{{ Form::open(array('url' => 'loginUser')) }}
 
 						<!-- if there are login errors, show them here -->
 						<p>
