@@ -1,9 +1,7 @@
 <?php
-
 use Eloquent;
 
 class Cassette extends Eloquent {
-    
     
     protected $table = 'cassette';
 

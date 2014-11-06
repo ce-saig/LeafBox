@@ -1,14 +1,14 @@
 <?php
 
-namespace Library;
+// namespace Library;
 
-use Eloquent;
+// use Eloquent;
 
 class Daisy extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    // protected $connection = 'mysql2-library';
     
-    protected $table = 'DAISY';
+    protected $table = 'daisy';
 
     public $timestamps = false;
 

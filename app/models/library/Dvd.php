@@ -1,14 +1,14 @@
 <?php
 
-namespace Library;
+// namespace Library;
 
-use Eloquent;
+// use Eloquent;
 
-class Dvd extends Eloquent {
+class DVD extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    // protected $connection = 'mysql2-library';
     
-    protected $table = 'DVD';
+    protected $table = 'dvd';
 
     public $timestamps = false;
 

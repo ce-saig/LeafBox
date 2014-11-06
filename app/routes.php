@@ -18,6 +18,8 @@ Route::get('/',array(function(){
 	return View::make('library.index');
 }));
 //-------------------------------
+Route::get('book/{bid}','BookController@getBook');
+
 Route::get('add','BookController@newBook');
 //Route::post('add','BookController@postBook');
 Route::post('add',function(){
