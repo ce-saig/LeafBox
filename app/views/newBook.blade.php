@@ -3,47 +3,73 @@
 	<title>เพิ่มหนังสือใหม่</title>
 @stop
 @section('body')
+			<form role="form" action="{{ url('add') }}" method="post">
 			<div class='row'>
 				<div class='col-md-12'>
-					<form role="form" action="{{ url('add') }}" method="POST">
 						<div class='col-md-6'>
 							<table class="table">
 								<tr>
 									<td>ISBN</td>
-									<td><input type="text" class="form-control" placeholder="ISBN" name="isbn"></td>
+									<td><input type="text" class="form-control" placeholder="ISBN" name="isbn" required></td>
 								</tr>
 								<tr>
-									<td>TITLE</td>
-									<td><input type="text" class="form-control" placeholder="TITLE" name="title"></td>
+									<td>ชื่อเรื่อง</td>
+									<td><input type="text" class="form-control" placeholder="Title" name="title" required></td>
 								</tr>
 								<tr>
-									<td>AUTHOR</td>
-									<td><input type="text" class="form-control" placeholder="AUTHOR" name="author"></td>
+									<td>ผู้แต่ง</td>
+									<td><input type="text" class="form-control" placeholder="Author" name="author"></td>
 								</tr>
 								<tr>
-									<td>TRANSLATE</td>
-									<td><input type="text" class="form-control" placeholder="TRANSLATE" name="translate"></td>
+									<td>ผู้แปล</td>
+									<td><input type="text" class="form-control" placeholder="Translater" name="translate"></td>
 								</tr>
 								<tr>
-									<td>PAGE</td>
-									<td><input type="text" class="form-control" placeholder="PAGE" name="page"></td>
+									<td>หนังสือเหมาะสำหรับ</td>
+									<td><input type="text" class="form-control" placeholder="Grade" name="grade"></td>
 								</tr>
-								<tr>
-									<td>GRADE</td>
-									<td><input type="text" class="form-control" placeholder="GRADE" name="grade"></td>
+                                <tr>
+									<td>เนื้อเรื่องย่อ</td>
+									<td><textarea rows="4" class="form-control" placeholder="Abstract" name="abstract"></textarea></td>
 								</tr>
 							</table>
 						</div>
 						<div class='col-md-6'>
 							<table class="table">
+
 								<tr>
-									<td>BTYPE</td>
-									<td><input type="text" class="form-control" placeholder="BTYPE" name="btype"></td>
+									<td>ประเภทของหนังสือ</td>
+									<td><input type="text" class="form-control" placeholder="BookType"name="book_type"></td>
 								</tr>
-								<tr><td><input type="submit" class="btn btn-primary" name="bt1" value="POST"></td></tr>
-							</table>
+								<tr>
+									<td>produce_no</td>
+									<td><input type="text" class="form-control" placeholder=""name="produce_no"></td>
+								</tr>
+								<tr>
+									<td>ทะเบียนหนังสือต้นฉบับตาดีเลขที่</td>
+									<td><input type="text" class="form-control" placeholder=""name="original_no" required></td>
+								</tr>								<tr>
+								<td>พิมพ์ครั้งที่</td>
+									<td><input type="number" min="1" class="form-control" placeholder=""name="pub_no"></td>
+								</tr>
+								<td>พ.ศ.</td>
+									<td><input type="number"  min="1" max=<?= date("Y")+543 ?> class="form-control" placeholder=""name="pub_year"></td>
+								</tr>
+								<td>สำนักพิมพ์</td>
+									<td><input type="text" class="form-control" placeholder="Publisher"name="publisher"></td>
+								</tr>	
+							</table> 
 						</div>
-					</form>
+                      
 				</div>
 			</div>
+            <div class="row">
+            	<div>
+                	<hr>
+                </div>
+            	<div class="col-md-6 col-md-offset6">
+            		<input type="submit" class="btn btn-primary" name="bt1" value="Submit">
+                </div>
+           	</div>
+           	</form>
 @stop
