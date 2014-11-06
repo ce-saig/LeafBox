@@ -1,7 +1,4 @@
 <?php
-
-namespace Library;
-
 use Eloquent;
 
 class Brailleborrow extends Eloquent {

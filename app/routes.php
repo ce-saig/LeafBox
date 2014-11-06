@@ -23,3 +23,14 @@ Route::get('add','BookController@newBook');
 Route::post('add',function(){
 	return 'hello';
 });
+
+Route::group(array('prefix' => 'book/{bookId}'), function($bookId){
+
+  Route::get('/', function($bookId) {
+    $data['bookId'] = $bookId;
+    return View::make('mediaDetail', $data);
+  });
+
+  Route::post('braille/add', 'BookController@addBraille');
+  Route::post('cassette/add', 'BookController@addCassette');
+});
