@@ -131,6 +131,14 @@
 					</ul>
 				</div>
 				<div class = "col-md-9 well">
+					@if ($errors->has())
+						<div class="alert alert-danger" role="alert">
+							<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							{{ $errors->first('email') }}
+							{{ $errors->first('password') }}
+						</div>
+					@else
+					@endif
 					<div class = "col-md-10 col-md-offset-1">
 							@yield('body')
 
@@ -149,12 +157,6 @@
 			      </div>
 			      <div class="modal-body">
 			        	{{ Form::open(array('url' => 'loginUser')) }}
-
-						<!-- if there are login errors, show them here -->
-						<p>
-							{{ $errors->first('email') }}
-							{{ $errors->first('password') }}
-						</p>
 
 						<p>
 							{{ Form::label('email', 'Email Address') }}
