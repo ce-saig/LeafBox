@@ -24,6 +24,7 @@ Route::post('add',function(){
 
 
 Route::post('loginUser','HomeController@doLogin');
+Route::get('logout','HomeController@doLogout');
 
 Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::get('/', 'BookController@getBook');

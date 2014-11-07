@@ -32,12 +32,18 @@ class HomeController extends Controller {
 			);
 		
 			if (Auth::attempt($userdata)) {			
-				echo 'SUCCESS!';
+				return View::make('library.index', array('user' => Auth::user()));
 			} else {	 	
 				return " Email : ".Input::get('email')." Password :  ".Input::get('password');
 			}
 
 		}
+	}
+
+	public function doLogout()
+	{
+		Auth::logout(); 
+		return Redirect::to('/'); 
 	}
 
 

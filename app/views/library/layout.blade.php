@@ -67,7 +67,7 @@
       .container .credit {
         margin: 20px 0;
       }
-	</style>
+	</style>	
 	</head>
 	<body>
 		<div class="navbar navbar-default">
@@ -101,16 +101,18 @@
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in<b class="caret"></b></a>
-						<!-- <ul class="dropdown-menu">
-							<li><a href="#">Profile</a></li>
-							<li><a href="#">Setting</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Log out</a></li>
-						</ul> -->
-						<ul class="dropdown-menu">
-							<li data-toggle="modal" data-target="#myModal" ><b> Sign in </b></li>
-						</ul>
+
+						@if(Auth::check())
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Profile</a></li>
+								<li><a href="#">Setting</a></li>
+								<li class="divider"></li>
+								<li><a href="{{ URL::to('logout') }}">Log out</a></li>
+							</ul> 
+						@else
+							<li data-toggle="modal" data-target="#myModal" ><a> Sign in </a></li>
+						@endif
 							
 					</li>
 				</ul>
