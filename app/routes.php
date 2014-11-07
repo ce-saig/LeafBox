@@ -20,9 +20,9 @@ Route::get('/',array(function(){
 //move to route group
 //Route::get('book/{bid}','BookController@getBook');
 
-Route::get('add','BookController@newBook');
+Route::get('book/add','BookController@newBook');
 //Route::post('add','BookController@postBook');
-Route::post('add','BookController@postBook');
+Route::post('book/add','BookController@postBook');
 
 Route::group(array('prefix' => 'book/{bid}'), function($bid){
 

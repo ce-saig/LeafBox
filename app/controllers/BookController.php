@@ -24,7 +24,7 @@ class BookController extends Controller{
     //$data['book']=$Book;
     //$data['num']=3;
     //return View::make('hgdu',$data);
-    return Redirect::to('add');
+    return Redirect::to('book/add');
   }
 
   public function addBraille($bookId){
@@ -193,8 +193,7 @@ class BookController extends Controller{
       $arrOfdata['daisy']=$daisy;
       $arrOfdata['cd']=$cd;
       $arrOfdata['dvd']=$dvd;
-      return View::make('library.book.view')
-        ->with($arrOfdata);
+      return View::make('library.book.view')->with($arrOfdata);
     }
 }
 ?>

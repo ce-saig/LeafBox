@@ -32,118 +32,23 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="braille">
-      <div role="tabpanel" class="tab-pane active" id="detail">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">braille id</th>
-              <th>status</th>
-              <th>page</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($braille as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->status}}NEED BORROW SYSTEM</td>
-              <td>{{$item->pages}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.braille',array('braille'=>$braille))
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">cassette id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($cassette as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.cassette',array('cassette'=>$cassette))
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">daisy id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($daisy as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.daisy',array('daisy'=>$daisy))
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">cd id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($cd as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.cd',array('cd'=>$cd))
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">dvd id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($dvd as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.dvd',array('dvd'=>$dvd))
     </div>
   </div>
   <button id="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
@@ -183,9 +88,6 @@
         </div>
         <div class="modal-body">
           เพิ่มสื่อสำเร็จ
-        </div>
-        <div class="modal-footer">
-          footer
         </div>
       </div>
     </div>
