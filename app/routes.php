@@ -27,9 +27,18 @@ Route::post('book/add','BookController@postBook');
 Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
   Route::get('/', 'BookController@getBook');
-  Route::post('braille/add', 'BookController@addBraille');
-  Route::post('cassette/add', 'BookController@addCassette');
-  Route::post('cd/add', 'BookController@addCD');
-  Route::post('dvd/add', 'BookController@addDVD');
-  Route::get('daisy/add', 'BookController@addDaisy');
+  Route::post('braille/add', 'MediaController@addBraille');
+  Route::get('braille/{id}', 'MediaController@getBraille');
+
+  Route::post('cassette/add', 'MediaController@addCassette');
+  Route::get('cassette/{id}', 'MediaController@getCassette');
+
+  Route::post('cd/add', 'MediaController@addCD');
+  Route::get('cd/{id}', 'MediaController@getCD');
+
+  Route::post('dvd/add', 'MediaController@addDVD');
+  Route::get('dvd/{id}', 'MediaController@getDVD');
+
+  Route::post('daisy/add', 'MediaController@addDaisy');
+  Route::get('daisy/{id}', 'MediaController@getDaisy');
 });

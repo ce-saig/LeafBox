@@ -8,12 +8,12 @@
       </tr>
      </thead>
     <tbody>
-      @foreach ($cassette as $item)
+      @foreach ($cassette as $item)      
       <tr>
-        <td width="300">{{$item->id}}</td>
+        <td><a href="{{$bid}}/cassette/{{$item->id}}">{{$item->id}}</a></td>
         <td>{{$item->numpart}}</td>
         <td>{{$item->notes}}</td>
-      </tr>
+      </tr>      
       @endforeach 
     </tbody>
   </table>

@@ -2,7 +2,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th width="300">cd id</th>
+        <th>cd id</th>
         <th>numpart</th>
         <th>notes</th>
       </tr>
@@ -10,7 +10,7 @@
     <tbody>
       @foreach ($cd as $item)
       <tr>
-        <td width="300">{{$item->id}}</td>
+        <td><a href="{{$bid}}/cd/{{$item->id}}">{{$item->id}}</a></td>
         <td>{{$item->numpart}}</td>
         <td>{{$item->notes}}</td>
       </tr>

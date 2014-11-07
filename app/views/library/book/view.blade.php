@@ -32,26 +32,30 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="braille">
-      @include('library.book.part.braille',array('braille'=>$braille))
+      @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
-      @include('library.book.part.cassette',array('cassette'=>$cassette))
+      @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
-      @include('library.book.part.daisy',array('daisy'=>$daisy))
+      @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
-      @include('library.book.part.cd',array('cd'=>$cd))
+      @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
-      @include('library.book.part.dvd',array('dvd'=>$dvd))
+      @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
   </div>
-  <button id="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
 </div>
 
 
@@ -63,7 +67,7 @@
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
           </button>
-          <h4 class="modal-title">เพิ่มลงตะกร้า</h4>
+          <h4 class="modal-title">เพิ่มสื่อ</h4>
         </div>
         <div class="modal-body">
           จำนวน: <input type="number" id="amount" value="1"/>
@@ -105,7 +109,7 @@
    });
   </script>
 
-  <script type="text/javascript" charset="utf-8">
+  <script>
 
     var tabClicked = "braille";
 
@@ -114,11 +118,11 @@
       console.log(tab.innerHTML.toLowerCase());
       tabClicked = tab.innerHTML.toLowerCase();
       if(tabClicked == "braille"){
-        $("#addButton").attr('data-target', "");
-        $("#addButton").attr('onClick', "add()");
+        $(".addButton").attr('data-target', "");
+        $(".addButton").attr('onClick', "add()");
       } else {
-        $("#addButton").attr('data-target', "#add");
-        $("#addButton").attr('onClick', "");
+        $(".addButton").attr('data-target', "#add");
+        $(".addButton").attr('onClick', "");
       }
     } 
 

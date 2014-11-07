@@ -1,6 +1,6 @@
 <?php
 
-use Eloquent;
+//use Eloquent;
 
 class Cassettedetail extends Eloquent {
     
