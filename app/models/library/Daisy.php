@@ -12,8 +12,8 @@ class Daisy extends Eloquent {
 
     public $timestamps = false;
 
-    public function books()   { return $this->belongsTo('Library\Books', 'IBOOK_NO'); }
-    public function detail()   { return $this->hasMany('Library\Daisydetail', 'parent_id'); }
+    public function book()   { return $this->belongsTo('Book'); }
+    public function detail()   { return $this->hasMany('Daisydetail'); }
     public function borrow()   { return $this->hasOne('Library\Daisyborrow', 'parent_id'); }
     
     //Relation

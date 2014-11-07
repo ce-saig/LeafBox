@@ -36,11 +36,52 @@ class BookController extends Controller{
     }
   }
 
-  public function addDaisy(){
+  public function addDaisy($bookId){
+    $amount = Input::get('amount');
+    $amount = 3;
+    $daisy = new Daisy();
+    $daisy->produced = date('Y-m-d');
+    $daisy->numpart = $amount;
+    $daisy->book()->associate(Book::find($bookId));
+    $daisy->save();
+
+    for($i=1; $i<=$amount; $i++){
+      $daisydetail = new Daisydetail();
+      $daisydetail->part = $i;
+      $daisydetail->daisy()->associate($daisy);
+      $daisydetail->save();
+    }
   }
-  public function addCD(){
+
+  public function addCD($bookId){
+    $amount = Input::get('amount');
+    $cd = new CD();
+    $cd->produce_date = date('Y-m-d');
+    $cd->book()->associate(Book::find($bookId));
+    $cd->numpart = $amount;
+    $cd->save();
+
+    for($i=1; $i<=$amount; $i++){
+      $cddetail = new Cddetail();
+      $cddetail->part = $i;
+      $cddetail->cd()->associate($cd);
+      $cddetail->save();
+    }
   }
-  public function addDVD(){
+  public function addDVD($bookId){
+    $amount = Input::get('amount');
+    $dvd = new DVD();
+    $dvd->produced_date = date('Y-m-d');
+    $dvd->book()->associate(Book::find($bookId));
+    $dvd->numpart = $amount;
+    $dvd->save();
+
+    for($i=1; $i<=$amount; $i++){
+      $dvddetail = new Dvddetail();
+      $dvddetail->part = $i;
+      $dvddetail->dvd()->associate($dvd);
+      $dvddetail->save();
+    }
   }
 
   public function getBook($bid){

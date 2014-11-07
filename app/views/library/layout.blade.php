@@ -66,7 +66,7 @@
 
 		<!-- jQuery -->
                 @section('script')
-		<script src="//code.jquery.com/jquery.js"></script>
+		<script src="{{ url('js/jquery.min.js') }}"></script>
 		<!-- Bootstrap JavaScript -->
 		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
                 @show
