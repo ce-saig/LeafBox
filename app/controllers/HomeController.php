@@ -2,6 +2,11 @@
 
 class HomeController extends Controller {
 
+	public function index() {
+		$books = Book::all();
+		return View::make('library.index',array('books' => $books ));
+	}
+
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))

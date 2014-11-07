@@ -6,7 +6,7 @@
 
 @section('body')
 
-<h1> Book {{ $bookId }}</h1>
+<h1> Book {{ $bookId }}</h1> 
 
 <button onclick="tabClick(this)">braille</button>
 <button onclick="tabClick(this)">cassette</button>

@@ -38,7 +38,7 @@
       /* Set the fixed height of the footer here */
       #push,
       #footer {
-        height: 60px;
+      	padding-top: 1%;
       }
       #footer {
         background-color: #f5f5f5;
@@ -120,19 +120,6 @@
 		</div>
 		<div id ="wrap">
 			<div class="container-fluid">
-				<div class= "col-md-3" >
-					<ul class="list-group">
-					  <li class="list-group-item">
-					    <span class="badge">14</span>
-					    หนังสือ
-					  </li>
-					  <li class="list-group-item">
-					    <span class="badge">2</span>
-					    การยืม
-					   </li>
-					</ul>
-				</div>
-				<div class = "col-md-9 well">
 					@if ($errors->has())
 						<div class="alert alert-danger" role="alert">
 							<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -143,9 +130,7 @@
 					@endif
 					<div class = "col-md-10 col-md-offset-1">
 							@yield('body')
-
 					</div>
-				</div>
 			</div>
 		</div>
 		
@@ -159,17 +144,14 @@
 			      </div>
 			      <div class="modal-body">
 			        	{{ Form::open(array('url' => 'loginUser')) }}
-
 						<p>
 							{{ Form::label('email', 'Email Address') }}
 							{{ Form::text('email', Input::old('email'), array('placeholder' => 'Your Email','class'=> 'form-control')) }}
 						</p>
-
 						<p>
 							{{ Form::label('password', 'Password') }}
 							{{ Form::password('password',array('class'=> 'form-control')) }}
 						</p>
-
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -186,7 +168,7 @@
    		   	<div class = "col-md-1">
    		   		<img src="{{ asset('/img/logo.png') }}" class = "img-responsive">
    		   	</div>
-   		   	<div class = "col-md-10">
+   		   	<div class = "col-md-8">
    		   		<p class="muted credit"><b>ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</b></p>
    		   	</div>
       		</div>

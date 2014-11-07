@@ -10,9 +10,7 @@
 	return "HELLO";
 }));*/
 
-Route::get('/',array(function(){
-	return View::make('library.index');
-}));
+Route::get('/','HomeController@index');
 //move to route group
 //Route::get('book/{bid}','BookController@getBook');
 
