@@ -1,16 +1,13 @@
 <?php
-
-use Eloquent;
+//use Eloquent;
 
 class Braille extends Eloquent {
-    
-    //protected $connection = 'mysql2-library';
     
     protected $table = 'braille';
 
     public $timestamps = false;
 
-    public function book()   { return $this->belongsTo('Book'); }
+    public function book()   { return $this->belongsTo('Book');}
     public function borrow()   { return $this->hasOne('Brailleborrow', 'brail_id'); }
     
     //Relation

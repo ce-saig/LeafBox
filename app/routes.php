@@ -22,9 +22,7 @@ Route::get('/',array(function(){
 
 Route::get('add','BookController@newBook');
 //Route::post('add','BookController@postBook');
-Route::post('add',function(){
-	return 'hello';
-});
+Route::post('add','BookController@postBook');
 
 Route::group(array('prefix' => 'book/{bid}'), function($bid){
 

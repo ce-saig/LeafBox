@@ -11,6 +11,7 @@
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">Detail</a></li>
     <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">Braille</a></li>
     <li role="presentation"><a href="#cassette" role="tab" data-toggle="tab" onClick="tabSelect(this)">Cassette</a></li>
+    <li role="presentation"><a href="#daisy" role="tab" data-toggle="tab" onClick="tabSelect(this)">daisy</a></li>
     <li role="presentation"><a href="#cd" role="tab" data-toggle="tab" onClick="tabSelect(this)">CD</a></li>
     <li role="presentation"><a href="#dvd" role="tab" data-toggle="tab" onClick="tabSelect(this)">DVD</a></li>
   </ul>
@@ -145,9 +146,9 @@
       </div>
     </div>
   </div>
+  <button id="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
 </div>
 
-<button id="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
 
 <div class="modal fade" id="add">
     <div class="modal-dialog">

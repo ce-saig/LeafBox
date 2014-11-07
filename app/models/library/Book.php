@@ -12,11 +12,11 @@ class Book extends Eloquent {
 
     protected $primaryKey = 'id';
 
-    public function braille()   { return $this->hasMany('Library\Braille', 'id'); }
-    public function cassette()   { return $this->hasMany('Library\Cassette', 'id'); }
-    public function cd()   { return $this->hasMany('Library\Cd', 'id'); }
-    public function daisy()   { return $this->hasMany('Library\Daisy', 'id'); }
-    public function dvd()   { return $this->hasMany('Library\Dvd', 'id'); }
+    public function braille()   { return $this->hasMany('Braille', 'id'); }
+    public function cassette()   { return $this->hasMany('Cassette', 'id'); }
+    public function cd()   { return $this->hasMany('Cd', 'id'); }
+    public function daisy()   { return $this->hasMany('Daisy', 'id'); }
+    public function dvd()   { return $this->hasMany('Dvd', 'id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
