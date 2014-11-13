@@ -1,20 +1,20 @@
 <?php
 
-namespace Library;
+// namespace Library;
 
-use Eloquent;
+// use Eloquent;
 
 class Daisyborrow extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    //protected $connection = 'mysql2-library';
     
-    protected $table = 'DAISYBORROW';
+    protected $table = 'daisyborrow';
     
-    protected $guarded = array('parent_id');
+    //protected $guarded = array('parent_id');
     
     public $timestamps = false;
 
-    public function daisy()   { return $this->belongsTo('Library\Daisy', 'parent_id'); }
+    public function daisy()   { return $this->belongsTo('Daisy', 'parent_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

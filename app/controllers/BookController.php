@@ -2,86 +2,26 @@
 class BookController extends Controller{
 
   public function newBook(){
-    return View::make('newBook');
+    return View::make('library.book.add');
   }
+
   public function postBook(){
     $Book = new Book;
+    //$Book = Book::where('id','=','2')->count();
     $Book->isbn = Input::get('isbn');
     $Book->title = Input::get('title');
     $Book->author = Input::get('author');
+    $Book->translate = Input::get('translate');
+    $Book->grade = Input::get('grade');
+    $Book->abstract = Input::get('abstract');
+    $Book->book_type = Input::get('book_type');
+    $Book->produce_no = Input::get('produce_no');
+    $Book->original_no = Input::get('original_no');
+    $Book->pub_no = Input::get('pub_no');
+    $Book->pub_year = Input::get('pub_year');
+    $Book->publisher = Input::get('publisher');
     $Book->save();
-    return Redirect::to('add');
-  }
-
-  public function addBraille($bookId){
-    $braille = new Braille();
-    
-    $braille->book()->associate(Book::find($bookId));
-    $braille->produced = date('Y-m-d');
-    $braille->save();
-  }
-
-  public function addCassette($bookId){
-    $amount = Input::get('amount');
-    $cassette = new Cassette();
-    $cassette->produced_date = date('Y-m-d');
-    $cassette->book()->associate(Book::find($bookId));
-    $cassette->save();
-
-    for($i=1; $i<=$amount; $i++){
-      $cassetteDetail = new Cassettedetail();
-      $cassetteDetail->part = $i;
-      $cassetteDetail->cassette()->associate($cassette);
-      $cassetteDetail->save();
-    }
-  }
-
-  public function addDaisy($bookId){
-    $amount = Input::get('amount');
-    $amount = 3;
-    $daisy = new Daisy();
-    $daisy->produced = date('Y-m-d');
-    $daisy->numpart = $amount;
-    $daisy->book()->associate(Book::find($bookId));
-    $daisy->save();
-
-    for($i=1; $i<=$amount; $i++){
-      $daisydetail = new Daisydetail();
-      $daisydetail->part = $i;
-      $daisydetail->daisy()->associate($daisy);
-      $daisydetail->save();
-    }
-  }
-
-  public function addCD($bookId){
-    $amount = Input::get('amount');
-    $cd = new CD();
-    $cd->produce_date = date('Y-m-d');
-    $cd->book()->associate(Book::find($bookId));
-    $cd->numpart = $amount;
-    $cd->save();
-
-    for($i=1; $i<=$amount; $i++){
-      $cddetail = new Cddetail();
-      $cddetail->part = $i;
-      $cddetail->cd()->associate($cd);
-      $cddetail->save();
-    }
-  }
-  public function addDVD($bookId){
-    $amount = Input::get('amount');
-    $dvd = new DVD();
-    $dvd->produced_date = date('Y-m-d');
-    $dvd->book()->associate(Book::find($bookId));
-    $dvd->numpart = $amount;
-    $dvd->save();
-
-    for($i=1; $i<=$amount; $i++){
-      $dvddetail = new Dvddetail();
-      $dvddetail->part = $i;
-      $dvddetail->dvd()->associate($dvd);
-      $dvddetail->save();
-    }
+    return Redirect::to('book/add');
   }
 
   public function getBook($bid){
@@ -161,15 +101,15 @@ class BookController extends Controller{
       $book['setdvd_data']   = $bookEloquent->setdvd_data ;
   
   //braile
-      $braille = Braille::All();
+      $braille = Braille::where('book_id','=',$book['id'])->get();
   //cassette
-      $cassette = Cassette::where('book_id','=',$book['id']);
+      $cassette = Cassette::where('book_id','=',$book['id'])->get();
   //daisy
-      $daisy = Daisy::where('book_id','=',$book['id']);
+      $daisy = Daisy::where('book_id','=',$book['id'])->get();
   //cd
-      $cd = CD::where('book_id','=',$book['id']);
+      $cd = CD::where('book_id','=',$book['id'])->get();
   //dvd
-      $dvd = DVD::where('book_id','=',$book['id']);
+      $dvd = DVD::where('book_id','=',$book['id'])->get();
   
       $arrOfdata['field']=$field;
       $arrOfdata['book']=$book;
@@ -179,9 +119,7 @@ class BookController extends Controller{
       $arrOfdata['daisy']=$daisy;
       $arrOfdata['cd']=$cd;
       $arrOfdata['dvd']=$dvd;
-      return View::make('library.book.view')
-        ->with($arrOfdata);
+      return View::make('library.book.view')->with($arrOfdata);
     }
-
 }
 ?>

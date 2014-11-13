@@ -11,6 +11,7 @@
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">Detail</a></li>
     <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">Braille</a></li>
     <li role="presentation"><a href="#cassette" role="tab" data-toggle="tab" onClick="tabSelect(this)">Cassette</a></li>
+    <li role="presentation"><a href="#daisy" role="tab" data-toggle="tab" onClick="tabSelect(this)">daisy</a></li>
     <li role="presentation"><a href="#cd" role="tab" data-toggle="tab" onClick="tabSelect(this)">CD</a></li>
     <li role="presentation"><a href="#dvd" role="tab" data-toggle="tab" onClick="tabSelect(this)">DVD</a></li>
   </ul>
@@ -31,123 +32,32 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="braille">
-      <div role="tabpanel" class="tab-pane active" id="detail">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">braille id</th>
-              <th>status</th>
-              <th>page</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($braille as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->status}}NEED BORROW SYSTEM</td>
-              <td>{{$item->pages}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">cassette id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($cassette as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">daisy id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($daisy as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">cd id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($cd as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
-      <div role="tabpanel" class="tab-pane active" >
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="300">dvd id</th>
-              <th>numpart</th>
-              <th>notes</th>
-            </tr>
-           </thead>
-          <tbody>
-            @foreach ($dvd as $item)
-            <tr>
-              <td width="300">{{$item->id}}</td>
-              <td>{{$item->numpart}}</td>
-              <td>{{$item->notes}}</td>
-            </tr>
-            @endforeach 
-          </tbody>
-        </table>
-      </div>
+      @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
+      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
   </div>
 </div>
 
-<button id="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
 
 <div class="modal fade" id="add">
     <div class="modal-dialog">
@@ -157,7 +67,7 @@
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
           </button>
-          <h4 class="modal-title">เพิ่มลงตะกร้า</h4>
+          <h4 class="modal-title">เพิ่มสื่อ</h4>
         </div>
         <div class="modal-body">
           จำนวน: <input type="number" id="amount" value="1"/>
@@ -183,9 +93,6 @@
         <div class="modal-body">
           เพิ่มสื่อสำเร็จ
         </div>
-        <div class="modal-footer">
-          footer
-        </div>
       </div>
     </div>
 </div>
@@ -202,7 +109,7 @@
    });
   </script>
 
-  <script type="text/javascript" charset="utf-8">
+  <script>
 
     var tabClicked = "braille";
 
@@ -211,11 +118,11 @@
       console.log(tab.innerHTML.toLowerCase());
       tabClicked = tab.innerHTML.toLowerCase();
       if(tabClicked == "braille"){
-        $("#addButton").attr('data-target', "");
-        $("#addButton").attr('onClick', "add()");
+        $(".addButton").attr('data-target', "");
+        $(".addButton").attr('onClick', "add()");
       } else {
-        $("#addButton").attr('data-target', "#add");
-        $("#addButton").attr('onClick', "");
+        $(".addButton").attr('data-target', "#add");
+        $(".addButton").attr('onClick', "");
       }
     } 
 

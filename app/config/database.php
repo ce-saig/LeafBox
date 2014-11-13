@@ -57,12 +57,13 @@ return array(
 			// 'host'      => 'localhost',
 			'host'      => 'localhost',
 			'database'  => 'leafbox',
-			'username'  => 'root',
-			'password'  => 'eiei1234',
+			'username'  => 'leafbox',
+			'password'  => 'leafbox',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
+        /*
 		'mysql2-library' => array(
 			'driver'    => 'mysql',
 			// 'host'      => 'localhost',
@@ -74,7 +75,6 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-        /*
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',

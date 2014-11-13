@@ -14,7 +14,7 @@ class CD extends Eloquent {
 
     public function book()   { return $this->belongsTo('Book'); }
     public function detail()   { return $this->hasMany('cddetail'); }
-    public function borrow()   { return $this->hasOne('Library\Cdborrow', 'parent_id'); }
+    public function borrow()   { return $this->hasOne('Cdborrow'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

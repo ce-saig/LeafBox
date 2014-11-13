@@ -1,9 +1,9 @@
 <?php
-use Eloquent;
+//use Eloquent;
 
 class Brailleborrow extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    //protected $connection = 'mysql2-library';
     
     protected $table = 'BRAILLEBORROW';
 
