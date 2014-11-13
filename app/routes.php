@@ -27,18 +27,27 @@ Route::post('book/add','BookController@postBook');
 Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
   Route::get('/', 'BookController@getBook');
+  Route::get('edit', 'BookController@getEdit');//TODO
+  Route::post('edit', 'BookController@postEdit');//TODO
+
   Route::post('braille/add', 'MediaController@addBraille');
-  Route::get('braille/{id}', 'MediaController@getBraille');
-
   Route::post('cassette/add', 'MediaController@addCassette');
-  Route::get('cassette/{id}', 'MediaController@getCassette');
-
   Route::post('cd/add', 'MediaController@addCD');
-  Route::get('cd/{id}', 'MediaController@getCD');
-
   Route::post('dvd/add', 'MediaController@addDVD');
-  Route::get('dvd/{id}', 'MediaController@getDVD');
-
   Route::post('daisy/add', 'MediaController@addDaisy');
-  Route::get('daisy/{id}', 'MediaController@getDaisy');
+
+  Route::get('braille/{id}', 'MediaController@getBraille');//TODO
+  Route::post('braille/{id}', 'MediaController@getBraille');//TODO
+  
+  Route::get('cassette/{id}', 'MediaController@getCassette');//TODO
+  Route::post('cassette/{id}', 'MediaController@getCassette');//TODO
+  
+  Route::get('cd/{id}', 'MediaController@getCD');//TODO
+  Route::post('cd/{id}', 'MediaController@getCD');//TODO
+  
+  Route::get('dvd/{id}', 'MediaController@getDVD');//TODO
+  Route::post('dvd/{id}', 'MediaController@getDVD');//TODO
+
+  Route::get('daisy/{id}', 'MediaController@getDaisy');//TODO
+  Route::post('daisy/{id}', 'MediaController@getDaisy');//TODO
 });
