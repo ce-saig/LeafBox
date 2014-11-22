@@ -13,6 +13,7 @@
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	
 	@yield('head')
 
 	<style type="text/css">
@@ -81,7 +82,7 @@
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">หนังสือ</a></li>
+					<li class="active"><a href="{{ URL::to('/') }}">หนังสือ</a></li>
 					<li><a href="#">สมาชิก</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">การยืม <b class="caret"></b></a>

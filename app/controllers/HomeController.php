@@ -36,8 +36,8 @@ class HomeController extends Controller {
 				'password' 	=> Input::get('password')
 			);
 		
-			if (Auth::attempt($userdata)) {			
-				return View::make('library.index', array('user' => Auth::user()));
+			if (Auth::attempt($userdata)) {	
+				return Redirect::to('/');
 			} else {	 	
 				return " Email : ".Input::get('email')." Password :  ".Input::get('password');
 			}

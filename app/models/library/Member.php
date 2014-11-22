@@ -6,7 +6,7 @@ use Eloquent;
 
 class Member extends Eloquent {
 
-  protected $connection = 'mysql2-library';
+  //protected $connection = 'mysql2-library';
   
 	protected $table = 'MEMBER';
 

@@ -1,5 +1,5 @@
 <?php
-use Eloquent;
+//use Eloquent;
 
 class Cassette extends Eloquent {
     
@@ -8,8 +8,8 @@ class Cassette extends Eloquent {
     public $timestamps = false;
 
     public function book()  { return $this->belongsTo('Book'); }
-    public function cassetteDetail() { return $this->hasMany('Cassettedetail'); }
-    public function borrow() { return $this->hasOne('Library\Cassetteborrow', 'parent_id'); }
+    public function detail() { return $this->hasMany('Cassettedetail'); }
+    public function borrow() { return $this->hasOne('Cassetteborrow'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

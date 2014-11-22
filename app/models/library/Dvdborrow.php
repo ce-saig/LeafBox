@@ -6,7 +6,7 @@ use Eloquent;
 
 class Dvdborrow extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    //protected $connection = 'mysql2-library';
     
     protected $table = 'DVDBORROW';
 

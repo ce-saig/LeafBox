@@ -1,5 +1,5 @@
 <?php
-use Eloquent;
+//use Eloquent;
 
 class Dvddetail extends Eloquent {
     protected $table = 'dvddetail';

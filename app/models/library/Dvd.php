@@ -14,7 +14,7 @@ class DVD extends Eloquent {
 
     public function book()   { return $this->belongsTo('Book'); }
     public function detail()   { return $this->hasMany('Dvddetail'); }
-    public function borrow()   { return $this->hasOne('Library\Dvdborrow', 'parent_id'); }
+    public function borrow()   { return $this->hasOne('Dvdborrow'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

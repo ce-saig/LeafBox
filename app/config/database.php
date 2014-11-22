@@ -63,6 +63,7 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
+        /*
 		'mysql2-library' => array(
 			'driver'    => 'mysql',
 			// 'host'      => 'localhost',
@@ -74,7 +75,6 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-        /*
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
