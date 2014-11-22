@@ -82,18 +82,13 @@
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="{{ URL::to('/') }}">หนังสือ</a></li>
+					<li class="active"><a href="{{ URL::to('/') }}">ค้นหาสื่อ</a></li>
 					<li><a href="#">สมาชิก</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">การยืม <b class="caret"></b></a>
+
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">จัดการหนังสือ <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"></a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li class="divider"></li>
-							<li class="dropdown-header">Dropdown header</li>
-							<li><a href="#">Separated link</a></li>
-							<li><a href="#">One more separated link</a></li>
+							<li><a href="{{Url::to('/book/add')}}">เพิ่ม</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -177,7 +172,7 @@
 
 		<!-- jQuery -->
                 @section('script')
-		<script src="{{ url('js/jquery.min.js') }}"></script>
+		<script src="{{ asset('js/jquery.min.js') }}"></script>
 		<!-- Bootstrap JavaScript -->
 		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
                 @show

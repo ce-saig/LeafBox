@@ -6,11 +6,11 @@
 
 @section('body')
 <div class="well">
-  <div class = "row">
-    <div class = "col-md-8" ><h2>I{{$book['id']}}:{{$book['title']}}</h2></div>
-  <div class = "col-md-4 pull-right">
-      <input class="form-control" placeholder="ค้นหา" type="text">
-  </div>
+  <div>
+    <h2>I{{$book['id']}}:{{$book['title']}}
+      <a href="/book/{{$book['id']}}/edit" class="btn btn-danger pull-right">แก้ไข</a>
+
+    </h2>
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">Detail</a></li>
