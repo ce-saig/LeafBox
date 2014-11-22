@@ -75,26 +75,35 @@ class MediaController extends Controller{
   public function getBraille($bid,$id){
     $braille = Braille::find($id);
     return View::make('library.media.braille')->with(array('item'=>$braille,'bid'=>$bid));
+
   }
 
   public function getCassette($bid,$id){
+    $book =Book::find($bid);
     $cassette = Cassette::find($id);
-    return View::make('library.media.cassette')->with(array('item'=>$cassette,'bid'=>$bid));
+    $cassettedetail = Cassettedetail::where('cassette_id','=',$cassette ->id)->get();
+    return View::make('library.media.cassette')->with(array('book'=>$book,'item'=>$cassette,'cassettedetail'=>$cassettedetail,'bid'=>$bid));
   }
 
   public function getDaisy($bid,$id){
+    $book =Book::find($bid);
     $daisy = Daisy::find($id);
-    return View::make('library.media.daisy')->with(array('item'=>$daisy,'bid'=>$bid));
+    $diasydetail = Daisydetail::where('daisy_id','=',$daisy ->id)->get();
+    return View::make('library.media.daisy')->with(array('book'=>$book,'item'=>$daisy,'diasydetail'=>$diasydetail,'bid'=>$bid));
   }
 
   public function getCD($bid,$id){
+    $book =Book::find($bid);
     $cd = CD::find($id);
-    return View::make('library.media.cd')->with(array('item'=>$cd,'bid'=>$bid));
+    $cddetail = Cddetail::where('cd_id','=',$cd ->id)->get();
+    return View::make('library.media.cd')->with(array('book'=>$book,'item'=>$cd,'cddetail'=>$cddetail,'bid'=>$bid));
   }
 
   public function getDVD($bid,$id){
+    $book =Book::find($bid);
     $dvd = DVD::find($id);
-    return View::make('library.media.dvd')->with(array('item'=>$dvd,'bid'=>$bid));
+    $dvddetail = Dvddetail::where('dvd_id','=',$dvd ->id)->get();
+    return View::make('library.media.dvd')->with(array('book'=>$book,'item'=>$dvd,'dvddetail'=>$dvddetail,'bid'=>$bid));
   }
 
 }
