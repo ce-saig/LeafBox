@@ -74,11 +74,11 @@ class BookController extends Controller{
       $book['btype']   = $bookEloquent->btype ;
       $book['abstract']   = $bookEloquent->abstract ;
   
-      $book['b_number']     = 'Not Implement yet';
-      $book['cs_number']     = 'Not Implement yet';
-      $book['ds_number']     = 'Not Implement yet';
-      $book['cd_number']     = 'Not Implement yet';
-      $book['dvd_number']     = 'Not Implement yet';
+      $book['b_number']     = count($bookEloquent->braille);
+      $book['cs_number']     = count($bookEloquent->cassette);
+      $book['ds_number']     = count($bookEloquent->daisy);
+      $book['cd_number']     = count($bookEloquent->cd);
+      $book['dvd_number']     = count($bookEloquent->dvd);
   
       $book['isbn']          = $bookEloquent->isbn ;
       $book['id']            = $bookEloquent->id ;
@@ -100,15 +100,15 @@ class BookController extends Controller{
       $book['setdvd_note']   = $bookEloquent->setdvd_note ;
       $book['setdvd_data']   = $bookEloquent->setdvd_data ;
   
-  //braile
+      //braile
       $braille = Braille::where('book_id','=',$book['id'])->get();
-  //cassette
+      //cassette
       $cassette = Cassette::where('book_id','=',$book['id'])->get();
-  //daisy
+      //daisy
       $daisy = Daisy::where('book_id','=',$book['id'])->get();
-  //cd
+      //cd
       $cd = CD::where('book_id','=',$book['id'])->get();
-  //dvd
+      //dvd
       $dvd = DVD::where('book_id','=',$book['id'])->get();
   
       $arrOfdata['field']=$field;
@@ -121,5 +121,13 @@ class BookController extends Controller{
       $arrOfdata['dvd']=$dvd;
       return View::make('library.book.view')->with($arrOfdata);
     }
+
+  public function getEdit($id){
+    return View::make('library.book.add');      
+  }
+
+  public function postEdit($id){
+    
+  }
 }
 ?>

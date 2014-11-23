@@ -38,27 +38,27 @@
 
     <div role="tabpanel" class="tab-pane" id="braille">
       @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
       @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
-      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
       @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
-      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
       @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
-      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
       @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
-      <button class="addButton" onClick="add()" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
   </div>
 </div>
@@ -75,7 +75,28 @@
           <h4 class="modal-title">เพิ่มสื่อ</h4>
         </div>
         <div class="modal-body">
-          จำนวน: <input type="number" id="amount" value="1"/>
+          จำนวน: <input type="number" id="amount" min=1 value="1"/> ชิ้น
+          <button onClick="add()" data-dismiss="modal">เพิ่ม</button>
+        </div>
+        <div class="modal-footer">
+          footer
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addBraille">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title">เพิ่มสื่อ</h4>
+        </div>
+        <div class="modal-body">
+          มี : <input type="number" id="amountBraille" min=1 value="1"/> หน้า
           <button onClick="add()" data-dismiss="modal">เพิ่ม</button>
         </div>
         <div class="modal-footer">
@@ -116,27 +137,34 @@
 
   <script>
 
-    var tabClicked = "braille";
+    //var tabClicked = "braille";
+    var tabClicked = "";
 
     function tabSelect(tab){
       console.log(tab);
       console.log(tab.innerHTML.toLowerCase());
       tabClicked = tab.innerHTML.toLowerCase();
       if(tabClicked == "braille"){
-        $(".addButton").attr('data-target', "");
-        $(".addButton").attr('onClick', "add()");
+        //$(".addButton").attr('data-target', "");
+        //$(".addButton").attr('onClick', "add()");
+        $(".addButton").attr('data-target', "#addBraille");
+        //$(".addButton").attr('onClick', "");
       } else {
         $(".addButton").attr('data-target', "#add");
-        $(".addButton").attr('onClick', "");
+        //$(".addButton").attr('onClick', "");
       }
     } 
 
     function add(){
       console.log($('#amount').val());
-      var amount = $('#amount').val();
+      var amount = $('#amount').val();        
+      if(tabClicked == "braille"){
+        amount = $('#amountBraille').val();        
+      }
 
       console.log(amount);
       console.log(tabClicked);
+      //$.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
       $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
         console.log(result);
         //alert(result);

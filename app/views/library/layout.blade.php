@@ -82,7 +82,8 @@
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="{{ URL::to('/') }}">ค้นหาสื่อ</a></li>
+          <!-- class="active" -->
+					<li><a href="{{ URL::to('/') }}">ค้นหา</a></li>
 					<li><a href="#">สมาชิก</a></li>
 					<li class="dropdown">
 
