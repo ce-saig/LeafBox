@@ -6,7 +6,12 @@
 
 @section('body')
 <div class="well">
-  <div><h2>I{{$book['id']}}:{{$book['title']}}</h2></div>
+  <div>
+    <h2>I{{$book['id']}}:{{$book['title']}}
+      <a href="/book/{{$book['id']}}/edit" class="btn btn-danger pull-right">แก้ไข</a>
+
+    </h2>
+  </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">Detail</a></li>
     <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">Braille</a></li>
