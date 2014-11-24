@@ -272,13 +272,13 @@ class BookController extends Controller{
     $input = Input::get('search_value');
     $hanlder = new Book();
         if($type == "title"){
-            $obj = $hanlder->where("title","=",$input)->get();
+            $obj = $hanlder->where("title","LIKE","%".$input."%")->get();
         }else if($type == "author"){
-            $obj = $hanlder->where("author","=",$input)->get();
+            $obj = $hanlder->where("author","LIKE","%".$input."%")->get();
         }else if($type == "translate"){
-            $obj = $hanlder->where("translate","=",$input)->get();
+            $obj = $hanlder->where("translate","LIKE","%".$input."%")->get();
         }else if($type == "isbn"){
-            $obj = $hanlder->where("isbn","=",$input)->get();
+            $obj = $hanlder->where("isbn","=","LIKE","%".$input."%")->get();
         }else if($type == "id"){
             $obj = $hanlder->where("id","=",$input)->get();
         }else{
