@@ -4,7 +4,7 @@
 
 // use Eloquent;
 
-class CD extends Eloquent {
+class Cd extends Eloquent {
     
     // protected $connection = 'mysql2-library';
     
@@ -13,7 +13,7 @@ class CD extends Eloquent {
     public $timestamps = false;
 
     public function book()   { return $this->belongsTo('Book'); }
-    public function detail()   { return $this->hasMany('cddetail'); }
+    public function detail()   { return $this->hasMany('Cddetail'); }
     public function borrow()   { return $this->hasOne('Cdborrow'); }
     
     //Relation

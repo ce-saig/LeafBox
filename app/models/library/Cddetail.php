@@ -6,7 +6,7 @@ class Cddetail extends Eloquent {
 
     public $timestamps = false;
 
-    public function cd()   { return $this->belongsTo('CD'); }
+    public function cd()   { return $this->belongsTo('Cd'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
