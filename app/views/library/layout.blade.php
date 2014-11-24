@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -173,9 +174,11 @@
 
 <!-- jQuery -->
 @section('script')
-<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script type="text/javascript"  src="{{ asset('js/jquery.min.js') }}"></script>
 <!-- Bootstrap JavaScript -->
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- AJAX Databases -->
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 @show
 </body>
 </html>

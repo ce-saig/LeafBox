@@ -266,5 +266,40 @@ class BookController extends Controller{
     return Redirect::to("/book/$bid");
   }
 
+  // Search getter 
+  public function SearchFromAttr(){
+    $type = Input::get('search_type');
+    $input = Input::get('search_value');
+    $hanlder = new Book();
+        if($type == "title"){
+            $obj = $hanlder->where("title","=",$input)->get();
+        }else if($type == "author"){
+            $obj = $hanlder->where("author","=",$input)->get();
+        }else if($type == "translate"){
+            $obj = $hanlder->where("translate","=",$input)->get();
+        }else if($type == "isbn"){
+            $obj = $hanlder->where("isbn","=",$input)->get();
+        }else if($type == "id"){
+            $obj = $hanlder->where("id","=",$input)->get();
+        }else{
+            return "ERROR :: Some Wrong Format !!";
+        }
+    return View::make('library.index',array('books' => $obj ));
+
+  }
+
+
+  
+
+  // For Ajax search Call (INCOMPLETE)
+   public function getDatatable()
+    {
+        return Datatable::collection(Book::all(array('title','author')))
+        ->showColumns('title', 'author')
+        ->searchColumns('title')
+        ->orderColumns('title','author')
+        ->make();
+    }
+
 }
 ?>

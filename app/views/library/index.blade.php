@@ -3,25 +3,26 @@
 @section('body')
 <div class = "row">
 	<div class = "col-md-12 panel" >
+	  <form action = "{{ url('/search/book') }}" method="POST">
 		<div class = "col-md-8">
-			<input type = "text" class="form-control" placeholder = "ค้นหา" >
+			<input name = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>
 		  
 		<div class = "col-md-2">
-			<select class="form-control" role="menu">
-			    <option><a href="#">braille</a></option>
-			    <option><a href="#">cassette</a></option>
-			    <option><a href="#">daisy</a></option>
-			    <option><a href="#">cd</a></option>
-			    <option><a href="#">Separated dvd</a></option>
+			<select name = "search_type" class="form-control" role="menu">
+			    <option value = "title" >title</option>
+			    <option value = "author" >author</option>
+			    <option value = "translate" >translate</option>
+			    <option value = "isbn" >isbn</option>
+			    <option value = "id" >id</option>
 			 </select>
 		</div>
 
 		<input type = "submit" class="col-md-2 btn btn-success pull-right" value = "ค้นหา" />
-		
+	  </form>
 	</div>	
-	<div  class= "col-md-12">
-		@foreach ($books as $book)
+	<div  class= "col-md-12" id = "showBook">
+		@forelse ($books as $book)
 		<div class =  "panel panel-default">
 			<div class = "panel-heading">
 				<b><a href = "{{url('book/'.$book->id) }}" >{{ $book->title }}</a></b>
@@ -44,7 +45,19 @@
 				</table>
 			</div>
 		</div>
-	 	@endforeach	
+		@empty
+			<div class="alert alert-warning alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			  <strong>คำเตือน!</strong> ไม่พบสื่อที่คุณกำลังหา
+			</div>
+	 	@endforelse
 	</div>
+	{{-- AJAX CALL Respond Table ToDo:Nutsu  --}}
+	{{--}} <div>
+		 {{ Datatable::table()
+		    ->addColumn('title','author')       // these are the column headings to be shown
+		    ->setUrl(route('api.book'))   // this is the route where data will be retrieved
+		    ->render() }}
+	</div> --}}
 </div>
 @stop

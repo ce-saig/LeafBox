@@ -9,8 +9,12 @@
 /*Route::get('/',array('before' => 'auth',function(){
 	return "HELLO";
 }));*/
-
+// AJAX Search
+/*
+Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@getDatatable'));*/
 Route::get('/','HomeController@index');
+Route::post('/search/book','BookController@SearchFromAttr');
+
 //move to route group
 //Route::get('book/{bid}','BookController@getBook');
 
