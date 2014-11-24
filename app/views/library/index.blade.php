@@ -23,13 +23,17 @@
 	</div>	
 	<div  class= "col-md-12" id = "showBook">
 		@forelse ($books as $book)
-		<div class =  "panel panel-default">
+		<div class =  "panel panel-default" style="margin-bottom:50px;">
 			<div class = "panel-heading">
-				<b><a href = "{{url('book/'.$book->id) }}" >{{ $book->title }}</a></b>
+				<b>{{ $book->title }}</b>
+				<a  class = "pull-right btn btn-info" href = "{{url('book/'.$book->id) }}">จัดการ</a>
 			</div>
 			<div class = "panel-body">
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
-				<table class = "table">
+			  <div class = "col-md-6"  >
+			  <b>ข้อูลของหนังสือ</b>
+			  <div style= "height:200px;overflow:scroll;">
+				<table class = "table table-hover table-striped">
 					<tr>
 						<td>author</td>
 						<td> {{ $book->author }} </td>
@@ -42,7 +46,55 @@
 						<td>publisher</td>
 						<td> {{ $book->publisher }} </td>
 					</tr>
+					<tr>
+						<td>regis_date</td>
+						<td> {{ $book->regis_date }} </td>
+					</tr>
+					<tr>
+						<td>pub_no</td>
+						<td> {{ $book->pub_no }} </td>
+					</tr>
+					<tr>
+						<td>pub_year</td>
+						<td> {{ $book->pub_year }} </td>
+					</tr>
+					<tr>
+						<td>origin_no</td>
+						<td> {{ $book->origin_no }} </td>
+					</tr>
+					<tr>
+						<td>produce_no</td>
+						<td> {{ $book->produce_no }} </td>
+					</tr>
+					<tr>
+						<td>btype</td>
+						<td> {{ $book->btype }} </td>
+					</tr>
+					<tr>
+						<td>abstract</td>
+						<td> {{ $book->abstract }} </td>
+					</tr>
+					<tr>
+						<td>isbn</td>
+						<td> {{ $book->isbn }} </td>
+					</tr>
+					<tr>
+						<td>grade</td>
+						<td> {{ $book->grade }} </td>
+					</tr>
 				</table>
+			   </div>
+			  </div>
+			  <div class = "col-md-6">
+			  	<b>สถานะของสื่อ</b>
+				<div>
+					@if($book->bmstatus == 1)
+						<span class="label label-success">เบลล์</span>
+					@else
+						<span class="label label-danger">เบลล์</span>
+					@endif
+				</div>
+			  </div>
 			</div>
 		</div>
 		@empty
