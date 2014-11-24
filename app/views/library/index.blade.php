@@ -32,7 +32,7 @@
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
 			  <div class = "col-md-6"  >
 			  <b>ข้อูลของหนังสือ</b>
-			  <div style= "height:200px;overflow:scroll;">
+			  <div style= "height:250px;overflow:scroll;">
 				<table class = "table table-hover table-striped">
 					<tr>
 						<td>author</td>
@@ -88,11 +88,81 @@
 			  <div class = "col-md-6">
 			  	<b>สถานะของสื่อ</b>
 				<div>
-					@if($book->bmstatus == 1)
-						<span class="label label-success">เบลล์</span>
-					@else
-						<span class="label label-danger">เบลล์</span>
+					<table class = "table table-striped table-hover">
+						<tr>
+							<td>ประเภทสื่อ</td>
+							<td>สถานะ</td>
+						</tr>
+						<tr>
+							<td>เบลล์</td>
+							<td>
+					@if($book->bm_status == 0)
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					@elseif($book->bm_status == 1)
+						<span class="label label-success">ผลิตเสร็จ</span>
+					@elseif ($book->bm_status == 2)
+						<span class="label label-warning">รอการผลิต</span>
+					@elseif ($book->bm_status == 3)
+						<span class="label label-info">กำลังอ่าน</span>
 					@endif
+							</td>
+						</tr>
+						<tr>
+							<td>หนังสือเสียง</td>
+							<td>
+					@if($book->setcs_status == 0)
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					@elseif($book->setcs_status == 1)
+						<span class="label label-success">ผลิตเสร็จ</span>
+					@elseif ($book->setcs_status == 2)
+						<span class="label label-warning">รอการผลิต</span>
+					@elseif ($book->setcs_status == 3)
+						<span class="label label-info">กำลังอ่าน</span>
+					@endif</td>
+						</tr>
+						<tr>
+							<td>DVD</td>
+							<td>
+					@if($book->detdvd_status == 0)
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					@elseif($book->detdvd_status == 1)
+						<span class="label label-success">ผลิตเสร็จ</span>
+					@elseif ($book->detdvd_status == 2)
+						<span class="label label-warning">รอการผลิต</span>
+					@elseif ($book->detdvd_status == 3)
+						<span class="label label-info">กำลังอ่าน</span>
+					@endif</td>
+							</td>
+						</tr>
+						<tr>
+							<td>CD Mp3</td>
+							<td>
+					@if($book->setcd_status == 0)
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					@elseif($book->setcd_status == 1)
+						<span class="label label-success">ผลิตเสร็จ</span>
+					@elseif ($book->setcd_status == 2)
+						<span class="label label-warning">รอการผลิต</span>
+					@elseif ($book->setcd_status == 3)
+						<span class="label label-info">กำลังอ่าน</span>
+					@endif</td>
+							</td>
+						</tr>
+						<tr>
+							<td>CD Daisy</td>
+							<td>
+					@if($book->setds_status == 0)
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					@elseif($book->setds_status == 1)
+						<span class="label label-success">ผลิตเสร็จ</span>
+					@elseif ($book->setds_status == 2)
+						<span class="label label-warning">รอการผลิต</span>
+					@elseif ($book->setds_status == 3)
+						<span class="label label-info">กำลังอ่าน</span>
+					@endif</td>
+							</td>
+						</tr>
+					</table>
 				</div>
 			  </div>
 			</div>
