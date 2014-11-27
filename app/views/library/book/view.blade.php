@@ -7,14 +7,14 @@
 @section('body')
 <div class="well">
   <div>
-    <h2>I{{$book['id']}} : {{$book['title']}}
+    <h2>I{{$book['id']}}:{{$book['title']}}
       <a href="/book/{{$book['id']}}/edit" class="btn btn-danger pull-right">แก้ไข</a>
 
     </h2>
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
-    <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">Detail</a></li>
-    <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">หนังสือเบรลล์</a></li>
+    <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">ข้อมูล</a></li>
+    <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">เบรลล์</a></li>
     <li role="presentation"><a href="#cassette" role="tab" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
     <li role="presentation"><a href="#daisy" role="tab" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
     <li role="presentation"><a href="#cd" role="tab" data-toggle="tab" onClick="tabSelect(this)">CD</a></li>
@@ -28,10 +28,19 @@
           $i=0;
         ?>
         @foreach ($book as $data)
-          
-          <div class="col-xs-6 col-sm-3"><b>{{$field[$i]}}</b></div>
-          <div class="col-xs-6 col-sm-3"> {{$data}}</div>
-          
+              @if ($field[$i]!='ID')
+                @if ($i==19||$i==22||$i==25||$i==28||$i==31)
+                    <hr> 
+                    <div class="col-xs-12"></div> 
+                @endif
+                @if ($i>=19||$i>=22||$i>=25||$i>=28||$i>=31)
+                  <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
+                  <div class="col-xs-6 col-sm-2"> {{$data?$data:"-"}}</div>
+                @else
+                  <div class="col-xs-6 col-sm-3"><b>{{$field[$i]}}</b></div>
+                  <div class="col-xs-6 col-sm-3"> {{$data?$data:"-"}}</div>
+                @endif
+              @endif
           <?php $i++; ?>
         @endforeach 
 

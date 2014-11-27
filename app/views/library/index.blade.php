@@ -32,7 +32,7 @@
 		<a href = "{{url('book/'.$book->id) }}">
 		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
 			<div class = "panel-heading">
-				<b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
+				{{ $book->id }}. <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
 			</div>
 			<div class = "panel-body">
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
@@ -83,7 +83,6 @@
 					@endif
 					</div>
 					
-
 					<div class = "col-md-2" >
 							<span>CD</span>
 

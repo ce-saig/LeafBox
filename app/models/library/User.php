@@ -1,8 +1,5 @@
 <?php
 
-namespace Library;
-
-use Eloquent;
 
 class User extends Eloquent {
 

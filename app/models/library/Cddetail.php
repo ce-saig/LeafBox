@@ -1,5 +1,4 @@
 <?php
-use Eloquent;
 
 class Cddetail extends Eloquent {
     protected $table = 'cddetail';

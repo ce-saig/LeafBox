@@ -4,7 +4,7 @@
 
 // use Eloquent;
 
-class Dvd extends Eloquent {
+class DVD extends Eloquent {
     
     // protected $connection = 'mysql2-library';
     

@@ -1,8 +1,5 @@
 <?php
 
-namespace Library;
-
-use Eloquent;
 
 class Cdborrow extends Eloquent {
     

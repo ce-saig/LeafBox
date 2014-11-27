@@ -37,28 +37,30 @@ class BookController extends Controller{
     $field[8]='ทะเบียนผลิต';
     $field[9]='ประเภทหนังสือ';
     $field[10]='เนื้อเรื่องย่อ';
-    $field[11]='จำนวนหนังสือเบรลล์';
-    $field[12]='จำนวนเทปคาสเส็ท';
-    $field[13]='จำนวนเดซี่';
-    $field[14]='จำนวน CD';
-    $field[15]='จำนวน DVD';
-    $field[16]='ISBN';
-    $field[17]='ID';
-    $field[18]='ระดับ';
+    $field[11]='ISBN';
+    $field[12]='ID';
+    $field[13]='ระดับ';
+
+    $field[14]='จำนวนหนังสือเบรลล์';
+    $field[15]='จำนวนเทปคาสเส็ท';
+    $field[16]='จำนวนเดซี่';
+    $field[17]='จำนวน CD';
+    $field[18]='จำนวน DVD';
+    
     $field[19]='สถานะของเบรลล์';
-    $field[20]='โน็ต';
+    $field[20]='หมายเหตุ';
     $field[21]='เมื่อ';
     $field[22]='สถานะของคาสเส็ท';
-    $field[23]='โน็ต';
+    $field[23]='หมายเหตุ';
     $field[24]='เมื่อ';
     $field[25]='สถานะของเดซี่';
-    $field[26]='โน็ต';
+    $field[26]='หมายเหตุ';
     $field[27]='เมื่อ';
     $field[28]='สถานะของ CD';
-    $field[29]='โน็ต';
+    $field[29]='หมายเหตุ';
     $field[30]='เมื่อ';
     $field[31]='สถานะของ DVD';
-    $field[32]='โน็ต';
+    $field[32]='หมายเหตุ';
     $field[33]='เมื่อ';
 
     $book['title']         =  $bookEloquent->title;
@@ -74,15 +76,15 @@ class BookController extends Controller{
     $book['btype']   = $bookEloquent->btype ;
     $book['abstract']   = $bookEloquent->abstract ;
 
+    $book['isbn']          = $bookEloquent->isbn ;
+    $book['id']            = $bookEloquent->id ;
+    $book['grade']         = $bookEloquent->grade ;
+
     $book['b_number']     = count($bookEloquent->braille);
     $book['cs_number']     = count($bookEloquent->cassette);
     $book['ds_number']     = count($bookEloquent->daisy);
     $book['cd_number']     = count($bookEloquent->cd);
     $book['dvd_number']     = count($bookEloquent->dvd);
-
-    $book['isbn']          = $bookEloquent->isbn ;
-    $book['id']            = $bookEloquent->id ;
-    $book['grade']         = $bookEloquent->grade ;
 
     $book['bm_status']     = $bookEloquent->bm_status ;
     $book['bm_note']       = $bookEloquent->bm_note ;
@@ -146,14 +148,16 @@ class BookController extends Controller{
     $field[8]='produce_no';
     $label[9]='ประเภทหนังสือ';
     $field[9]='btype';
-    $label[10]='เนื้อเรื่องย่อ';
-    $field[10]='abstract';
+    $label[10]='หนังสือระดับ';
+    $field[10]='grade';
+    
     $label[11]='ISBN';
     $field[11]='isbn';
     $label[12]='เลขหนังสือ';
     $field[12]='id';
-    $label[13]='หนังสือระดับ';
-    $field[13]='grade';
+
+    $label[13]='เนื้อเรื่องย่อ';
+    $field[13]='abstract';
 
     $label[14]='สถานะของเบรลล์';
     $field[14]='bm_status';
@@ -201,12 +205,12 @@ class BookController extends Controller{
     $book['origin_no']   = $bookEloquent->origin_no ;
     $book['produce_no']   = $bookEloquent->produce_no ;
     $book['btype']   = $bookEloquent->btype ;
-    $book['abstract']   = $bookEloquent->abstract ;
+    $book['grade']         = $bookEloquent->grade ;
 
 
     $book['isbn']          = $bookEloquent->isbn ;
     $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
-    $book['grade']         = $bookEloquent->grade ;
+    $book['abstract']   = $bookEloquent->abstract ;
 
     $book['bm_status']     = $bookEloquent->bm_status ;
     $book['bm_note']       = $bookEloquent->bm_note ;

@@ -41,6 +41,8 @@
 
           @elseif ($i==16||$i==19||$i==22||$i==25||$i==28)
             <input type="date" min="1990-12-12" name="{{$field[$i]}}" class="form-control" value="{{$data}}">
+          @elseif ($i==13)
+            <textarea name="{{$field[$i]}}"  cols="30" rows="5" class="form-control">{{$data}}</textarea>
           @else
             <input type="text" name="{{$field[$i]}}" class="form-control" value="{{$data}}">
           @endif
