@@ -35,6 +35,30 @@ class BorrowController extends BaseController {
           array_push($result[sizeof($result)-1][1], $cassette);
         }
       }
+
+      $cds = $book->cd()->get();
+      array_push($result[sizeof($result)-1], array());
+      if($cds){
+        foreach($cds as $cd){
+          array_push($result[sizeof($result)-1][2], $cd);
+        }
+      }
+
+      $daisies = $book->daisy()->get();
+      array_push($result[sizeof($result)-1], array());
+      if($daisies){
+        foreach($daisies as $daisy){
+          array_push($result[sizeof($result)-1][3], $daisy);
+        }
+      }
+
+      $dvds = $book->dvd()->get();
+      array_push($result[sizeof($result)-1], array());
+      if($dvds){
+        foreach($dvds as $dvd){
+          array_push($result[sizeof($result)-1][4], $dvd);
+        }
+      }
     }
     //return (!$book)?'true':'false';
     if(!$result){
