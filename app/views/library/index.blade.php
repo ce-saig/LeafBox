@@ -23,79 +23,20 @@
 	</div>	
 	<div  class= "col-md-12" id = "showBook">
 		@forelse ($books as $book)
-		<div class =  "panel panel-default" style="margin-bottom:50px;">
+		<a href = "{{url('book/'.$book->id) }}">
+		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
 			<div class = "panel-heading">
-				<b>{{ $book->title }}</b>
-				<a  class = "pull-right btn btn-info" href = "{{url('book/'.$book->id) }}">จัดการ</a>
+				<b>{{ $book->title }} -- {{ $book->author }} : {{ $book->pub_year }} </b>
 			</div>
 			<div class = "panel-body">
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
-			  <div class = "col-md-6"  >
-			  <b>ข้อูลของหนังสือ</b>
-			  <div style= "height:250px;overflow:scroll;">
-				<table class = "table table-hover table-striped">
-					<tr>
-						<td>author</td>
-						<td> {{ $book->author }} </td>
-					</tr>
-					<tr>
-						<td>translate</td>
-						<td>{{ $book->translate }}</td>
-					</tr>
-					<tr>
-						<td>publisher</td>
-						<td> {{ $book->publisher }} </td>
-					</tr>
-					<tr>
-						<td>regis_date</td>
-						<td> {{ $book->regis_date }} </td>
-					</tr>
-					<tr>
-						<td>pub_no</td>
-						<td> {{ $book->pub_no }} </td>
-					</tr>
-					<tr>
-						<td>pub_year</td>
-						<td> {{ $book->pub_year }} </td>
-					</tr>
-					<tr>
-						<td>origin_no</td>
-						<td> {{ $book->origin_no }} </td>
-					</tr>
-					<tr>
-						<td>produce_no</td>
-						<td> {{ $book->produce_no }} </td>
-					</tr>
-					<tr>
-						<td>btype</td>
-						<td> {{ $book->btype }} </td>
-					</tr>
-					<tr>
-						<td>abstract</td>
-						<td> {{ $book->abstract }} </td>
-					</tr>
-					<tr>
-						<td>isbn</td>
-						<td> {{ $book->isbn }} </td>
-					</tr>
-					<tr>
-						<td>grade</td>
-						<td> {{ $book->grade }} </td>
-					</tr>
-				</table>
-			   </div>
-			  </div>
-			  <div class = "col-md-6">
-			  	<b>สถานะของสื่อ</b>
-				<div>
-					<table class = "table table-striped table-hover">
-						<tr>
-							<td>ประเภทสื่อ</td>
-							<td>สถานะ</td>
-						</tr>
-						<tr>
-							<td>เบลล์</td>
-							<td>
+			  
+			  <div class = "col-md-12">
+				<div class = "label-status" >
+					
+					<div class = "col-md-2" >
+							<span>เบลล์</span>
+						
 					@if($book->bm_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->bm_status == 1)
@@ -105,11 +46,12 @@
 					@elseif ($book->bm_status == 3)
 						<span class="label label-info">กำลังอ่าน</span>
 					@endif
-							</td>
-						</tr>
-						<tr>
+					</div>
+			
+					
+					<div class = "col-md-3" >
 							<td>หนังสือเสียง</td>
-							<td>
+						
 					@if($book->setcs_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->setcs_status == 1)
@@ -118,11 +60,12 @@
 						<span class="label label-warning">รอการผลิต</span>
 					@elseif ($book->setcs_status == 3)
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif</td>
-						</tr>
-						<tr>
-							<td>DVD</td>
-							<td>
+					@endif
+						</div>
+
+					<div class = "col-md-2" >
+							<span>DVD</span>
+						
 					@if($book->detdvd_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->detdvd_status == 1)
@@ -131,12 +74,13 @@
 						<span class="label label-warning">รอการผลิต</span>
 					@elseif ($book->detdvd_status == 3)
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif</td>
-							</td>
-						</tr>
-						<tr>
-							<td>CD Mp3</td>
-							<td>
+					@endif
+					</div>
+					
+
+					<div class = "col-md-2" >
+							<span>CD Mp3</span>
+
 					@if($book->setcd_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->setcd_status == 1)
@@ -145,12 +89,13 @@
 						<span class="label label-warning">รอการผลิต</span>
 					@elseif ($book->setcd_status == 3)
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif</td>
-							</td>
-						</tr>
-						<tr>
-							<td>CD Daisy</td>
-							<td>
+					@endif
+					</div>
+					
+
+					<div class = "col-md-3" >
+							<span>CD Daisy</span>
+							
 					@if($book->setds_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->setds_status == 1)
@@ -159,14 +104,14 @@
 						<span class="label label-warning">รอการผลิต</span>
 					@elseif ($book->setds_status == 3)
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif</td>
-							</td>
-						</tr>
-					</table>
+					@endif
+					</div>
+					
 				</div>
 			  </div>
 			</div>
 		</div>
+	   </a>
 		@empty
 			<div class="alert alert-warning alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

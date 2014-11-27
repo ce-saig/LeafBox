@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -19,56 +20,7 @@
 
 	<style type="text/css">
 
-      /* Sticky footer styles
-      -------------------------------------------------- */
-
-      html,
-      body {
-        height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
-      }
-
-      /* Wrapper for page content to push down footer */
-      #wrap {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        /* Negative indent footer by it's height */
-        margin: 0 auto -60px;
-      }
-
-      /* Set the fixed height of the footer here */
-      #push,
-      #footer {
-      	padding-top: 1%;
-      }
-      #footer {
-        background-color: #f5f5f5;
-      }
-
-      /* Lastly, apply responsive CSS fixes as necessary */
-      @media (max-width: 767px) {
-        #footer {
-          margin-left: -20px;
-          margin-right: -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-
-
-
-      /* Custom page CSS
-      -------------------------------------------------- */
-      /* Not required for template or sticky footer method. */
-
-      .container {
-        width: auto;
-        max-width: 1000px;
-      }
-      .container .credit {
-        margin: 20px 0;
-      }
+      
     </style>	
   </head>
   <body>
