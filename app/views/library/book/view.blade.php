@@ -7,16 +7,16 @@
 @section('body')
 <div class="well">
   <div>
-    <h2>I{{$book['id']}}:{{$book['title']}}
+    <h2>I{{$book['id']}} : {{$book['title']}}
       <a href="/book/{{$book['id']}}/edit" class="btn btn-danger pull-right">แก้ไข</a>
 
     </h2>
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">Detail</a></li>
-    <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">Braille</a></li>
-    <li role="presentation"><a href="#cassette" role="tab" data-toggle="tab" onClick="tabSelect(this)">Cassette</a></li>
-    <li role="presentation"><a href="#daisy" role="tab" data-toggle="tab" onClick="tabSelect(this)">daisy</a></li>
+    <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">หนังสือเบรลล์</a></li>
+    <li role="presentation"><a href="#cassette" role="tab" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
+    <li role="presentation"><a href="#daisy" role="tab" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
     <li role="presentation"><a href="#cd" role="tab" data-toggle="tab" onClick="tabSelect(this)">CD</a></li>
     <li role="presentation"><a href="#dvd" role="tab" data-toggle="tab" onClick="tabSelect(this)">DVD</a></li>
   </ul>
@@ -28,8 +28,10 @@
           $i=0;
         ?>
         @foreach ($book as $data)
+          
           <div class="col-xs-6 col-sm-3"><b>{{$field[$i]}}</b></div>
-          <div class="col-xs-6 col-sm-3">= {{$data}}</div>
+          <div class="col-xs-6 col-sm-3"> {{$data}}</div>
+          
           <?php $i++; ?>
         @endforeach 
 

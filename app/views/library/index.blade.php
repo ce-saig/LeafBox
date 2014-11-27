@@ -1,32 +1,38 @@
 @extends('library.layout')
 
+@section('head')
+	<title>Leafbox :: Home</title>
+@stop
+
 @section('body')
 <div class = "row">
-	<div class = "col-md-12 panel" >
+	<div class = "col-md-12" >
 	  <form action = "{{ url('/search/book') }}" method="POST">
-		<div class = "col-md-8">
-			<input name = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
-		</div>
-		  
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" role="menu">
-			    <option value = "title" >title</option>
-			    <option value = "author" >author</option>
-			    <option value = "translate" >translate</option>
-			    <option value = "isbn" >isbn</option>
-			    <option value = "id" >id</option>
+			    <option value = "title" >ชื่อ</option>
+			    <option value = "author" >ชื่อผู้แต่ง</option>
+			    <option value = "translate" >ชื่อผู้แปล</option>
+			    <option value = "isbn" >ISBN</option>
+			    <option value = "id" >ID</option>
 			 </select>
 		</div>
+
+		<div class = "col-md-8">
+			<input name = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
+		</div>		  
 
 		<input type = "submit" class="col-md-2 btn btn-success pull-right" value = "ค้นหา" />
 	  </form>
 	</div>	
+	<hr>
+	<br>
 	<div  class= "col-md-12" id = "showBook">
 		@forelse ($books as $book)
 		<a href = "{{url('book/'.$book->id) }}">
 		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
 			<div class = "panel-heading">
-				<b>{{ $book->title }} -- {{ $book->author }} : {{ $book->pub_year }} </b>
+				<b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
 			</div>
 			<div class = "panel-body">
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
@@ -50,7 +56,7 @@
 			
 					
 					<div class = "col-md-3" >
-							<td>หนังสือเสียง</td>
+							เทปคาสเซ็ท
 						
 					@if($book->setcs_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
@@ -79,7 +85,7 @@
 					
 
 					<div class = "col-md-2" >
-							<span>CD Mp3</span>
+							<span>CD</span>
 
 					@if($book->setcd_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
@@ -94,7 +100,7 @@
 					
 
 					<div class = "col-md-3" >
-							<span>CD Daisy</span>
+							<span>Daisy</span>
 							
 					@if($book->setds_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>

@@ -31,24 +31,22 @@
        <span class="icon-bar"></span>
        <span class="icon-bar"></span>
      </button>
-     <a class="navbar-brand" href="#">LeafBox</a>
+     <a class="navbar-brand" href="/">LeafBox</a>
    </div>
    <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
       <!-- class="active" -->
-      <li><a href="{{ URL::to('/') }}">ค้นหา</a></li>
-      <li><a href="#">สมาชิก</a></li>
-      <li class="dropdown">
-
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">จัดการหนังสือ <b class="caret"></b></a>
+      <li><a href="{{URL::to('/book/add')}}">เพิ่มหนังสือใหม่</a></li>
+      <!-- <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          จัดการหนังสือ <b class="caret"></b>
+        </a>
         <ul class="dropdown-menu">
-         <li><a href="{{Url::to('/book/add')}}">เพิ่ม</a></li>
+         <li><a href="#">เพิ่ม</a></li>
        </ul>
-     </li>
+     </li> -->
+     <li><a href="#">สมาชิก</a></li>
    </ul>
-   <form class="navbar-form navbar-left">
-     <input class="form-control col-lg-8" placeholder="ค้นหา" type="text">
-   </form>
    <ul class="nav navbar-nav navbar-right">
      <li class="dropdown">
 
