@@ -123,7 +123,9 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         
         //Add-on
-        'Maatwebsite\Excel\ExcelServiceProvider',        
+        'Maatwebsite\Excel\ExcelServiceProvider',    
+        //Ajax Database access
+        'Chumper\Datatable\DatatableServiceProvider',    
 	),
 
 	/*
@@ -193,6 +195,8 @@ return array(
         
         //Add-on
         'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
+        //Ajax Database 
+        'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
 	),
 
 );

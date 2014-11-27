@@ -25,101 +25,281 @@ class BookController extends Controller{
   }
 
   public function getBook($bid){
-      $bookEloquent = Book::find($bid);
-      $field[0]='title';
-      $field[1]='author';
-      $field[2]='translate';
-      $field[3]='regis_date';
-      $field[4]='publisher';
-      $field[5]='pub_no';
-      $field[6]='pub_year';
-      $field[7]='origin_no';
-      $field[8]='produce_no';
-      $field[9]='btype';
-      $field[10]='abstract';
-      $field[11]='b_number';
-      $field[12]='cs_number';
-      $field[13]='ds_number';
-      $field[14]='cd_number';
-      $field[15]='dvd_number';
-      $field[16]='isbn';
-      $field[17]='id';
-      $field[18]='grade';
-      $field[19]='bm_status';
-      $field[20]='bm_note';
-      $field[21]='bm_data';
-      $field[22]='setcs_status';
-      $field[23]='setcs_note';
-      $field[24]='setcs_data';
-      $field[25]='setds_status';
-      $field[26]='setds_note';
-      $field[27]='setds_data';
-      $field[28]='setcd_status';
-      $field[29]='setcd_note';
-      $field[30]='setcd_data';
-      $field[31]='setdvd_status';
-      $field[32]='setdvd_note';
-      $field[33]='setdvd_data';
+    $bookEloquent = Book::find($bid);
+    $field[0]='title';
+    $field[1]='author';
+    $field[2]='translate';
+    $field[3]='regis_date';
+    $field[4]='publisher';
+    $field[5]='pub_no';
+    $field[6]='pub_year';
+    $field[7]='origin_no';
+    $field[8]='produce_no';
+    $field[9]='btype';
+    $field[10]='abstract';
+    $field[11]='b_number';
+    $field[12]='cs_number';
+    $field[13]='ds_number';
+    $field[14]='cd_number';
+    $field[15]='dvd_number';
+    $field[16]='isbn';
+    $field[17]='id';
+    $field[18]='grade';
+    $field[19]='bm_status';
+    $field[20]='bm_note';
+    $field[21]='bm_data';
+    $field[22]='setcs_status';
+    $field[23]='setcs_note';
+    $field[24]='setcs_data';
+    $field[25]='setds_status';
+    $field[26]='setds_note';
+    $field[27]='setds_data';
+    $field[28]='setcd_status';
+    $field[29]='setcd_note';
+    $field[30]='setcd_data';
+    $field[31]='setdvd_status';
+    $field[32]='setdvd_note';
+    $field[33]='setdvd_data';
+
+    $book['title']         =  $bookEloquent->title;
+    $book['author']        = $bookEloquent->author ;
+    $book['translate']     = $bookEloquent->translate ;
+    $book['regis_date']     = $bookEloquent->regis_date ;
+    $book['publisher']     = $bookEloquent->publisher ;
+    $book['pub_no']     = $bookEloquent->pub_no ;
+    $book['pub_year']     = $bookEloquent->pub_year ;
+
+    $book['origin_no']   = $bookEloquent->origin_no ;
+    $book['produce_no']   = $bookEloquent->produce_no ;
+    $book['btype']   = $bookEloquent->btype ;
+    $book['abstract']   = $bookEloquent->abstract ;
+
+    $book['b_number']     = count($bookEloquent->braille);
+    $book['cs_number']     = count($bookEloquent->cassette);
+    $book['ds_number']     = count($bookEloquent->daisy);
+    $book['cd_number']     = count($bookEloquent->cd);
+    $book['dvd_number']     = count($bookEloquent->dvd);
+
+    $book['isbn']          = $bookEloquent->isbn ;
+    $book['id']            = $bookEloquent->id ;
+    $book['grade']         = $bookEloquent->grade ;
+
+    $book['bm_status']     = $bookEloquent->bm_status ;
+    $book['bm_note']       = $bookEloquent->bm_note ;
+    $book['bm_data']       = $bookEloquent->bm_data ;
+    $book['setcs_status']  = $bookEloquent->setcs_status ;
+    $book['setcs_note']    = $bookEloquent->setcs_note ;
+    $book['setcs_data']    = $bookEloquent->setcs_data ;
+    $book['setds_status']  = $bookEloquent->setds_status ;
+    $book['setds_note']    = $bookEloquent->setds_note ;
+    $book['setds_data']    = $bookEloquent->setds_data ;
+    $book['setcd_status']  = $bookEloquent->setcd_status ;
+    $book['setcd_note']    = $bookEloquent->setcd_note ;
+    $book['setcd_data']    = $bookEloquent->setcd_data ;
+    $book['setdvd_status'] = $bookEloquent->setdvd_status ;
+    $book['setdvd_note']   = $bookEloquent->setdvd_note ;
+    $book['setdvd_data']   = $bookEloquent->setdvd_data ;
+
+      //braile
+    $braille = Braille::where('book_id','=',$book['id'])->get();
+      //cassette
+    $cassette = Cassette::where('book_id','=',$book['id'])->get();
+      //daisy
+    $daisy = Daisy::where('book_id','=',$book['id'])->get();
+      //cd
+    $cd = CD::where('book_id','=',$book['id'])->get();
+      //dvd
+    $dvd = DVD::where('book_id','=',$book['id'])->get();
+
+    $arrOfdata['field']=$field;
+    $arrOfdata['book']=$book;
+
+    $arrOfdata['braille']=$braille;
+    $arrOfdata['cassette']=$cassette;
+    $arrOfdata['daisy']=$daisy;
+    $arrOfdata['cd']=$cd;
+    $arrOfdata['dvd']=$dvd;
+    return View::make('library.book.view')->with($arrOfdata);
+  }
+
+
   
-      $book['title']         =  $bookEloquent->title;
-      $book['author']        = $bookEloquent->author ;
-      $book['translate']     = $bookEloquent->translate ;
-      $book['regis_date']     = $bookEloquent->regis_date ;
-      $book['publisher']     = $bookEloquent->publisher ;
-      $book['pub_no']     = $bookEloquent->pub_no ;
-      $book['pub_year']     = $bookEloquent->pub_year ;
+  public function getEdit($bid){
+    $bookEloquent = Book::find($bid);
+    $label[0]='ชื่อเรื่อง';
+    $field[0]='title';
+    $label[1]='ผู้แต่ง';
+    $field[1]='author';
+    $label[2]='ผู้แปล';
+    $field[2]='translate';
+    $label[3]='วันลงทะเบียน';
+    $field[3]='regis_date';
+    $label[4]='สำนักพิมพ์';
+    $field[4]='publisher';
+    $label[5]='พิมพ์ครั้งที่';
+    $field[5]='pub_no';
+    $label[6]='ปีที่พิมพ์';
+    $field[6]='pub_year';
+    $label[7]='ทะเบียนหนังสือต้นฉบับตาดี';
+    $field[7]='origin_no';
+    $label[8]='ทะเบียนผลิต';
+    $field[8]='produce_no';
+    $label[9]='ประเภทหนังสือ';
+    $field[9]='btype';
+    $label[10]='เนื้อเรื่องย่อ';
+    $field[10]='abstract';
+    $label[11]='ISBN';
+    $field[11]='isbn';
+    $label[12]='เลขหนังสือ';
+    $field[12]='id';
+    $label[13]='หนังสือระดับ';
+    $field[13]='grade';
+
+    $label[14]='สถานะของเบรลล์';
+    $field[14]='bm_status';
+    $label[15]='โน็ต';
+    $field[15]='bm_note';
+    $label[16]='เมื่อ';
+    $field[16]='bm_date';
+
+    $label[17]='สถานะของคาสเส็ท';
+    $field[17]='cs_status';
+    $label[18]='โน็ต';
+    $field[18]='cs_note';
+    $label[19]='เมื่อ';
+    $field[19]='cs_date';
+     
+    $label[20]='สถานะของเดซี่';
+    $field[20]='ds_status';
+    $label[21]='โน็ต';
+    $field[21]='ds_note';
+    $label[22]='เมื่อ';
+    $field[22]='ds_date';
+
+    $label[23]='สถานะของซีดี';
+    $field[23]='cd_status';
+    $label[24]='โน็ต';
+    $field[24]='cd_note';
+    $label[25]='เมื่อ';
+    $field[25]='cd_date';
+
+    $label[26]='สถานะของดีวีดี';
+    $field[26]='dvd_status';
+    $label[27]='โน็ต';
+    $field[27]='dvd_note';
+    $label[28]='เมื่อ';
+    $field[28]='dvd_date';
+
+    $book['title']         =  $bookEloquent->title;
+    $book['author']        = $bookEloquent->author ;
+    $book['translate']     = $bookEloquent->translate ;
+    $book['regis_date']     = $bookEloquent->regis_date ;
+    $book['publisher']     = $bookEloquent->publisher ;
+    $book['pub_no']     = $bookEloquent->pub_no ;
+    $book['pub_year']     = $bookEloquent->pub_year ;
+
+    $book['origin_no']   = $bookEloquent->origin_no ;
+    $book['produce_no']   = $bookEloquent->produce_no ;
+    $book['btype']   = $bookEloquent->btype ;
+    $book['abstract']   = $bookEloquent->abstract ;
+
+
+    $book['isbn']          = $bookEloquent->isbn ;
+    $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
+    $book['grade']         = $bookEloquent->grade ;
+
+    $book['bm_status']     = $bookEloquent->bm_status ;
+    $book['bm_note']       = $bookEloquent->bm_note ;
+    $book['bm_data']       = $bookEloquent->bm_data ;
+    $book['setcs_status']  = $bookEloquent->setcs_status ;
+    $book['setcs_note']    = $bookEloquent->setcs_note ;
+    $book['setcs_data']    = $bookEloquent->setcs_data ;
+    $book['setds_status']  = $bookEloquent->setds_status ;
+    $book['setds_note']    = $bookEloquent->setds_note ;
+    $book['setds_data']    = $bookEloquent->setds_data ;
+    $book['setcd_status']  = $bookEloquent->setcd_status ;
+    $book['setcd_note']    = $bookEloquent->setcd_note ;
+    $book['setcd_data']    = $bookEloquent->setcd_data ;
+    $book['setdvd_status'] = $bookEloquent->setdvd_status ;
+    $book['setdvd_note']   = $bookEloquent->setdvd_note ;
+    $book['setdvd_data']   = $bookEloquent->setdvd_data ;
+
+    $arrOfdata['label']=$label;
+    $arrOfdata['field']=$field;
+    $arrOfdata['book']=$book;
+    return View::make('library.book.edit')->with($arrOfdata);
+  }
+
+  public function postEdit($bid){
+    $book = Book::find($bid);
+    $book->title      = Input::get('title');
+    $book->author     = Input::get('author');
+    $book->translate  = Input::get('translate');
+    $book->created_at = Input::get('regis_date');
+    $book->publisher  = Input::get('publisher');
+    $book->pub_no     = Input::get('pub_no');
+    $book->pub_year   = Input::get('pub_year');
+    $book->original_no  = Input::get('origin_no');
+    $book->produce_no = Input::get('produce_no');
+    $book->book_type      = Input::get('btype');
+    $book->abstract   = Input::get('abstract');
+    $book->isbn       = Input::get('isbn');
+    //$book['id']         = Input::get('id'); //TODO : make ID Validator
+    $book->grade      = Input::get('grade');
+    $book->bm_status  = Input::get('bm_status');
+    $book->bm_note    = Input::get('bm_note');
+    $book->bm_date    = Input::get('bm_date');
+    $book->setcs_status  = Input::get('cs_status');
+    $book->setcs_note    = Input::get('cs_note');
+    $book->setcs_date    = Input::get('cs_date');
+    $book->setds_status  = Input::get('ds_status');
+    $book->setds_note    = Input::get('ds_note');
+    $book->setds_date    = Input::get('ds_date');
+    $book->setcd_status  = Input::get('cd_status');
+    $book->setcd_note    = Input::get('cd_note');
+    $book->setcd_date    = Input::get('cd_date');
+    $book->setdvd_status = Input::get('dvd_status');
+    $book->setdvd_note   = Input::get('dvd_note');
+    $book->setdvd_date   = Input::get('dvd_date');
+    // TODO : add Validator here
+    $book->save();
+    return Redirect::to("/book/$bid");
+  }
+
+  // Search getter 
+  public function SearchFromAttr(){
+    $type = Input::get('search_type');
+    $input = Input::get('search_value');
+    $hanlder = new Book();
+        if($type == "title"){
+            $obj = $hanlder->where("title","LIKE","%".$input."%")->get();
+        }else if($type == "author"){
+            $obj = $hanlder->where("author","LIKE","%".$input."%")->get();
+        }else if($type == "translate"){
+            $obj = $hanlder->where("translate","LIKE","%".$input."%")->get();
+        }else if($type == "isbn"){
+            $obj = $hanlder->where("isbn","=","LIKE","%".$input."%")->get();
+        }else if($type == "id"){
+            $obj = $hanlder->where("id","=",$input)->get();
+        }else{
+            return "ERROR :: Some Wrong Format !!";
+        }
+    return View::make('library.index',array('books' => $obj ));
+
+  }
+
+
   
-      $book['origin_no']   = $bookEloquent->origin_no ;
-      $book['produce_no']   = $bookEloquent->produce_no ;
-      $book['btype']   = $bookEloquent->btype ;
-      $book['abstract']   = $bookEloquent->abstract ;
-  
-      $book['b_number']     = 'Not Implement yet';
-      $book['cs_number']     = 'Not Implement yet';
-      $book['ds_number']     = 'Not Implement yet';
-      $book['cd_number']     = 'Not Implement yet';
-      $book['dvd_number']     = 'Not Implement yet';
-  
-      $book['isbn']          = $bookEloquent->isbn ;
-      $book['id']            = $bookEloquent->id ;
-      $book['grade']         = $bookEloquent->grade ;
-  
-      $book['bm_status']     = $bookEloquent->bm_status ;
-      $book['bm_note']       = $bookEloquent->bm_note ;
-      $book['bm_data']       = $bookEloquent->bm_data ;
-      $book['setcs_status']  = $bookEloquent->setcs_status ;
-      $book['setcs_note']    = $bookEloquent->setcs_note ;
-      $book['setcs_data']    = $bookEloquent->setcs_data ;
-      $book['setds_status']  = $bookEloquent->setds_status ;
-      $book['setds_note']    = $bookEloquent->setds_note ;
-      $book['setds_data']    = $bookEloquent->setds_data ;
-      $book['setcd_status']  = $bookEloquent->setcd_status ;
-      $book['setcd_note']    = $bookEloquent->setcd_note ;
-      $book['setcd_data']    = $bookEloquent->setcd_data ;
-      $book['setdvd_status'] = $bookEloquent->setdvd_status ;
-      $book['setdvd_note']   = $bookEloquent->setdvd_note ;
-      $book['setdvd_data']   = $bookEloquent->setdvd_data ;
-  
-  //braile
-      $braille = Braille::where('book_id','=',$book['id'])->get();
-  //cassette
-      $cassette = Cassette::where('book_id','=',$book['id'])->get();
-  //daisy
-      $daisy = Daisy::where('book_id','=',$book['id'])->get();
-  //cd
-      $cd = CD::where('book_id','=',$book['id'])->get();
-  //dvd
-      $dvd = DVD::where('book_id','=',$book['id'])->get();
-  
-      $arrOfdata['field']=$field;
-      $arrOfdata['book']=$book;
-  
-      $arrOfdata['braille']=$braille;
-      $arrOfdata['cassette']=$cassette;
-      $arrOfdata['daisy']=$daisy;
-      $arrOfdata['cd']=$cd;
-      $arrOfdata['dvd']=$dvd;
-      return View::make('library.book.view')->with($arrOfdata);
+
+  // For Ajax search Call (INCOMPLETE)
+   public function getDatatable()
+    {
+        return Datatable::collection(Book::all(array('title','author')))
+        ->showColumns('title', 'author')
+        ->searchColumns('title')
+        ->orderColumns('title','author')
+        ->make();
     }
+
 }
 ?>

@@ -5,6 +5,7 @@ class MediaController extends Controller{
     
     $braille->book()->associate(Book::find($bookId));
     $braille->produced_date = date('Y-m-d');
+    $braille->pages = Input::get('amount');
     $braille->save();
   }
 
@@ -26,9 +27,8 @@ class MediaController extends Controller{
 
   public function addDaisy($bookId){
     $amount = Input::get('amount');
-    $amount = 3;
     $daisy = new Daisy();
-    $daisy->produced = date('Y-m-d');
+    $daisy->produced_date = date('Y-m-d');
     $daisy->numpart = $amount;
     $daisy->book()->associate(Book::find($bookId));
     $daisy->save();
@@ -44,7 +44,7 @@ class MediaController extends Controller{
   public function addCD($bookId){
     $amount = Input::get('amount');
     $cd = new CD();
-    $cd->produce_date = date('Y-m-d');
+    $cd->produced_date = date('Y-m-d');
     $cd->book()->associate(Book::find($bookId));
     $cd->numpart = $amount;
     $cd->save();

@@ -16,11 +16,6 @@ class BorrowController extends BaseController {
     foreach($books as $book){
       //find braille associate this book
       //then add to result if exist
-      //return $book->id;
-      //var_dump($book->braille()->get());
-      //return'';
-      //return Book::find($book->braille()->first()->book_id)->id;
-      //return Book$book->braille()->first()->id;
       array_push($result, array_fill_keys(array('title'),$book->title));
       array_push($result[sizeof($result)-1], array());
       //return $result;
@@ -31,12 +26,21 @@ class BorrowController extends BaseController {
           array_push($result[sizeof($result)-1][0], $braille);
         }
       }
+
+      $cassettes = $book->cassette()->get();
+      array_push($result[sizeof($result)-1], array());
+      //return sizeof($cassette);
+      if($cassettes){
+        foreach($cassettes as $cassette){
+          array_push($result[sizeof($result)-1][1], $cassette);
+        }
+      }
     }
     //return (!$book)?'true':'false';
     if(!$result){
       return '';
     } else {
-      return json_encode($result[0][0]);
+      return json_encode($result);
     }
 
   }

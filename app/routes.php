@@ -9,8 +9,12 @@
 /*Route::get('/',array('before' => 'auth',function(){
 	return "HELLO";
 }));*/
-
+// AJAX Search
+/*
+Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@getDatatable'));*/
 Route::get('/','HomeController@index');
+Route::post('/search/book','BookController@SearchFromAttr');
+
 //move to route group
 //Route::get('book/{bid}','BookController@getBook');
 
@@ -26,8 +30,8 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
   Route::get('/', 'BookController@getBook');
 
-  Route::get('edit', 'BookController@getEdit');//TODO
-  Route::post('edit', 'BookController@postEdit');//TODO
+  Route::get('edit', 'BookController@getEdit');
+  Route::post('edit', 'BookController@postEdit');
 
   Route::post('braille/add', 'MediaController@addBraille');
   Route::post('cassette/add', 'MediaController@addCassette');

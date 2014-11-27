@@ -7,8 +7,8 @@ class Braille extends Eloquent {
 
     public $timestamps = false;
 
-    public function book()   { return $this->belongsTo('Book');}
-    public function borrow()   { return $this->hasOne('Brailleborrow'); }
+    public function book()   { return $this->belongsTo('Book','book_id');}
+    public function borrow()   { return $this->hasOne('Brailleborrow','braille_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
