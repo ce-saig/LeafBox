@@ -23,7 +23,7 @@
 				<th>track_fr</th>
 				<th>track_to</th>
 			</tr>
-		@foreach ($cddetail as $key => $value)
+		@foreach ($detail as $key => $value)
 			<tr>
 				<td>{{$value->id}}</td>
 				<td>{{$value->part}}</td>

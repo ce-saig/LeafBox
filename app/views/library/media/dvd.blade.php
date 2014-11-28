@@ -23,7 +23,7 @@
 				<th>status</th>
 				<th>notes</th>	
 			</tr>
-		@foreach ($dvddetail as $key => $value)
+		@foreach ($detail as $key => $value)
 			<tr>
 				<td>{{$value->id}}</td>
 				<td>{{$value->part}}</td>

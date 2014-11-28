@@ -1,11 +1,11 @@
 <?php
 
 
-class User extends Eloquent {
+//class User extends Eloquent {
 
   //protected $connection = 'mysql2-library';
   
-	protected $table = 'user';
+//	protected $table = 'user';
 
 	//Relations
 	// public function tags()        { return $this->morphToMany('Tag', 'taggable'); }
@@ -48,4 +48,4 @@ class User extends Eloquent {
 	// 	return $this->image;
 	// }
 
-}
+//}
