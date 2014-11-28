@@ -55,3 +55,6 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::post('daisy/{id}', 'MediaController@getDaisy');//TODO
 
 });
+
+Route::get('borrow', 'BorrowController@index');
+Route::get('borrowSearch', 'BorrowController@search');
