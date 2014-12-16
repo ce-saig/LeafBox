@@ -14,11 +14,11 @@
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">ข้อมูล</a></li>
-    <li role="presentation"><a href="#braille" role="tab" data-toggle="tab" onClick="tabSelect(this)">เบรลล์</a></li>
-    <li role="presentation"><a href="#cassette" role="tab" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
-    <li role="presentation"><a href="#daisy" role="tab" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
-    <li role="presentation"><a href="#cd" role="tab" data-toggle="tab" onClick="tabSelect(this)">CD</a></li>
-    <li role="presentation"><a href="#dvd" role="tab" data-toggle="tab" onClick="tabSelect(this)">DVD</a></li>
+    <li role="presentation"><a href="#braille" role="braille" data-toggle="tab" onClick="tabSelect(this)">เบรลล์</a></li>
+    <li role="presentation"><a href="#cassette" role="cassette" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
+    <li role="presentation"><a href="#daisy" role="daisy" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
+    <li role="presentation"><a href="#cd" role="cd" data-toggle="tab" onClick="tabSelect(this)">CD</a></li>
+    <li role="presentation"><a href="#dvd" role="dvd" data-toggle="tab" onClick="tabSelect(this)">DVD</a></li>
   </ul>
 
   <div class="tab-content">
@@ -153,8 +153,9 @@
 
     function tabSelect(tab){
       console.log(tab);
-      console.log(tab.innerHTML.toLowerCase());
-      tabClicked = tab.innerHTML.toLowerCase();
+      console.log(tab.getAttribute('role').toLowerCase());
+      tabClicked = tab.getAttribute('role').toLowerCase();
+
       if(tabClicked == "braille"){
         //$(".addButton").attr('data-target', "");
         //$(".addButton").attr('onClick', "add()");
@@ -189,6 +190,7 @@
       clearTimeout(myModal.data('hideInteval'));
       var id = setTimeout(function(){
           myModal.modal('hide');
+          window.location.reload(true);
       }, 1500);
       myModal.data('hideInteval', id);
     });
