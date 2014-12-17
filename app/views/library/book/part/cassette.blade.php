@@ -12,7 +12,7 @@
       <tr>
         <td><a href="{{$bid}}/cassette/{{$item->id}}">{{$item->id}}</a></td>
         <td>{{$item->numpart}}</td>
-        <td>{{$item->notes}}</td>
+        <td>{{$item->detail()->first()->notes}}</td>
       </tr>      
       @endforeach 
     </tbody>

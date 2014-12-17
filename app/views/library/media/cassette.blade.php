@@ -5,7 +5,7 @@
 @stop
 
 @section('body')
-<div class="contaner">
+<div class="container">
 	<div class="col-md-12">
 		<div class="row">
 				id : {{$item->id}}<br>
@@ -13,7 +13,7 @@
 				numpart : {{$item->numpart}}<br>
 				reserved : {{$item->reserved}}<br>
 				produc_date : {{$item->produce_date}}<br>
-				notes : {{$item->notes}}<br>
+				notes : {{$item->detail()->first()->notes}}<br>
 				<br>
 		</div>
 		<table class="table">

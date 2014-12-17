@@ -8,7 +8,7 @@
 <div class="well">
   <div>
     <h2>I{{$book['id']}}:{{$book['title']}}
-      <a href="/book/{{$book['id']}}/edit" class="btn btn-danger pull-right">แก้ไข</a>
+      <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-danger pull-right">แก้ไข</a>
 
     </h2>
   </div>
@@ -49,7 +49,7 @@
 
     <div role="tabpanel" class="tab-pane" id="braille">
       @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button  class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
@@ -150,6 +150,11 @@
 
     //var tabClicked = "braille";
     var tabClicked = "";
+    //check and set tab if access tab panel from url link.
+    if (window.location.href.match('#')){
+      tabClicked  = window.location.hash.replace('#','');
+      console.log(tabClicked);
+    }
 
     function tabSelect(tab){
       console.log(tab);
@@ -166,6 +171,15 @@
         //$(".addButton").attr('onClick', "");
       }
     } 
+
+    //Enable Link to tab
+
+
+    $(function() {
+    var hash = window.location.hash;
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+    });
+
 
     function add(){
       console.log($('#amount').val());
@@ -190,7 +204,12 @@
       clearTimeout(myModal.data('hideInteval'));
       var id = setTimeout(function(){
           myModal.modal('hide');
-          window.location.reload(true);
+          if (!window.location.href.match('#')) {
+            window.location.href += ("#"+ tabClicked);
+          }else{
+            window.location.href.substring(0, tabClicked.lastIndexOf('#') + 1);
+          }
+          window.location.reload(true); 
       }, 1500);
       myModal.data('hideInteval', id);
     });

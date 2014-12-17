@@ -68,8 +68,8 @@
   </ul>
 </div>
 </div>
-<div id ="wrap">
- <div class="container-fluid">
+<div >
+ <div class="row">
    @if ($errors->has())
    <div class="alert alert-danger" role="alert">
      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -113,8 +113,8 @@
 </div>
 
 
-<div id="footer">
-  <div class="container-fluid">
+<div >
+  <div class="row">
    <div class = "col-md-1">
     <img src="{{ asset('/img/logo.png') }}" class = "img-responsive">
   </div>

@@ -14,7 +14,7 @@
 
 		</div>
 		<div class="panel-body">
-			<form action="" method="POST" role="form">
+			<form action="{{ URL::to('book/'.$book->id.'/dvd/'.$item->id.'/edit'); }}" method="POST" role="form">
 
 				<div class="col-md-12">
 					<table class="table">
@@ -43,10 +43,10 @@
 						@endforeach
 					</table>
 				</div>
+				<div class="col-md-12">
+				<input type = "submit"  class="btn btn-success pull-right">
+				</div>
 			</form>
-			<div class="col-md-12">
-				<button type="button" class="btn btn-success pull-right">แก้ไข</button>
-			</div>
 		</div>
 	</div>
 </div>

@@ -1,5 +1,8 @@
 <?php
 class MediaController extends Controller{
+
+  /* Initial */
+
   public function addBraille($bookId){
     $braille = new Braille();
     
@@ -72,6 +75,8 @@ class MediaController extends Controller{
     }
   }
 
+  /* Getter */
+
   public function getBraille($bid,$id){
     $braille = Braille::find($id);
     return View::make('library.media.braille')->with(array('item'=>$braille,'bid'=>$bid));
@@ -90,7 +95,7 @@ class MediaController extends Controller{
     $daisy = Daisy::find($id);
     $diasydetail = Daisydetail::where('daisy_id','=',$daisy ->id)->get();
     return View::make('library.media.daisy')->with(array('book'=>$book,'item'=>$daisy,'detail'=>$diasydetail,'bid'=>$bid));
-  }
+  } 
 
   public function getCD($bid,$id){
     $book =Book::find($bid);
@@ -104,6 +109,63 @@ class MediaController extends Controller{
     $dvd = DVD::find($id);
     $dvddetail = Dvddetail::where('dvd_id','=',$dvd ->id)->get();
     return View::make('library.media.dvd')->with(array('book'=>$book,'item'=>$dvd,'detail'=>$dvddetail,'bid'=>$bid));
+  }
+
+  /* Setter */
+
+  public function setDVD($bookId,$dvdId){
+    $note = Input::get('note');
+    $status = Input::get('status');
+    $dvdDetail = Dvddetail::where('dvd_id' ,$dvdId)->first();
+    $dvdDetail->status = $status;
+    $dvdDetail->notes = $note;
+    var_dump($dvdDetail);
+    $dvdDetail->save();
+    return Redirect::to(url('book/'.$bookId.'#dvd'));
+  }
+
+  public function setCassette($bookId,$casseteId){
+    $note = Input::get('note');
+    $status = Input::get('status');
+    $casseteDetail = Cassetedetail::where('cassete_id' ,$casseteId)->first();
+    $casseteDetail->status = $status;
+    $casseteDetail->notes = $note;
+    var_dump($casseteDetail);
+    $casseteDetail->save();
+    return Redirect::to(url('book/'.$bookId.'#cassette'));
+  }
+
+  public function setCD($bookId,$cdId){
+    $note = Input::get('note');
+    $status = Input::get('status');
+    $cdDetail = Cddetail::where('cd_id' ,$cdId)->first();
+    $cdDetail->status = $status;
+    $cdDetail->notes = $note;
+    var_dump($cdDetail);
+    $cdDetail->save();
+    return Redirect::to(url('book/'.$bookId.'#cd'));
+  }
+
+   public function setDaisy($bookId,$daisyId){
+    $note = Input::get('note');
+    $status = Input::get('status');
+    $daisyDetail = Daisydetail::where('daisy_id' ,$daisyId)->first();
+    $daisyDetail->status = $status;
+    $daisyDetail->notes = $note;
+    var_dump($daisyDetail);
+    $daisyDetail->save();
+    return Redirect::to(url('book/'.$bookId.'#daisy'));
+  }
+
+  public function setBraille($bookId,$brailleId){
+    $note = Input::get('note');
+    $status = Input::get('status');
+    $brailleDetail = Brailledetail::where('braille_id' ,$brailleId)->first();
+    $brailleDetail->status = $status;
+    $brailleDetail->notes = $note;
+    var_dump($brailleDetail);
+    $brailleDetail->save();
+    return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
 }

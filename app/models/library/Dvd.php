@@ -13,7 +13,7 @@ class DVD extends Eloquent {
     public $timestamps = false;
 
     public function book()   { return $this->belongsTo('Book'); }
-    public function detail()   { return $this->hasMany('Dvddetail'); }
+    public function detail()   { return $this->hasMany('Dvddetail','dvd_id'); }
     public function borrow()   { return $this->hasOne('Dvdborrow'); }
     
     //Relation

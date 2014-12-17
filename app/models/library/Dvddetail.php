@@ -6,7 +6,7 @@ class Dvddetail extends Eloquent {
 
     public $timestamps = false;
 
-    public function dvd()   { return $this->belongsTo('DVD'); }
+    public function dvd()   { return $this->belongsTo('dvd'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
