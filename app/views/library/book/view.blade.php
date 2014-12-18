@@ -160,7 +160,7 @@
       console.log(tab);
       console.log(tab.getAttribute('role').toLowerCase());
       tabClicked = tab.getAttribute('role').toLowerCase();
-
+      document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked;
       if(tabClicked == "braille"){
         //$(".addButton").attr('data-target', "");
         //$(".addButton").attr('onClick', "add()");
@@ -205,11 +205,13 @@
       var id = setTimeout(function(){
           myModal.modal('hide');
           if (!window.location.href.match('#')) {
-            window.location.href += ("#"+ tabClicked);
+            document.location.href += ("#"+ tabClicked);
+            console.log("on here");
           }else{
-            window.location.href.substring(0, tabClicked.lastIndexOf('#') + 1);
+            document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+"#"+tabClicked;
+            console.log("here");
           }
-          window.location.reload(true); 
+          window.location.reload();
       }, 1500);
       myModal.data('hideInteval', id);
     });
