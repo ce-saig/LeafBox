@@ -114,61 +114,73 @@ class MediaController extends Controller{
   /* Setter */
 
   public function setDVD($bookId,$dvdId){
-    $note = Input::get('note');
-    $status = Input::get('status');
-    $dvdDetail = Dvddetail::where('dvd_id' ,$dvdId)->first();
-    $dvdDetail->status = $status;
-    $dvdDetail->notes = $note;
-    var_dump($dvdDetail);
-    $dvdDetail->save();
+    $input = Input::all();
+    $dvdDetail = Dvddetail::where('dvd_id' ,$dvdId)->get();
+    $i = 0;
+
+    foreach($dvdDetail as $details) {
+      $details->status = $input['status'][$i];
+      $details->notes = $input['note'][$i++];
+      $details->save();
+    }
+
     return Redirect::to(url('book/'.$bookId.'#dvd'));
   }
 
   public function setCassette($bookId,$casseteId){
-    $note = Input::get('note');
-    $status = Input::get('status');
-    $cassetteDetail = Cassettedetail::where('cassette_id' ,$casseteId)->first();
-    $cassetteDetail->status = $status;
-    $cassetteDetail->notes = $note;
-    var_dump($cassetteDetail);
-    $cassetteDetail->save();
+    $input = Input::all();
+    $cassetteDetail = Cassettedetail::where('cassette_id' ,$casseteId)->get();
+    $i = 0;
+
+    foreach($cassetteDetail as $details) {
+      $details->status = $input['status'][$i];
+      $details->notes = $input['note'][$i++];
+      $details->save();
+    }
+
     return Redirect::to(url('book/'.$bookId.'#cassette'));
   }
 
   public function setCD($bookId,$cdId){
-    $note = Input::get('note');
-    $status = Input::get('status');
-    $track_fr = Input::get('track_fr');
-    $track_to = Input::get('track_to');
-    $cdDetail = Cddetail::where('cd_id' ,$cdId)->first();
-    $cdDetail->status = $status;
-    $cdDetail->notes = $note;
-    $cdDetail->track_fr = $track_fr;
-    $cdDetail->track_to = $track_to;
-    var_dump($cdDetail);
-    $cdDetail->save(); 
+    $input = Input::all();
+    $cdDetail = Cddetail::where('cd_id' ,$cdId)->get();
+    $i = 0;
+  
+    foreach($cdDetail as $details) {
+      $details->status = $input['status'][$i];
+      $details->notes = $input['note'][$i];
+      $details->track_fr = $input['track_fr'][$i];
+      $details->track_to = $input['track_to'][$i++];
+      $details->save(); 
+    }
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
 
    public function setDaisy($bookId,$daisyId){
-    $note = Input::get('note');
-    $status = Input::get('status');
-    $daisyDetail = Daisydetail::where('daisy_id' ,$daisyId)->first();
-    $daisyDetail->status = $status;
-    $daisyDetail->notes = $note;
-    var_dump($daisyDetail);
-    $daisyDetail->save();
+    $input = Input::all();
+    $daisyDetail = Daisydetail::where('daisy_id' ,$daisyId)->get();
+     $i = 0;
+
+    foreach($daisyDetail as $details) {
+      $details->status = $input['status'][$i];
+      $details->notes = $input['note'][$i++];
+      $details->save();
+    }
+
     return Redirect::to(url('book/'.$bookId.'#daisy'));
   }
 
   public function setBraille($bookId,$brailleId){
-    $note = Input::get('note');
-    $status = Input::get('status');
-    $brailleDetail = Brailledetail::where('braille_id' ,$brailleId)->first();
-    $brailleDetail->status = $status;
-    $brailleDetail->notes = $note;
-    var_dump($brailleDetail);
-    $brailleDetail->save();
+    $input = Input::all();
+    $brailleDetail = Brailledetail::where('braille_id' ,$brailleId)->get();
+     $i = 0;
+
+    foreach($brailleDetail as $details) {
+      $details->status = $input['status'][$i];
+      $details->notes = $input['note'][$i++];
+      $details->save();
+    }
+
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 

@@ -221,5 +221,6 @@
       }, 1500);
       myModal.data('hideInteval', id);
     });
+
   </script>
 @stop

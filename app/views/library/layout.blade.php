@@ -131,6 +131,7 @@
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- AJAX Databases -->
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+
 @show
 </body>
 </html>
