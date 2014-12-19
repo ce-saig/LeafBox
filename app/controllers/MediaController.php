@@ -127,22 +127,26 @@ class MediaController extends Controller{
   public function setCassette($bookId,$casseteId){
     $note = Input::get('note');
     $status = Input::get('status');
-    $casseteDetail = Cassetedetail::where('cassete_id' ,$casseteId)->first();
-    $casseteDetail->status = $status;
-    $casseteDetail->notes = $note;
-    var_dump($casseteDetail);
-    $casseteDetail->save();
+    $cassetteDetail = Cassettedetail::where('cassette_id' ,$casseteId)->first();
+    $cassetteDetail->status = $status;
+    $cassetteDetail->notes = $note;
+    var_dump($cassetteDetail);
+    $cassetteDetail->save();
     return Redirect::to(url('book/'.$bookId.'#cassette'));
   }
 
   public function setCD($bookId,$cdId){
     $note = Input::get('note');
     $status = Input::get('status');
+    $track_fr = Input::get('track_fr');
+    $track_to = Input::get('track_to');
     $cdDetail = Cddetail::where('cd_id' ,$cdId)->first();
     $cdDetail->status = $status;
     $cdDetail->notes = $note;
+    $cdDetail->track_fr = $track_fr;
+    $cdDetail->track_to = $track_to;
     var_dump($cdDetail);
-    $cdDetail->save();
+    $cdDetail->save(); 
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
 

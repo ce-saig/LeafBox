@@ -9,8 +9,8 @@
      </thead>
     <tbody>
       @foreach ($daisy as $item)
-      <tr>
-        <td><a href="{{$bid}}/daisy/{{$item->id}}">{{$item->id}}</a></td>
+      <tr class = "hover" href="{{$bid}}/daisy/{{$item->id}}">
+        <td>{{$item->id}}</td>
         <td>{{$item->numpart}}</td>
         <td>{{$item->notes}}</td>
       </tr>

@@ -9,8 +9,8 @@
      </thead>
     <tbody>
       @foreach ($dvd as $item)
-      <tr>
-        <td><a href="{{$bid}}/dvd/{{$item->id}}">{{$item->id}}</a></td>
+      <tr class = "hover" href="{{$bid}}/dvd/{{$item->id}}">
+        <td>{{$item->id}}</td>
         <td>{{$item->numpart}}</td>
         <td>{{$item->detail()->first()->notes}}</td>
       </tr>

@@ -44,7 +44,7 @@
 					</table>
 				</div>
 				<div class="col-md-12">
-				<input type = "submit"  class="btn btn-success pull-right">
+				<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
 				</div>
 			</form>
 		</div>

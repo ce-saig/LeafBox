@@ -148,6 +148,12 @@
 
   <script>
 
+    //make table row as a link
+    $("table").on("click", "tr", function(e) {
+        if ($(e.target).is("a,input")) 
+            return;
+        location.href = $(this).attr("href");
+    });
     //var tabClicked = "braille";
     var tabClicked = "";
     //check and set tab if access tab panel from url link.

@@ -1,4 +1,7 @@
 <?php 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
 	class CreateDVDDetail extends Migration {
 		public function up()
 		{
