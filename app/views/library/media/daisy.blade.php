@@ -38,7 +38,7 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" name="note[]" class="form-control" value="{{$value->notes}}">	
+								<input type="text" name="note[" class="form-control" value="{{$value->notes}}">	
 							</td>
 						</tr>
 						@endforeach

@@ -184,4 +184,12 @@ class MediaController extends Controller{
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
+  public function removeAllDvd($bookId,$dvdId){
+    $dvds = Dvd::where('book_id',$bookId)->get();
+    foreach ($dvds as $dvd) {
+      $dvd->detail()->delete();
+      $dvd->delete();
+    }
+  }
+
 }

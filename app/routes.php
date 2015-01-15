@@ -59,6 +59,8 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::post('daisy/{id}/edit','MediaController@setDaisy');
   Route::post('cassette/{id}/edit','MediaController@setCassette');
 
+  Route::post('dvd/deleteAll','MediaController@removeAllDvd');
+
 });
 
 Route::get('borrow', 'BorrowController@index');

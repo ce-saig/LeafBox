@@ -8,7 +8,7 @@
      </thead>
     <tbody>
       @foreach ($cassette as $item)      
-    <tr  href="{{$bid}}/cassette/{{$item->id}}">
+    <tr class = "hover" href="{{$bid}}/cassette/{{$item->id}}">
         <td>{{$item->id}}</td>
         <td>{{$item->numpart}}</td>
     </tr>      
