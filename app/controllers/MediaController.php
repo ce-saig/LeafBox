@@ -184,12 +184,53 @@ class MediaController extends Controller{
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
-  public function removeAllDvd($bookId,$dvdId){
-    $dvds = Dvd::where('book_id',$bookId)->get();
+  public function removeAllDvd($bookId){
+
+    $dvds = DVD::where('book_id',$bookId)->get();
     foreach ($dvds as $dvd) {
       $dvd->detail()->delete();
       $dvd->delete();
     }
+    return Redirect::to(url('book/'.$bookId.'#dvd'));
   }
 
+  public function removeAllCd($bookId){
+
+    $cds = CD::where('book_id',$bookId)->get();
+    foreach ($cds as $cd) {
+      $cd->detail()->delete();
+      $cd->delete();
+    }
+     return Redirect::to(url('book/'.$bookId.'#cd'));
+  }
+
+  public function removeAllDaisy($bookId){
+
+    $daisys = Daisy::where('book_id',$bookId)->get();
+    foreach ($daisys as $daisy) {
+      $daisy->detail()->delete();
+      $daisy->delete();
+    }
+     return Redirect::to(url('book/'.$bookId.'#daisy'));
+  }
+
+  public function removeAllCassette($bookId){
+
+    $items = Cassette::where('book_id',$bookId)->get();
+    foreach ($items as $item) {
+      $item->detail()->delete();
+      $item->delete();
+    }
+    return Redirect::to(url('book/'.$bookId.'#cassette'));
+  }
+
+  public function removeAllBraille($bookId){
+
+    $items = Braille::where('book_id',$bookId)->get();
+    foreach ($items as $item) {
+      $item->detail()->delete();
+      $item->delete();
+    }
+    return Redirect::to(url('book/'.$bookId.'#braille'));
+  }
 }

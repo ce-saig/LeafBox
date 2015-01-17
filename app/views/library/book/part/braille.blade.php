@@ -1,4 +1,6 @@
 <div role="tabpanel" class="tab-pane active" id="detail">
+
+  <a class = "btn btn-danger pull-right" href="{{$bid}}/braille/deleteAll">ลบสื่อนี้</a>
   <table class="table table-hover">
     <thead>
       <tr>
