@@ -1,10 +1,68 @@
 <?php
 
+/*
+$userId : of user that do action
+$memberId : of borrower
+$selectedList : array of selected media's object
+*/
+
+
 class BorrowController extends BaseController {
+
   public function index()
   {
     return View::make('borrow');
   }
+
+  /*
+  * Return list of book that going to borrow
+  */
+  public function getSelectedBookList()
+  {
+    # code...
+  }
+
+  /* When user click on book (media) item list
+  *  add it to book selected list
+  */
+  public function postSelectBook($mediaId)
+  {
+    # code...
+    return $mediaId;
+  }
+
+  
+  //TODO : Nut do this pls
+  /*
+  * Search for member
+  * - by Member's id
+  * - by Member's name
+  * return Array of Member's Object if member existed
+  *        null if member didnt existed
+  */
+  public function getMemberList($key)
+  {
+    # code...
+  }
+
+
+  /*
+  * When User click on item of Member's list
+  * Get Member of memberId and add to to borrower
+  */
+  public function postMember($memberId)
+  {
+    # code...
+  }
+
+  /*
+  * Save list of borrowed book
+  */
+  public function postSubmitSelectedList($userId,$memberId,$selectedList)
+  {
+    # code...
+  }
+
 
   public function search()
   {

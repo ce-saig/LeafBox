@@ -64,4 +64,5 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
 });
 
 Route::get('borrow', 'BorrowController@index');
+Route::get('borrow/{mediaId}', 'BorrowController@postSelectBook');
 Route::get('borrowSearch', 'BorrowController@search');
