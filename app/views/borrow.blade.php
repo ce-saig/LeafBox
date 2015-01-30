@@ -103,8 +103,8 @@
       <div class="modal-body">
         ชื่อ
         <input type="text" name="" id="search-book"/>
-        <ul id="result">
-        </ul>
+        <div id="result">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -145,23 +145,23 @@
     for(var i=0; i<jsonArr.length; i++){
         //console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-          $('#result').append("<li> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</li>");
+          $('#result').append("<a href=\"/borrow/"+jsonArr[i][0][brailleIndex].id+"\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-          $('#result').append("<li> <b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</li>");
+          $('#result').append("<a href=\"/borrow/"+jsonArr[i][1][cassetteIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-          $('#result').append("<li> <b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</li>");
+          $('#result').append("<a href=\"/borrow/"+jsonArr[i][2][cdIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-          $('#result').append("<li> <b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</li>");
+          $('#result').append("<a href=\"/borrow/"+jsonArr[i][3][daisyIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-          $('#result').append("<li> <b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</li>");
+          $('#result').append("<a href=\"/borrow/"+jsonArr[i][4][dvdIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
       }

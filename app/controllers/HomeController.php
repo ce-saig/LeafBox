@@ -3,7 +3,7 @@
 class HomeController extends Controller {
 
 	public function index() {
-		$books = Book::all();
+		$books = Book::where("id",">=",1)->where("id","<=",100)->get();
 		return View::make('library.index',array('books' => $books ));
 	}
 
@@ -50,6 +50,5 @@ class HomeController extends Controller {
 		Auth::logout(); 
 		return Redirect::to('/'); 
 	}
-
 
 }
