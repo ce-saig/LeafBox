@@ -1,55 +1,28 @@
-/* Sticky footer styles
-      -------------------------------------------------- */
 
-      html,
-      body {
-        height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
-      }
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+  background-color: #ecf0f1;
+}
+.wrapper {
+  min-height: 100%;
+  height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+  height: 100%;
+  margin: 0 auto -135px; /* the bottom margin is the negative value of the footer's height */
+}
 
-      /* Wrapper for page content to push down footer */
-      #wrap {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        /* Negative indent footer by it's height */
-        margin: 0 auto -60px;
-      }
+.footer {
+  height: 135px; 
+  background-color: #34495e;
+  color: #ecf0f1;
+  padding-top: 10px;
+}
 
-      /* Set the fixed height of the footer here */
-      #push,
-      #footer {
-      	padding-top: 1%;
-      }
-      #footer {
-        background-color: #f5f5f5;
-      }
-
-      /* Lastly, apply responsive CSS fixes as necessary */
-      @media (max-width: 767px) {
-        #footer {
-          margin-left: -20px;
-          margin-right: -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-
-
-
-      /* Custom page CSS
-      -------------------------------------------------- */
-      /* Not required for template or sticky footer method. */
-
-      .container {
-        width: auto;
-        max-width: 1000px;
-      }
-      .container .credit {
-        margin: 20px 0;
-      }
-
-/**************** STYLE ********************/
+.footer-img {
+  text-align: center;
+}
 
 .panel-hover:hover {
 	border-style: solid;
@@ -60,6 +33,21 @@
 .label-status {
 	font-size: 15px;
 }
+
+.img-logo {
+  height: 120px;
+}
+
+.search-bar {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.list-media {
+  overflow: scroll;
+  height: 300px;
+}
+
 
 a {
 	color : black;
