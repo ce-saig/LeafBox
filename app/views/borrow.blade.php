@@ -102,9 +102,12 @@
       </div>
       <div class="modal-body">
         ชื่อ
-        <input type="text" name="" id="search-book"/>
-        <div id="result">
-        </div>
+        <input type="text" name="" id="search-book"/><button class = "btn btn-default search-member-btn">ค้นหา</button>
+        <table id="member-result" class = "table">
+        <tr>
+          <td>ชื่อ</td><td>เพศ</td>
+        </tr>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -166,5 +169,19 @@
 
       }
     }
+
+    $('.search-member-btn').click(function() {
+        alert("click!");
+        /* You should change '1' on url to parameter which you want. */
+        $.ajax({
+          url: "{{ url('borrowMember/1') }}",
+        }).done(function(data) {
+          for(var i = 0;i < data.length; i++){
+            console.log(data[i].name);
+            $('#member-result').append("<tr><td>"+data[i].name+"</td><td>"+data[i].gender+"</td></tr>")
+          }
+        });
+    });
+
   </script>
   @stop

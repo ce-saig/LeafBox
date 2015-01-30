@@ -5,7 +5,7 @@ class Member extends Eloquent {
 
   //protected $connection = 'mysql2-library';
   
-	protected $table = 'MEMBER';
+	protected $table = 'member';
 
   protected $primaryKey = 'MEMBER_NO';
 
