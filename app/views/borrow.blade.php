@@ -171,11 +171,11 @@
     }
 
     $('.search-member-btn').click(function() {
-        alert("click!");
         /* You should change '1' on url to parameter which you want. */
         $.ajax({
           url: "{{ url('borrowMember/1') }}",
         }).done(function(data) {
+          $('#member-result').empty();
           for(var i = 0;i < data.length; i++){
             console.log(data[i].name);
             $('#member-result').append("<tr><td>"+data[i].name+"</td><td>"+data[i].gender+"</td></tr>")
