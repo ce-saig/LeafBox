@@ -27,9 +27,46 @@ class BorrowController extends BaseController {
   */
   public function postSelectBook($mediaId)
   {
-    # code...
-    return $mediaId;
+
+    // $media = findBy MediaID
+
+    $selectedList = Session::get('sel', array());
+
+    $isHas=array_key_exists(strval($mediaId),$selectedList);
+
+    if($isHas){
+      // Tell This media is already add to list and does nothing.
+      //return false;
+      return Response::json(array('status' => false));
+    }else{
+      $selectedList[$mediaId]="md";
+      Session::put('sel', $selectedList);
+      //return true;
+      return Response::json(array('status' => true));
+    }
+    //var_dump($isHas);
+    //var_dump($selectedList);
+    // Return adding status
   }
+/*
+    $product = App::make('ceddd\Product');
+    $product = $product->getById($id);
+    $arrayOfSoldItem = Session::get('pos', array());
+    
+    $soldItem = App::make('ceddd\SoldItem');
+    $soldItem->set('item',$product);
+    $isHas=array_key_exists(strval($soldItem->get('item')->get('barcode')),$arrayOfSoldItem);
+    if($isHas){
+      $soldItemOld = $arrayOfSoldItem[strval($soldItem->get('item')->get('barcode'))];
+      $soldItem->set('quantity',$soldItemOld->get('quantity')+1);        
+    }
+    else
+      $soldItem->set('quantity',1);
+    $soldItem->set('price',$product->get('price'));
+    $arrayOfSoldItem[strval($soldItem->get('item')->get('barcode'))] = $soldItem;
+    Session::put('pos', $arrayOfSoldItem);
+    return Redirect::to('manager/shop');
+*/
 
   
   //TODO : Nut do this pls
@@ -132,3 +169,4 @@ class BorrowController extends BaseController {
 
   }
 }
+
