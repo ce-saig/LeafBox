@@ -102,7 +102,9 @@ class BorrowController extends BaseController {
   */
   public function getMemberList($key)
   {
-    # code...
+    $memberTemp = Member::all();
+
+    return  $memberTemp;
   }
 
 

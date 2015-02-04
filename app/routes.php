@@ -39,6 +39,12 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::post('dvd/add', 'MediaController@addDVD');
   Route::post('daisy/add', 'MediaController@addDaisy');
 
+  Route::get('dvd/deleteAll','MediaController@removeAllDvd');
+  Route::get('cd/deleteAll','MediaController@removeAllCd');
+  Route::get('daisy/deleteAll','MediaController@removeAllDaisy');
+  Route::get('cassette/deleteAll','MediaController@removeAllCassette');
+  Route::get('braille/deleteAll','MediaController@removeAllBraille');
+
   Route::get('braille/{id}', 'MediaController@getBraille');//TODO
   Route::post('braille/{id}', 'MediaController@getBraille');//TODO
   
@@ -59,10 +65,12 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::post('daisy/{id}/edit','MediaController@setDaisy');
   Route::post('cassette/{id}/edit','MediaController@setCassette');
 
-  Route::post('dvd/deleteAll','MediaController@removeAllDvd');
+  
 
 });
 
 Route::get('borrow', 'BorrowController@index');
 Route::get('borrow/{mediaId}', 'BorrowController@postSelectBook');
 Route::get('borrowSearch', 'BorrowController@search');
+
+Route::get('borrowMember/{memberId}','BorrowController@getMemberList');

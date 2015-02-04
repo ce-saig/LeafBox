@@ -26,49 +26,50 @@
   <body>
     <div class="navbar navbar-default">
      <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand" href="/">LeafBox</a>
-   </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="/">LeafBox</a>
+    </div>
    <div class="navbar-collapse collapse navbar-responsive-collapse">
-    <ul class="nav navbar-nav">
-      <!-- class="active" -->
-      <li><a href="{{URL::to('/')}}">หน้าแรก</a></li>
-      <li><a href="{{URL::to('/book/add')}}">เพิ่มหนังสือใหม่</a></li>
-      <li><a href="{{URL::to('/borrow')}}">ระบบยืม - คืน</a></li>
-      <!-- <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          จัดการหนังสือ <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-         <li><a href="#">เพิ่ม</a></li>
+        <ul class="nav navbar-nav">
+          <!-- class="active" -->
+          <li><a href="{{URL::to('/')}}">หน้าแรก</a></li>
+          <li><a href="{{URL::to('/book/add')}}">เพิ่มหนังสือใหม่</a></li>
+          <li><a href="{{URL::to('/borrow')}}">ระบบยืม - คืน</a></li>
+          <!-- <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              จัดการหนังสือ <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+             <li><a href="#">เพิ่ม</a></li>
+           </ul>
+         </li> -->
+         <li><a href="#">สมาชิก</a></li>
        </ul>
-     </li> -->
-     <li><a href="#">สมาชิก</a></li>
-   </ul>
-   <ul class="nav navbar-nav navbar-right">
-     <li class="dropdown">
+       <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
 
-      @if(Auth::check())
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}<b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Setting</a></li>
-        <li class="divider"></li>
-        <li><a href="{{ URL::to('logout') }}">Log out</a></li>
-      </ul> 
-      @else
-      <li data-toggle="modal" data-target="#myModal" ><a> Sign in </a></li>
-      @endif
-      
-    </li>
-  </ul>
+          @if(Auth::check())
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Setting</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ URL::to('logout') }}">Log out</a></li>
+          </ul> 
+          @else
+          <li data-toggle="modal" data-target="#myModal" ><a> Sign in </a></li>
+          @endif
+          
+        </li>
+      </ul>
+    </div>
 </div>
-</div>
-<div >
+
+<div class = "wrapper">
  <div class="row">
    @if ($errors->has())
    <div class="alert alert-danger" role="alert">
@@ -86,44 +87,44 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
- <div class="modal-dialog">
-   <div class="modal-content">
-     <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-       <h4 class="modal-title" id="myModalLabel">Login</h4>
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+         <h4 class="modal-title" id="myModalLabel">Login</h4>
+       </div>
+       {{ Form::open(array('url' => 'loginUser')) }}
+       <div class="modal-body">
+        <p>
+         {{ Form::label('email', 'Email Address') }}
+         {{ Form::text('email', Input::old('email'), array('placeholder' => 'Your Email','class'=> 'form-control')) }}
+       </p>
+       <p>
+         {{ Form::label('password', 'Password') }}
+         {{ Form::password('password',array('class'=> 'form-control')) }}
+       </p>
      </div>
-     {{ Form::open(array('url' => 'loginUser')) }}
-     <div class="modal-body">
-      <p>
-       {{ Form::label('email', 'Email Address') }}
-       {{ Form::text('email', Input::old('email'), array('placeholder' => 'Your Email','class'=> 'form-control')) }}
-     </p>
-     <p>
-       {{ Form::label('password', 'Password') }}
-       {{ Form::password('password',array('class'=> 'form-control')) }}
-     </p>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       {{ Form::submit('Submit!',array('class'=> 'btn btn-success')) }}
+     </div>
+     {{ Form::close() }}
    </div>
-   <div class="modal-footer">
-     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-     {{ Form::submit('Submit!',array('class'=> 'btn btn-success')) }}
-   </div>
-   {{ Form::close() }}
- </div>
-</div>
-</div>
-
-
-<div >
-  <div class="row">
-   <div class = "col-md-1">
-    <img src="{{ asset('/img/logo.png') }}" class = "img-responsive">
-  </div>
-  <div class = "col-md-8">
-    <p class="muted credit"><b>ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</b></p>
   </div>
 </div>
+
 </div>
 
+
+<div class="footer">
+     <div class= "col-md-2 footer-img">
+      <img class = "img-logo" src="{{ asset('/img/logo.png') }}" >
+    </div>
+    <div class = "col-md-10 ">
+      <p >ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</p>
+    </div>
+  </div>
+</footer> 
 <!-- jQuery -->
 @section('script')
 <script type="text/javascript"  src="{{ asset('js/jquery.min.js') }}"></script>

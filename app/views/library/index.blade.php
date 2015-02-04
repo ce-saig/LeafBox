@@ -6,7 +6,7 @@
 
 @section('body')
 <div class = "row">
-	<div class = "col-md-12" >
+	<div class = "col-md-12 search-bar panel" >
 	  <form action = "{{ url('/search/book') }}" method="POST">
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" role="menu">
@@ -28,7 +28,7 @@
 	<hr>
 	<br>
 	<div  class= "col-md-12" id = "showBook">
-		@forelse ($books as $book)
+		 @forelse ($books as $book)
 		<a href = "{{url('book/'.$book->id) }}">
 		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
 			<div class = "panel-heading">
@@ -123,13 +123,28 @@
 			  <strong>คำเตือน!</strong> ไม่พบสื่อที่คุณกำลังหา
 			</div>
 	 	@endforelse
+	</div> 
+
+	<div class = "row">
+		<div class = "col-md-offset-1 col-md-5">
+			<div class = "panel panel-default">
+				<div class = "panel-heading">
+					หนังสือที่เพิ่มล่าสุด
+				</div>
+				<div class= "panel-body">
+				</div>
+			</div>
+		</div>
+		<div class = "col-md-5">
+			<div class = "panel panel-default">
+				<div class = "panel-heading">
+					หนังสือที่ยืมล่าสุด
+				</div>
+				<div class= "panel-body">
+					
+				</div>
+			</div>
+		</div>
 	</div>
-	{{-- AJAX CALL Respond Table ToDo:Nutsu  --}}
-	{{--}} <div>
-		 {{ Datatable::table()
-		    ->addColumn('title','author')       // these are the column headings to be shown
-		    ->setUrl(route('api.book'))   // this is the route where data will be retrieved
-		    ->render() }}
-	</div> --}}
 </div>
 @stop
