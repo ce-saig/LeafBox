@@ -33,20 +33,25 @@ class BorrowController extends BaseController {
     // D
     // C
     // B
-    if(strpos($mystring, "DVD")!==false){
+    $type="Braille";
+    $id=$mediaId;
+    echo preg_replace("/[0-9]/", "", $mediaId);
+    echo preg_replace("/[^0-9]/", "", $id);
+    if(strpos($mediaId, "DVD")!==false){
+      $type="D";
+      return "DVD";
+    }else if(strpos($mediaId, "CD")!==false){
+      $type="CD";
 
-    }else if(strpos($mystring, "CD")!==false){
+    }else if(strpos($mediaId, "D")!==false){
+      $type="D";
 
-    }else if(strpos($mystring, "D")!==false){
+    }else if(strpos($mediaId, "C")!==false){
+      $type="C";
 
-    }else if(strpos($mystring, "C")!==false){
-
-    }else{ // Braille
+    }else{ //braile
 
     }
-
-    $type="Braille";
-    $id="123";
 
     // $media = findBy MediaID
 
@@ -56,7 +61,6 @@ class BorrowController extends BaseController {
 
     if($isHas){
       // Tell This media is already add to list and does nothing.
-      //return false;
       return Response::json(array('status' => false));
     }else{
       $media['id']="ID";
@@ -67,9 +71,6 @@ class BorrowController extends BaseController {
       //return true;
       return Response::json(array('status' => true));
     }
-    //var_dump($isHas);
-    //var_dump($selectedList);
-    // Return adding status
   }
 /*
     $product = App::make('ceddd\Product');

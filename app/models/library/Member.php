@@ -7,7 +7,7 @@ class Member extends Eloquent {
   
 	protected $table = 'member';
 
-  protected $primaryKey = 'MEMBER_NO';
+  //protected $primaryKey = 'MEMBER_NO';
 
 	//Relations
 	// public function tags()        { return $this->morphToMany('Tag', 'taggable'); }
