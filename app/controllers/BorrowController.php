@@ -27,9 +27,7 @@ class BorrowController extends BaseController {
   */
   public function postSelectBook($mediaId)
   {
-<<<<<<< HEAD
 
-=======
     // DVD
     // CD
     // D
@@ -49,7 +47,7 @@ class BorrowController extends BaseController {
 
     $type="Braille";
     $id="123";
->>>>>>> fix few borrow
+
     // $media = findBy MediaID
 
     $selectedList = Session::get('sel', array());
