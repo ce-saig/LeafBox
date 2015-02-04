@@ -27,7 +27,29 @@ class BorrowController extends BaseController {
   */
   public function postSelectBook($mediaId)
   {
+<<<<<<< HEAD
 
+=======
+    // DVD
+    // CD
+    // D
+    // C
+    // B
+    if(strpos($mystring, "DVD")!==false){
+
+    }else if(strpos($mystring, "CD")!==false){
+
+    }else if(strpos($mystring, "D")!==false){
+
+    }else if(strpos($mystring, "C")!==false){
+
+    }else{ // Braille
+
+    }
+
+    $type="Braille";
+    $id="123";
+>>>>>>> fix few borrow
     // $media = findBy MediaID
 
     $selectedList = Session::get('sel', array());
@@ -39,7 +61,10 @@ class BorrowController extends BaseController {
       //return false;
       return Response::json(array('status' => false));
     }else{
-      $selectedList[$mediaId]="md";
+      $media['id']="ID";
+      $media['title']="TITLE";
+      //$media['----'];
+      $selectedList[$mediaId]=$media;
       Session::put('sel', $selectedList);
       //return true;
       return Response::json(array('status' => true));
@@ -155,7 +180,7 @@ class BorrowController extends BaseController {
       array_push($result[sizeof($result)-1], array());
       if($dvds){
         foreach($dvds as $dvd){
-          $dvd->id = 'DV'.str_pad($dvd->id, 3, '0', STR_PAD_LEFT);
+          $dvd->id = 'DVD'.str_pad($dvd->id, 3, '0', STR_PAD_LEFT);
           array_push($result[sizeof($result)-1][4], $dvd);
         }
       }
