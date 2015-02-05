@@ -33,7 +33,7 @@ class BorrowController extends BaseController {
     $type="Braille";
     $id=$mediaId;
     $mediaType=$mediaId;
-    preg_replace("/[0-9]/", "", $mediaType);
+    //preg_replace("/[0-9]/", "", $mediaType);
     $id = preg_replace("/[^0-9]/", "", $id);
 
     if(strpos($mediaType, "DVD")!==false){
@@ -49,9 +49,7 @@ class BorrowController extends BaseController {
     }
 
     // $media = findBy MediaID
-
     $selectedList = Session::get('sel', array());
-
     $isHas=array_key_exists(strval($mediaId),$selectedList);
     $status=false;
     if($isHas){
@@ -67,7 +65,8 @@ class BorrowController extends BaseController {
       Session::put('sel', $selectedList);
       $status=true;
     }
-    return Response::json(array('status' => $status,'list'=>$selectedList));
+
+    return Response::json(array('status' => $status,'media'=>end($selectedList)));
   }
 
 
