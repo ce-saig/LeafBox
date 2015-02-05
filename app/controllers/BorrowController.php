@@ -58,8 +58,9 @@ class BorrowController extends BaseController {
       // Tell This media is already add to list and does nothing.
       $status=false;
     }else{
-      //$media['type']=$mediaType;
-      //$media['id']=$id;
+      $media['type']=$mediaType;
+      $media['id']=$id;
+      $media['title']="TITLE";
       $media['item']=$item; //TODO get real name
       //$media['----'];
       $selectedList[$mediaId]=$media;
@@ -77,6 +78,7 @@ class BorrowController extends BaseController {
   public function getMember($key)
   {
     $member = Member::find($key);
+    Session::put('member', $member);
     return $member;
   }
 
@@ -107,6 +109,7 @@ class BorrowController extends BaseController {
   public function getClear()
   {
     Session::forget('sel');
+    return Session::get('member', array());
   }
 
 
