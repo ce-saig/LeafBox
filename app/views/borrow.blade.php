@@ -24,7 +24,7 @@
                   <th>ชนิดสื่อ</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class = "table_fill">
                 <tr>
                   <td>...</td>
                   <td>...</td>
@@ -140,8 +140,9 @@
   $("body").on("click", ".book_choose", function(event){ 
       event.preventDefault();
       var text = $(this).prop('href');
+        console.log(text);
         $.ajax({
-          type: "POST",
+          type: "GET",
           url: text,
         }).done(function(data) {
           console.log(data);
