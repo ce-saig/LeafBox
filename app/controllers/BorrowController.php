@@ -56,6 +56,7 @@ class BorrowController extends BaseController {
       // Tell This media is already add to list and does nothing.
       $status=false;
     }else{
+      $media['no']=count($selectedList)+1;
       $media['type']=$mediaType;
       $media['id']=$id;
       $media['title']="TITLE";
