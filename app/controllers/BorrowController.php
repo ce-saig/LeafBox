@@ -33,22 +33,18 @@ class BorrowController extends BaseController {
     $type="Braille";
     $id=$mediaId;
     $mediaType=$mediaId;
-    echo preg_replace("/[0-9]/", "", $mediaType);
-    echo preg_replace("/[^0-9]/", "", $id);
+    preg_replace("/[0-9]/", "", $mediaType);
+    preg_replace("/[^0-9]/", "", $id);
     if(strpos($mediaId, "DVD")!==false){
       $type="D";
-      return "DVD";
     }else if(strpos($mediaId, "CD")!==false){
       $type="CD";
-
     }else if(strpos($mediaId, "D")!==false){
       $type="D";
-
     }else if(strpos($mediaId, "C")!==false){
       $type="C";
-
     }else{ //braile
-
+      $type="B";
     }
 
     // $media = findBy MediaID
@@ -63,7 +59,7 @@ class BorrowController extends BaseController {
     }else{
       $media['type']=$mediaType;
       $media['id']=$id;
-      $media['title']="TITLE";
+      $media['title']="TITLE"; //TODO get real name
       //$media['----'];
       $selectedList[$mediaId]=$media;
       Session::put('sel', $selectedList);
