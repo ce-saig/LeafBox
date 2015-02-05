@@ -33,22 +33,19 @@ class BorrowController extends BaseController {
     $type="Braille";
     $id=$mediaId;
     $mediaType=$mediaId;
-    echo preg_replace("/[0-9]/", "", $mediaType);
-    echo preg_replace("/[^0-9]/", "", $id);
-    if(strpos($mediaId, "DVD")!==false){
-      $type="D";
-      return "DVD";
-    }else if(strpos($mediaId, "CD")!==false){
-      $type="CD";
+    preg_replace("/[0-9]/", "", $mediaType);
+    $id = preg_replace("/[^0-9]/", "", $id);
 
-    }else if(strpos($mediaId, "D")!==false){
-      $type="D";
-
-    }else if(strpos($mediaId, "C")!==false){
-      $type="C";
-
+    if(strpos($mediaType, "DVD")!==false){
+      $item = DVD::find((int)$id);
+    }else if(strpos($mediaType, "CD")!==false){
+      $item = CD::find((int)$id);
+    }else if(strpos($mediaType, "D")!==false){
+      $item = Daisy::find((int)$id);
+    }else if(strpos($mediaType, "C")!==false){
+      $item = Cassette::find((int)$id);
     }else{ //braile
-
+      $item = Braille::find((int)$id);
     }
 
     // $media = findBy MediaID
@@ -61,9 +58,9 @@ class BorrowController extends BaseController {
       // Tell This media is already add to list and does nothing.
       $status=false;
     }else{
-      $media['type']=$mediaType;
-      $media['id']=$id;
-      $media['title']="TITLE";
+      //$media['type']=$mediaType;
+      //$media['id']=$id;
+      $media['item']=$item; //TODO get real name
       //$media['----'];
       $selectedList[$mediaId]=$media;
       Session::put('sel', $selectedList);
@@ -79,7 +76,8 @@ class BorrowController extends BaseController {
   */
   public function getMember($key)
   {
-    return $key;
+    $member = Member::find($key);
+    return $member;
   }
 
   //TODO : Nut do this pls
