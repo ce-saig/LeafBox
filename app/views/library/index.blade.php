@@ -7,9 +7,8 @@
 @section('body')
 <div class = "row">
 	<div class = "col-md-12 search-bar panel" >
-	  <form action = "{{ url('/search/book') }}" method="POST">
 		<div class = "col-md-2">
-			<select name = "search_type" class="form-control" role="menu">
+			<select name = "search_type" class="form-control" id = "search_type" role="menu">
 			    <option value = "title" >ชื่อ</option>
 			    <option value = "author" >ชื่อผู้แต่ง</option>
 			    <option value = "translate" >ชื่อผู้แปล</option>
@@ -19,25 +18,28 @@
 		</div>
 
 		<div class = "col-md-8">
-			<input name = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
+			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>		  
 
-		<input type = "submit" class="col-md-2 btn btn-success pull-right" value = "ค้นหา" />
-	  </form>
+		<button  class="col-md-2 btn btn-success pull-right search_submit" >ค้นหา</button>
+
 	</div>	
 	<hr>
 	<br>
 	<div  class= "col-md-12" id = "showBook">
-		 @forelse ($books as $book)
+
+		<div class = "search_result">
+		</div>
+		{{--  @forelse ($books as $book)
 		<a href = "{{url('book/'.$book->id) }}">
 		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
 			<div class = "panel-heading">
 				{{ $book->id }}. <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
 			</div>
-			<div class = "panel-body">
+			<div class = "panel-body"> --}}
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
-			  
-			  <div class = "col-md-12">
+			
+			 {{-- <div class = "col-md-12">
 				<div class = "label-status" >
 					
 					<div class = "col-md-2" >
@@ -113,7 +115,7 @@
 					</div>
 					
 				</div>
-			  </div>
+			  </div> 
 			</div>
 		</div>
 	   </a>
@@ -122,7 +124,7 @@
 			  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			  <strong>คำเตือน!</strong> ไม่พบสื่อที่คุณกำลังหา
 			</div>
-	 	@endforelse
+	 	@endforelse --}}
 	</div> 
 
 	<div class = "row">
@@ -132,6 +134,17 @@
 					หนังสือที่เพิ่มล่าสุด
 				</div>
 				<div class= "panel-body">
+					<ul class="list_group">
+					@foreach($books_all as $book)
+					   <a href = "{{ url('book/'.$book->id) }}">
+						<li class="list-group-item">
+
+							 {{ $book->id }} . <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
+
+						</li>
+					  </a>
+					@endforeach
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -147,4 +160,5 @@
 		</div>
 	</div>
 </div>
+
 @stop
