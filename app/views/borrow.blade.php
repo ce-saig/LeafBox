@@ -25,21 +25,11 @@
                 </tr>
               </thead>
               <tbody class = "table_fill">
-                <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                </tr>
-               {{-- @foreach ($sel as $media)
-                  <tr>
-                    <td>$media['id']</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                  </tr>                  
-                @endforeach --}}
-                <tr>
+              </tbody>
+            </table>
+            <table class="table table-striped table-hover">
+              <tbody class = "table_sum">
+              <tr>
                   <th>รวม</th>
                   <th>X เล่ม</th>
                   <th>Y ชุด</th>
@@ -47,6 +37,7 @@
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
         <div class="col-md-6">
@@ -67,7 +58,7 @@
           <div class="col-md-12">
             <button type="button" class="btn btn-success pull-right">ทำรายการ</button>
             <!-- TODO add jquery for refresh here -->
-            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right">ล้าง</button></a>
+            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
           </div>
         </div>
       </div>
@@ -145,11 +136,31 @@
           type: "GET",
           url: text,
         }).done(function(data) {
-          console.log(data['list']);
+          console.log(data['media']);
+
+          var input_data = data['media'];
+          var tr_table = $('<tr></tr>');
+          tr_table.append('<td>'+input_data['no']+'</td>');
+          tr_table.append('<td>'+input_data['title']+'</td>');
+          tr_table.append('<td>'+input_data['id']+'</td>');
+          tr_table.append('<td>'+input_data['type']+'</td>');
+
+          $(".table_fill").append(tr_table);
+        });
+   });
+
+  $('.del_btn').click(function(event) {
+    event.preventDefault();
+    $(".table_fill").text("");
+    $.ajax({
+          type: "GET",
+          url: "{{ url('/borrow/clear') }}",
+        }).done(function(data) {
+          console.log(data);
+          //do before clear
         });
 
-      
-   });
+  }); 
 
   function addToList(data){
     //console.log('addToList');
