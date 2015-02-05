@@ -145,7 +145,7 @@
           type: "GET",
           url: text,
         }).done(function(data) {
-          console.log(data);
+          console.log(data['list']);
         });
 
       
