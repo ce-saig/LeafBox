@@ -31,12 +31,14 @@
                   <td>...</td>
                   <td>...</td>
                 </tr>
-                <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                </tr>
+                @foreach ($sel as $media)
+                  <tr>
+                    <td>$media['id']</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                  </tr>                  
+                @endforeach
                 <tr>
                   <th>รวม</th>
                   <th>X เล่ม</th>
@@ -64,6 +66,8 @@
           </div>
           <div class="col-md-12">
             <button type="button" class="btn btn-success pull-right">ทำรายการ</button>
+            <!-- TODO add jquery for refresh here -->
+            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right">ล้าง</button></a>
           </div>
         </div>
       </div>
@@ -122,10 +126,10 @@
   $('#search-book').keyup(function(){
     $('#result').html('');
     if($('#search-book').val() != ''){
-      $.get('{{ url('borrowSearch') }}', 
+      $.get('{{ url("borrow/search") }}', 
         {keyword: $('#search-book').val()},
         function(data){
-          console.log(data);
+          //console.log(data);
           if(data != ""){
             addToList(data);
           }
@@ -134,51 +138,50 @@
   });
 
   function addToList(data){
-    console.log('addToList');
-    console.log(typeof data);
+    //console.log('addToList');
+    //console.log(typeof data);
     var jsonArr = jQuery.parseJSON(data);
-    console.log('haha');
+    /*
     console.log(data);
     console.log(typeof jsonArr);
     console.log(jsonArr);
     console.log("****");
     console.log(jsonArr.length);
-    console.log(jsonArr[0][0]);
+    console.log(jsonArr[0][0]);*/
 
     for(var i=0; i<jsonArr.length; i++){
         //console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-          $('#result').append("<a href=\"/borrow/"+jsonArr[i][0][brailleIndex].id+"\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a href=\"/borrow/book/"+jsonArr[i][0][brailleIndex].id+"\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-          $('#result').append("<a href=\"/borrow/"+jsonArr[i][1][cassetteIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a href=\"/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-          $('#result').append("<a href=\"/borrow/"+jsonArr[i][2][cdIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a href=\"/borrow/book/"+jsonArr[i][2][cdIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-          $('#result').append("<a href=\"/borrow/"+jsonArr[i][3][daisyIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a href=\"/borrow/book/"+jsonArr[i][3][daisyIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-          $('#result').append("<a href=\"/borrow/"+jsonArr[i][4][dvdIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a href=\"/borrow/book/"+jsonArr[i][4][dvdIndex].id+"\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
-
       }
     }
 
     $('.search-member-btn').click(function() {
-        /* You should change '1' on url to parameter which you want. */
         $.ajax({
-          url: "{{ url('borrowMember/1') }}",
+          type: "POST",
+          url: "{{ url('borrow/member') }}",
         }).done(function(data) {
           $('#member-result').empty();
           for(var i = 0;i < data.length; i++){
             console.log(data[i].name);
-            $('#member-result').append("<tr><td>"+data[i].name+"</td><td>"+data[i].gender+"</td></tr>")
+            $('#member-result').append("<tr><td><a href=\"/borrow/member/"+data[i].id+"\"> "+data[i].name+"</a></td><td>"+data[i].gender+"</td></tr>")
           }
         });
     });

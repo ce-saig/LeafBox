@@ -11,7 +11,8 @@ class BorrowController extends BaseController {
 
   public function index()
   {
-    return View::make('borrow');
+    $selectedList = Session::get('sel', array());
+    return View::make('borrow',array('sel',$selectedList));
   }
 
   /*
@@ -28,14 +29,11 @@ class BorrowController extends BaseController {
   public function postSelectBook($mediaId)
   {
 
-    // DVD
-    // CD
-    // D
-    // C
-    // B
+    // DVD  // CD  // D  // C  // B
     $type="Braille";
     $id=$mediaId;
-    echo preg_replace("/[0-9]/", "", $mediaId);
+    $mediaType=$mediaId;
+    echo preg_replace("/[0-9]/", "", $mediaType);
     echo preg_replace("/[^0-9]/", "", $id);
     if(strpos($mediaId, "DVD")!==false){
       $type="D";
@@ -58,41 +56,32 @@ class BorrowController extends BaseController {
     $selectedList = Session::get('sel', array());
 
     $isHas=array_key_exists(strval($mediaId),$selectedList);
-
+    $status=false;
     if($isHas){
       // Tell This media is already add to list and does nothing.
-      return Response::json(array('status' => false));
+      $status=false;
     }else{
-      $media['id']="ID";
+      $media['type']=$mediaType;
+      $media['id']=$id;
       $media['title']="TITLE";
       //$media['----'];
       $selectedList[$mediaId]=$media;
       Session::put('sel', $selectedList);
-      //return true;
-      return Response::json(array('status' => true));
+      $status=true;
     }
+    return Response::json(array('status' => $status,'list'=>$selectedList));
   }
-/*
-    $product = App::make('ceddd\Product');
-    $product = $product->getById($id);
-    $arrayOfSoldItem = Session::get('pos', array());
-    
-    $soldItem = App::make('ceddd\SoldItem');
-    $soldItem->set('item',$product);
-    $isHas=array_key_exists(strval($soldItem->get('item')->get('barcode')),$arrayOfSoldItem);
-    if($isHas){
-      $soldItemOld = $arrayOfSoldItem[strval($soldItem->get('item')->get('barcode'))];
-      $soldItem->set('quantity',$soldItemOld->get('quantity')+1);        
-    }
-    else
-      $soldItem->set('quantity',1);
-    $soldItem->set('price',$product->get('price'));
-    $arrayOfSoldItem[strval($soldItem->get('item')->get('barcode'))] = $soldItem;
-    Session::put('pos', $arrayOfSoldItem);
-    return Redirect::to('manager/shop');
-*/
 
-  
+
+  /*
+  * When User click on item of Member's list
+  * Get Member of memberId and add to to borrower
+  */
+  public function getMember($key)
+  {
+    return $key;
+  }
+
   //TODO : Nut do this pls
   /*
   * Search for member
@@ -101,21 +90,12 @@ class BorrowController extends BaseController {
   * return Array of Member's Object if member existed
   *        null if member didnt existed
   */
-  public function getMemberList($key)
+  public function postMember()
   {
+    //TODO : find by NAME or ID
     $memberTemp = Member::all();
 
     return  $memberTemp;
-  }
-
-
-  /*
-  * When User click on item of Member's list
-  * Get Member of memberId and add to to borrower
-  */
-  public function postMember($memberId)
-  {
-    # code...
   }
 
   /*
@@ -126,8 +106,13 @@ class BorrowController extends BaseController {
     # code...
   }
 
+  public function getClear()
+  {
+    Session::forget('sel');
+  }
 
-  public function search()
+
+  public function getSearch()
   {
     $result = array();
     $keyword = Input::get('keyword');
