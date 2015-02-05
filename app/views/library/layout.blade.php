@@ -132,7 +132,55 @@
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- AJAX Databases -->
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript">
+  //ajax search menu
+  $('.search_submit').click(function() {
+    
+    //get data form form 
+    var search_val = $('#search_value').val();
+    var search_type = $('#search_type').val();
 
+    console.log("val : "+search_val+" type : "+search_type);
+
+    //ajax to grab information 
+    //TODO: !!! edit ajax under this 
+    $.ajax({
+      type: "POST",
+      url: "{{ url('/search/book') }}",
+      data: { search_type : search_type,search_value : search_val }
+    }).done(function(response) {
+        console.log(response); 
+
+        $('.search_result').text('');
+          //append to node 
+        for(var i = 0;i < response.length; i++){
+          console.log(response[i].title);
+          var id_book = response[i].id;
+          var wrapper = $('<a></a>');
+          wrapper.attr('href',"{{url('book/"+ id_book +"') }}");
+          
+          var panel_wrapper = $('<div></div>').addClass('panel-hover panel panel-default');
+          panel_wrapper.attr('style','display: none;');
+          panel_wrapper.attr('style', 'margin-bottom:20px;');
+          var panel_header = $('<div></div>').addClass('panel-heading');
+          panel_header.text( response[i].id + '.'+response[i].title +' - ' + response[i].author +' ('+response[i].pub_year+')');
+          var panel_body = $('<div></div>').addClass('panel-body');
+          var panel_body_inner = $('<div></div>').addClass('label-status');
+          // TODO ********** : badge status node !! 
+
+          panel_wrapper.append(panel_header).append(panel_body);
+          panel_body.append(panel_body_inner);
+           panel_wrapper.show('fast');
+          wrapper.append(panel_wrapper);
+          $('.search_result').append(wrapper);
+
+        }
+        
+    });
+
+  
+  });
+</script>
 @show
 </body>
 </html>

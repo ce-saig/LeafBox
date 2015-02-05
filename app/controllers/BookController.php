@@ -288,8 +288,8 @@ class BookController extends Controller{
       }else{
         return "ERROR :: Some Wrong Format !!";
       }
-      return View::make('library.index',array('books' => $obj ));
-
+      //return View::make('library.index',array('books' => $obj ));
+      return $obj;
     }
 
 

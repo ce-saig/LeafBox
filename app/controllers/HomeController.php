@@ -4,7 +4,9 @@ class HomeController extends Controller {
 
 	public function index() {
 		$books = Book::where("id",">=",1)->where("id","<=",100)->get();
-		return View::make('library.index',array('books' => $books ));
+		$books_all = DB::table('book')->take(5)->get();
+		//$books_all = Book::all();
+		return View::make('library.index',array('books' => $books , 'books_all' => $books_all ));
 	}
 
 	protected function setupLayout()
