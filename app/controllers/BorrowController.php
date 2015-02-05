@@ -75,7 +75,8 @@ class BorrowController extends BaseController {
   */
   public function getMember($key)
   {
-    return $key;
+    $member = Member::find($key);
+    return $member;
   }
 
   //TODO : Nut do this pls
