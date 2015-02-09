@@ -15,6 +15,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
               ค้นหาหนังสือ
             </button>
+            //TODO Show list from session when refresh page
             <table class="table table-striped table-hover">
               <thead>
                 <tr class="info">
@@ -56,7 +57,7 @@
             วันคือ dd-mm-yyyy
           </div>
           <div class="col-md-12">
-            <button type="button" class="btn btn-success pull-right">ทำรายการ</button>
+            <a href="/borrow/submit"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
             <!-- TODO add jquery for refresh here -->
             <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
           </div>
@@ -76,12 +77,14 @@
         <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
       </div>
       <div class="modal-body">
+        //Need to limit number of out put item <br>
         เลือกหนังสือ
         <input type="text" name="" id="search-book"/>
         <ul id="result">
         </ul>
       </div>
       <div class="modal-footer">
+        เพิ่มปุ่มกดก่อนค้นหา แทนปัจจุบันที่พิมพ์แล้วค้นหาเลย
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -96,8 +99,9 @@
         <h4 class="modal-title" id="myModalLabel">เลือกสมาชิก</h4>
       </div>
       <div class="modal-body">
+        //Need to limit number of out put item<br>
         ชื่อ
-        <input type="text" name="" id="search-book"/><button class = "btn btn-default search-member-btn">ค้นหา</button>
+        <input type="text" name="" id="search-member"/><button class = "btn btn-default search-member-btn">ค้นหา</button>
         <table id="member-result" class = "table">
         <tr>
           <td>ชื่อ</td><td>เพศ</td>
@@ -202,6 +206,7 @@
         $.ajax({
           type: "POST",
           url: "{{ url('borrow/member') }}",
+          data: {member:$('#search-member').val()}
         }).done(function(data) {
           $('#member-result').empty();
           for(var i = 0;i < data.length; i++){

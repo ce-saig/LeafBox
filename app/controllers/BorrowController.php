@@ -38,14 +38,19 @@ class BorrowController extends BaseController {
 
     if(strpos($mediaType, "DVD")!==false){
       $item = DVD::find((int)$id);
+      $mediaType="DVD";
     }else if(strpos($mediaType, "CD")!==false){
       $item = CD::find((int)$id);
+      $mediaType="CD";
     }else if(strpos($mediaType, "D")!==false){
       $item = Daisy::find((int)$id);
+      $mediaType="Daisy";
     }else if(strpos($mediaType, "C")!==false){
       $item = Cassette::find((int)$id);
+      $mediaType="Cassette";
     }else{ //braile
       $item = Braille::find((int)$id);
+      $mediaType="Braille";
     }
 
     // $media = findBy MediaID
@@ -56,11 +61,12 @@ class BorrowController extends BaseController {
       // Tell This media is already add to list and does nothing.
       $status=false;
     }else{
+      $book = Book::find($item['book_id']);
       $media['no']=count($selectedList)+1;
       $media['type']=$mediaType;
-      $media['id']=$id;
-      $media['title']="TITLE";
-      $media['item']=$item; //TODO get real name
+      $media['id']=(int)$id;
+      $media['title']=$book['title'];
+      //$media['item']=$item;
       //$media['----'];
       $selectedList[$mediaId]=$media;
       Session::put('sel', $selectedList);
@@ -82,7 +88,6 @@ class BorrowController extends BaseController {
     return $member;
   }
 
-  //TODO : Nut do this pls
   /*
   * Search for member
   * - by Member's id
@@ -93,7 +98,8 @@ class BorrowController extends BaseController {
   public function postMember()
   {
     //TODO : find by NAME or ID
-    $memberTemp = Member::all();
+    $member = Input::get('member');//
+    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->get();
 
     return  $memberTemp;
   }
@@ -101,9 +107,11 @@ class BorrowController extends BaseController {
   /*
   * Save list of borrowed book
   */
-  public function postSubmitSelectedList($userId,$memberId,$selectedList)
+  //$userId,$memberId,$selectedList
+  public function postSubmitSelectedList()
   {
-    # code...
+    $selectedList = Session::get('sel', array());
+    return ($selectedList);
   }
 
   public function getClear()
@@ -112,7 +120,8 @@ class BorrowController extends BaseController {
     return Session::get('member', array());
   }
 
-
+  //TODO Search from id only not Book title
+  //Reduce number of search result number
   public function getSearch()
   {
     $result = array();
