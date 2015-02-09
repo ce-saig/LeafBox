@@ -24,22 +24,12 @@
                   <th>ชนิดสื่อ</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                </tr>
-               {{-- @foreach ($sel as $media)
-                  <tr>
-                    <td>$media['id']</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                  </tr>                  
-                @endforeach --}}
-                <tr>
+              <tbody class = "table_fill">
+              </tbody>
+            </table>
+            <table class="table table-striped table-hover">
+              <tbody class = "table_sum">
+              <tr>
                   <th>รวม</th>
                   <th>X เล่ม</th>
                   <th>Y ชุด</th>
@@ -47,6 +37,7 @@
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
         <div class="col-md-6">
@@ -67,7 +58,7 @@
           <div class="col-md-12">
             <button type="button" class="btn btn-success pull-right">ทำรายการ</button>
             <!-- TODO add jquery for refresh here -->
-            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right">ล้าง</button></a>
+            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
           </div>
         </div>
       </div>
@@ -137,6 +128,40 @@
     }
   });
 
+  $("body").on("click", ".book_choose", function(event){ 
+      event.preventDefault();
+      var text = $(this).prop('href');
+        console.log(text);
+        $.ajax({
+          type: "GET",
+          url: text,
+        }).done(function(data) {
+          console.log(data['media']);
+
+          var input_data = data['media'];
+          var tr_table = $('<tr></tr>');
+          tr_table.append('<td>'+input_data['no']+'</td>');
+          tr_table.append('<td>'+input_data['title']+'</td>');
+          tr_table.append('<td>'+input_data['id']+'</td>');
+          tr_table.append('<td>'+input_data['type']+'</td>');
+
+          $(".table_fill").append(tr_table);
+        });
+   });
+
+  $('.del_btn').click(function(event) {
+    event.preventDefault();
+    $(".table_fill").text("");
+    $.ajax({
+          type: "GET",
+          url: "{{ url('/borrow/clear') }}",
+        }).done(function(data) {
+          console.log(data);
+          //do before clear
+        });
+
+  }); 
+
   function addToList(data){
     //console.log('addToList');
     //console.log(typeof data);
@@ -152,23 +177,23 @@
     for(var i=0; i<jsonArr.length; i++){
         //console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-          $('#result').append("<a href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-          $('#result').append("<a href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-          $('#result').append("<a href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-          $('#result').append("<a href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-          $('#result').append("<a href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
       }
     }
