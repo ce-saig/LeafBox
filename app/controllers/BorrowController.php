@@ -111,6 +111,28 @@ class BorrowController extends BaseController {
   public function postSubmitSelectedList()
   {
     $selectedList = Session::get('sel', array());
+
+ //member_id
+    $member_id=100;
+ //cassette_id
+
+ //date_borrowed
+    $dt = new DateTime();
+    $db = $dt->format('Y-m-d H:i:s');
+    echo $db;
+ //date_returned
+    //TODO What return date should kept? today+borrow time/specific return date
+
+    //LOOP insert media into it tb
+      // if DVD
+      // if CD
+      // if Daisy
+      // if Cassette
+      // if Braille
+
+    Session::forget('sel');
+
+
     return ($selectedList);
   }
 
