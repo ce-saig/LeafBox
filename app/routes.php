@@ -67,6 +67,7 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
 });
 
+// Borrow media
 Route::get('borrow', 'BorrowController@index');
 Route::get('borrow/book/{mediaId}', 'BorrowController@postSelectBook');
 Route::get('borrow/search', 'BorrowController@getSearch');
@@ -75,3 +76,6 @@ Route::get('borrow/clear', 'BorrowController@getClear');
 
 Route::get('borrow/member/{memberId}','BorrowController@getMember');
 Route::post('borrow/member','BorrowController@postMember');
+
+// Return media
+Route::get('return','ReturnController@getIndex');

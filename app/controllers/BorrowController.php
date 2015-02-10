@@ -6,13 +6,13 @@ $memberId : of borrower
 $selectedList : array of selected media's object
 */
 
-
+//--------------------- TODO : Return book ----------//
 class BorrowController extends BaseController {
 
   public function index()
   {
-    $selectedList = Session::get('sel', array());
-    return View::make('borrow',array('sel'=>$selectedList));
+    $selectedList = Session::get('borrow', array());
+    return View::make('borrow',array('borrow'=>$selectedList));
   }
 
   /*
@@ -20,7 +20,7 @@ class BorrowController extends BaseController {
   */
   public function getSelectedBookList()
   {
-    $selectedList = Session::get('sel', array());
+    $selectedList = Session::get('borrow', array());
     return Response::json(array('status' => true,'media'=>($selectedList)));
   }
 
@@ -57,7 +57,7 @@ class BorrowController extends BaseController {
     }
 
     // $media = findBy MediaID
-    $selectedList = Session::get('sel', array());
+    $selectedList = Session::get('borrow', array());
     $isHas=array_key_exists(strval($mediaId),$selectedList);
     $status=false;
     if($isHas){
@@ -72,7 +72,7 @@ class BorrowController extends BaseController {
       //$media['item']=$item;
       //$media['----'];
       $selectedList[$mediaId]=$media;
-      Session::put('sel', $selectedList);
+      Session::put('borrow', $selectedList);
       $status=true;
     }
 
@@ -115,10 +115,10 @@ class BorrowController extends BaseController {
   //$userId,$memberId,$selectedList
   public function postSubmitSelectedList()
   {
-    $selectedList = Session::get('sel', array());
+    $selectedList = Session::get('borrow', array());
 
     //member_id
-    $member_id=100;
+    $member_id=100; //TODO get Member's id
     //cassette_id
 
     //date_borrowed
@@ -138,13 +138,23 @@ class BorrowController extends BaseController {
       echo $item['id'];
       echo "<br>";
       
+
+      // Mark as reserved
       if($item['type']=="DVD"){
+        $d = DVD::find($item['id']);
+        $d['reserved']="B";
+        $d->save();
+
         $dvd = new Dvdborrow;
         $dvd['dvd_id'] = $item['id'];
         $dvd['date_borrowed'] = $db;
         $dvd['date_returned'] = $dr;
         $dvd->save();
       }else if($item['type']=="CD"){
+        $d = CD::find($item['id']);
+        $d['reserved']="B";
+        $d->save();
+
         $cd = new Cdborrow;
         $cd['cd_id'] = $item['id'];
         $cd['date_borrowed'] = $db;
@@ -152,6 +162,10 @@ class BorrowController extends BaseController {
         $cd->save();
 
       }else if($item['type']=="Daisy"){
+        $d = Daisy::find($item['id']);
+        $d['reserved']="B";
+        $d->save();
+
         $daisy = new Daisyborrow;
         $daisy['daisy_id'] = $item['id'];
         $daisy['date_borrowed'] = $db;
@@ -159,6 +173,10 @@ class BorrowController extends BaseController {
         $daisy->save();
 
       }else if($item['type']=="Cassette"){
+        $d = Cassette::find($item['id']);
+        $d['reserved']="B";
+        $d->save();
+
         $cs = new Cassetteborrow;
         $cs['cassette_id'] = $item['id'];
         $cs['date_borrowed'] = $db;
@@ -166,6 +184,10 @@ class BorrowController extends BaseController {
         $cs->save();
 
       }else if($item['type']=="Braille"){// if Braille
+        $d = Braille::find($item['id']);
+        $d['reserved']="B";
+        $d->save();
+
         $braille = new Brailleborrow;
         $braille['braille_id'] = $item['id'];
         $braille['date_borrowed'] = $db;
@@ -174,7 +196,7 @@ class BorrowController extends BaseController {
       }
     }
 
-    Session::forget('sel');
+    Session::forget('borrow');
 
     return "<hr>";
     //return ($selectedList);
@@ -182,11 +204,11 @@ class BorrowController extends BaseController {
 
   public function getClear()
   {
-    Session::forget('sel');
+    Session::forget('borrow');
     return Session::get('member', array());
   }
 
-  //TODO Search from id only not Book title :: ID > title
+  //TODO Search from "ID" only not Book title
   //Limit number of search result number
   public function getSearch()
   {

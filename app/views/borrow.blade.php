@@ -30,7 +30,7 @@
                 <?php 
                   $no=1;                
                 ?>
-                @foreach ($sel as $item)
+                @foreach ($borrow as $item)
                   <tr>
                     <td>{{$no++}}</td>
                     <td>{{$item['title']}}</td>
@@ -195,6 +195,7 @@
     console.log(jsonArr[0][0]);*/
 
     for(var i=0; i<jsonArr.length; i++){
+      //TODO when click same item should not add it to list
         //console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
           $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
