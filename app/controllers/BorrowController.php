@@ -148,7 +148,7 @@ class BorrowController extends BaseController {
         $dvd = new Dvdborrow;
         $dvd['dvd_id'] = $item['id'];
         $dvd['date_borrowed'] = $db;
-        $dvd['date_returned'] = $dr;
+        $dvd['date_returned'] = null;
         $dvd->save();
       }else if($item['type']=="CD"){
         $d = CD::find($item['id']);
@@ -158,7 +158,7 @@ class BorrowController extends BaseController {
         $cd = new Cdborrow;
         $cd['cd_id'] = $item['id'];
         $cd['date_borrowed'] = $db;
-        $cd['date_returned'] = $dr;
+        $cd['date_returned'] = null;
         $cd->save();
 
       }else if($item['type']=="Daisy"){
@@ -169,7 +169,7 @@ class BorrowController extends BaseController {
         $daisy = new Daisyborrow;
         $daisy['daisy_id'] = $item['id'];
         $daisy['date_borrowed'] = $db;
-        $daisy['date_returned'] = $dr;
+        $daisy['date_returned'] = null;
         $daisy->save();
 
       }else if($item['type']=="Cassette"){
@@ -180,7 +180,7 @@ class BorrowController extends BaseController {
         $cs = new Cassetteborrow;
         $cs['cassette_id'] = $item['id'];
         $cs['date_borrowed'] = $db;
-        $cs['date_returned'] = $dr;
+        $cs['date_returned'] = null;
         $cs->save();
 
       }else if($item['type']=="Braille"){// if Braille
@@ -191,7 +191,7 @@ class BorrowController extends BaseController {
         $braille = new Brailleborrow;
         $braille['braille_id'] = $item['id'];
         $braille['date_borrowed'] = $db;
-        $braille['date_returned'] = $dr;
+        $braille['date_returned'] = null;
         $braille->save();
       }
     }
