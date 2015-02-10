@@ -1,6 +1,6 @@
 @extends('library.layout')
 @section('head')
-<title>ระบบยืมหนังสือ</title>
+<title>ระบบคืนหนังสือ</title>
 @stop
 @section('body')
 <div class="container">
@@ -28,8 +28,8 @@
                 </tr>
               </thead>
               <tbody class = "table_fill">
-              <?php 
-                  $no=1;                
+              <?php
+                  $no=1;
                 ?>
                 @foreach ($list as $item)
                   <tr>
@@ -123,7 +123,7 @@
           //do before clear
         });
 
-  }); 
+  });
 
   $('#add_btn').click(function() {
     $.ajax({
