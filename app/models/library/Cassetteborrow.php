@@ -4,7 +4,7 @@ class Cassetteborrow extends Eloquent {
     
     //protected $connection = 'mysql2-library';
     
-    protected $table = 'CASSETTEBORROW';
+    protected $table = 'cassetteborrow';
 
     protected $guarded = array('parent_id');
 

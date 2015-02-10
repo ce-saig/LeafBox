@@ -12,7 +12,7 @@ class BorrowController extends BaseController {
   public function index()
   {
     $selectedList = Session::get('sel', array());
-    return View::make('borrow',array('sel',$selectedList));
+    return View::make('borrow',array('sel'=>$selectedList));
   }
 
   /*
@@ -20,9 +20,12 @@ class BorrowController extends BaseController {
   */
   public function getSelectedBookList()
   {
-    # code...
+    $selectedList = Session::get('sel', array());
+    return Response::json(array('status' => true,'media'=>($selectedList)));
   }
 
+
+  //TODO : Check is that media can borrow? is someone borrowed it
   /* When user click on book (media) item list
   *  add it to book selected list
   */
@@ -104,6 +107,8 @@ class BorrowController extends BaseController {
     return  $memberTemp;
   }
 
+
+//TODO : Check is that media can borrow? is someone borrowed it
   /*
   * Save list of borrowed book
   */
@@ -112,28 +117,67 @@ class BorrowController extends BaseController {
   {
     $selectedList = Session::get('sel', array());
 
- //member_id
+    //member_id
     $member_id=100;
- //cassette_id
+    //cassette_id
 
- //date_borrowed
+    //date_borrowed
     $dt = new DateTime();
     $db = $dt->format('Y-m-d H:i:s');
     echo $db;
- //date_returned
+
+    //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
+    $dr=$db;
+
+    
 
     //LOOP insert media into it tb
-      // if DVD
-      // if CD
-      // if Daisy
-      // if Cassette
-      // if Braille
+    foreach ($selectedList as $item) {
+      echo $item['type'];
+      echo $item['id'];
+      echo "<br>";
+      
+      if($item['type']=="DVD"){
+        $dvd = new Dvdborrow;
+        $dvd['dvd_id'] = $item['id'];
+        $dvd['date_borrowed'] = $db;
+        $dvd['date_returned'] = $dr;
+        $dvd->save();
+      }else if($item['type']=="CD"){
+        $cd = new Cdborrow;
+        $cd['cd_id'] = $item['id'];
+        $cd['date_borrowed'] = $db;
+        $cd['date_returned'] = $dr;
+        $cd->save();
+
+      }else if($item['type']=="Daisy"){
+        $daisy = new Daisyborrow;
+        $daisy['daisy_id'] = $item['id'];
+        $daisy['date_borrowed'] = $db;
+        $daisy['date_returned'] = $dr;
+        $daisy->save();
+
+      }else if($item['type']=="Cassette"){
+        $cs = new Cassetteborrow;
+        $cs['cassette_id'] = $item['id'];
+        $cs['date_borrowed'] = $db;
+        $cs['date_returned'] = $dr;
+        $cs->save();
+
+      }else if($item['type']=="Braille"){// if Braille
+        $braille = new Brailleborrow;
+        $braille['braille_id'] = $item['id'];
+        $braille['date_borrowed'] = $db;
+        $braille['date_returned'] = $dr;
+        $braille->save();
+      }
+    }
 
     Session::forget('sel');
 
-
-    return ($selectedList);
+    return "<hr>";
+    //return ($selectedList);
   }
 
   public function getClear()
@@ -142,14 +186,14 @@ class BorrowController extends BaseController {
     return Session::get('member', array());
   }
 
-  //TODO Search from id only not Book title
-  //Reduce number of search result number
+  //TODO Search from id only not Book title :: ID > title
+  //Limit number of search result number
   public function getSearch()
   {
     $result = array();
     $keyword = Input::get('keyword');
     //if user search from book's title
-    $books = Book::where('title', 'LIKE', "%$keyword%")->get();
+    $books = Book::where('title', 'LIKE', "%$keyword%")->take(5)->get();
     //return $books;
     foreach($books as $book){
       //find braille associate this book
@@ -157,7 +201,7 @@ class BorrowController extends BaseController {
       array_push($result, array_fill_keys(array('title'),$book->title));
       array_push($result[sizeof($result)-1], array());
       //return $result;
-      $brailles = $book->braille()->get();
+      $brailles = $book->braille()->take(5)->get(); // TODO Limit
       //return sizeof($brailles);
       if($brailles){
         foreach($brailles as $braille){
@@ -166,7 +210,7 @@ class BorrowController extends BaseController {
         }
       }
 
-      $cassettes = $book->cassette()->get();
+      $cassettes = $book->cassette()->take(5)->get();
       array_push($result[sizeof($result)-1], array());
       //return sizeof($cassette);
       if($cassettes){
@@ -176,7 +220,7 @@ class BorrowController extends BaseController {
         }
       }
 
-      $cds = $book->cd()->get();
+      $cds = $book->cd()->take(5)->get();
       array_push($result[sizeof($result)-1], array());
       if($cds){
         foreach($cds as $cd){
@@ -185,7 +229,7 @@ class BorrowController extends BaseController {
         }
       }
 
-      $daisies = $book->daisy()->get();
+      $daisies = $book->daisy()->take(5)->get();
       array_push($result[sizeof($result)-1], array());
       if($daisies){
         foreach($daisies as $daisy){
@@ -194,7 +238,7 @@ class BorrowController extends BaseController {
         }
       }
 
-      $dvds = $book->dvd()->get();
+      $dvds = $book->dvd()->take(5)->get();
       array_push($result[sizeof($result)-1], array());
       if($dvds){
         foreach($dvds as $dvd){

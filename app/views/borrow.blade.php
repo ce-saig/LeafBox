@@ -9,6 +9,7 @@
       <h3 class="panel-title">ระบบยืมหนังสือ</h3>
     </div>
     <div class="panel-body">
+
       <div class="row">
         <div class="col-md-6">
           <div class="col-md-12">
@@ -26,6 +27,18 @@
                 </tr>
               </thead>
               <tbody class = "table_fill">
+                <?php 
+                  $no=1;                
+                ?>
+                @foreach ($sel as $item)
+                  <tr>
+                    <td>{{$no++}}</td>
+                    <td>{{$item['title']}}</td>
+                    <td>{{$item['id']}}</td>
+                    <td>{{$item['type']}}</td>
+                  </tr>
+                @endforeach
+
               </tbody>
             </table>
             <table class="table table-striped table-hover">
@@ -80,6 +93,7 @@
         //Need to limit number of out put item <br>
         เลือกหนังสือ
         <input type="text" name="" id="search-book"/>
+        <input type="button" class="book_search_btn" value="ค้นหา">
         <ul id="result">
         </ul>
       </div>
@@ -117,8 +131,10 @@
 @stop
 @section('script')
 @parent
+
 <script type="text/javascript">
-  $('#search-book').keyup(function(){
+  $('.book_search_btn').click(function(event){
+  //$('#search-book').keyup(function(){
     $('#result').html('');
     if($('#search-book').val() != ''){
       $.get('{{ url("borrow/search") }}', 
