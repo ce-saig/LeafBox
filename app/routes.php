@@ -79,3 +79,5 @@ Route::post('borrow/member','BorrowController@postMember');
 
 // Return media
 Route::get('return','ReturnController@getIndex');
+Route::get('return/clear','ReturnController@getClear');
+Route::post('return/add','ReturnController@postAdd');

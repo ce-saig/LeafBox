@@ -38,7 +38,8 @@
           <!-- class="active" -->
           <li><a href="{{URL::to('/')}}">หน้าแรก</a></li>
           <li><a href="{{URL::to('/book/add')}}">เพิ่มหนังสือใหม่</a></li>
-          <li><a href="{{URL::to('/borrow')}}">ระบบยืม - คืน</a></li>
+          <li><a href="{{URL::to('/borrow')}}">ระบบยืม</a></li>
+          <li><a href="{{URL::to('/return')}}">ระบบคืน</a></li>
           <!-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               จัดการหนังสือ <b class="caret"></b>

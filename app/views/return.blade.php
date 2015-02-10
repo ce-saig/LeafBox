@@ -14,8 +14,8 @@
         <div class="col-md-6">
           <div class="col-md-12">
             <label>ระบุรหัสของสื่อ</label>
-            <input type="textbox" name="mid">
-            <input type="button" value="Add">
+            <input type="textbox" name="mid" id="mid">
+            <input type="button" value="Add" id="add_btn">
             <br>
             //TODO Show list from session when refresh page
             <table class="table table-striped table-hover">
@@ -28,10 +28,10 @@
                 </tr>
               </thead>
               <tbody class = "table_fill">
-                <?php
-                /*
+              <?php 
                   $no=1;                
-                @foreach ($sel as $item)
+                ?>
+                @foreach ($list as $item)
                   <tr>
                     <td>{{$no++}}</td>
                     <td>{{$item['title']}}</td>
@@ -39,9 +39,6 @@
                     <td>{{$item['type']}}</td>
                   </tr>
                 @endforeach
-                */
-                ?>
-
               </tbody>
             </table>
             <table class="table table-striped table-hover">
@@ -73,9 +70,9 @@
             วันคือ dd-mm-yyyy
           </div>
           <div class="col-md-12">
-            <a href="/borrow/submit"><button type="button" class="btn btn-success pull-right">คืน</button></a>
+            <a href="/return/submit"><button type="button" class="btn btn-success pull-right">คืน</button></a>
             <!-- TODO add jquery for refresh here -->
-            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+            <a href="/return/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
           </div>
         </div>
       </div>
@@ -114,4 +111,52 @@
 
 @section('script')
 @parent
+<script type="text/javascript">
+  $('.del_btn').click(function(event) {
+    event.preventDefault();
+    $(".table_fill").text("");
+    $.ajax({
+          type: "GET",
+          url: "{{ url('/borrow/clear') }}",
+        }).done(function(data) {
+          console.log(data);
+          //do before clear
+        });
+
+  }); 
+
+  $('#add_btn').click(function() {
+    $.ajax({
+      type: "POST",
+      url: "{{ url('return/add') }}",
+      data: {mid:$('#mid').val()}
+    }).done(function(data) {
+          console.log(data['media']);
+          if(data['status']){
+            var input_data = data['media'];
+            var tr_table = $('<tr></tr>');
+            tr_table.append('<td>'+input_data['no']+'</td>');
+            tr_table.append('<td>'+input_data['title']+'</td>');
+            tr_table.append('<td>'+input_data['id']+'</td>');
+            tr_table.append('<td>'+input_data['type']+'</td>');
+            $(".table_fill").append(tr_table);
+          }
+        });
+  });
+
+  $('.search-member-btn').click(function() {
+        $.ajax({
+          type: "POST",
+          url: "{{ url('borrow/member') }}",
+          data: {member:$('#search-member').val()}
+        }).done(function(data) {
+          $('#member-result').empty();
+          for(var i = 0;i < data.length; i++){
+            console.log(data[i].name);
+            $('#member-result').append("<tr><td><a href=\"/borrow/member/"+data[i].id+"\"> "+data[i].name+"</a></td><td>"+data[i].gender+"</td></tr>")
+          }
+        });
+    });
+
+</script>
 @stop

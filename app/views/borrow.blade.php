@@ -157,15 +157,15 @@
           url: text,
         }).done(function(data) {
           console.log(data['media']);
-
-          var input_data = data['media'];
-          var tr_table = $('<tr></tr>');
-          tr_table.append('<td>'+input_data['no']+'</td>');
-          tr_table.append('<td>'+input_data['title']+'</td>');
-          tr_table.append('<td>'+input_data['id']+'</td>');
-          tr_table.append('<td>'+input_data['type']+'</td>');
-
-          $(".table_fill").append(tr_table);
+          if(data['status']){
+            var input_data = data['media'];
+            var tr_table = $('<tr></tr>');
+            tr_table.append('<td>'+input_data['no']+'</td>');
+            tr_table.append('<td>'+input_data['title']+'</td>');
+            tr_table.append('<td>'+input_data['id']+'</td>');
+            tr_table.append('<td>'+input_data['type']+'</td>');
+            $(".table_fill").append(tr_table);
+          }
         });
    });
 
