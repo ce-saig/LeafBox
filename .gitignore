@@ -10,4 +10,3 @@ Thumbs.db
 /*.iml
 node_modules/
 app/config/database.php
-sftp-config.json
