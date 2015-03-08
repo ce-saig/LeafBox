@@ -9,8 +9,4 @@ Thumbs.db
 .idea/
 /*.iml
 node_modules/
-<<<<<<< HEAD
 app/config/database.php
-=======
-sftp-config.json
->>>>>>> origin/develop
