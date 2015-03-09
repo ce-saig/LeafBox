@@ -144,6 +144,9 @@
 
     console.log("val : "+search_val+" type : "+search_type);
 
+    var mediatype = ['เบลล์ ', 'คาสเซ็ท ', 'DVD ', 'CD ', 'Daisy '];
+    var status_attr_type = ['bm_status','setcm_status','setdvd_status','setcd_status','setdm_status'];
+
     //ajax to grab information 
     //TODO: !!! edit ajax under this 
     $.ajax({
@@ -170,8 +173,23 @@
           var panel_body_inner = $('<div></div>').addClass('label-status');
           // TODO ********** : badge status node !! 
 
+          var outer_badge  = $('<div></div>').addClass('label-status');
+
           panel_wrapper.append(panel_header).append(panel_body);
           panel_body.append(panel_body_inner);
+          
+          for(label in mediatype){
+            var badge = $('<div></div>').addClass('col-md-2');
+            badge.text(mediatype[label]);
+            console.log("badge status = " + response[i][status_attr_type[label]] );
+            var badgetag = badgeGenerator(response[i][status_attr_type[label]]);
+            console.log(badgetag);
+            badge.append(badgetag);
+            outer_badge.append(badge);
+          }
+          
+
+          panel_body.append(outer_badge);
            panel_wrapper.show('fast');
           wrapper.append(panel_wrapper);
           $('.search_result').append(wrapper);
@@ -179,6 +197,21 @@
         }
         
     });
+
+  function badgeGenerator(status) {
+      
+      if(status == 0){
+        return '<span class="label label-danger">ไม่ทำการผลิต</span>';
+      }else if(status == 1){
+        return '<span class="label label-success">ผลิตเสร็จ</span>';
+      }else if(status == 2){
+        return '<span class="label label-warning">รอการผลิต</span>';
+      }else if(status == 3){
+        return '<span class="label label-info">กำลังอ่าน</span>';
+      }else{
+        return '<span class="label label-warning">ข้อมูลไม่ถูกต้อง</span>';
+      }
+  }
 
   
   });
