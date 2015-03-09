@@ -58,7 +58,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'leafbox',
 			'username'  => 'root',
-			'password'  => 'eiei1234',
+			'password'  => 'web',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
