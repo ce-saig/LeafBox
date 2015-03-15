@@ -94,6 +94,9 @@
       <div class="modal-body">
         //Need to limit number of out put item <br>
         //TODO รองรับการกรอกไอดีของสื่อ CD100,C100,110<br>
+        //TODO สื่อที่ถูกยืมไปแล้วต้องไม่แสดงอีก<br>
+        //TODO แจ้งเมื่อไม่มีผลลัพธ์การค้นหา <br>
+        //TODO แจ้งเตือนเมื่อยืม หนังสื่อและสื่อเดียวกันเกิน 1 ชิ้น <br>
         เลือกหนังสือ
         <input type="text" name="" id="search-book"/>
         <input type="button" class="book_search_btn" value="ค้นหา">
