@@ -9,14 +9,14 @@
       <h3 class="panel-title">ระบบยืมหนังสือ</h3>
     </div>
     <div class="panel-body">
-
+    
+    // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
       <div class="row">
         <div class="col-md-6">
           <div class="col-md-12">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
               ค้นหาหนังสือ
             </button>
-            //TODO Show list from session when refresh page
             <table class="table table-striped table-hover">
               <thead>
                 <tr class="info">
@@ -56,7 +56,9 @@
         </div>
         <div class="col-md-6">
           <div class="col-md-12">
+          //เลือกผู้ยืม ajax
             <h4>ข้อมูลผู้ยืม</h4>
+
             ชื่อ : XXX
             เบอร์โทร : XX-XXXX-XXX
             <br>
@@ -66,8 +68,8 @@
           </div>
           <div class="col-md-12">
             <h4>สรุป</h4>
-            วันยืม dd-mm-yyyy
-            วันคือ dd-mm-yyyy
+            วันยืม {{date("Y-m-d H:i:s")}} <br>
+            วันคืน {{date("Y-m-d H:i:s",strtotime(' +15 day'))}}
           </div>
           <div class="col-md-12">
             <a href="/borrow/submit"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>

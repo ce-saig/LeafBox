@@ -122,13 +122,11 @@ class BorrowController extends BaseController {
     //cassette_id
 
     //date_borrowed
-    $dt = new DateTime();
-    $db = $dt->format('Y-m-d H:i:s');
-    echo $db;
-
+  
+    $dateBorrow = date("Y-m-d H:i:s");
     //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
-    $dr=$db;
+    $dateReturn = date("Y-m-d H:i:s",strtotime(' +15 day'));
 
     
 
@@ -142,56 +140,61 @@ class BorrowController extends BaseController {
       // Mark as reserved
       if($item['type']=="DVD"){
         $d = DVD::find($item['id']);
-        $d['reserved']="B";
+        $d['reserved']=true;
         $d->save();
 
         $dvd = new Dvdborrow;
         $dvd['dvd_id'] = $item['id'];
-        $dvd['date_borrowed'] = $db;
-        $dvd['date_returned'] = null;
+        $dvd['date_borrowed'] = $dateBorrow;
+        $dvd['date_returned'] = $dateReturn;
+        $dvd['member_id']=$member_id;
         $dvd->save();
       }else if($item['type']=="CD"){
         $d = CD::find($item['id']);
-        $d['reserved']="B";
+        $d['reserved']=true;
         $d->save();
 
         $cd = new Cdborrow;
         $cd['cd_id'] = $item['id'];
-        $cd['date_borrowed'] = $db;
-        $cd['date_returned'] = null;
+        $cd['date_borrowed'] = $dateBorrow;
+        $cd['date_returned'] = $dateReturn;
+        $cd['member_id']=$member_id;
         $cd->save();
 
       }else if($item['type']=="Daisy"){
         $d = Daisy::find($item['id']);
-        $d['reserved']="B";
+        $d['reserved']=true;
         $d->save();
 
         $daisy = new Daisyborrow;
         $daisy['daisy_id'] = $item['id'];
-        $daisy['date_borrowed'] = $db;
-        $daisy['date_returned'] = null;
+        $daisy['date_borrowed'] = $dateBorrow;
+        $daisy['date_returned'] = $dateReturn;
+        $daisy['member_id']=$member_id;
         $daisy->save();
 
       }else if($item['type']=="Cassette"){
         $d = Cassette::find($item['id']);
-        $d['reserved']="B";
+        $d['reserved']=true;
         $d->save();
 
         $cs = new Cassetteborrow;
         $cs['cassette_id'] = $item['id'];
-        $cs['date_borrowed'] = $db;
-        $cs['date_returned'] = null;
+        $cs['date_borrowed'] = $dateBorrow;
+        $cs['date_returned'] = $dateReturn;
+        $cs['member_id']=$member_id;
         $cs->save();
 
       }else if($item['type']=="Braille"){// if Braille
         $d = Braille::find($item['id']);
-        $d['reserved']="B";
+        $d['reserved']=true;
         $d->save();
 
         $braille = new Brailleborrow;
         $braille['braille_id'] = $item['id'];
-        $braille['date_borrowed'] = $db;
-        $braille['date_returned'] = null;
+        $braille['date_borrowed'] = $dateBorrow;
+        $braille['date_returned'] = $dateReturn;
+        $braille['member_id']=$member_id;
         $braille->save();
       }
     }
