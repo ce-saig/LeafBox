@@ -93,6 +93,7 @@
       </div>
       <div class="modal-body">
         //Need to limit number of out put item <br>
+        //TODO รองรับการกรอกไอดีของสื่อ CD100,C100,110<br>
         เลือกหนังสือ
         <input type="text" name="" id="search-book"/>
         <input type="button" class="book_search_btn" value="ค้นหา">
