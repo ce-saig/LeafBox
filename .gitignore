@@ -10,3 +10,5 @@ Thumbs.db
 /*.iml
 node_modules/
 app/config/database.php
+error.log
+access.log
