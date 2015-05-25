@@ -56,6 +56,7 @@
         </div>
         <div class="col-md-6">
           <div class="col-md-12">
+<<<<<<< HEAD
           //เลือกผู้ยืม ajax
             <h4>ข้อมูลผู้ยืม</h4>
 
@@ -70,6 +71,29 @@
             <h4>สรุป</h4>
             วันยืม {{date("Y-m-d H:i:s")}} <br>
             วันคืน {{date("Y-m-d H:i:s",strtotime(' +15 day'))}}
+=======
+            <div class = "row">
+              <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
+              <div class = "col-md-2">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
+                  เลือกผู้ยืม
+                </button>
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "well">
+              ชื่อ : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
+            เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h4>สรุป</h4>
+            <div class ="well">
+              วันยืม {{ date('d-m-Y '); }} <br/>
+              วันคืน dd-mm-yyyy
+            </div>
+>>>>>>> origin/front-end
           </div>
           <div class="col-md-12">
             <a href="/borrow/submit"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
@@ -120,9 +144,10 @@
       </div>
       <div class="modal-body">
         //Need to limit number of out put item<br>
-        ชื่อ
-        <input type="text" name="" id="search-member"/><button class = "btn btn-default search-member-btn">ค้นหา</button>
-        <table id="member-result" class = "table">
+          <div class = "col-md-2 pull-right" ><button class = "btn btn-default search-member-btn">ค้นหา</button></div>
+          <div class = "col-md-3 pull-right"><input placeholder="ชื่อ" type="text" class = "form-control" name="" id="search-member"/></div>
+      
+        <table id="member-result" class = "table table-hover">
         <tr>
           <td>ชื่อ</td><td>เพศ</td>
         </tr>
@@ -162,7 +187,6 @@
           type: "GET",
           url: text,
         }).done(function(data) {
-          console.log(data['media']);
           if(data['status']){
             var input_data = data['media'];
             var tr_table = $('<tr></tr>');
@@ -234,10 +258,27 @@
           $('#member-result').empty();
           for(var i = 0;i < data.length; i++){
             console.log(data[i].name);
-            $('#member-result').append("<tr><td><a href=\"/borrow/member/"+data[i].id+"\"> "+data[i].name+"</a></td><td>"+data[i].gender+"</td></tr>")
+            $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
           }
         });
     });
+
+    $('#member-result').on('click', '.select-member', function(){
+    var member_id = $(this).children('#iden').html();
+      $.ajax({
+        type: "GET",
+        url: "{{ url('borrow/member/"+member_id+"') }}",
+      }).done(function(data) {
+        
+        console.log(data);
+        $('#member_name_label').html(data.name);
+        $('#member_phone_label').html(data.phone_no);
+        $('#memberModal').modal('toggle');
+      });
+
+    });
+
+
 
   </script>
   @stop
