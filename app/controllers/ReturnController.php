@@ -7,6 +7,8 @@ $selectedList : array of selected media's object
 */
 
 class ReturnController extends BaseController {
+  // Should not return list of unborrow item
+  
   public function getIndex()
   {
 

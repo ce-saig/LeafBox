@@ -26,6 +26,11 @@ class BookController extends Controller{
 
   public function getBook($bid){
     $bookEloquent = Book::find($bid);
+
+    if($bookEloquent==NULL){
+      App::abort(404);
+    }
+
     $field[0]='ชื่อเรื่อง';
     $field[1]='ผู้แต่ง';
     $field[2]='ผู้แปล';

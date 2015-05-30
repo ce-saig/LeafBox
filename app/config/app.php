@@ -123,9 +123,9 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         
         //Add-on
-        'Maatwebsite\Excel\ExcelServiceProvider',    
+        //'Maatwebsite\Excel\ExcelServiceProvider',    
         //Ajax Database access
-        'Chumper\Datatable\DatatableServiceProvider',    
+        //'Chumper\Datatable\DatatableServiceProvider',    
 	),
 
 	/*

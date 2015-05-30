@@ -9,14 +9,14 @@
       <h3 class="panel-title">ระบบยืมหนังสือ</h3>
     </div>
     <div class="panel-body">
-
+    
+    // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
       <div class="row">
         <div class="col-md-6">
           <div class="col-md-12">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
               ค้นหาหนังสือ
             </button>
-            //TODO Show list from session when refresh page
             <table class="table table-striped table-hover">
               <thead>
                 <tr class="info">
@@ -75,13 +75,13 @@
             <h4>สรุป</h4>
             <div class ="well">
               วันยืม {{ date('d-m-Y '); }} <br/>
-              วันคืน dd-mm-yyyy
+              วันคืน {{date("Y-m-d H:i:s",strtotime(' +15 day'))}}
             </div>
           </div>
           <div class="col-md-12">
-            <a href="{{ url('/borrow/submit'); }}"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
+            <a href="/borrow/submit"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
             <!-- TODO add jquery for refresh here -->
-            <a href="{{ url('/borrow/clear'); }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
           </div>
         </div>
       </div>
@@ -100,6 +100,10 @@
       </div>
       <div class="modal-body">
         //Need to limit number of out put item <br>
+        //TODO รองรับการกรอกไอดีของสื่อ CD100,C100,110<br>
+        //TODO สื่อที่ถูกยืมไปแล้วต้องไม่แสดงอีก<br>
+        //TODO แจ้งเมื่อไม่มีผลลัพธ์การค้นหา <br>
+        //TODO แจ้งเตือนเมื่อยืม หนังสื่อและสื่อเดียวกันเกิน 1 ชิ้น <br>
         เลือกหนังสือ
         <input type="text" name="" id="search-book"/>
         <input type="button" class="book_search_btn" value="ค้นหา">
@@ -173,7 +177,7 @@
             tr_table.append('<td>'+input_data['title']+'</td>');
             tr_table.append('<td>'+input_data['id']+'</td>');
             tr_table.append('<td>'+input_data['type']+'</td>');
-            $(".table_fill").prepend(tr_table);
+            $(".table_fill").append(tr_table); //or prepend 
           }
         });
    });
