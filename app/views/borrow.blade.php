@@ -79,9 +79,9 @@
             </div>
           </div>
           <div class="col-md-12">
-            <a href="/borrow/submit"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
+            <a href="{{ url('/borrow/submit') }}"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
             <!-- TODO add jquery for refresh here -->
-            <a href="/borrow/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+            <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
           </div>
         </div>
       </div>

@@ -115,17 +115,17 @@
   </div>
 </div>
 
-</div>
 
 
+<footer>
 <div class="footer">
-     <div class= "col-md-2 footer-img">
-      <img class = "img-logo" src="{{ asset('/img/logo.png') }}" >
-    </div>
-    <div class = "col-md-10 ">
-      <p >ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</p>
-    </div>
+  <div class= "col-md-2 footer-img">
+    <img class = "img-logo" src="{{ asset('/img/logo.png') }}" >
   </div>
+  <div class = "col-md-10 ">
+    <p >ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</p>
+  </div>
+</div>
 </footer> 
 <!-- jQuery -->
 @section('script')
