@@ -3,7 +3,7 @@
 	<title>เพิ่มหนังสือใหม่</title>
 @stop
 @section('body')
-			<form role="form" action="{{ url('add') }}" method="post">
+			<form role="form" class = "form-inline" action="{{ url('add') }}" method="post">
 			<div class='row'>
 				<div class='col-md-12'>
 						<div class='col-md-6'>
@@ -70,6 +70,9 @@
             	<div class="col-md-6 col-md-offset6">
             		<input type="submit" class="btn btn-primary" name="bt1" value="Submit">
                 </div>
+                <div class = "col-md-3">
+			    	<a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
+				</div> 
            	</div>
-           	</form>
+           	</form> 
 @stop

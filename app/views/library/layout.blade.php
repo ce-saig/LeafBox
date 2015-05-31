@@ -137,7 +137,16 @@
 <script type="text/javascript">
   //ajax search menu
   $('.search_submit').click(function() {
-    
+    genereate_search_result();
+  });
+
+  $(document).keypress(function(e) {
+    if(e.which == 13) {
+        genereate_search_result();
+    }
+  });
+
+   function genereate_search_result() {
     //get data form form 
     var search_val = $('#search_value').val();
     var search_type = $('#search_type').val();
@@ -155,14 +164,20 @@
       data: { search_type : search_type,search_value : search_val }
     }).done(function(response) {
         console.log(response); 
-
         $('.search_result').text('');
+
+        if(response[0] == undefined){
+          $('.search_result').append('<div class="alert alert-warning" role="alert">ไม่มีข้อมูลของหนังสือนี้ กรุณากรอกใหม่</div>');
+          return
+        }
+
           //append to node 
         for(var i = 0;i < response.length; i++){
           console.log(response[i].title);
           var id_book = response[i].id;
-          var wrapper = $('<a></a>');
-          wrapper.attr('href',"{{url('book/"+ id_book +"') }}");
+          var wrapper = $('<div class = "col-md-4"></div>');
+          var link_wrapper = $('<a></a>');
+          link_wrapper.attr('href',"{{url('book/"+ id_book +"') }}");
           
           var panel_wrapper = $('<div></div>').addClass('panel-hover panel panel-default');
           panel_wrapper.attr('style','display: none;');
@@ -179,7 +194,7 @@
           panel_body.append(panel_body_inner);
           
           for(label in mediatype){
-            var badge = $('<div></div>').addClass('col-md-2');
+            var badge = $('<div></div>').addClass('col-md-6');
             badge.text(mediatype[label]);
             console.log("badge status = " + response[i][status_attr_type[label]] );
             var badgetag = badgeGenerator(response[i][status_attr_type[label]]);
@@ -190,13 +205,15 @@
           
 
           panel_body.append(outer_badge);
-           panel_wrapper.show('fast');
-          wrapper.append(panel_wrapper);
+          panel_wrapper.show('fast');
+          link_wrapper.append(panel_wrapper);
+          wrapper.append(link_wrapper);
           $('.search_result').append(wrapper);
 
         }
         
     });
+  }
 
   function badgeGenerator(status) {
       
@@ -212,9 +229,6 @@
         return '<span class="label label-warning">ข้อมูลไม่ถูกต้อง</span>';
       }
   }
-
-  
-  });
 </script>
 @show
 </body>

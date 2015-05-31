@@ -7,6 +7,7 @@
 @section('body')
 <div class = "row">
 	<div class = "col-md-12 search-bar panel" >
+		
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" id = "search_type" role="menu">
 			    <option value = "title" >ชื่อ</option>
@@ -20,8 +21,9 @@
 		<div class = "col-md-8">
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>		  
-
-		<button  class="col-md-2 btn btn-success pull-right search_submit" >ค้นหา</button>
+		<div class = "col-md-2 col-xs-8 pull-right" >
+			<button  class="btn btn-success search_submit" >ค้นหา</button>
+		</div>
 
 	</div>	
 	<hr>
@@ -30,6 +32,8 @@
 
 		<div class = "search_result">
 		</div>
+
+		<br/>
 		{{--  @forelse ($books as $book)
 		<a href = "{{url('book/'.$book->id) }}">
 		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
@@ -126,9 +130,61 @@
 			</div>
 	 	@endforelse --}}
 	</div> 
+	</div>
+	
+	<div class="row">
+		<div class = "panel panel-default">
+				<div class = "panel-heading">
+					จัดการ
+				</div>
+				<div class= "panel-body">
+					<div class="col-md-10 col-md-offset-1">
+						
+						<div class = "col-md-3 icon">
+						  <a href="{{URL::to('/book/add')}}">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="{{ asset('/img/Book.png') }}">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4>เพิ่มหนังสือ</h4>
+							</div>
+						  </a>
+						</div>
+						<div class = "col-md-3 icon text-center">
+						  <a href="{{URL::to('/borrow')}}">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="{{ asset('/img/Clipboard.png') }}">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4>ยืมหนังสือ</h4>
+							</div>
+						  </a>
+						</div>
+						<div class = "col-md-3 icon text-center">
+						  <a href="{{URL::to('/return')}}">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="{{ asset('/img/Pocket.png') }}">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4> คืนหนังสือ </h4>
+							</div>
+						  </a>
+						</div>
+						<div class = "col-md-3 icon text-center">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="{{ asset('/img/Retina-Ready.png') }}">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4> จัดการผู้ใช้ </h4>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
 
 	<div class = "row">
-		<div class = "col-md-offset-1 col-md-5">
+		<div class = "col-md-offset-2 col-md-8">
 			<div class = "panel panel-default">
 				<div class = "panel-heading">
 					หนังสือที่เพิ่มล่าสุด
@@ -148,16 +204,7 @@
 				</div>
 			</div>
 		</div>
-		<div class = "col-md-5">
-			<div class = "panel panel-default">
-				<div class = "panel-heading">
-					หนังสือที่ยืมล่าสุด
-				</div>
-				<div class= "panel-body">
-					
-				</div>
-			</div>
-		</div>
+		
 	</div>
 </div>
 

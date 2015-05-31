@@ -112,6 +112,9 @@
         <input type="submit" class="btn btn-success pull-right" value="เพิ่ม">
       </div>
     </form>
+    <div class = "col-md-3">
+          <a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
+    </div> 
   </div>
 </div>
 @stop

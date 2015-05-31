@@ -78,7 +78,9 @@
       </div>
     </div>
   </div>
-
+  <div class = "col-md-3">
+    <a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
+  </div> 
 </div>
 
 <!-- Modal -->

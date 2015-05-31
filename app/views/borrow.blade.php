@@ -4,90 +4,96 @@
 @stop
 @section('body')
 <div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">ระบบยืมหนังสือ</h3>
-    </div>
-    <div class="panel-body">
-    
-    // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
-      <div class="row">
-        <div class="col-md-6">
-          <div class="col-md-12">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
-              ค้นหาหนังสือ
-            </button>
-            <table class="table table-striped table-hover">
-              <thead>
-                <tr class="info">
-                  <th>#</th>
-                  <th>ชื่อหนังสือ</th>
-                  <th>ID ของสื่อ</th>
-                  <th>ชนิดสื่อ</th>
-                </tr>
-              </thead>
-              <tbody class = "table_fill">
-                <?php 
-                  $no=1;                
-                ?>
-                @foreach ($borrow as $item)
-                  <tr>
-                    <td>{{$no++}}</td>
-                    <td>{{$item['title']}}</td>
-                    <td>{{$item['id']}}</td>
-                    <td>{{$item['type']}}</td>
-                  </tr>
-                @endforeach
+  <div class = "row">
+    <div class = "col-md-12">
+         <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">ระบบยืมหนังสือ</h3>
+            </div>
+            <div class="panel-body">
+            
+            // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+                      ค้นหาหนังสือ
+                    </button>
+                    <table class="table table-striped table-hover">
+                      <thead>
+                        <tr class="info">
+                          <th>#</th>
+                          <th>ชื่อหนังสือ</th>
+                          <th>ID ของสื่อ</th>
+                          <th>ชนิดสื่อ</th>
+                        </tr>
+                      </thead>
+                      <tbody class = "table_fill">
+                        <?php 
+                          $no=1;                
+                        ?>
+                        @foreach ($borrow as $item)
+                          <tr>
+                            <td>{{$no++}}</td>
+                            <td>{{$item['title']}}</td>
+                            <td>{{$item['id']}}</td>
+                            <td>{{$item['type']}}</td>
+                          </tr>
+                        @endforeach
 
-              </tbody>
-            </table>
-            <table class="table table-striped table-hover">
-              <tbody class = "table_sum">
-              <tr>
-                  <th>รวม</th>
-                  <th>X เล่ม</th>
-                  <th>Y ชุด</th>
-                  <th>Z ชิ้น</th>
-                </tr>
-              </tbody>
-            </table>
+                      </tbody>
+                    </table>
+                    <table class="table table-striped table-hover">
+                      <tbody class = "table_sum">
+                      <tr>
+                          <th>รวม</th>
+                          <th>X เล่ม</th>
+                          <th>Y ชุด</th>
+                          <th>Z ชิ้น</th>
+                        </tr>
+                      </tbody>
+                    </table>
 
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="col-md-12">
-            <div class = "row">
-              <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
-              <div class = "col-md-2">
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
-                  เลือกผู้ยืม
-                </button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="col-md-12">
+                    <div class = "row">
+                      <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
+                      <div class = "col-md-2">
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
+                          เลือกผู้ยืม
+                        </button>
+                      </div>
+                    </div>
+                    <div class = "row">
+                      <div class = "well">
+                      ชื่อ : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
+                    เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <h4>สรุป</h4>
+                    <div class ="well">
+                      วันยืม {{ date('d-m-Y '); }} <br/>
+                      วันคืน {{date("Y-m-d H:i:s",strtotime(' +15 day'))}}
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <a href="{{ url('/borrow/submit') }}"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
+                    <!-- TODO add jquery for refresh here -->
+                    <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class = "row">
-              <div class = "well">
-              ชื่อ : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
-            เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
-            </div>
-            </div>
           </div>
-          <div class="col-md-12">
-            <h4>สรุป</h4>
-            <div class ="well">
-              วันยืม {{ date('d-m-Y '); }} <br/>
-              วันคืน {{date("Y-m-d H:i:s",strtotime(' +15 day'))}}
-            </div>
-          </div>
-          <div class="col-md-12">
-            <a href="{{ url('/borrow/submit') }}"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
-            <!-- TODO add jquery for refresh here -->
-            <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div>  
   </div>
-
+  <div class = "col-md-3">
+    <a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
+  </div>  
 </div>
 
 <!-- Modal -->

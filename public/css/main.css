@@ -55,3 +55,15 @@ a {
 	color : black;
 }
 
+.icon:hover {
+  -webkit-transform: scale(1.1);
+}
+
+.icon:active {
+  -webkit-transform: scale(1);
+}
+
+.text-icon {
+  margin-top: 10px;
+}
+
