@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ce-saig/LeafBox.png?label=ready&title=Ready)](https://waffle.io/ce-saig/LeafBox)
 ## Laravel PHP Framework
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/ce-saig/LeafBox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
