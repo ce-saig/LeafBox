@@ -16,6 +16,7 @@
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
           <td>{{$item->detail()->first()->notes}}</td>
+          <td><a href = "{{ url('/book/'.$bid.'/dvd/delete/'.$item->id) }}"class="btn btn-danger">ลบ</a></td>
         </tr>
         @endforeach 
       </tbody>

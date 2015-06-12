@@ -8,6 +8,7 @@
         <tr>
           <th width="300">ลำดับที่</th>
           <th>จำนวนส่วน</th>
+          <th>จัดการ</th>
         </tr>
        </thead>
       <tbody>
@@ -15,6 +16,7 @@
       <tr class = "hover" href="{{$bid}}/cassette/{{$item->id}}">
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
+          <td><a href = "{{ url('/book/'.$bid.'/cassette/delete/'.$item->id) }}"class="btn btn-danger">ลบ</a></td>
       </tr>      
         @endforeach 
       </tbody>
