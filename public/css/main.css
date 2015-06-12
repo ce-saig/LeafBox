@@ -67,3 +67,11 @@ a {
   margin-top: 10px;
 }
 
+
+/* Custom Bootstrap */
+
+.hover:hover {
+  background-color: #34495e !important;
+  color: white;
+  cursor: pointer;
+}

@@ -233,4 +233,37 @@ class MediaController extends Controller{
     }
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
+
+   public function removeSelectedCassette($bookId,$cassetteId){
+    $item = Cassette::find($cassetteId);
+    $item->detail()->delete();
+    $item->delete();
+    return Redirect::to(url('book/'.$bookId.'#cassette'));
+  }
+
+  public function removeSelectedCd($bookId,$cdId){
+    $item = CD::find($cdId);
+    //$item->detail()->delete();
+    $item->delete();
+    return Redirect::to(url('book/'.$bookId.'#cd'));
+  }
+  public function removeSelectedDvd($bookId,$dvdId){
+    $item = DVD::find($dvdId);
+    $item->detail()->delete();
+    $item->delete();
+    return Redirect::to(url('book/'.$bookId.'#dvd'));
+  }
+  public function removeSelectedBraille($bookId,$brailleId){
+    $item = Braille::find($brailleId);
+    $item->detail()->delete();
+    $item->delete();
+    return Redirect::to(url('book/'.$bookId.'#braille'));
+  }
+
+  public function removeSelectedDaisy($bookId,$daisyId){
+    $item = Daisy::find($daisyId);
+    $item->detail()->delete();
+    $item->delete();
+    return Redirect::to(url('book/'.$bookId.'#daisy'));
+  }
 }

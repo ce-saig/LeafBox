@@ -16,6 +16,7 @@
             <td width="300">{{$item->id}}</td>
             <td>{{$item->status}}NEED BORROW SYSTEM</td>
             <td>{{$item->pages}}</td>
+            <td><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger">ลบ</a></td>
           </tr>
         @endforeach 
       </tbody>

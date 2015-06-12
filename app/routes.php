@@ -45,6 +45,12 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::get('cassette/deleteAll','MediaController@removeAllCassette');
   Route::get('braille/deleteAll','MediaController@removeAllBraille');
 
+  Route::get('cassette/delete/{part_id}','MediaController@removeSelectedCassette');
+  Route::get('cd/delete/{part_id}','MediaController@removeSelectedCd');
+  Route::get('dvd/delete/{part_id}','MediaController@removeSelectedDvd');
+  Route::get('braille/delete/{part_id}','MediaController@removeSelectedBraille');
+  Route::get('daisy/delete/{part_id}','MediaController@removeSelectedDaisy');
+
   Route::get('braille/{id}', 'MediaController@getBraille');//TODO
   Route::post('braille/{id}', 'MediaController@getBraille');//TODO
   
