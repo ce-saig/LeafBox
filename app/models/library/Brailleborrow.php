@@ -1,14 +1,11 @@
 <?php
-
-namespace Library;
-
-use Eloquent;
+//use Eloquent;
 
 class Brailleborrow extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    //protected $connection = 'mysql2-library';
     
-    protected $table = 'BRAILLEBORROW';
+    protected $table = 'brailleborrow';
 
     protected $guarded = array('parent_id');
 

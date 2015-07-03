@@ -1,14 +1,10 @@
 <?php
 
-namespace Library;
-
-use Eloquent;
-
 class Dvdborrow extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    //protected $connection = 'mysql2-library';
     
-    protected $table = 'DVDBORROW';
+    protected $table = 'dvdborrow';
 
     protected $guarded = array('parent_id');
     

@@ -1,20 +1,20 @@
 <?php
 
-namespace Library;
+// namespace Library;
 
-use Eloquent;
+// use Eloquent;
 
-class Cd extends Eloquent {
+class CD extends Eloquent {
     
-    protected $connection = 'mysql2-library';
+    // protected $connection = 'mysql2-library';
     
-    protected $table = 'CD';
+    protected $table = 'cd';
 
     public $timestamps = false;
 
-    public function books()   { return $this->belongsTo('Library\Books', 'IBOOK_NO'); }
-    public function detail()   { return $this->hasMany('Library\Cddetail', 'parent_id'); }
-    public function borrow()   { return $this->hasOne('Library\Cdborrow', 'parent_id'); }
+    public function book()   { return $this->belongsTo('Book'); }
+    public function detail()   { return $this->hasMany('Cddetail'); }
+    public function borrow()   { return $this->hasOne('Cdborrow'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

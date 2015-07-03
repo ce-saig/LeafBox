@@ -1,16 +1,13 @@
 <?php
 
-namespace Library;
-
-use Eloquent;
 
 class Member extends Eloquent {
 
-  protected $connection = 'mysql2-library';
+  //protected $connection = 'mysql2-library';
   
-	protected $table = 'MEMBER';
+	protected $table = 'member';
 
-  protected $primaryKey = 'MEMBER_NO';
+  //protected $primaryKey = 'MEMBER_NO';
 
 	//Relations
 	// public function tags()        { return $this->morphToMany('Tag', 'taggable'); }

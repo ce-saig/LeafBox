@@ -1,18 +1,11 @@
 <?php
 
-namespace Library;
-
-use Eloquent;
-
 class Cddetail extends Eloquent {
-    
-    protected $connection = 'mysql2-library';
-    
-    protected $table = 'CDDETAIL';
+    protected $table = 'cddetail';
 
     public $timestamps = false;
 
-    public function cd()   { return $this->belongsTo('Library\Cd', 'parent_id'); }
+    public function cd()   { return $this->belongsTo('Cd'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
