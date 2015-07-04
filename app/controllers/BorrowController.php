@@ -126,9 +126,8 @@ class BorrowController extends BaseController {
     $dateBorrow = date("Y-m-d H:i:s");
     //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
-    $dateReturn = date("Y-m-d H:i:s",strtotime(' +15 day'));
-
-    
+    $dateTmp = date_create_from_format('m/d/Y', Session::get('retdate', date("m/d/Y",strtotime(' +15 day'))));
+    $dateReturn = date_format($dateTmp, 'Y-m-d H:i:s');
 
     //LOOP insert media into it tb
     foreach ($selectedList as $item) {
@@ -209,6 +208,13 @@ class BorrowController extends BaseController {
   {
     Session::forget('borrow');
     return Session::get('member', array());
+  }
+
+  public function postRetDate()
+  {
+    $retdate=Input::get('retdate');
+    Session::put('retdate', $retdate);
+    return $retdate;
   }
 
   //TODO Search from "ID" only not Book title

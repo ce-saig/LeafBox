@@ -3,6 +3,9 @@
 <title>ระบบยืมหนังสือ</title>
 @stop
 @section('body')
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
 <div class="container">
   <div class = "row">
     <div class = "col-md-12">
@@ -11,7 +14,7 @@
               <h3 class="panel-title">ระบบยืมหนังสือ</h3>
             </div>
             <div class="panel-body">
-            
+
             // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
               <div class="row">
                 <div class="col-md-6">
@@ -29,8 +32,8 @@
                         </tr>
                       </thead>
                       <tbody class = "table_fill">
-                        <?php 
-                          $no=1;                
+                        <?php
+                          $no=1;
                         ?>
                         @foreach ($borrow as $item)
                           <tr>
@@ -77,7 +80,7 @@
                     <h4>สรุป</h4>
                     <div class ="well">
                       วันยืม {{ date('d-m-Y '); }} <br/>
-                      วันคืน {{date("Y-m-d H:i:s",strtotime(' +15 day'))}}
+                      วันคืน : <input type="text" id="datepicker" ><br/>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -89,11 +92,11 @@
               </div>
             </div>
           </div>
-    </div>  
+    </div>
   </div>
   <div class = "col-md-3">
     <a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
-  </div>  
+  </div>
 </div>
 
 <!-- Modal -->
@@ -135,7 +138,7 @@
         //Need to limit number of out put item<br>
           <div class = "col-md-2 pull-right" ><button class = "btn btn-default search-member-btn">ค้นหา</button></div>
           <div class = "col-md-3 pull-right"><input placeholder="ชื่อ" type="text" class = "form-control" name="" id="search-member"/></div>
-      
+
         <table id="member-result" class = "table table-hover">
         <tr>
           <td>ชื่อ</td><td>เพศ</td>
@@ -153,11 +156,28 @@
 @parent
 
 <script type="text/javascript">
+  
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+
+  $("#datepicker").on("change", "", function(event){
+    $.ajax({
+      type: "POST",
+      url: "{{ url('/borrow/retdate') }}",
+      data: {retdate:$('#datepicker').val()}
+    }).done(function(data) {
+      console.log('retdate change ='+$('#datepicker').val());
+      // update retern date
+    });
+  });
+
+  
   $('.book_search_btn').click(function(event){
   //$('#search-book').keyup(function(){
     $('#result').html('');
     if($('#search-book').val() != ''){
-      $.get('{{ url("borrow/search") }}', 
+      $.get('{{ url("borrow/search") }}',
         {keyword: $('#search-book').val()},
         function(data){
           //console.log(data);
@@ -168,7 +188,7 @@
     }
   });
 
-  $("body").on("click", ".book_choose", function(event){ 
+  $("body").on("click", ".book_choose", function(event){
       event.preventDefault();
       var text = $(this).prop('href');
         console.log(text);
@@ -183,7 +203,7 @@
             tr_table.append('<td>'+input_data['title']+'</td>');
             tr_table.append('<td>'+input_data['id']+'</td>');
             tr_table.append('<td>'+input_data['type']+'</td>');
-            $(".table_fill").append(tr_table); //or prepend 
+            $(".table_fill").append(tr_table); //or prepend
           }
         });
    });
@@ -199,7 +219,11 @@
           //do before clear
         });
 
-  }); 
+  });
+
+  
+
+
 
   function addToList(data){
     //console.log('addToList');
@@ -258,7 +282,7 @@
         type: "GET",
         url: "{{ url('borrow/member/"+member_id+"') }}",
       }).done(function(data) {
-        
+
         console.log(data);
         $('#member_name_label').html(data.name);
         $('#member_phone_label').html(data.phone_no);
@@ -270,4 +294,5 @@
 
 
   </script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   @stop
