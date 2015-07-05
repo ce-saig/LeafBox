@@ -8,7 +8,7 @@
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
-  
+
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,13 +16,13 @@
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	
+
 	@yield('head')
 
 	<style type="text/css">
 
-      
-    </style>	
+
+    </style>
   </head>
   <body>
     <div class="navbar navbar-default">
@@ -57,15 +57,14 @@
           @if(Auth::check())
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}<b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Setting</a></li>
+            <li><a href="{{ url('user/'.Auth::user()->id) }}">จัดการผู้ใช้งาน</a></li>
             <li class="divider"></li>
             <li><a href="{{ URL::to('logout') }}">Log out</a></li>
-          </ul> 
+          </ul>
           @else
           <li data-toggle="modal" data-target="#myModal" ><a> Sign in </a></li>
           @endif
-          
+
         </li>
       </ul>
     </div>
@@ -126,7 +125,7 @@
     <p >ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</p>
   </div>
 </div>
-</footer> 
+</footer>
 <!-- jQuery -->
 @section('script')
 <script type="text/javascript"  src="{{ asset('js/jquery.min.js') }}"></script>
@@ -134,7 +133,7 @@
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- AJAX Databases -->
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/application.js') }}" 
+<script type="text/javascript" src="{{ asset('js/application.js') }}"
 <script type="text/javascript">
   //ajax search menu
   $('.search_submit').click(function() {
@@ -148,7 +147,7 @@
   });
 
    function genereate_search_result() {
-    //get data form form 
+    //get data form form
     var search_val = $('#search_value').val();
     var search_type = $('#search_type').val();
 
@@ -157,14 +156,14 @@
     var mediatype = ['เบลล์ ', 'คาสเซ็ท ', 'DVD ', 'CD ', 'Daisy '];
     var status_attr_type = ['bm_status','setcm_status','setdvd_status','setcd_status','setdm_status'];
 
-    //ajax to grab information 
-    //TODO: !!! edit ajax under this 
+    //ajax to grab information
+    //TODO: !!! edit ajax under this
     $.ajax({
       type: "POST",
       url: "{{ url('/search/book') }}",
       data: { search_type : search_type,search_value : search_val }
     }).done(function(response) {
-        console.log(response); 
+        console.log(response);
         $('.search_result').text('');
 
         if(response[0] == undefined){
@@ -172,14 +171,14 @@
           return
         }
 
-          //append to node 
+          //append to node
         for(var i = 0;i < response.length; i++){
           console.log(response[i].title);
           var id_book = response[i].id;
           var wrapper = $('<div class = "col-md-4"></div>');
           var link_wrapper = $('<a></a>');
           link_wrapper.attr('href',"{{url('book/"+ id_book +"') }}");
-          
+
           var panel_wrapper = $('<div></div>').addClass('panel-hover panel panel-default');
           panel_wrapper.attr('style','display: none;');
           panel_wrapper.attr('style', 'margin-bottom:20px;');
@@ -187,13 +186,13 @@
           panel_header.text( response[i].id + '.'+response[i].title +' - ' + response[i].author +' ('+response[i].pub_year+')');
           var panel_body = $('<div></div>').addClass('panel-body');
           var panel_body_inner = $('<div></div>').addClass('label-status');
-          // TODO ********** : badge status node !! 
+          // TODO ********** : badge status node !!
 
           var outer_badge  = $('<div></div>').addClass('label-status');
 
           panel_wrapper.append(panel_header).append(panel_body);
           panel_body.append(panel_body_inner);
-          
+
           for(label in mediatype){
             var badge = $('<div></div>').addClass('col-md-6');
             badge.text(mediatype[label]);
@@ -203,7 +202,7 @@
             badge.append(badgetag);
             outer_badge.append(badge);
           }
-          
+
 
           panel_body.append(outer_badge);
           panel_wrapper.show('fast');
@@ -212,12 +211,12 @@
           $('.search_result').append(wrapper);
 
         }
-        
+
     });
   }
 
   function badgeGenerator(status) {
-      
+
       if(status == 0){
         return '<span class="label label-danger">ไม่ทำการผลิต</span>';
       }else if(status == 1){
@@ -234,4 +233,3 @@
 @show
 </body>
 </html>
-

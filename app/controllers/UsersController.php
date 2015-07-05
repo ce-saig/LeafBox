@@ -67,12 +67,12 @@ class UsersController extends \BaseController {
 		$user = User::find($id);
 		if(!is_null($user))
 		{
-			if($user.isAdmin())
+			if($user->isAdmin())
 			{
 				$users = User::all();
-				var_dump($user);
+				return View::make('user.show',array('user' => $user , 'users' => $users ));
 			}
-			return View::make('user.show',array('user' => $user , 'users' => $users ));
+			return View::make('user.show',array('user' => $user ));
 		}else{
 			//TODO : return 404 page
 			return;

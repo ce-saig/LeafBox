@@ -16,7 +16,7 @@ html, body {
 }
 
 .footer {
-  height: 135px; 
+  height: 135px;
   background-color: #34495e;
   color: #ecf0f1;
   padding-top: 10px;
@@ -74,4 +74,18 @@ a {
   background-color: #34495e !important;
   color: white;
   cursor: pointer;
+}
+
+.panel {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+// customize style
+.userborder {
+  background-color: red !important;
+  border-style: dashed;
+  border-color: black;
+  border-width: 5px;
+  border-radius: 2px;
 }

@@ -1,5 +1,5 @@
 /*
-*   This is Core Logic for Jquery on Application 
+*   This is Core Logic for Jquery on Application
 */
 
 $(document).ready(function() {
@@ -8,17 +8,21 @@ $(document).ready(function() {
 
 function userAJAX(){
 	$('.del_user').click(function() {
+		var c = confirm("คุณต้องการจะลบจริงๆหรือไม่");
+		if (c == true){
+				var del_url = $(this).attr('url');
+				var user_id = $(this).attr('user-id');
 
-		var del_url = $(this).attr('url');
-		alert(del_url);
-		//console.log("userId : " + userId);
+				$.ajax({
+					type: "POST",
+					url: del_url,
+					data: {}
+				}).done(function(response) {
+					if(response) {
+						$('#'+user_id).remove();
+					}
+				});
 
-		$.ajax({
-			type: "POST",
-			url: del_url,
-			data: {}
-		}).done(function(response) {
-			if(response) alert('success');
-		});
+		}
 	});
 }
