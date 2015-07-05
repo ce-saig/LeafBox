@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-        
+		'Way\Generators\GeneratorsServiceProvider',
+		
         //Add-on
         //'Maatwebsite\Excel\ExcelServiceProvider',    
         //Ajax Database access
@@ -193,9 +194,9 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         
-        //Add-on
+        // Add-on
         'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
-        //Ajax Database 
+        // Ajax Database 
         'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
 	),
 

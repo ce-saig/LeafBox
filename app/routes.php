@@ -87,3 +87,9 @@ Route::post('borrow/member','BorrowController@postMember');
 Route::get('return','ReturnController@getIndex');
 Route::get('return/clear','ReturnController@getClear');
 Route::post('return/add','ReturnController@postAdd');
+
+// User 
+Route::get('user/{id}','UsersController@show');
+Route::post('user/{id}/destroy','UsersController@destroy');
+Route::get('registration','UsersController@create');
+Route::post('user/store','UsersController@store');
