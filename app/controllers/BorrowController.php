@@ -216,6 +216,30 @@ class BorrowController extends BaseController {
   {
     $result = array();
     $keyword = Input::get('keyword');
+
+    $dvd_condition  = in_array(substr($keyword, 0, 3), array("dvd", "dvD", "dVd", "dVD", "Dvd", "DvD", "DVd", "DVD")) && is_numeric(substr($keyword, 3));
+    $cd_condition   = in_array(substr($keyword, 0, 2), array("cd", "cD", "Cd", "CD")) && is_numeric(substr($keyword, 2));
+    $bcd_condition  = in_array(substr($keyword, 0, 1), array('b', 'c', 'd', 'B', 'C', 'D')) && is_numeric(substr($keyword, 1));
+
+    //$result = $this->searchByName($keyword);
+    if(is_numeric($keyword))
+    $result = $this->searchByID($keyword, 1);
+  else if($dvd_condition || $cd_condition || $bcd_condition)
+    $result = $this->searchByID($keyword, 2);
+  else
+    $result = $this->searchByName($keyword);
+
+    //return (!$book)?'true':'false';
+    if(!$result){
+      return '';
+    } else {
+      return json_encode($result);
+    }
+  }
+
+  public function searchByName($keyword)
+  {
+    $result = array();
     //if user search from book's title
     $books = Book::where('title', 'LIKE', "%$keyword%")->take(5)->get();
     //return $books;
@@ -281,13 +305,161 @@ class BorrowController extends BaseController {
         }
       }
     }
-    //return (!$book)?'true':'false';
-    if(!$result){
-      return '';
-    } else {
-      return json_encode($result);
+    return $result;
+  }
+
+  public function searchByID($keyword, $search_type) //type 1 : number only, type 2 : number with media
+  {
+    $found_status = array(array()); //(braille, casette, cd, daisy, dvd) *media status of each book
+    $result = array();
+    $books  = array();
+    $book_index = 0;
+    if($search_type == 1) {
+      $keyword = (int) $keyword;
+      $braille = Braille::find($keyword);
+      if($braille != null) {
+        $books[$book_index] = Book::find($braille->book_id);
+          $found_status[$book_index++] = array(1, 0, 0, 0, 0);
+        }
+
+    $cassette = Cassette::find($keyword);
+    if($cassette != null) {
+      $books[$book_index] = Book::find($cassette->book_id);
+      $found_status[$book_index++] = array(0, 1, 0, 0, 0);
     }
 
+    $cd = CD::find($keyword);
+    if($cd != null) {
+      $books[$book_index] = Book::find($cd->book_id);
+      $found_status[$book_index++] = array(0, 0, 1, 0, 0);
+    }
+
+    $daisy = Daisy::find($keyword);
+    if($daisy != null) {
+      $books[$book_index] = Book::find($daisy->book_id);
+      $found_status[$book_index++] = array(0, 0, 0, 1, 0);
+    }
+
+    $dvd = DVD::find($keyword);
+    if($dvd != null) {
+      $books[$book_index] = Book::find($dvd->book_id);
+      $found_status[$book_index++] = array(0, 0, 0, 0, 1);
+    }
+    }
+    else {
+      if(in_array(substr($keyword, 0, 3), array("dvd", "Dvd", "DvD", "dVd", "dVD", "dvD", "DVd", "DVD"))) {
+        $media = "dvd";
+        $keyword = $this->getNumID($keyword, 3);
+      }
+      else if(in_array(substr($keyword, 0, 2), array("cd", "Cd", "cD", "CD"))) {
+        $media = "cd";
+        $keyword = $this->getNumID($keyword, 2);
+      }
+      else if(in_array(substr($keyword, 0, 1), array('b', 'c', 'd', 'B', 'C', 'D'))) {
+        $media = substr($keyword, 0, 1);
+        $keyword = $this->getNumID($keyword, 1);
+      }
+
+      switch (true) {
+        case in_array($media, array('b', 'B')) :
+          $braille = Braille::find($keyword);
+          $books[0] = Book::find($braille->book_id);
+          $found_status[0] = array(1, 0, 0, 0, 0);
+          break;
+        case in_array($media, array('c', 'C')) :
+          $cassette = Cassette::find($keyword);
+          $books[0] = Book::find($cassette->book_id);
+          $found_status[0] = array(0, 1, 0, 0, 0);
+          break;
+        case $media == "cd" :
+          $cd = CD::find($keyword);
+          $books[0] = Book::find($cd->book_id);
+          $found_status[0] = array(0, 0, 1, 0, 0);
+          break;
+        case in_array($media, array('d', 'D')) :
+          $daisy = Daisy::find($keyword);
+          $books[0] = Book::find($daisy->book_id);
+          $found_status[0] = array(0, 0, 0, 1, 0);
+          break;
+        case $media == "dvd" :
+          $dvd = DVD::find($keyword);
+          $books[0] = Book::find($dvd->book_id);
+          $found_status[0] = array(0, 0, 0, 0, 1);
+          break;
+      }
+    }
+
+    $book_index = 0;
+    foreach($books as $book){
+      //find braille associate this book
+      //then add to result if exist
+      array_push($result, array_fill_keys(array('title'),$book->title));
+      array_push($result[sizeof($result)-1], array());
+      //return $result;
+      $brailles = $book->braille()->get(); // TODO Limit
+      //return sizeof($brailles);
+      if($brailles){
+        foreach($brailles as $braille){
+          if(!$braille->reserved && $found_status[$book_index][0]) {
+            $braille->id = 'B'.str_pad($braille->id, 3, '0', STR_PAD_LEFT);
+            array_push($result[sizeof($result)-1][0], $braille);
+          }
+        }
+      }
+
+      $cassettes = $book->cassette()->get();
+      array_push($result[sizeof($result)-1], array());
+      //return sizeof($cassette);
+      if($cassettes){
+        foreach($cassettes as $cassette){
+          if(!$cassette->reserved && $found_status[$book_index][1]) {
+            $cassette->id = 'C'.str_pad($cassette->id, 3, '0', STR_PAD_LEFT);
+            array_push($result[sizeof($result)-1][1], $cassette);
+          }
+        }
+      }
+
+      $cds = $book->cd()->get();
+      array_push($result[sizeof($result)-1], array());
+      if($cds){
+        foreach($cds as $cd){
+          if($cd && !$cd->reserved && $found_status[$book_index][2]){
+            $cd->id = 'CD'.str_pad($cd->id, 3, '0', STR_PAD_LEFT);
+            array_push($result[sizeof($result)-1][2], $cd);
+          }
+        }
+      }
+
+      $daisies = $book->daisy()->get();
+      array_push($result[sizeof($result)-1], array());
+      if($daisies){
+        foreach($daisies as $daisy){
+          if(!$daisy->reserved && $found_status[$book_index][3]) {
+            $daisy->id = 'D'.str_pad($daisy->id, 3, '0', STR_PAD_LEFT);
+            array_push($result[sizeof($result)-1][3], $daisy);
+          }
+        }
+      }
+
+      $dvds = $book->dvd()->get();
+      array_push($result[sizeof($result)-1], array());
+      if($dvds){
+        foreach($dvds as $dvd){
+          if(!$dvd->reserved && $found_status[$book_index][4]) {
+            $dvd->id = 'DVD'.str_pad($dvd->id, 3, '0', STR_PAD_LEFT);
+            array_push($result[sizeof($result)-1][4], $dvd);
+          }
+        }
+      }
+      $book_index++;
+    }
+    return $result;
+  }
+
+  public function getNumID($string, $start_index)
+  {
+  $number = substr($string, $start_index);
+    return (is_numeric($number)) ? (int) $number : null;
   }
 }
 
