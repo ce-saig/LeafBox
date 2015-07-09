@@ -75,3 +75,10 @@ a {
   color: white;
   cursor: pointer;
 }
+
+#not_found  { 
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+  vertical-align: middle;
+}
