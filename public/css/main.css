@@ -88,4 +88,9 @@ a {
   border-color: black;
   border-width: 5px;
   border-radius: 2px;
+
+#not_found  { 
+  font-size: 100%;
+  text-align: center;
+  width: auto;
 }

@@ -94,3 +94,4 @@ Route::get('user/{id}','UsersController@show');
 Route::post('user/{id}/destroy','UsersController@destroy');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
+

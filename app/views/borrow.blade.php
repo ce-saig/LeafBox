@@ -118,6 +118,8 @@
         <input type="button" class="book_search_btn" value="ค้นหา">
         <ul id="result">
         </ul>
+        
+        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
         เพิ่มปุ่มกดก่อนค้นหา แทนปัจจุบันที่พิมพ์แล้วค้นหาเลย
@@ -172,7 +174,11 @@
     });
   });
 
-  
+
+  $('#searchModal').on('hidden.bs.modal', function() {
+    $('#not_found').hide();
+  });
+
   $('.book_search_btn').click(function(event){
   //$('#search-book').keyup(function(){
     $('#result').html('');
@@ -183,8 +189,16 @@
           //console.log(data);
           if(data != ""){
             addToList(data);
+            $('#not_found').hide();
+          }
+          else {
+            //$('#result').prepend('<td>no book found!!</td>');
+            $('#not_found').show();
           }
         });
+    }
+    else {
+      $('#not_found').show();
     }
   });
 
