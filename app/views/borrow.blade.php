@@ -116,7 +116,7 @@
         <ul id="result">
         </ul>
         
-        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่มีผลการค้นหา</div>
+        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
         เพิ่มปุ่มกดก่อนค้นหา แทนปัจจุบันที่พิมพ์แล้วค้นหาเลย

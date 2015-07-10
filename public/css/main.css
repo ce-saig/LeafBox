@@ -77,8 +77,7 @@ a {
 }
 
 #not_found  { 
-  font-size: 20px;
+  font-size: 100%;
   text-align: center;
-  line-height: 30px;
-  vertical-align: middle;
+  width: auto;
 }
