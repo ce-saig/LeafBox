@@ -9,6 +9,7 @@ Thumbs.db
 .idea/
 /*.iml
 node_modules/
+app/storage
 app/config/database.php
 error.log
 access.log
