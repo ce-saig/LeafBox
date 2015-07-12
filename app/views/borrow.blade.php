@@ -15,7 +15,6 @@
             </div>
             <div class="panel-body">
 
-            // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
               <div class="row">
                 <div class="col-md-6">
                   <div class="col-md-12">
@@ -108,21 +107,19 @@
         <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
       </div>
       <div class="modal-body">
-        //Need to limit number of out put item <br>
-        //TODO รองรับการกรอกไอดีของสื่อ CD100,C100,110<br>
-        //TODO สื่อที่ถูกยืมไปแล้วต้องไม่แสดงอีก<br>
-        //TODO แจ้งเมื่อไม่มีผลลัพธ์การค้นหา <br>
-        //TODO แจ้งเตือนเมื่อยืม หนังสื่อและสื่อเดียวกันเกิน 1 ชิ้น <br>
-        เลือกหนังสือ
-        <input type="text" name="" id="search-book"/>
-        <input type="button" class="book_search_btn" value="ค้นหา">
-        <ul id="result">
-        </ul>
+        <div class="form-inline">
+          <div class="form-group input-group">
+            <div class="input-group-addon">ค้นหาหนังสือ</div>
+            <input type="text" class="form-control" name="" id="search-book"/>         
+          </div>
+          <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+        </div>
+          <ul id="result">
+          </ul>
         
-        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
+          <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
-        เพิ่มปุ่มกดก่อนค้นหา แทนปัจจุบันที่พิมพ์แล้วค้นหาเลย
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
