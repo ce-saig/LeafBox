@@ -15,7 +15,6 @@
             </div>
             <div class="panel-body">
 
-            // ช่องระบบวันคืนหนังสือ + เช็คความถูกต้องของวันที่ ที่ใส่
               <div class="row">
                 <div class="col-md-6">
                   <div class="col-md-12">
@@ -79,8 +78,13 @@
                   <div class="col-md-12">
                     <h4>สรุป</h4>
                     <div class ="well">
-                      วันยืม {{ date('d-m-Y '); }} <br/>
-                      วันคืน : <input type="text" id="datepicker" ><br/>
+                      <div class="form-inline">
+                        <div class="form-group input-group">
+                          <div class="input-group-addon">วันยืม : {{ date('d-m-Y '); }}</div>
+                          <div class="input-group-addon">วันคืน : </div>
+                          <input type="text" class="form-control" name="" id="datepicker"/>         
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -108,21 +112,19 @@
         <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
       </div>
       <div class="modal-body">
-        //Need to limit number of out put item <br>
-        //TODO รองรับการกรอกไอดีของสื่อ CD100,C100,110<br>
-        //TODO สื่อที่ถูกยืมไปแล้วต้องไม่แสดงอีก<br>
-        //TODO แจ้งเมื่อไม่มีผลลัพธ์การค้นหา <br>
-        //TODO แจ้งเตือนเมื่อยืม หนังสื่อและสื่อเดียวกันเกิน 1 ชิ้น <br>
-        เลือกหนังสือ
-        <input type="text" name="" id="search-book"/>
-        <input type="button" class="book_search_btn" value="ค้นหา">
-        <ul id="result">
-        </ul>
+        <div class="form-inline">
+          <div class="form-group input-group">
+            <div class="input-group-addon">ค้นหาหนังสือ</div>
+            <input type="text" class="form-control" name="" id="search-book"/>         
+          </div>
+          <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+        </div>
+          <ul id="result">
+          </ul>
         
-        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
+          <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
-        เพิ่มปุ่มกดก่อนค้นหา แทนปัจจุบันที่พิมพ์แล้วค้นหาเลย
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -138,8 +140,13 @@
       </div>
       <div class="modal-body">
         //Need to limit number of out put item<br>
-          <div class = "col-md-2 pull-right" ><button class = "btn btn-default search-member-btn">ค้นหา</button></div>
-          <div class = "col-md-3 pull-right"><input placeholder="ชื่อ" type="text" class = "form-control" name="" id="search-member"/></div>
+          <div class="form-inline">
+            <div class="form-group input-group">
+              <div class="input-group-addon">ค้นหารายชื่อ</div>
+              <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>         
+            </div>
+           <button type="button" class="btn btn-primary search-member-btn">ค้นหา</button>
+          </div>
 
         <table id="member-result" class = "table table-hover">
         <tr>
@@ -162,6 +169,13 @@
   $(function() {
     $( "#datepicker" ).datepicker();
   });
+
+  $('#search-book').on('input propertychange paste', function() {
+    if($('#search-book').val() == '') {
+      $('#not_found').fadeOut();
+      $('#result').html('');
+    }
+  })
 
   $("#datepicker").on("change", "", function(event){
     $.ajax({
@@ -193,12 +207,12 @@
           }
           else {
             //$('#result').prepend('<td>no book found!!</td>');
-            $('#not_found').show();
+            $('#not_found').slideDown(250);
           }
         });
     }
     else {
-      $('#not_found').show();
+      $('#not_found').slideDown(250);
     }
   });
 
@@ -255,23 +269,23 @@
       //TODO when click same item should not add it to list
         //console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
         }
       }
     }
