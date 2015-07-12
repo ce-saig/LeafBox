@@ -78,8 +78,13 @@
                   <div class="col-md-12">
                     <h4>สรุป</h4>
                     <div class ="well">
-                      วันยืม {{ date('d-m-Y '); }} <br/>
-                      วันคืน : <input type="text" id="datepicker" ><br/>
+                      <div class="form-inline">
+                        <div class="form-group input-group">
+                          <div class="input-group-addon">วันยืม : {{ date('d-m-Y '); }}</div>
+                          <div class="input-group-addon">วันคืน : </div>
+                          <input type="text" class="form-control" name="" id="datepicker"/>         
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -135,8 +140,13 @@
       </div>
       <div class="modal-body">
         //Need to limit number of out put item<br>
-          <div class = "col-md-2 pull-right" ><button class = "btn btn-default search-member-btn">ค้นหา</button></div>
-          <div class = "col-md-3 pull-right"><input placeholder="ชื่อ" type="text" class = "form-control" name="" id="search-member"/></div>
+          <div class="form-inline">
+            <div class="form-group input-group">
+              <div class="input-group-addon">ค้นหารายชื่อ</div>
+              <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>         
+            </div>
+           <button type="button" class="btn btn-primary search-member-btn">ค้นหา</button>
+          </div>
 
         <table id="member-result" class = "table table-hover">
         <tr>
