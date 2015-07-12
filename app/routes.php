@@ -80,8 +80,9 @@ Route::get('borrow/search', 'BorrowController@getSearch');
 Route::get('borrow/submit', 'BorrowController@postSubmitSelectedList');
 Route::get('borrow/clear', 'BorrowController@getClear');
 
+
 Route::post('borrow/retdate', 'BorrowController@postRetDate');
-Route::get('borrow/delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
+Route::post('borrow/delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
 
 Route::get('borrow/member/{memberId}','BorrowController@getMember');
 Route::post('borrow/member','BorrowController@postMember');

@@ -224,7 +224,7 @@
     var id = $(this).prop('id');
     var text = "{{ url('borrow/delete') }}/" + id;
     $.ajax({
-      type: "GET",
+      type: "POST",
       url: text,
     }).done(function(data) {
       if(data['status']) {
