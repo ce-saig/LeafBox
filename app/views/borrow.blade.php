@@ -28,18 +28,22 @@
                           <th>ชื่อหนังสือ</th>
                           <th>ID ของสื่อ</th>
                           <th>ชนิดสื่อ</th>
+                          <th>ลบรายการ</th>
                         </tr>
                       </thead>
                       <tbody class = "table_fill">
-                        <?php
+
+                        <?php 
                           $no=1;
                         ?>
                         @foreach ($borrow as $item)
-                          <tr>
+                          <tr class="media-row" id="media-row_{{ $item['typeID'] }}">
+                          
                             <td>{{$no++}}</td>
                             <td>{{$item['title']}}</td>
                             <td>{{$item['id']}}</td>
                             <td>{{$item['type']}}</td>
+                            <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
                           </tr>
                         @endforeach
 
@@ -216,9 +220,23 @@
     }
   });
 
-  $("body").on("click", ".book_choose", function(event){
+  $("body").on("click", ".btn_delete", function() {
+    var id = $(this).prop('id');
+    var text = "{{ url('borrow/delete') }}/" + id;
+    $.ajax({
+      type: "POST",
+      url: text,
+    }).done(function(data) {
+      if(data['status']) {
+        $("#media-row_" + id).hide();
+      }
+    });
+  });
+
+  $("body").on("click", ".book_choose", function(event){ 
       event.preventDefault();
       var text = $(this).prop('href');
+      var id = $(this).prop('id');
         console.log(text);
         $.ajax({
           type: "GET",
@@ -226,12 +244,13 @@
         }).done(function(data) {
           if(data['status']){
             var input_data = data['media'];
-            var tr_table = $('<tr></tr>');
+            var tr_table = $('<tr id="media-row_' + id + '"></tr>');
             tr_table.append('<td>'+input_data['no']+'</td>');
             tr_table.append('<td>'+input_data['title']+'</td>');
             tr_table.append('<td>'+input_data['id']+'</td>');
             tr_table.append('<td>'+input_data['type']+'</td>');
-            $(".table_fill").append(tr_table); //or prepend
+            tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
+            $(".table_fill").append(tr_table); //or prepend 
           }
         });
    });
@@ -269,23 +288,23 @@
       //TODO when click same item should not add it to list
         //console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
+          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][0][brailleIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
+          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][1][cassetteIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
+          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][2][cdIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
+          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][3][daisyIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-          $('#result').append("<a class = \"book_choose\" href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>").hide().slideDown(200);
+          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][4][dvdIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
         }
       }
     }
