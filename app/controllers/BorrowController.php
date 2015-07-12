@@ -36,6 +36,7 @@ class BorrowController extends BaseController {
     $type="Braille";
     $id=$mediaId;
     $mediaType=$mediaId;
+    $mediaTypeID= null;
     //preg_replace("/[0-9]/", "", $mediaType);
     $id = preg_replace("/[^0-9]/", "", $id);
 
@@ -69,7 +70,7 @@ class BorrowController extends BaseController {
       $media['type']=$mediaType;
       $media['id']=(int)$id;
       $media['title']=$book['title'];
-      //$media['item']=$item;
+      $media['typeID'] = $mediaId;
       //$media['----'];
       $selectedList[$mediaId]=$media;
       Session::put('borrow', $selectedList);
@@ -77,6 +78,21 @@ class BorrowController extends BaseController {
     }
 
     return Response::json(array('status' => $status,'media'=>end($selectedList)));
+  }
+
+  public function deleteSelectedMedia($mediaId)
+  {
+    $selectedList = Session::get('borrow', array());
+    $isHas=array_key_exists(strval($mediaId),$selectedList);
+    $status=false;
+    if($isHas){
+      $status=true;
+      unset($selectedList[$mediaId]);
+    }else{
+      $status=false;
+    }
+    Session::put('borrow', $selectedList);
+    return Response::json(array('status' => $status));
   }
 
 
