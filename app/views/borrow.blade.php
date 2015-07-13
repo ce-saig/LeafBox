@@ -32,13 +32,12 @@
                         </tr>
                       </thead>
                       <tbody class = "table_fill">
-
+                        <script>var amountOfMedia = "{{ count($borrow) }}";</script>
                         <?php 
                           $no=1;
                         ?>
                         @foreach ($borrow as $item)
                           <tr class="media-row" id="media-row_{{ $item['typeID'] }}">
-                          
                             <td>{{$no++}}</td>
                             <td>{{$item['title']}}</td>
                             <td>{{$item['id']}}</td>
@@ -46,7 +45,6 @@
                             <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
                           </tr>
                         @endforeach
-
                       </tbody>
                     </table>
                     <table class="table table-striped table-hover">
@@ -92,7 +90,7 @@
                     </div>
                   </div>
                   <div class="col-md-12">
-                    <a href="{{ url('/borrow/submit') }}"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
+                    <a href="{{ url('/borrow/submit') }}" id="submit-media"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
                     <!-- TODO add jquery for refresh here -->
                     <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
                   </div>
@@ -164,14 +162,47 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="notify">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" id="noti-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="notify-title">การทำรายการยืมไม่สำเร็จ</h4>
+      </div>
+      <div class="modal-body">
+        <ul id="notify-error">
+        </ul>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 @stop
 @section('script')
 @parent
 
 <script type="text/javascript">
-  
+  var selectedMember = false;
   $(function() {
     $( "#datepicker" ).datepicker();
+  });
+
+  $('#submit-media').click(function(event) {
+    if(!selectedMember || !amountOfMedia || !$('#datepicker').val()) {
+      event.preventDefault();
+      if(!selectedMember)
+        $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');
+      if(amountOfMedia == 0)
+        $('#notify-error').append('<li>กรุณาเลือกสื่อ</li>');
+      if(!$('#datepicker').val())
+        $('#notify-error').append('<li>กรุณาเลือกวันคืนสื่อ</li>');
+      $('#notify').modal('show');
+    }
+  })
+
+  $('#notify').on('hidden.bs.modal', function() {
+     $('#notify-error').html('');
   });
 
   $('#search-book').on('input propertychange paste', function() {
@@ -228,7 +259,8 @@
       url: text,
     }).done(function(data) {
       if(data['status']) {
-        $("#media-row_" + id).hide();
+        $("#media-row_" + id).remove();
+        amountOfMedia--;
       }
     });
   });
@@ -245,6 +277,7 @@
           if(data['status']){
             var input_data = data['media'];
             var tr_table = $('<tr id="media-row_' + id + '"></tr>');
+            amountOfMedia++;
             tr_table.append('<td>'+input_data['no']+'</td>');
             tr_table.append('<td>'+input_data['title']+'</td>');
             tr_table.append('<td>'+input_data['id']+'</td>');
@@ -324,7 +357,8 @@
     });
 
     $('#member-result').on('click', '.select-member', function(){
-    var member_id = $(this).children('#iden').html();
+      selectedMember = true;
+      var member_id = $(this).children('#iden').html();
       $.ajax({
         type: "GET",
         url: "{{ url('borrow/member/"+member_id+"') }}",

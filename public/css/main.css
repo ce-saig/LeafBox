@@ -88,9 +88,27 @@ a {
   border-color: black;
   border-width: 5px;
   border-radius: 2px;
+}
 
 #not_found  { 
   font-size: 100%;
   text-align: center;
   width: auto;
+}
+
+#noti-header {
+  padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: rgb(255, 128, 0);
+    font-color: white;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+#notify-title {
+  color: white;
 }
