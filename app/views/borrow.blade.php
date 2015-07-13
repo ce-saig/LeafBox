@@ -184,10 +184,6 @@
 
 <script type="text/javascript">
   var selectedMember = false;
-
-  console.log("{{ "hello" }}");
-  console.log("{{ count($borrow) }}");
-
   $(function() {
     $( "#datepicker" ).datepicker();
   });
