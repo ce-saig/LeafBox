@@ -169,7 +169,7 @@
     <div class="modal-content">
       <div class="modal-header" id="noti-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="color: white">การทำรายการยืมไม่สำเร็จ</h4>
+        <h4 class="modal-title" id="notify-title">การทำรายการยืมไม่สำเร็จ</h4>
       </div>
       <div class="modal-body">
         <ul id="notify-error">

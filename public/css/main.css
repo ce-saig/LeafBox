@@ -108,3 +108,7 @@ a {
      border-top-left-radius: 5px;
      border-top-right-radius: 5px;
 }
+
+#notify-title {
+  color: white;
+}
