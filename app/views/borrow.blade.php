@@ -32,12 +32,11 @@
                         </tr>
                       </thead>
                       <tbody class = "table_fill">
-                      <script>var amountOfMedia = 0;</script>
+                        <script>var amountOfMedia = "{{ count($borrow) }}";</script>
                         <?php 
                           $no=1;
                         ?>
                         @foreach ($borrow as $item)
-                          <script>amountOfMedia++;</script>
                           <tr class="media-row" id="media-row_{{ $item['typeID'] }}">
                             <td>{{$no++}}</td>
                             <td>{{$item['title']}}</td>
@@ -186,6 +185,9 @@
 <script type="text/javascript">
   var selectedMember = false;
 
+  console.log("{{ "hello" }}");
+  console.log("{{ count($borrow) }}");
+
   $(function() {
     $( "#datepicker" ).datepicker();
   });
@@ -195,7 +197,7 @@
       event.preventDefault();
       if(!selectedMember)
         $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');
-      if(!amountOfMedia)
+      if(amountOfMedia == 0)
         $('#notify-error').append('<li>กรุณาเลือกสื่อ</li>');
       if(!$('#datepicker').val())
         $('#notify-error').append('<li>กรุณาเลือกวันคืนสื่อ</li>');
