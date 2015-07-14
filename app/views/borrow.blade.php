@@ -71,10 +71,15 @@
                       </div>
                     </div>
                     <div class = "row">
-                      <div class = "well">
-                      ชื่อ : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
-                    เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
-                    </div>
+                      <div class = "well" id="member_data">
+                        @if(isset($member))
+                            ชื่อ   : <span id = "member_name_label">{{ $member->name }}</span><br/>
+                            เบอร์โทร : <span id = "member_phone_label">{{ $member->phone_no }}</span>
+                        @else
+                            ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
+                            เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
+                        @endif
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -289,8 +294,11 @@
    });
 
   $('.del_btn').click(function(event) {
+    amountOfMedia = 0;
+    selectedMember = false;
     event.preventDefault();
     $(".table_fill").text("");
+    $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
     $.ajax({
           type: "GET",
           url: "{{ url('/borrow/clear') }}",

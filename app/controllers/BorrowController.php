@@ -12,7 +12,8 @@ class BorrowController extends BaseController {
   public function index()
   {
     $selectedList = Session::get('borrow', array());
-    return View::make('borrow',array('borrow'=>$selectedList));
+    $member = Session::get('member');
+    return View::make('borrow',array('borrow'=>$selectedList, 'member'=>$member));
   }
 
   /*
@@ -213,7 +214,7 @@ class BorrowController extends BaseController {
       }
     }
 
-    Session::forget('borrow');
+    Session::forget(array('borrow', 'member'));
 
     return "<hr>";
     //return ($selectedList);
@@ -221,7 +222,7 @@ class BorrowController extends BaseController {
 
   public function getClear()
   {
-    Session::forget('borrow');
+    Session::forget(array('borrow', 'member'));
     return Session::get('member', array());
   }
 
