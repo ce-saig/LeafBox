@@ -96,19 +96,33 @@ a {
   width: auto;
 }
 
-#noti-header {
+.modal-notification {
   padding:9px 15px;
-    border-bottom:1px solid #eee;
-    background-color: rgb(255, 128, 0);
-    font-color: white;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
+  border-bottom:0px solid #eee;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
-#notify-title {
+#noti-header {
+  background-color: rgb(255, 128, 0);
+}
+
+#complete-noti-header.modal-notification {
+  background-color: #16A085;
+  text-align: center;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.modal-notifiation-title {
   color: white;
 }
+

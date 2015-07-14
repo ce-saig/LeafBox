@@ -171,13 +171,23 @@
 <div class="modal fade" id="notify">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <div class="modal-header" id="noti-header">
+      <div class="modal-header modal-notification" id="noti-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="notify-title">การทำรายการยืมไม่สำเร็จ</h4>
+        <h4 class="modal-title modal-notifiation-title">การทำรายการยืมไม่สำเร็จ</h4>
       </div>
       <div class="modal-body">
         <ul id="notify-error">
         </ul>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="form_completed">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header modal-notification" id="complete-noti-header">
+        <h4 class="modal-title modal-notifiation-title">การทำรายการเสร็จสมบูรณ์</h4>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -194,8 +204,8 @@
   });
 
   $('#submit-media').click(function(event) {
+    event.preventDefault();
     if(!selectedMember || !amountOfMedia || !$('#datepicker').val()) {
-      event.preventDefault();
       if(!selectedMember)
         $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');
       if(amountOfMedia == 0)
@@ -203,6 +213,17 @@
       if(!$('#datepicker').val())
         $('#notify-error').append('<li>กรุณาเลือกวันคืนสื่อ</li>');
       $('#notify').modal('show');
+    }
+    else {
+      $.ajax({
+        type: "GET",
+        url: "{{ url('borrow/submit') }}",
+      }).done(function(data) {
+        if(data == "completed") {
+          clearData();
+          $('#form_completed').modal('show');
+        }
+      });
     }
   })
 
@@ -304,14 +325,17 @@
           url: "{{ url('/borrow/clear') }}",
         }).done(function(data) {
           console.log(data);
-          //do before clear
+          clearData();
         });
-
   });
 
-  
-
-
+  function clearData() {
+    amountOfMedia = 0;
+    selectedMember = false;
+    $(".table_fill").text("");
+    $('#datepicker').val("");
+    $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
+  }
 
   function addToList(data){
     //console.log('addToList');
@@ -379,8 +403,6 @@
       });
 
     });
-
-
 
   </script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

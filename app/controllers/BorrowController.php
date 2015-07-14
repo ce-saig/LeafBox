@@ -148,10 +148,6 @@ class BorrowController extends BaseController {
 
     //LOOP insert media into it tb
     foreach ($selectedList as $item) {
-      echo $item['type'] . "   " . $item['id'] . "   " . $item['title'];
-      echo "<br>";
-      
-
       // Mark as reserved
       if($item['type']=="DVD"){
         $d = DVD::find($item['id']);
@@ -215,8 +211,7 @@ class BorrowController extends BaseController {
     }
 
     Session::forget(array('borrow', 'member'));
-
-    return "<hr>";
+    return "completed";
     //return ($selectedList);
   }
 
