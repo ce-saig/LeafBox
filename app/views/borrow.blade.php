@@ -198,14 +198,14 @@
 @parent
 
 <script type="text/javascript">
-  var selectedMember = false;
+  var selectedMember = "{{ isset($member) }}";
   $(function() {
     $( "#datepicker" ).datepicker();
   });
 
   $('#submit-media').click(function(event) {
     event.preventDefault();
-    if(!selectedMember || !amountOfMedia || !$('#datepicker').val()) {
+    if(!selectedMember || amountOfMedia == 0 || !$('#datepicker').val()) {
       if(!selectedMember)
         $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');
       if(amountOfMedia == 0)
@@ -315,11 +315,8 @@
    });
 
   $('.del_btn').click(function(event) {
-    amountOfMedia = 0;
-    selectedMember = false;
     event.preventDefault();
-    $(".table_fill").text("");
-    $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
+    clearData();
     $.ajax({
           type: "GET",
           url: "{{ url('/borrow/clear') }}",
