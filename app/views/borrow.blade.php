@@ -64,7 +64,7 @@
                   <div class="col-md-12">
                     <div class = "row">
                       <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
-                      <div class = "col-md-2">
+                      <div class = "col-md-3">
                         <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
                           เลือกผู้ยืม
                         </button>

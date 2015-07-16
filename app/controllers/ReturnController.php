@@ -14,7 +14,7 @@ class ReturnController extends BaseController {
 
     $returnList = Session::get('list', array());
     $member = Session::get('member');
-    return View::make('return',array('list' => $returnList));
+    return View::make('return',array('list' => $returnList, 'member' => $member));
   }
 
   //get list
@@ -95,5 +95,20 @@ class ReturnController extends BaseController {
     return $member;
   }
 
+  public function getMember($key)
+  {
+    $member = Member::find($key);
+    Session::put('member', $member);
+    return $member;
+  }
+
+  public function postMember()
+  {
+    //TODO : find by NAME or ID
+    $member = Input::get('member');//
+    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->get();
+
+    return  $memberTemp;
+  }
 }
 

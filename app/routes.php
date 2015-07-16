@@ -91,6 +91,8 @@ Route::post('borrow/member','BorrowController@postMember');
 Route::get('return','ReturnController@getIndex');
 Route::get('return/clear','ReturnController@getClear');
 Route::post('return/add','ReturnController@postAdd');
+Route::get('return/member/{memberId}','ReturnController@getMember');
+Route::post('return/member','ReturnController@postMember');
 
 // User 
 Route::get('user/{id}','UsersController@show');
