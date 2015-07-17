@@ -135,7 +135,7 @@ class BorrowController extends BaseController {
     $selectedList = Session::get('borrow', array());
 
     //member_id
-    $member_id=100; //TODO get Member's id
+    $member_id = Session::get('member')->id;
     //cassette_id
 
     //date_borrowed
