@@ -32,7 +32,6 @@
                         </tr>
                       </thead>
                       <tbody class = "table_fill">
-                        <script>var amountOfMedia = "{{ count($borrow) }}";</script>
                         <?php 
                           $no=1;
                         ?>
@@ -199,6 +198,8 @@
 
 <script type="text/javascript">
   var selectedMember = "{{ isset($member) }}";
+  var amountOfMedia = "{{ count($borrow) }}";
+  
   $(function() {
     $( "#datepicker" ).datepicker();
   });
