@@ -93,6 +93,8 @@ Route::get('return/clear','ReturnController@getClear');
 Route::post('return/add','ReturnController@postAdd');
 Route::get('return/member/{memberId}','ReturnController@getMember');
 Route::post('return/member','ReturnController@postMember');
+Route::post('return/submit', 'ReturnController@postSubmitReturn');
+Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
 
 // User 
 Route::get('user/{id}','UsersController@show');
