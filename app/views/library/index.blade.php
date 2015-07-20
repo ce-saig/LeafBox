@@ -7,7 +7,7 @@
 @section('body')
 <div class = "row">
 	<div class = "col-md-12 search-bar panel" >
-		
+
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" id = "search_type" role="menu">
 			    <option value = "title" >ชื่อ</option>
@@ -20,12 +20,13 @@
 
 		<div class = "col-md-8">
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
-		</div>		  
+		</div>
 		<div class = "col-md-2 col-xs-8 pull-right" >
-			<button  class="btn btn-success search_submit" >ค้นหา</button>
+			<button  post-path="{{ url('/search/book') }}" class="btn btn-success btn-lg search_submit" >ค้นหา</button>
+			<span id="search-info" card-link-path="{{ url('book/') }}" ></span>
 		</div>
 
-	</div>	
+	</div>
 	<hr>
 	<br>
 	<div  class= "col-md-12" id = "showBook">
@@ -42,13 +43,13 @@
 			</div>
 			<div class = "panel-body"> --}}
 			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
-			
+
 			 {{-- <div class = "col-md-12">
 				<div class = "label-status" >
-					
+
 					<div class = "col-md-2" >
 							<span>เบลล์</span>
-						
+
 					@if($book->bm_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->bm_status == 1)
@@ -59,11 +60,11 @@
 						<span class="label label-info">กำลังอ่าน</span>
 					@endif
 					</div>
-			
-					
+
+
 					<div class = "col-md-3" >
 							เทปคาสเซ็ท
-						
+
 					@if($book->setcs_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->setcs_status == 1)
@@ -77,7 +78,7 @@
 
 					<div class = "col-md-2" >
 							<span>DVD</span>
-						
+
 					@if($book->detdvd_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->detdvd_status == 1)
@@ -88,7 +89,7 @@
 						<span class="label label-info">กำลังอ่าน</span>
 					@endif
 					</div>
-					
+
 					<div class = "col-md-2" >
 							<span>CD</span>
 
@@ -102,11 +103,11 @@
 						<span class="label label-info">กำลังอ่าน</span>
 					@endif
 					</div>
-					
+
 
 					<div class = "col-md-3" >
 							<span>Daisy</span>
-							
+
 					@if($book->setds_status == 0)
 						<span class="label label-danger">ไม่ทำการผลิต</span>
 					@elseif($book->setds_status == 1)
@@ -117,9 +118,9 @@
 						<span class="label label-info">กำลังอ่าน</span>
 					@endif
 					</div>
-					
+
 				</div>
-			  </div> 
+			  </div>
 			</div>
 		</div>
 	   </a>
@@ -129,9 +130,9 @@
 			  <strong>คำเตือน!</strong> ไม่พบสื่อที่คุณกำลังหา
 			</div>
 	 	@endforelse --}}
-	</div> 
 	</div>
-	
+	</div>
+
 	<div class="row">
 		<div class = "panel panel-default">
 				<div class = "panel-heading">
@@ -139,7 +140,7 @@
 				</div>
 				<div class= "panel-body">
 					<div class="col-md-10 col-md-offset-1">
-						
+
 						<div class = "col-md-3 icon">
 						  <a href="{{URL::to('/book/add')}}">
 							<div class = "col-md-10 col-md-offset-1">
@@ -204,7 +205,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 
