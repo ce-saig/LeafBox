@@ -68,8 +68,6 @@ $(document).ready(function() {
 
 		var mediatype = ['เบลล์ ', 'คาสเซ็ท ', 'DVD ', 'CD ', 'Daisy '];
 		var status_attr_type = ['bm_status','setcm_status','setdvd_status','setcd_status','setdm_status'];
-
-		alert('inside');
 		console.log(response);
 		$('.search_result').text('');
 
