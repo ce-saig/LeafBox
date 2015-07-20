@@ -297,7 +297,7 @@
 
   $("body").on("click", ".book_choose", function(event){ 
       var id = $(this).prop('id');
-        console.log(text);
+        console.log(id);
         $.ajax({
           type: "GET",
           url: "borrow/book/" + id,
