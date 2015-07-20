@@ -55,8 +55,14 @@ a {
 	color : black;
 }
 
+.icon {
+  transition: -webkit-transform 0.2s ease;;
+}
+
 .icon:hover {
-  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1,1.1); /* IE 9 */
+  -webkit-transform: scale(1.1,1.1); /* Safari */
+  transform: scale(1.1,1.1);
 }
 
 .icon:active {
@@ -76,9 +82,9 @@ a {
   cursor: pointer;
 }
 
-.panel {
+.search-panel {
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 10p
 }
 
 // customize style
@@ -90,7 +96,7 @@ a {
   border-radius: 2px;
 }
 
-#not_found  { 
+#not_found  {
   font-size: 100%;
   text-align: center;
   width: auto;
@@ -125,4 +131,3 @@ a {
 .modal-notifiation-title {
   color: white;
 }
-

@@ -6,7 +6,7 @@
 
 @section('body')
 <div class = "row">
-	<div class = "col-md-12 search-bar panel" >
+	<div class = "col-md-12 search-bar panel search-panel" >
 
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" id = "search_type" role="menu">
