@@ -111,30 +111,30 @@
 
 <!-- Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-inline">
-          <div class="form-group input-group">
-            <div class="input-group-addon">ค้นหาหนังสือ</div>
-            <input type="text" class="form-control" name="" id="search-book"/>         
-          </div>
-          <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
-        </div>
-          <ul id="result">
-          </ul>
-        
-          <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+<div class="modal-dialog">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
   </div>
+  <div class="modal-body">
+    <div class="form-inline">
+      <div class="form-group input-group">
+        <div class="input-group-addon">ค้นหาหนังสือ</div>
+        <input type="text" class="form-control" name="" id="search-book"/>         
+      </div>
+      <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+    </div>
+      <div id="result">
+      </div>
+    
+      <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
 </div>
 
 <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -253,6 +253,8 @@
 
   $('#searchModal').on('hidden.bs.modal', function() {
     $('#not_found').hide();
+    $('#result').html('');
+    $('#search-book').prop('value', '');
   });
 
   $('.book_search_btn').click(function(event){
@@ -264,6 +266,7 @@
         function(data){
           //console.log(data);
           if(data != ""){
+          	$('#result').append('<table class="table table-striped table-hover"><thead><tr class="warning"><th class="col-sm-1">รหัสสื่อ</th><th class="col-sm-4">ชื่อหนังสือ</th></tr></thead><tbody class = "search-table"></tbody></table>');
             addToList(data);
             $('#not_found').hide();
           }
@@ -293,13 +296,11 @@
   });
 
   $("body").on("click", ".book_choose", function(event){ 
-      event.preventDefault();
-      var text = $(this).prop('href');
       var id = $(this).prop('id');
-        console.log(text);
+        console.log(id);
         $.ajax({
           type: "GET",
-          url: text,
+          url: "{{ url('borrow/book') }}/" + id,
         }).done(function(data) {
           if(data['status']){
             var input_data = data['media'];
@@ -336,7 +337,7 @@
   }
 
   function addToList(data){
-    //console.log('addToList');
+    console.log('addToList');
     //console.log(typeof data);
     var jsonArr = jQuery.parseJSON(data);
     /*
@@ -349,28 +350,33 @@
 
     for(var i=0; i<jsonArr.length; i++){
       //TODO when click same item should not add it to list
-        //console.log(jsonArr[0][0].length);
+        console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][0][brailleIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][0][brailleIndex].id+"') }}\"> <b>รหัส:</b> " + jsonArr[i][0][brailleIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+        	console.log('b');
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][1][cassetteIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][1][cassetteIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][1][cassetteIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+        	console.log('c');
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][2][cdIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][2][cdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][2][cdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+        	console.log('cd');
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][3][daisyIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][3][daisyIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][3][daisyIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+        	console.log('d');
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-          $('#result').append("<a class = \"book_choose\" id=\"" + jsonArr[i][4][dvdIndex].id + "\" href=\"{{ url('/borrow/book/"+jsonArr[i][4][dvdIndex].id+"') }}\"><b>รหัส:</b> " + jsonArr[i][4][dvdIndex].id + " <b>ชื่อหนังสือ:</b>"+jsonArr[i].title +"</a><br>");
+        	console.log('dvd');
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
         }
-      }
     }
+}
 
     $('.search-member-btn').click(function() {
         $.ajax({
