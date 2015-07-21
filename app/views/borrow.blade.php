@@ -300,7 +300,7 @@
         console.log(id);
         $.ajax({
           type: "GET",
-          url: "borrow/book/" + id,
+          url: "{{ url('borrow/book') }}/" + id,
         }).done(function(data) {
           if(data['status']){
             var input_data = data['media'];
