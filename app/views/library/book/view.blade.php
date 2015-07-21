@@ -24,14 +24,14 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="detail">
       <div class="row">
-        <?php 
+        <?php
           $i=0;
         ?>
         @foreach ($book as $data)
               @if ($field[$i]!='ID')
                 @if ($i==19||$i==22||$i==25||$i==28||$i==31)
-                    <hr> 
-                    <div class="col-xs-12"></div> 
+                    <hr>
+                    <div class="col-xs-12"></div>
                 @endif
                 @if ($i>=19||$i>=22||$i>=25||$i>=28||$i>=31)
                   <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
@@ -42,7 +42,7 @@
                 @endif
               @endif
           <?php $i++; ?>
-        @endforeach 
+        @endforeach
 
       </div>
     </div>
@@ -141,7 +141,7 @@
   @parent
   <script>
     $(function()
-    {	
+    {
      $('myTab a:last').tab('show.bs.tab');
    });
   </script>
@@ -150,7 +150,7 @@
 
     //make table row as a link
     $("table").on("click", "tr", function(e) {
-        if ($(e.target).is("a,input")) 
+        if ($(e.target).is("a,input"))
             return;
         location.href = $(this).attr("href");
     });
@@ -167,6 +167,7 @@
       console.log(tab.getAttribute('role').toLowerCase());
       tabClicked = tab.getAttribute('role').toLowerCase();
       document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked;
+      window.scrollTo(0, 0);
       if(tabClicked == "braille"){
         //$(".addButton").attr('data-target', "");
         //$(".addButton").attr('onClick', "add()");
@@ -176,7 +177,7 @@
         $(".addButton").attr('data-target', "#add");
         //$(".addButton").attr('onClick', "");
       }
-    } 
+    }
 
     //Enable Link to tab
 
@@ -189,9 +190,9 @@
 
     function add(){
       console.log($('#amount').val());
-      var amount = $('#amount').val();        
+      var amount = $('#amount').val();
       if(tabClicked == "braille"){
-        amount = $('#amountBraille').val();        
+        amount = $('#amountBraille').val();
       }
 
       console.log(amount);
