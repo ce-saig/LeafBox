@@ -5,7 +5,7 @@ class MediaController extends Controller{
 
   public function addBraille($bookId){
     $braille = new Braille();
-    
+
     $braille->book()->associate(Book::find($bookId));
     $braille->produced_date = date('Y-m-d');
     $braille->pages = Input::get('amount');
@@ -78,9 +78,9 @@ class MediaController extends Controller{
   /* Getter */
 
   public function getBraille($bid,$id){
+    $book =Book::find($bid);
     $braille = Braille::find($id);
-    return View::make('library.media.braille')->with(array('item'=>$braille,'bid'=>$bid));
-
+    return View::make('library.media.braille')->with(array('book'=>$book,'item'=>$braille,'bid'=>$bid));
   }
 
   public function getCassette($bid,$id){
@@ -95,7 +95,7 @@ class MediaController extends Controller{
     $daisy = Daisy::find($id);
     $diasydetail = Daisydetail::where('daisy_id','=',$daisy ->id)->get();
     return View::make('library.media.daisy')->with(array('book'=>$book,'item'=>$daisy,'detail'=>$diasydetail,'bid'=>$bid));
-  } 
+  }
 
   public function getCD($bid,$id){
     $book =Book::find($bid);
@@ -145,13 +145,13 @@ class MediaController extends Controller{
     $input = Input::all();
     $cdDetail = Cddetail::where('cd_id' ,$cdId)->get();
     $i = 0;
-  
+
     foreach($cdDetail as $details) {
       $details->status = $input['status'][$i];
       $details->notes = $input['note'][$i];
       $details->track_fr = $input['track_fr'][$i];
       $details->track_to = $input['track_to'][$i++];
-      $details->save(); 
+      $details->save();
     }
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
@@ -172,15 +172,10 @@ class MediaController extends Controller{
 
   public function setBraille($bookId,$brailleId){
     $input = Input::all();
-    $brailleDetail = Brailledetail::where('braille_id' ,$brailleId)->get();
-     $i = 0;
-
-    foreach($brailleDetail as $details) {
-      $details->status = $input['status'][$i];
-      $details->notes = $input['note'][$i++];
-      $details->save();
-    }
-
+    $braille = Braille::where('id', $brailleId)->first();
+    $braille->status = $input['status'];
+    $braille->notes = $input['notes'];
+    $braille->save();
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
@@ -255,7 +250,6 @@ class MediaController extends Controller{
   }
   public function removeSelectedBraille($bookId,$brailleId){
     $item = Braille::find($brailleId);
-    $item->detail()->delete();
     $item->delete();
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }

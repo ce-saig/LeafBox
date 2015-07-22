@@ -23,7 +23,7 @@
 							<th>ID</th>
 							<th>ส่วนที่</th>
 							<th>สถานะ</th>
-							<th>หมายเหตุ</th>	
+							<th>หมายเหตุ</th>
 						</tr>
 						@foreach ($detail as $key => $value)
 						<tr>
@@ -38,7 +38,7 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" name="note[" class="form-control" value="{{$value->notes}}">	
+								<input type="text" name="note[]" class="form-control" value="{{$value->notes}}">	
 							</td>
 						</tr>
 						@endforeach

@@ -49,27 +49,27 @@
 
     <div role="tabpanel" class="tab-pane" id="braille">
       @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-      <button  class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button  class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
       @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
-      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
       @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
-      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
       @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
-      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
       @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
-      <button class="addButton" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
     </div>
   </div>
 </div>
