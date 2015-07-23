@@ -223,15 +223,24 @@
     // Delete Button Cofirmation
     $(function() {
           $('.del_media_btn').click(function(e) {
-            e.preventDefault();
-            if(confirm('คุณต้องการลบจริงหรือไม่ ?')){
+              e.preventDefault();
               var link = $(this).attr('href');
-              window.location.href = link;
-            }else{
-              // not doing anythings
-            }
+              confirmation(link);
+          });
+          $('.del_media_btn_all').click(function(e) {
+              e.preventDefault();
+              var link = $(this).attr('href');
+              confirmation(link);
           });
     });
+
+    function confirmation(link) {
+      if(confirm('คุณต้องการลบจริงหรือไม่ ?')){
+        window.location.href = link;
+      }else{
+        // not doing anythings
+      }
+    }
 
 
   </script>
