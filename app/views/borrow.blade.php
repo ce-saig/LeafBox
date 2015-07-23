@@ -86,7 +86,7 @@
                     <div class ="well">
                       <div class="form-inline">
                         <div class="form-group input-group">
-                          <div class="input-group-addon">วันยืม : {{ date('d-m-Y '); }}</div>
+                          <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y') + 543); }}</div>
                           <div class="input-group-addon">วันคืน : </div>
                           <input type="text" class="form-control" name="" id="datepicker"/>         
                         </div>
