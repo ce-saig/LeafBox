@@ -16,9 +16,9 @@
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
           <td>{{$item->notes}}</td>
-          <td><a href = "{{ url('/book/'.$bid.'/daisy/delete/'.$item->id) }}"class="btn btn-danger">ลบ</a></td>
+          <td><a href = "{{ url('/book/'.$bid.'/daisy/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
-        @endforeach 
+        @endforeach
       </tbody>
     </table>
   </div>
