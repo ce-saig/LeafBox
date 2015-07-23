@@ -96,12 +96,14 @@ class ReturnController extends BaseController {
     $isHas=array_key_exists(strval($media_abbr . $media_id),$returnList);
     $status="not found";
 
+    $dateTemp = date_create($last_item->date_borrowed);
+
     $list['no']=count($returnList)+1;
     $list['title']=$book['title'];
     $list['id']= $media_abbr . $media_id; //$media_id
     $list['item']=$item;
     $list['type']=$media;
-    $list['date_borrowed'] = date_format(date_create($last_item->date_borrowed), 'd-m-Y H:i:s');
+    $list['date_borrowed'] = date_format($dateTemp, 'd-m-').(date_format($dateTemp, 'Y') + 543).date_format($dateTemp, ' H:i:s');
 
     if($isHas){
       $status = "duplicated";
