@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ce-saig/LeafBox.png?label=ready&title=Ready)](https://waffle.io/ce-saig/LeafBox)
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

@@ -10,7 +10,7 @@
 		"way/generators": "~2.0"
 	},
 	"autoload": {
-		"classmap": [	
+		"classmap": [
 			"app/commands",
 			"app/controllers",
 			"app/models",

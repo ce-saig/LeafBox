@@ -53,13 +53,13 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
   Route::get('braille/{id}', 'MediaController@getBraille');//TODO
   Route::post('braille/{id}', 'MediaController@getBraille');//TODO
-  
+
   Route::get('cassette/{id}', 'MediaController@getCassette');//TODO
   Route::post('cassette/{id}', 'MediaController@getCassette');//TODO
-  
+
   Route::get('cd/{id}', 'MediaController@getCD');//TODO
   Route::post('cd/{id}', 'MediaController@getCD');//TODO
-  
+
   Route::get('dvd/{id}', 'MediaController@getDVD');//TODO
   Route::post('dvd/{id}', 'MediaController@getDVD');//TODO
 
@@ -70,6 +70,7 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
   Route::post('cd/{id}/edit','MediaController@setCD');
   Route::post('daisy/{id}/edit','MediaController@setDaisy');
   Route::post('cassette/{id}/edit','MediaController@setCassette');
+  Route::post('braille/{id}/edit','MediaController@setBraille');
 
 });
 
