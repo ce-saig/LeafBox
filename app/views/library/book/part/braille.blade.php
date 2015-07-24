@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         @foreach ($braille as $item)
-          <tr class = "hover" href="{{$bid}}/braille/{{$item->id}}">
+          <tr class = "hover table-body" href="{{$bid}}/braille/{{$item->id}}">
             <td >{{$item->id}}</td>
             <td>{{$item->status}}</td>
             <td>{{$item->pages}}</td>

@@ -146,7 +146,7 @@
    });
 
     //make table row as a link
-    $("table").on("click", "tr", function(e) {
+    $("table").on("click", "tr.table-body", function(e) {
         if ($(e.target).is("a,input"))
             return;
         location.href = $(this).attr("href");

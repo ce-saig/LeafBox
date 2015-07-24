@@ -12,7 +12,7 @@
        </thead>
       <tbody>
         @foreach ($dvd as $item)
-        <tr class = "hover" href="{{$bid}}/dvd/{{$item->id}}">
+        <tr class = "hover table-body" href="{{$bid}}/dvd/{{$item->id}}">
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
           <td>{{$item->detail()->first()->notes}}</td>
