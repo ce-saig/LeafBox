@@ -238,7 +238,7 @@ class MediaController extends Controller{
 
   public function removeSelectedCd($bookId,$cdId){
     $item = CD::find($cdId);
-    //$item->detail()->delete();
+    $item->detail()->delete();
     $item->delete();
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
