@@ -144,9 +144,6 @@
     {
      $('myTab a:last').tab('show.bs.tab');
    });
-  </script>
-
-  <script>
 
     //make table row as a link
     $("table").on("click", "tr", function(e) {
@@ -222,6 +219,29 @@
       }, 1500);
       myModal.data('hideInteval', id);
     });
+
+    // Delete Button Cofirmation
+    $(function() {
+          $('.del_media_btn').click(function(e) {
+              e.preventDefault();
+              var link = $(this).attr('href');
+              confirmation(link);
+          });
+          $('.del_media_btn_all').click(function(e) {
+              e.preventDefault();
+              var link = $(this).attr('href');
+              confirmation(link);
+          });
+    });
+
+    function confirmation(link) {
+      if(confirm('คุณต้องการลบจริงหรือไม่ ?')){
+        window.location.href = link;
+      }else{
+        // not doing anythings
+      }
+    }
+
 
   </script>
 @stop

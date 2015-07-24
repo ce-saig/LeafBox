@@ -1,6 +1,6 @@
 <div role="tabpanel" class="tab-pane active" >
 
-  <a class = "btn btn-danger pull-right" href="{{$bid}}/dvd/deleteAll">ลบสื่อนี้</a>
+  <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/dvd/deleteAll">ลบสื่อนี้ทั้งหมด</a>
   <div class = "list-media">
     <table class="table table-hover">
       <thead>
@@ -16,9 +16,9 @@
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
           <td>{{$item->detail()->first()->notes}}</td>
-          <td><a href = "{{ url('/book/'.$bid.'/dvd/delete/'.$item->id) }}"class="btn btn-danger">ลบ</a></td>
+          <td><a href = "{{ url('/book/'.$bid.'/dvd/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
-        @endforeach 
+        @endforeach
       </tbody>
     </table>
   </div>
