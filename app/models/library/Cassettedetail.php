@@ -8,7 +8,7 @@ class Cassettedetail extends Eloquent {
 
     public $timestamps = false;
 
-    public function cassette()   { return $this->belongsTo('Cassette'); }
+    public function cassette()   { return $this->belongsTo('Cassette','Cassette_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

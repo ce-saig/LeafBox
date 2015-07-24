@@ -12,9 +12,9 @@ class CD extends Eloquent {
 
     public $timestamps = false;
 
-    public function book()   { return $this->belongsTo('Book'); }
-    public function detail()   { return $this->hasMany('Cddetail'); }
-    public function borrow()   { return $this->hasOne('Cdborrow'); }
+    public function book()   { return $this->belongsTo('Book','book_id'); }
+    public function detail()   { return $this->hasMany('Cddetail','cd_id'); }
+    public function borrow()   { return $this->hasMany('Cdborrow','cd_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

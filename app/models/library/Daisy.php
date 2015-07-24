@@ -12,9 +12,9 @@ class Daisy extends Eloquent {
 
     public $timestamps = false;
 
-    public function book()   { return $this->belongsTo('Book'); }
-    public function detail()   { return $this->hasMany('Daisydetail'); }
-    public function borrow()   { return $this->hasOne('Daisyborrow', 'parent_id'); }
+    public function book()   { return $this->belongsTo('Book','book_id'); }
+    public function detail()   { return $this->hasMany('Daisydetail','daisy_id'); }
+    public function borrow()   { return $this->hasMany('Daisyborrow','daisy_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

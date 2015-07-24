@@ -14,7 +14,7 @@ class Daisyborrow extends Eloquent {
     
     public $timestamps = false;
 
-    public function daisy()   { return $this->belongsTo('Daisy', 'parent_id'); }
+    public function daisy()   { return $this->belongsTo('Daisy', 'daisy_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

@@ -10,7 +10,7 @@ class Dvdborrow extends Eloquent {
     
     public $timestamps = false;
 
-    public function dvd()   { return $this->belongsTo('Library\DVD', 'parent_id'); }
+    public function dvd()   { return $this->belongsTo('DVD', 'dvd_id'); }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

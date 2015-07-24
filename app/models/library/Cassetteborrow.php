@@ -6,10 +6,10 @@ class Cassetteborrow extends Eloquent {
     
     protected $table = 'cassetteborrow';
 
-    protected $guarded = array('parent_id');
+    //protected $guarded = array('parent_id');
 
     public $timestamps = false;
 
-    public function cassette()   { return $this->belongsTo('Library\Cassette', 'parent_id'); }
+    public function cassette()   { return $this->belongsTo('Cassette','cassette_id'); }
 
 }

@@ -7,10 +7,10 @@ class Brailleborrow extends Eloquent {
 
     protected $table = 'brailleborrow';
 
-    protected $guarded = array('parent_id');
+    //protected $guarded = array('parent_id');
 
     public $timestamps = false;
 
-    public function braille()   { return $this->belongsTo('Library\Braille', 'parent_id'); }
+    public function braille()   { return $this->belongsTo('Braille', 'braille_id'); }
 
 }
