@@ -93,19 +93,19 @@ class BookController extends Controller{
 
     $book['bm_status']     = $bookEloquent->bm_status ;
     $book['bm_note']       = $bookEloquent->bm_note ;
-    $book['bm_data']       = $bookEloquent->bm_data ;
+    $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
     $book['setcs_status']  = $bookEloquent->setcs_status ;
     $book['setcs_note']    = $bookEloquent->setcs_note ;
-    $book['setcs_data']    = $bookEloquent->setcs_data ;
+    $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd-m-Y');
     $book['setds_status']  = $bookEloquent->setds_status ;
     $book['setds_note']    = $bookEloquent->setds_note ;
-    $book['setds_data']    = $bookEloquent->setds_data ;
+    $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd-m-Y');
     $book['setcd_status']  = $bookEloquent->setcd_status ;
     $book['setcd_note']    = $bookEloquent->setcd_note ;
-    $book['setcd_data']    = $bookEloquent->setcd_data ;
+    $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd-m-Y');
     $book['setdvd_status'] = $bookEloquent->setdvd_status ;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
-    $book['setdvd_data']   = $bookEloquent->setdvd_data ;
+    $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
 
           //braile
     $braille = Braille::where('book_id','=',$book['id'])->get();
@@ -166,38 +166,38 @@ class BookController extends Controller{
 
     $label[14]='สถานะของเบรลล์';
     $field[14]='bm_status';
-    $label[15]='โน็ต';
-    $field[15]='bm_note';
-    $label[16]='เมื่อ';
-    $field[16]='bm_date';
+    $label[16]='หมายเหตุ';
+    $field[16]='bm_note';
+    $label[15]='เมื่อ';
+    $field[15]='bm_date';
 
     $label[17]='สถานะของคาสเส็ท';
     $field[17]='cs_status';
-    $label[18]='โน็ต';
-    $field[18]='cs_note';
-    $label[19]='เมื่อ';
-    $field[19]='cs_date';
+    $label[19]='หมายเหตุ';
+    $field[19]='cs_note';
+    $label[18]='เมื่อ';
+    $field[18]='cs_date';
 
     $label[20]='สถานะของเดซี่';
     $field[20]='ds_status';
-    $label[21]='โน็ต';
-    $field[21]='ds_note';
-    $label[22]='เมื่อ';
-    $field[22]='ds_date';
+    $label[22]='หมายเหตุ';
+    $field[22]='ds_note';
+    $label[21]='เมื่อ';
+    $field[21]='ds_date';
 
     $label[23]='สถานะของซีดี';
     $field[23]='cd_status';
-    $label[24]='โน็ต';
-    $field[24]='cd_note';
-    $label[25]='เมื่อ';
-    $field[25]='cd_date';
+    $label[25]='หมายเหตุ';
+    $field[25]='cd_note';
+    $label[24]='เมื่อ';
+    $field[24]='cd_date';
 
     $label[26]='สถานะของดีวีดี';
     $field[26]='dvd_status';
-    $label[27]='โน็ต';
-    $field[27]='dvd_note';
-    $label[28]='เมื่อ';
-    $field[28]='dvd_date';
+    $label[28]='หมายเหตุ';
+    $field[28]='dvd_note';
+    $label[27]='เมื่อ';
+    $field[27]='dvd_date';
 
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
@@ -218,20 +218,20 @@ class BookController extends Controller{
     $book['abstract']   = $bookEloquent->abstract ;
 
     $book['bm_status']     = $bookEloquent->bm_status ;
+    $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
     $book['bm_note']       = $bookEloquent->bm_note ;
-    $book['bm_data']       = $bookEloquent->bm_data ;
     $book['setcs_status']  = $bookEloquent->setcs_status ;
+    $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd-m-Y');
     $book['setcs_note']    = $bookEloquent->setcs_note ;
-    $book['setcs_data']    = $bookEloquent->setcs_data ;
     $book['setds_status']  = $bookEloquent->setds_status ;
+    $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd-m-Y');
     $book['setds_note']    = $bookEloquent->setds_note ;
-    $book['setds_data']    = $bookEloquent->setds_data ;
     $book['setcd_status']  = $bookEloquent->setcd_status ;
+    $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd-m-Y');
     $book['setcd_note']    = $bookEloquent->setcd_note ;
-    $book['setcd_data']    = $bookEloquent->setcd_data ;
     $book['setdvd_status'] = $bookEloquent->setdvd_status ;
+    $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
-    $book['setdvd_data']   = $bookEloquent->setdvd_data ;
 
     $arrOfdata['label']=$label;
     $arrOfdata['field']=$field;
@@ -257,19 +257,19 @@ class BookController extends Controller{
       $book->grade      = Input::get('grade');
       $book->bm_status  = Input::get('bm_status');
       $book->bm_note    = Input::get('bm_note');
-      $book->bm_date    = Input::get('bm_date');
+      $book->bm_date    = date_format(date_create(Input::get('bm_date').date(' H:i:s')), 'Y-m-d H:i:s');
       $book->setcs_status  = Input::get('cs_status');
       $book->setcs_note    = Input::get('cs_note');
-      $book->setcs_date    = Input::get('cs_date');
+      $book->setcs_date    = date_format(date_create(Input::get('cs_date').date(' H:i:s')), 'Y-m-d H:i:s');
       $book->setds_status  = Input::get('ds_status');
       $book->setds_note    = Input::get('ds_note');
-      $book->setds_date    = Input::get('ds_date');
+      $book->setds_date    = date_format(date_create(Input::get('ds_date').date(' H:i:s')), 'Y-m-d H:i:s');
       $book->setcd_status  = Input::get('cd_status');
       $book->setcd_note    = Input::get('cd_note');
-      $book->setcd_date    = Input::get('cd_date');
+      $book->setcd_date    = date_format(date_create(Input::get('cd_date').date(' H:i:s')), 'Y-m-d H:i:s');
       $book->setdvd_status = Input::get('dvd_status');
       $book->setdvd_note   = Input::get('dvd_note');
-      $book->setdvd_date   = Input::get('dvd_date');
+      $book->setdvd_date   = date_format(date_create(Input::get('dvd_date').date(' H:i:s')), 'Y-m-d H:i:s');
       // TODO : add Validator here
       $book->save();
       return Redirect::to("/book/$bid");

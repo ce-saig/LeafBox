@@ -5,6 +5,14 @@ class MediaController extends Controller{
 
   public function addBraille($bookId){
     $braille = new Braille();
+    $book = Book::find($bookId);
+
+    $amount = count(Braille::where('book_id', $bookId)->get());
+    if(!$amount) 
+      $book->bm_date = date('Y-m-d H:i:s');
+
+    $book->bm_status = "ผลิต";
+    $book->save();
 
     $braille->book()->associate(Book::find($bookId));
     $braille->produced_date = date('Y-m-d');
@@ -13,6 +21,15 @@ class MediaController extends Controller{
   }
 
   public function addCassette($bookId){
+    $book = Book::find($bookId);
+
+    $amount = count(Cassette::where('book_id', $bookId)->get());
+    if(!$amount) 
+      $book->setcs_date = date('Y-m-d H:i:s');
+
+    $book->setcs_status = "ผลิต";
+    $book->save();
+
     $amount = Input::get('amount');
     $cassette = new Cassette();
     $cassette->produced_date = date('Y-m-d');
@@ -29,6 +46,15 @@ class MediaController extends Controller{
   }
 
   public function addDaisy($bookId){
+    $book = Book::find($bookId);
+
+    $amount = count(Daisy::where('book_id', $bookId)->get());
+    if(!$amount) 
+      $book->setds_date = date('Y-m-d H:i:s');
+
+    $book->setds_status = "ผลิต";
+    $book->save();
+
     $amount = Input::get('amount');
     $daisy = new Daisy();
     $daisy->produced_date = date('Y-m-d');
@@ -45,6 +71,15 @@ class MediaController extends Controller{
   }
 
   public function addCD($bookId){
+    $book = Book::find($bookId);
+
+    $amount = count(CD::where('book_id', $bookId)->get());
+    if(!$amount) 
+      $book->setcd_date = date('Y-m-d H:i:s');
+
+    $book->setcd_status = "ผลิต";
+    $book->save();
+
     $amount = Input::get('amount');
     $cd = new CD();
     $cd->produced_date = date('Y-m-d');
@@ -60,6 +95,15 @@ class MediaController extends Controller{
     }
   }
   public function addDVD($bookId){
+    $book = Book::find($bookId);
+
+    $amount = count(DVD::where('book_id', $bookId)->get());
+    if(!$amount) 
+      $book->setdvd_date = date('Y-m-d H:i:s');
+
+    $book->setdvd_status = "ผลิต";
+    $book->save();
+
     $amount = Input::get('amount');
     $dvd = new DVD();
     $dvd->produced_date = date('Y-m-d');
@@ -186,6 +230,11 @@ class MediaController extends Controller{
       $dvd->detail()->delete();
       $dvd->delete();
     }
+
+    $book = Book::find($bookId);
+    $book->setdvd_status = "ไม่ผลิต";
+    $book->setdvd_date = date_create("0000-00-00 00:00:00");
+    $book->save();
     return Redirect::to(url('book/'.$bookId.'#dvd'));
   }
 
@@ -196,7 +245,12 @@ class MediaController extends Controller{
       $cd->detail()->delete();
       $cd->delete();
     }
-     return Redirect::to(url('book/'.$bookId.'#cd'));
+
+    $book = Book::find($bookId);
+    $book->setcd_status = "ไม่ผลิต";
+    $book->setcd_date = date_create("0000-00-00 00:00:00");
+    $book->save();
+    return Redirect::to(url('book/'.$bookId.'#cd'));
   }
 
   public function removeAllDaisy($bookId){
@@ -206,26 +260,37 @@ class MediaController extends Controller{
       $daisy->detail()->delete();
       $daisy->delete();
     }
-     return Redirect::to(url('book/'.$bookId.'#daisy'));
+
+    $book = Book::find($bookId);
+    $book->setds_status = "ไม่ผลิต";
+    $book->setds_date = date_create("0000-00-00 00:00:00");
+    $book->save();
+    return Redirect::to(url('book/'.$bookId.'#daisy'));
   }
 
   public function removeAllCassette($bookId){
-
     $items = Cassette::where('book_id',$bookId)->get();
     foreach ($items as $item) {
       $item->detail()->delete();
       $item->delete();
     }
+
+    $book = Book::find($bookId);
+    $book->setcs_status = "ไม่ผลิต";
+    $book->setcs_date = date_create("0000-00-00 00:00:00");
+    $book->save();
     return Redirect::to(url('book/'.$bookId.'#cassette'));
   }
 
   public function removeAllBraille($bookId){
-
     $items = Braille::where('book_id',$bookId)->get();
-    foreach ($items as $item) {
-      $item->detail()->delete();
+    foreach ($items as $item)
       $item->delete();
-    }
+
+    $book = Book::find($bookId);
+    $book->bm_status = "ไม่ผลิต";
+    $book->bm_date = date_create("0000-00-00 00:00:00");
+    $book->save();
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
@@ -233,6 +298,13 @@ class MediaController extends Controller{
     $item = Cassette::find($cassetteId);
     $item->detail()->delete();
     $item->delete();
+
+    if(!count(Cassette::where('book_id',$bookId)->get())) {
+      $book = Book::find($bookId);
+      $book->setcs_status = "ไม่ผลิต";
+      $book->setcs_date = date_create("0000-00-00 00:00:00");
+      $book->save();
+    }
     return Redirect::to(url('book/'.$bookId.'#cassette'));
   }
 
@@ -240,17 +312,38 @@ class MediaController extends Controller{
     $item = CD::find($cdId);
     $item->detail()->delete();
     $item->delete();
+
+    if(!count(CD::where('book_id',$bookId)->get())) {
+      $book = Book::find($bookId);
+      $book->setcd_status = "ไม่ผลิต";
+      $book->setcd_date = date_create("0000-00-00 00:00:00");
+      $book->save();
+    }
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
   public function removeSelectedDvd($bookId,$dvdId){
     $item = DVD::find($dvdId);
     $item->detail()->delete();
     $item->delete();
+
+    if(!count(DVD::where('book_id',$bookId)->get())) {
+      $book = Book::find($bookId);
+      $book->setdvd_status = "ไม่ผลิต";
+      $book->setdvd_date = date_create("0000-00-00 00:00:00");
+      $book->save();
+    }
     return Redirect::to(url('book/'.$bookId.'#dvd'));
   }
   public function removeSelectedBraille($bookId,$brailleId){
     $item = Braille::find($brailleId);
     $item->delete();
+
+    if(!count(Braille::where('book_id',$bookId)->get())) {
+      $book = Book::find($bookId);
+      $book->bm_status = "ไม่ผลิต";
+      $book->bm_date = date_create("0000-00-00 00:00:00");
+      $book->save();
+    }
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
@@ -258,6 +351,13 @@ class MediaController extends Controller{
     $item = Daisy::find($daisyId);
     $item->detail()->delete();
     $item->delete();
+
+    if(!count(Daisy::where('book_id',$bookId)->get())) {
+      $book = Book::find($bookId);
+      $book->setds_status = "ไม่ผลิต";
+      $book->setds_date = date_create("0000-00-00 00:00:00");
+      $book->save();
+    }
     return Redirect::to(url('book/'.$bookId.'#daisy'));
   }
 }
