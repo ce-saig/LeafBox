@@ -17,19 +17,24 @@ class HomeController extends Controller {
 		}
 	}
 
+	public function showAuthen()
+	{
+		return View::make('library.authen');
+	}
+
 	public function doLogin()
 	{
 
 		$rules = array(
 			'email'    => 'required|email',
-			'password' => 'required|alphaNum|min:3' 
+			'password' => 'required|alphaNum|min:3'
 		);
-		
+
 		$validator = Validator::make(Input::all(), $rules);
-	
+
 		if ($validator->fails()) {
 			return Redirect::to('/')
-				->withErrors($validator) 
+				->withErrors($validator)
 				->withInput(Input::except('password'));
 		} else {
 
@@ -37,10 +42,10 @@ class HomeController extends Controller {
 				'email' 	=> Input::get('email'),
 				'password' 	=> Input::get('password')
 			);
-		
-			if (Auth::attempt($userdata)) {	
+
+			if (Auth::attempt($userdata)) {
 				return Redirect::to('/');
-			} else {	 	
+			} else {
 				return " Email : ".Input::get('email')." Password :  ".Input::get('password');
 			}
 
@@ -49,8 +54,8 @@ class HomeController extends Controller {
 
 	public function doLogout()
 	{
-		Auth::logout(); 
-		return Redirect::to('/'); 
+		Auth::logout();
+		return Redirect::to('/');
 	}
 
 }
