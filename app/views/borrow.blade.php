@@ -104,9 +104,6 @@
           </div>
     </div>
   </div>
-  <div class = "col-md-3">
-    <a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
-  </div>
 </div>
 
 <!-- Modal -->
@@ -145,7 +142,6 @@
         <h4 class="modal-title" id="myModalLabel">เลือกสมาชิก</h4>
       </div>
       <div class="modal-body">
-        //Need to limit number of out put item<br>
           <div class="form-inline">
             <div class="form-group input-group">
               <div class="input-group-addon">ค้นหารายชื่อ</div>

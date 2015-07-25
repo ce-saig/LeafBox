@@ -24,6 +24,7 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="detail">
       <div class="row">
+        <br>
         <?php
           $i=0;
         ?>
@@ -37,8 +38,8 @@
                   <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
                   <div class="col-xs-6 col-sm-2"> {{$data?$data:"-"}}</div>
                 @else
-                  <div class="col-xs-6 col-sm-3"><b>{{$field[$i]}}</b></div>
-                  <div class="col-xs-6 col-sm-3"> {{$data?$data:"-"}}</div>
+                  <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
+                  <div class="col-xs-6 col-sm-4"> {{$data?$data:"-"}}</div>
                 @endif
               @endif
           <?php $i++; ?>
