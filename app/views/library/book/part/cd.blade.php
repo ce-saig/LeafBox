@@ -5,9 +5,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>cd id</th>
-          <th>numpart</th>
-          <th>notes</th>
+          <th>ซีดีไอดี</th>
+          <th>จำนวนชิ้นย่อย (แผ่น)</th>
         </tr>
        </thead>
       <tbody>

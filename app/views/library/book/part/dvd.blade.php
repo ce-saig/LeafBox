@@ -5,9 +5,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>dvd id</th>
-          <th>numpart</th>
-          <th>notes</th>
+          <th>ดีวีดีไอดี</th>
+          <th>จำนวนชิ้นย่อย (แผ่น)</th>
         </tr>
        </thead>
       <tbody>
@@ -15,7 +14,6 @@
         <tr class = "hover table-body" href="{{$bid}}/dvd/{{$item->id}}">
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
-          <td>{{$item->detail()->first()->notes}}</td>
           <td><a href = "{{ url('/book/'.$bid.'/dvd/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
         @endforeach

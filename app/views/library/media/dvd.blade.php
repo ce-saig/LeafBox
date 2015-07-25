@@ -30,7 +30,6 @@
 							<td>{{$value->part}}</td>
 							<td>
 								<select name="status[]" class="form-control">
-									<option value="">เลือกสถานะ</option>
 									<option {{$value->status==0?'selected':''}} value="0">ปกติ</option>
 									<option {{$value->status==1?'selected':''}} value="1">ชำรุด</option>
 									<option {{$value->status==2?'selected':''}} value="2">รอซ่อม</option>
@@ -44,8 +43,8 @@
 					</table>
 				</div>
 				<div class="col-md-12">
-				<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
-				<a class = "btn btn-warning pull-right" href = "{{ URL::previous() }}" > กลับ </a>
+					<a class = "btn btn-warning pull-left" href = "{{ URL::previous().'#dvd' }}" > กลับ </a>
+          			<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
 				</div>
 			</form>
 		</div>

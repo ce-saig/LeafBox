@@ -8,7 +8,7 @@
 <div class="well">
   <div>
     <h2>I{{$book['id']}}:{{$book['title']}}
-      <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-danger pull-right">แก้ไข</a>
+      <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-warning pull-right">แก้ไข</a>
 
     </h2>
   </div>

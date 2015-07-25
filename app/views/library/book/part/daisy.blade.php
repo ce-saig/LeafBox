@@ -5,9 +5,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>daisy id</th>
-          <th>numpart</th>
-          <th>notes</th>
+          <th>เดซีไอดี</th>
+          <th>จำนวนชิ้นย่อย</th>
         </tr>
        </thead>
       <tbody>
@@ -15,7 +14,6 @@
         <tr class = "hover table-body" href="{{$bid}}/daisy/{{$item->id}}">
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
-          <td>{{$item->notes}}</td>
           <td><a href = "{{ url('/book/'.$bid.'/daisy/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
         @endforeach

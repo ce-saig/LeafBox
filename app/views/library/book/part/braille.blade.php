@@ -5,9 +5,9 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th width="300">braille id</th>
-          <th>status</th>
-          <th>page</th>
+          <th width="300">เบรลล์ไอดี</th>
+          <th>สถานะ</th>
+          <th>จำนวนหน้า</th>
         </tr>
       </thead>
       <tbody>
