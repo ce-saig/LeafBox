@@ -14,7 +14,7 @@
         @foreach ($braille as $item)
           <tr class = "hover" href="{{$bid}}/braille/{{$item->id}}">
             <td >{{$item->id}}</td>
-            <td>{{$item->status}}</td>
+            <td>{{ $item->getStatus() }}</td>
             <td>{{$item->pages}}</td>
             <td><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
           </tr>

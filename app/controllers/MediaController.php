@@ -172,7 +172,7 @@ class MediaController extends Controller{
 
   public function setBraille($bookId,$brailleId){
     $input = Input::all();
-    $braille = Braille::where('braille_id', $brailleId)->first();
+    $braille = Braille::where('id', $brailleId)->first();
     $braille->status = $input['status'];
     $braille->notes = $input['notes'];
     $braille->save();
