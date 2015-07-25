@@ -43,7 +43,7 @@
 					</table>
 				</div>
 				<div class="col-md-12">
-					<a class = "btn btn-warning pull-left" href = "{{ URL::previous().'#dvd' }}" > กลับ </a>
+					<button class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </button>
           			<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
 				</div>
 			</form>

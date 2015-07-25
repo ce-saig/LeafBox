@@ -16,6 +16,7 @@ class MediaController extends Controller{
 
     $braille->book()->associate(Book::find($bookId));
     $braille->produced_date = date('Y-m-d');
+    $braille->status = 0; // 0 normal,1 broken,2 wait for repeir
     $braille->pages = Input::get('amount');
     $braille->save();
   }
@@ -40,6 +41,7 @@ class MediaController extends Controller{
     for($i=1; $i<=$amount; $i++){
       $cassetteDetail = new Cassettedetail();
       $cassetteDetail->part = $i;
+      $cassetteDetail->status = 0;
       $cassetteDetail->cassette()->associate($cassette);
       $cassetteDetail->save();
     }
@@ -65,6 +67,7 @@ class MediaController extends Controller{
     for($i=1; $i<=$amount; $i++){
       $daisydetail = new Daisydetail();
       $daisydetail->part = $i;
+      $daisydetail->status = 0;
       $daisydetail->daisy()->associate($daisy);
       $daisydetail->save();
     }
@@ -90,6 +93,7 @@ class MediaController extends Controller{
     for($i=1; $i<=$amount; $i++){
       $cddetail = new Cddetail();
       $cddetail->part = $i;
+      $cddetail->status = 0;
       $cddetail->cd()->associate($cd);
       $cddetail->save();
     }
@@ -114,6 +118,7 @@ class MediaController extends Controller{
     for($i=1; $i<=$amount; $i++){
       $dvddetail = new Dvddetail();
       $dvddetail->part = $i;
+      $dvddetail->status = 0;
       $dvddetail->dvd()->associate($dvd);
       $dvddetail->save();
     }

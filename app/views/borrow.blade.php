@@ -28,7 +28,7 @@
                           <th>ชื่อหนังสือ</th>
                           <th>ID ของสื่อ</th>
                           <th>ชนิดสื่อ</th>
-                          <th>ลบรายการ</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody class = "table_fill">
@@ -50,9 +50,9 @@
                       <tbody class = "table_sum">
                       <tr>
                           <th>รวม</th>
-                          <th>X เล่ม</th>
-                          <th>Y ชุด</th>
-                          <th>Z ชิ้น</th>
+                          <th>0 เล่ม</th>
+                          <th>0 ชุด</th>
+                          <th>0 ชิ้น</th>
                         </tr>
                       </tbody>
                     </table>

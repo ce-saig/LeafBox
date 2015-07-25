@@ -21,7 +21,6 @@
                 <button type="submit" class="btn btn-info" id="add_btn">เพิ่ม</button>
             </div>
             <br>
-            //TODO Show list from session when refresh page
             <table class="table table-striped table-hover">
               <thead>
                 <tr class="info">
@@ -30,7 +29,7 @@
                   <th>ID ของสื่อ</th>
                   <th>ชนิดสื่อ</th>
                   <th>วัน - เวลา ที่ทำการยืม</th>
-                  <th>ลบรายการ</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody class = "table_fill">

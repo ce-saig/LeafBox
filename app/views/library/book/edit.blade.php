@@ -84,8 +84,8 @@
           </div>
           <br/>
           <div class = "text-center">
-            <input type="submit" class="btn btn-default btn-success" value="บันทึก">
-            <button type="submit" class="btn btn-default btn-danger" id="cancel-form">ยกเลิก</button>
+            <button type="submit" class="btn btn-default btn-danger pull-left" id="cancel-form">ยกเลิก</button>
+            <input type="submit" class="btn btn-default btn-success pull-right" value="บันทึก">
           </div>
         </div>
         </div>

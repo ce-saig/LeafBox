@@ -1,31 +1,26 @@
 @extends('library.layout')
-
 @section('head')
-  <title>Leafbox :: Daisy - {{$item->id}}</title>
+<title>Leafbox :: CD - {{$item->id}}</title>
 @stop
-
 @section('body')
 <div class="container">
-<div class="panel panel-{{$item->reserved?'warning':'success'}}">
+	<div class="panel panel-{{$item->reserved?'warning':'success'}}">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				{{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
+			{{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
 			</h3>
-
 		</div>
 		<div class="panel-body">
 			<form action="{{ URL::to('book/'.$book->id.'/cd/'.$item->id.'/edit'); }}" method="POST" role="form">
-	<div class="col-md-12">
-
-
-		<table class="table">
+				<div class="col-md-12">
+					<table class="table">
 						<tr>
 							<th>ID</th>
 							<th>ส่วนที่</th>
 							<th>สถานะ</th>
 							<th>หมายเหตุ</th>
 							<th>แทร็กเริ่มต้น</th>
-							<th>แทร็กสุดท้าย</th
+							<th>แทร็กสุดท้าย</th>
 						</tr>
 						@foreach ($detail as $key => $value)
 						<tr>
@@ -39,24 +34,24 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" name="note[]" class="form-control" value="{{$value->notes}}">	
+								<input type="text" name="note[]" class="form-control" value="{{$value->notes}}">
 							</td>
 							<td>
-								<input type="number" name="track_fr[]" class="form-control" value="{{$value->track_fr}}">	
+								<input type="number" name="track_fr[]" class="form-control" value="{{$value->track_fr}}">
 							</td>
 							<td>
-								<input type="number" name="track_to[]" class="form-control" value="{{$value->track_to}}">	
+								<input type="number" name="track_to[]" class="form-control" value="{{$value->track_to}}">
 							</td>
 						</tr>
 						@endforeach
 					</table>
-
+				</div>
+				<div class="col-md-12">
+					<button class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </button>
+					<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
+				</div>
+			</form>
 		</div>
-		 <div class="col-md-12">
-			<a class = "btn btn-warning pull-left" href = "{{ URL::previous().'#cd' }}" > กลับ </a>
-          	<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
-		 </div>
-		</form>
 	</div>
 </div>
 @stop
