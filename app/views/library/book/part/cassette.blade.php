@@ -13,7 +13,7 @@
        </thead>
       <tbody>
         @foreach ($cassette as $item)
-      <tr class = "hover" href="{{$bid}}/cassette/{{$item->id}}">
+      <tr class = "hover table-body" href="{{$bid}}/cassette/{{$item->id}}">
           <td>{{$item->id}}</td>
           <td>{{$item->numpart}}</td>
           <td><a href = "{{ url('/book/'.$bid.'/cassette/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
