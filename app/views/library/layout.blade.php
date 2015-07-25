@@ -113,8 +113,6 @@
    </div>
   </div>
 </div>
- {{-- This is a HACK way for rapid development not good code --}}
-<spand id='authen_info' is_login="{{ Auth::check() }}" ></span>
 
 
 <footer>
@@ -136,14 +134,6 @@
 <!-- AJAX Databases -->
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/application.js') }}"></script>
-<script type="text/javascript">
-		// Mini script for checking authentication
-		$(function() {
-			route_path = "{{ Route::getCurrentRoute()->getPath() }}";
-			if("{{ Auth::check() }}" != "1" && route_path != "authentication" )
-				window.location.href = "{{url('/authentication')}}";
-		});
-</script>
 @show
 </body>
 </html>

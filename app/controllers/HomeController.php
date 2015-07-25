@@ -46,7 +46,7 @@ class HomeController extends Controller {
 			if (Auth::attempt($userdata)) {
 				return Redirect::to('/');
 			} else {
-				return " Email : ".Input::get('email')." Password :  ".Input::get('password');
+				return Redirect::to('authentication');
 			}
 
 		}
