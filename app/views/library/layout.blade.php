@@ -115,7 +115,6 @@
 </div>
 
 
-
 <footer>
 <div class="footer">
   <div class= "col-md-2 footer-img">

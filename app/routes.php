@@ -12,6 +12,7 @@
 // AJAX Search
 /*
 Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@getDatatable'));*/
+Route::group(array('before' => 'auth'), function() {
 Route::get('/','HomeController@index');
 Route::post('/search/book','BookController@SearchFromAttr');
 
@@ -25,6 +26,7 @@ Route::post('book/add','BookController@postBook');
 
 Route::post('loginUser','HomeController@doLogin');
 Route::get('logout','HomeController@doLogout');
+
 
 Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
@@ -97,9 +99,10 @@ Route::post('return/member','ReturnController@postMember');
 Route::post('return/submit', 'ReturnController@postSubmitReturn');
 Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
 
-// User 
+// User
 Route::get('user/{id}','UsersController@show');
 Route::post('user/{id}/destroy','UsersController@destroy');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
-
+});
+Route::get('authentication','HomeController@showAuthen');
