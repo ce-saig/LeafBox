@@ -6,6 +6,7 @@ class Member extends Eloquent {
   //protected $connection = 'mysql2-library';
   
 	protected $table = 'member';
+	public $timestamps = false;
 
   //protected $primaryKey = 'MEMBER_NO';
 

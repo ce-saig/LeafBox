@@ -105,3 +105,14 @@ Route::get('authentication','HomeController@showAuthen');
 Route::post('loginUser','HomeController@doLogin');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
+
+// borrower system
+Route::model('member', 'Member');
+Route::get('borrowersystem','BorrowerSystemController@index');
+Route::get('borrowersystem/create', 'BorrowerSystemController@create');
+Route::get('borrowersystem/edit/{member}', 'BorrowerSystemController@edit');
+Route::get('borrowersystem/delete/{member}', 'BorrowerSystemController@delete');
+
+Route::post('borrowersystem/create', 'BorrowerSystemController@handleCreate');
+Route::post('borrowersystem/edit', 'BorrowerSystemController@handleEdit');
+Route::post('borrowersystem/delete', 'BorrowerSystemController@handleDelete');
