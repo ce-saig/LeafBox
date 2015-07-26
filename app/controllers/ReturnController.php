@@ -44,49 +44,56 @@ class ReturnController extends BaseController {
   //post Media id and add it to list
   public function postAdd()
   {
-
     $mid = Input::get('mid');
     $member = Session::get('member');
     $media_id = preg_replace("/[^0-9]/", "", $mid);
-    $media = preg_replace("/[0-9]/", "", $mid);
+    $media = strtoupper(preg_replace("/[0-9]/", "", $mid));
     $media_abbr = null;
 
     $item=null;
     $last_item = null;
     $is_id_valid = false;
-    if (in_array($media, array("dvd", "Dvd", "DvD", "dVd", "dVD", "dvD", "DVd", "DVD"))) {
-      $media="DVD";
-      $media_abbr = "DVD";
+    if ($media == "DVD") {
+      $media_abbr = $media;
       $item  = DVD::find((int)$media_id);
-      $last_item = Dvdborrow::where('dvd_id', '=', $media_id)->orderBy('id', 'desc')->first();
-      $is_id_valid = (isset($item)) ? ($last_item->dvd_id == $media_id) : false;
-    }else if (in_array($media, array("cd", "Cd", "cD", "CD"))) {
-      $media="CD";  
-      $media_abbr = "CD";    
+      if (isset($item) && $item->reserved) {
+        $last_item = Dvdborrow::where('dvd_id', '=', $media_id)->orderBy('id', 'desc')->first();
+        $is_id_valid = (isset($item, $last_item)) ? ($last_item->dvd_id == $media_id) : false;
+      }
+    }else if ($media == "CD") { 
+      $media_abbr = $media;    
       $item  = CD::find((int)$media_id);
-      $last_item = Cdborrow::where('cd_id', '=', $media_id)->orderBy('id', 'desc')->first();
-      $is_id_valid = (isset($item)) ? ($last_item->cd_id == $media_id) : false;
-    }else if (in_array($media, array('d', 'D'))) {
+      if (isset($item) && $item->reserved) {
+        $last_item = Cdborrow::where('cd_id', '=', $media_id)->orderBy('id', 'desc')->first();
+        $is_id_valid = (isset($item, $last_item)) ? ($last_item->cd_id == $media_id) : false;
+      }
+    }else if ($media == 'D') {
       $media="Daisy"; 
       $media_abbr = "D";   
       $item  = Daisy::find((int)$media_id);
-      $last_item = Daisyborrow::where('daisy_id', '=', $media_id)->orderBy('id', 'desc')->first();
-      $is_id_valid = (isset($item)) ? ($last_item->daisy_id == $media_id) : false;
-    }else if (in_array($media, array('c', 'C'))) {
+      if (isset($item) && $item->reserved) {
+        $last_item = Daisyborrow::where('daisy_id', '=', $media_id)->orderBy('id', 'desc')->first();
+        $is_id_valid = (isset($item, $last_item)) ? ($last_item->daisy_id == $media_id) : false;
+      }
+    }else if ($media == 'C') {
       $media="Cassette";
       $media_abbr = "C";      
       $item  = Cassette::find((int)$media_id);
-      $last_item = Cassetteborrow::where('cassette_id', '=', $media_id)->orderBy('id', 'desc')->first();
-      $is_id_valid = (isset($item)) ? ($last_item->cassette_id == $media_id) : false;
-    }else if (in_array($media, array('b', 'B'))) {
+      if (isset($item) && $item->reserved) {
+        $last_item = Cassetteborrow::where('cassette_id', '=', $media_id)->orderBy('id', 'desc')->first();
+        $is_id_valid = (isset($item, $last_item)) ? ($last_item->cassette_id == $media_id) : false;
+      }
+    }else if ($media == 'B') {
       $media="Braille";
       $media_abbr = "B";  
       $item  = Braille::find((int)$media_id);
-      $last_item = Brailleborrow::where('braille_id', '=', $media_id)->orderBy('id', 'desc')->first();
-      $is_id_valid = (isset($item)) ? ($last_item->braille_id == $media_id) : false;
+      if (isset($item) && $item->reserved) {
+        $last_item = Brailleborrow::where('braille_id', '=', $media_id)->orderBy('id', 'desc')->first();
+        $is_id_valid = (isset($item, $last_item)) ? ($last_item->braille_id == $media_id) : false;
+      }
     }
 
-    if(!(((int)$item['book_id'])>0) || !$item['reserved'] || $last_item->member_id != $member->id || !$is_id_valid )
+    if(!$item || !(((int)$item['book_id'])>0) || !$item['reserved'] || $last_item->member_id != $member->id || !$is_id_valid )
       return Response::json(array('status'=>'not found'));
 
     $book = Book::find($item['book_id']);
