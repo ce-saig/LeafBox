@@ -24,7 +24,6 @@ Route::get('book/add','BookController@newBook');
 Route::post('book/add','BookController@postBook');
 
 
-Route::post('loginUser','HomeController@doLogin');
 Route::get('logout','HomeController@doLogout');
 
 
@@ -58,7 +57,6 @@ Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
   Route::get('cassette/{id}', 'MediaController@getCassette');//TODO
   Route::post('cassette/{id}', 'MediaController@getCassette');//TODO
-
   Route::get('cd/{id}', 'MediaController@getCD');//TODO
   Route::post('cd/{id}', 'MediaController@getCD');//TODO
 
@@ -102,7 +100,8 @@ Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
 // User
 Route::get('user/{id}','UsersController@show');
 Route::post('user/{id}/destroy','UsersController@destroy');
-Route::get('registration','UsersController@create');
-Route::post('user/store','UsersController@store');
 });
 Route::get('authentication','HomeController@showAuthen');
+Route::post('loginUser','HomeController@doLogin');
+Route::get('registration','UsersController@create');
+Route::post('user/store','UsersController@store');

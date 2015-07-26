@@ -39,7 +39,7 @@ class UsersController extends \BaseController {
 			$user->name = Input::get('name');
 			$user->email = Input::get('email');
 			$user->username = Input::get('username');
-			$user->password =  Hash::make(Input::get('password'));
+			$user->password = Hash::make(Input::get('password'));
 			$user->save();
 			// auto login and redirect to landing page
 			$users_info = array(
