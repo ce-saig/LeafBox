@@ -49,29 +49,40 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="braille">
-      @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-      <button  class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <div class="row" >
+          @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
+        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเบลล์</button>
+      </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
-      @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
-      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <div class="row" >
+        @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
+        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มคาสเซ็ท</button>
+      </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
-      @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
-      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <div class="row">
+        @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
+        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเดซี่</button>
+      </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
-      @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
-      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <div class="row">
+        @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
+        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มCD</button>
+      </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
-      @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
-      <button class="addButton btn btn-success" data-toggle="modal" data-target="#add">เพิ่ม</button>
+      <div class="row">
+        @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
+        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มDVD</button>
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -87,11 +98,26 @@
           <h4 class="modal-title">เพิ่มสื่อ</h4>
         </div>
         <div class="modal-body">
-          จำนวน: <input type="number" id="amount" min=1 value="1"/> ชิ้น
-          <button onClick="add()" data-dismiss="modal">เพิ่ม</button>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="pull-right">จำนวน:</div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <input class="form-control" type="number" id="amount" min=1 value="1"/>
+              </div>
+            </div>
+            <div class="col-md-4">
+              ชิ้นย่อย
+            </div>
+            <div class="col-md-12">
+              <div class="text-center">
+                <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          footer
         </div>
       </div>
     </div>
@@ -108,11 +134,28 @@
           <h4 class="modal-title">เพิ่มสื่อ</h4>
         </div>
         <div class="modal-body">
-          มี : <input type="number" id="amountBraille" min=1 value="1"/> หน้า
-          <button onClick="add()" data-dismiss="modal">เพิ่ม</button>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="pull-right">
+                จำนวน :
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="number" class="form-control" id="amountBraille" min=1 value="1"/>
+              </div>
+            </div>
+            <div class="col-md-4">
+              หน้าต่อเล่ม
+            </div>
+            <div class="col-md-12">
+              <div class="text-center">
+                <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          footer
         </div>
       </div>
     </div>

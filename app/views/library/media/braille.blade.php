@@ -25,9 +25,10 @@
               <td>{{$book->title}}</td>
               <td>
                 <select name="status" class="form-control">
-                  <option {{$item->status==0?'selected':''}} value="0">ปกติ</option>
-                  <option {{$item->status==1?'selected':''}} value="1">ชำรุด</option>
-                  <option {{$item->status==2?'selected':''}} value="2">รอซ่อม</option>
+                  <option {{$item->status==0?'selected':''}} value="0">ผลิต</option>
+                  <option {{$item->status==1?'selected':''}} value="1">รอผลิต</option>
+                  <option {{$item->status==2?'selected':''}} value="2">ไม่ผลิต</option>
+                  <option {{$item->status==2?'selected':''}} value="3">จองอ่าน</option>
                 </select>
               </td>
               <td>
