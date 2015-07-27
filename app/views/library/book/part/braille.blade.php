@@ -5,18 +5,18 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th >เบรลล์ไอดี</th>
-          <th>สถานะ</th>
-          <th>จำนวนหน้า</th>
+          <th style="text-align: center;">เบรลล์ไอดี</th>
+          <th style="text-align: center;">สถานะ</th>
+          <th style="text-align: center;">จำนวนหน้า</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($braille as $item)
           <tr class = "hover table-body" href="{{$bid}}/braille/{{$item->id}}">
-            <td >{{$item->id}}</td>
-            <td>{{ $item->getStatus() }}</td>
-            <td>{{$item->pages}}</td>
-            <td><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
+            <td style="text-align: center;">{{$item->id}}</td>
+            <td style="text-align: center;">{{ $item->status}}</td>
+            <td style="text-align: center;" style="text-align: center;">{{$item->pages}}</td>
+            <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
           </tr>
         @endforeach
       </tbody>

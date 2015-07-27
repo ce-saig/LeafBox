@@ -7,7 +7,7 @@
   <div class="panel panel-{{$item->reserved?'warning':'success'}}">
     <div class="panel-heading">
       <h3 class="panel-title">
-      {{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
+      {{$item->id}}. {{$book->title}} {{$item->reserved?"(ถูกยืม)":""}}
       </h3>
     </div>
     <div class="panel-body">
@@ -24,11 +24,10 @@
               <td>{{$item->id}}</td>
               <td>{{$book->title}}</td>
               <td>
-                <select name="status" class="form-control">
-                  <option {{$item->status==0?'selected':''}} value="0">ผลิต</option>
-                  <option {{$item->status==1?'selected':''}} value="1">รอผลิต</option>
-                  <option {{$item->status==2?'selected':''}} value="2">ไม่ผลิต</option>
-                  <option {{$item->status==2?'selected':''}} value="3">จองอ่าน</option>
+                <select name="status[]" class="form-control">
+                  <option {{$value->status==0?'selected':''}} value="0">ปกติ</option>
+                  <option {{$value->status==1?'selected':''}} value="1">ชำรุด</option>
+                  <option {{$value->status==2?'selected':''}} value="2">รอซ่อม</option>
                 </select>
               </td>
               <td>

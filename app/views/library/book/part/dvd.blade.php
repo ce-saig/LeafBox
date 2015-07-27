@@ -5,16 +5,16 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>ดีวีดีไอดี</th>
-          <th>จำนวนชิ้นย่อย (แผ่น)</th>
+          <th style="text-align: center;">ดีวีดีไอดี</th>
+          <th style="text-align: center;">จำนวนชิ้นย่อย (แผ่น)</th>
         </tr>
        </thead>
       <tbody>
         @foreach ($dvd as $item)
         <tr class = "hover table-body" href="{{$bid}}/dvd/{{$item->id}}">
-          <td>{{$item->id}}</td>
-          <td>{{$item->numpart}}</td>
-          <td><a href = "{{ url('/book/'.$bid.'/dvd/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
+          <td style="text-align: center;">{{$item->id}}</td>
+          <td style="text-align: center;" style="text-align: center;">{{$item->numpart}}</td>
+          <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/dvd/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
         @endforeach
       </tbody>

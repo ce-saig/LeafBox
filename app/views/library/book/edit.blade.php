@@ -18,9 +18,15 @@
         $media_status_index = 0;
         $media_date_index = 0;
         ?>
+        <div class="col-lg-12" style="padding: 0;">
         @foreach ($book as $data)
 
-        @if ($i==14||$i==17||$i==20||$i==23||$i==26)
+        @if ($i==14)
+        </div>
+        <hr>
+        <div class="row">
+          <h5>{{ substr($label[$i],24) }}</h5>
+        @elseif ($i==14||$i==17||$i==20||$i==23||$i==26)
         <hr>
         <div class="row">
           <h5>{{ substr($label[$i],24) }}</h5>
@@ -38,6 +44,7 @@
             </div>
             <div class="col-xs-12 col-lg-12">
               <div class="col-lg-10">
+            
             @elseif($i==16||$i==19||$i==22||$i==25||$i==28)
                 <div class="col-xs-6 col-lg-1">
                   <label for="input" class="control-label">{{$label[$i]}}</label>
@@ -56,7 +63,8 @@
                         <!-- TODO : Implement default value and select old value -->
                         <select name="{{$field[$i]}}" class="form-control media_status" id="select_{{$field[$i]}}">
                           <option {{$data == "ผลิต"?'selected':''}} value="ผลิต">ผลิต</option>
-                          <option {{$data != "ผลิต"?'selected':''}} value="ไม่ผลิต">ไม่ผลิต</option>
+                          <option {{$data == "ไม่ผลิต"?'selected':''}} value="ไม่ผลิต">ไม่ผลิต</option>
+                          <option {{$data == "จองอ่าน"?'selected':''}} value="จองอ่าน">จองอ่าน</option>
                         </select>
                         <?php $media_status_index++ ?>
             @elseif ($i==15||$i==18||$i==21||$i==24||$i==27)

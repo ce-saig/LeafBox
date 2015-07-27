@@ -67,7 +67,7 @@ $(document).ready(function() {
 	function cardGenerate(response, card_path) {
 
 		var mediatype = ['เบลล์ ', 'คาสเซ็ท ', 'DVD ', 'CD ', 'Daisy '];
-		var status_attr_type = ['bm_status','setcm_status','setdvd_status','setcd_status','setdm_status'];
+		var status_attr_type = ['bm_status','setcs_status','setdvd_status','setcd_status','setds_status'];
 		console.log(response);
 		$('.search_result').text('');
 
@@ -121,16 +121,17 @@ $(document).ready(function() {
 
 	function badgeGenerator(status) {
 
-			if(status == 0){
-				return '<span class="label label-danger">ไม่ทำการผลิต</span>';
-			}else if(status == 1){
-				return '<span class="label label-success">ผลิตเสร็จ</span>';
-			}else if(status == 2){
-				return '<span class="label label-warning">รอการผลิต</span>';
-			}else if(status == 3){
-				return '<span class="label label-info">กำลังอ่าน</span>';
-			}else{
-				return '<span class="label label-warning">ข้อมูลไม่ถูกต้อง</span>';
-			}
+		return '<span class="label label-danger">'+status+'</span>';
+		/*if(status == 0){
+			return '<span class="label label-danger">ไม่ทำการผลิต</span>';
+		}else if(status == 1){
+			return '<span class="label label-success">ผลิตเสร็จ</span>';
+		}else if(status == 2){
+			return '<span class="label label-warning">รอการผลิต</span>';
+		}else if(status == 3){
+			return '<span class="label label-info">กำลังอ่าน</span>';
+		}else{
+			return '<span class="label label-warning">ข้อมูลไม่ถูกต้อง</span>';
+		}*/
 	}
 });
