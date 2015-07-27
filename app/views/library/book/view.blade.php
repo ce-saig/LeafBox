@@ -100,7 +100,7 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-4">
-              <div class="pull-right">จำนวน:</div>
+              <div class="pull-right">สื่อชิ้นนี้มี </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
@@ -137,7 +137,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="pull-right">
-                จำนวน :
+                เบรลล์เลเ่มนี้มี
               </div>
             </div>
             <div class="col-md-4">
@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              หน้าต่อเล่ม
+              หน้า
             </div>
             <div class="col-md-12">
               <div class="text-center">
