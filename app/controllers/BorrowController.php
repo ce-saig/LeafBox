@@ -139,7 +139,7 @@ class BorrowController extends BaseController {
     //cassette_id
 
     //date_borrowed
-  
+    
     $dateBorrow = date("Y-m-d H:i:s");
     //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
@@ -235,19 +235,23 @@ class BorrowController extends BaseController {
     $result = array();
     $keyword = Input::get('keyword');
 
-    $dvd_condition  = in_array(substr($keyword, 0, 3), array("dvd", "dvD", "dVd", "dVD", "Dvd", "DvD", "DVd", "DVD")) && is_numeric(substr($keyword, 3));
-    $cd_condition   = in_array(substr($keyword, 0, 2), array("cd", "cD", "Cd", "CD")) && is_numeric(substr($keyword, 2));
-    $bcd_condition  = in_array(substr($keyword, 0, 1), array('b', 'c', 'd', 'B', 'C', 'D')) && is_numeric(substr($keyword, 1));
+    $media_id = preg_replace("/[^0-9]/", "", $keyword);
+    $media = strtoupper(preg_replace("/[0-9]/", "", $keyword));
+
+    $dvd_condition  = ($media == "DVD") && is_numeric($media_id);
+    $cd_condition   = ($media == "CD") && is_numeric($media_id);
+    $bcd_condition  = in_array($media, array('B', 'C', 'D')) && is_numeric($media_id);
 
     //$result = $this->searchByName($keyword);
     if(is_numeric($keyword))
-    $result = $this->searchByID($keyword, 1);
-  else if($dvd_condition || $cd_condition || $bcd_condition)
-    $result = $this->searchByID($keyword, 2);
-  else
-    $result = $this->searchByName($keyword);
+      $result = $this->searchByID($keyword, 1);
+    else if($dvd_condition || $cd_condition || $bcd_condition)
+      $result = $this->searchByID($keyword, 2);
+    else
+      $result = $this->searchByName($keyword);
 
-    //return (!$book)?'true':'false';
+    $selectedList = Session::get('borrow', array());
+
     if(!$result){
       return '';
     } else {
@@ -337,73 +341,63 @@ class BorrowController extends BaseController {
       $braille = Braille::find($keyword);
       if($braille != null) {
         $books[$book_index] = Book::find($braille->book_id);
-          $found_status[$book_index++] = array(1, 0, 0, 0, 0);
-        }
+        $found_status[$book_index++] = array(1, 0, 0, 0, 0);
+      }
 
-    $cassette = Cassette::find($keyword);
-    if($cassette != null) {
-      $books[$book_index] = Book::find($cassette->book_id);
-      $found_status[$book_index++] = array(0, 1, 0, 0, 0);
-    }
+      $cassette = Cassette::find($keyword);
+      if($cassette != null) {
+        $books[$book_index] = Book::find($cassette->book_id);
+        $found_status[$book_index++] = array(0, 1, 0, 0, 0);
+      }
 
-    $cd = CD::find($keyword);
-    if($cd != null) {
-      $books[$book_index] = Book::find($cd->book_id);
-      $found_status[$book_index++] = array(0, 0, 1, 0, 0);
-    }
+      $cd = CD::find($keyword);
+      if($cd != null) {
+        $books[$book_index] = Book::find($cd->book_id);
+        $found_status[$book_index++] = array(0, 0, 1, 0, 0);
+      }
 
-    $daisy = Daisy::find($keyword);
-    if($daisy != null) {
-      $books[$book_index] = Book::find($daisy->book_id);
-      $found_status[$book_index++] = array(0, 0, 0, 1, 0);
-    }
+      $daisy = Daisy::find($keyword);
+      if($daisy != null) {
+        $books[$book_index] = Book::find($daisy->book_id);
+        $found_status[$book_index++] = array(0, 0, 0, 1, 0);
+      }
 
-    $dvd = DVD::find($keyword);
-    if($dvd != null) {
-      $books[$book_index] = Book::find($dvd->book_id);
-      $found_status[$book_index++] = array(0, 0, 0, 0, 1);
-    }
+      $dvd = DVD::find($keyword);
+      if($dvd != null) {
+        $books[$book_index] = Book::find($dvd->book_id);
+        $found_status[$book_index++] = array(0, 0, 0, 0, 1);
+      }
     }
     else {
-      if(in_array(substr($keyword, 0, 3), array("dvd", "Dvd", "DvD", "dVd", "dVD", "dvD", "DVd", "DVD"))) {
-        $media = "dvd";
-        $keyword = $this->getNumID($keyword, 3);
-      }
-      else if(in_array(substr($keyword, 0, 2), array("cd", "Cd", "cD", "CD"))) {
-        $media = "cd";
-        $keyword = $this->getNumID($keyword, 2);
-      }
-      else if(in_array(substr($keyword, 0, 1), array('b', 'c', 'd', 'B', 'C', 'D'))) {
-        $media = substr($keyword, 0, 1);
-        $keyword = $this->getNumID($keyword, 1);
-      }
+      $media_id = (int) preg_replace("/[^0-9]/", "", $mid);
+      $media = strtoupper(preg_replace("/[0-9]/", "", $mid));
 
-      switch (true) {
-        case in_array($media, array('b', 'B')) :
-          $braille = Braille::find($keyword);
-          $books[0] = Book::find($braille->book_id);
-          $found_status[0] = array(1, 0, 0, 0, 0);
-          break;
-        case in_array($media, array('c', 'C')) :
-          $cassette = Cassette::find($keyword);
-          $books[0] = Book::find($cassette->book_id);
-          $found_status[0] = array(0, 1, 0, 0, 0);
-          break;
-        case $media == "cd" :
-          $cd = CD::find($keyword);
-          $books[0] = Book::find($cd->book_id);
-          $found_status[0] = array(0, 0, 1, 0, 0);
-          break;
-        case in_array($media, array('d', 'D')) :
-          $daisy = Daisy::find($keyword);
-          $books[0] = Book::find($daisy->book_id);
-          $found_status[0] = array(0, 0, 0, 1, 0);
-          break;
-        case $media == "dvd" :
-          $dvd = DVD::find($keyword);
-          $books[0] = Book::find($dvd->book_id);
-          $found_status[0] = array(0, 0, 0, 0, 1);
-          break;
+      switch ($media) {
+        case 'B' :
+        $braille = Braille::find($media_id);
+        $books[0] = Book::find($braille->book_id);
+        $found_status[0] = array(1, 0, 0, 0, 0);
+        break;
+        case 'C' :
+        $cassette = Cassette::find($media_id);
+        $books[0] = Book::find($cassette->book_id);
+        $found_status[0] = array(0, 1, 0, 0, 0);
+        break;
+        case 'CD' :
+        $cd = CD::find($media_id);
+        $books[0] = Book::find($cd->book_id);
+        $found_status[0] = array(0, 0, 1, 0, 0);
+        break;
+        case 'D' :
+        $daisy = Daisy::find($media_id);
+        $books[0] = Book::find($daisy->book_id);
+        $found_status[0] = array(0, 0, 0, 1, 0);
+        break;
+        case 'DVD' :
+        $dvd = DVD::find($media_id);
+        $books[0] = Book::find($dvd->book_id);
+        $found_status[0] = array(0, 0, 0, 0, 1);
+        break;
       }
     }
 
@@ -476,7 +470,7 @@ class BorrowController extends BaseController {
 
   public function getNumID($string, $start_index)
   {
-  $number = substr($string, $start_index);
+    $number = substr($string, $start_index);
     return (is_numeric($number)) ? (int) $number : null;
   }
 }

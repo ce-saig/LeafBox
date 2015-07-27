@@ -35,14 +35,16 @@
                         <?php 
                           $no=1;
                         ?>
+                        <script>selectedMedia = new Array();</script>
                         @foreach ($borrow as $item)
-                          <tr class="media-row" id="media-row_{{ $item['typeID'] }}">
+                          <tr class="media-row" id="media-row_{{ $item['typeID']; }}">
                             <td>{{$no++}}</td>
                             <td>{{$item['title']}}</td>
                             <td>{{$item['id']}}</td>
                             <td>{{$item['type']}}</td>
                             <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
                           </tr>
+                          <script>selectedMedia.push('{{ $item['typeID']; }}');</script>
                         @endforeach
                       </tbody>
                     </table>
@@ -262,7 +264,7 @@
         function(data){
           //console.log(data);
           if(data != ""){
-          	$('#result').append('<table class="table table-striped table-hover"><thead><tr class="warning"><th class="col-sm-1">รหัสสื่อ</th><th class="col-sm-4">ชื่อหนังสือ</th></tr></thead><tbody class = "search-table"></tbody></table>');
+          	$('#result').append('<table class="table table-striped table-hover"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-7">ชื่อหนังสือ</th><th class="col-sm-2"></th></tr></thead><tbody class = "search-table"></tbody></table>');
             addToList(data);
             $('#not_found').hide();
           }
@@ -301,6 +303,8 @@
           if(data['status']){
             var input_data = data['media'];
             var tr_table = $('<tr id="media-row_' + id + '"></tr>');
+            selectedMedia.push(id);
+            $('#' + id + '.media_selected').fadeIn();
             amountOfMedia++;
             tr_table.append('<td>'+input_data['no']+'</td>');
             tr_table.append('<td>'+input_data['title']+'</td>');
@@ -327,6 +331,7 @@
   function clearData() {
     amountOfMedia = 0;
     selectedMember = false;
+    selectedMedia = new Array();
     $(".table_fill").text("");
     $('#datepicker').val("");
     $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
@@ -346,32 +351,28 @@
 
     for(var i=0; i<jsonArr.length; i++){
       //TODO when click same item should not add it to list
-        console.log(jsonArr[0][0].length);
         for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-        	console.log('b');
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
         }
 
         for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-        	console.log('c');
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
         }
 
         for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-        	console.log('cd');
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
         }
 
         for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-        	console.log('d');
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
         }
 
         for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-        	console.log('dvd');
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td></tr><br>");
+        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
         }
     }
+    for(var i = 0; i < selectedMedia.length; i++)
+    	$('#' + selectedMedia[i] + '.media_selected').show();
 }
 
     $('.search-member-btn').click(function() {
