@@ -99,7 +99,6 @@ class ReturnController extends BaseController {
     $book = Book::find($item['book_id']);
     
     $returnList = Session::get('list', array());
-    $media_id = str_pad($media_id, 3, "0", STR_PAD_LEFT);
     $isHas=array_key_exists(strval($media_abbr . $media_id),$returnList);
     $status="not found";
 
@@ -141,11 +140,11 @@ class ReturnController extends BaseController {
         $temp_media = CD::find($media_id);
         $borrowed_rec = Cdborrow::where('cd_id', '=', $media_id)->orderBy('id', 'desc')->first();
       }
-      if($media == "D") {
+      else if($media == "D") {
         $temp_media = Daisy::find($media_id);
         $borrowed_rec = Daisyborrow::where('daisy_id', '=', $media_id)->orderBy('id', 'desc')->first();
       }
-      if($media == "C") {
+      else if($media == "C") {
         $temp_media = Cassette::find($media_id);
         $borrowed_rec = Cassetteborrow::where('cassette_id', '=', $media_id)->orderBy('id', 'desc')->first();
       }

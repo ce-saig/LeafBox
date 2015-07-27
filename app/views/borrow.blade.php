@@ -40,7 +40,7 @@
                           <tr class="media-row" id="media-row_{{ $item['typeID']; }}">
                             <td>{{$no++}}</td>
                             <td>{{$item['title']}}</td>
-                            <td>{{$item['id']}}</td>
+                            <td>{{$item['typeID']}}</td>
                             <td>{{$item['type']}}</td>
                             <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
                           </tr>
@@ -221,6 +221,7 @@
         if(data == "completed") {
           clearData();
           $('#form_completed').modal('show');
+          setTimeout(function() {$('#form_completed').modal('hide');}, 1500);
         }
       });
     }
@@ -308,7 +309,7 @@
             amountOfMedia++;
             tr_table.append('<td>'+input_data['no']+'</td>');
             tr_table.append('<td>'+input_data['title']+'</td>');
-            tr_table.append('<td>'+input_data['id']+'</td>');
+            tr_table.append('<td>'+input_data['typeID']+'</td>');
             tr_table.append('<td>'+input_data['type']+'</td>');
             tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
             $(".table_fill").append(tr_table); //or prepend 
