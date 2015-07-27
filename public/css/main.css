@@ -131,3 +131,20 @@ a {
 .modal-notifiation-title {
   color: white;
 }
+
+.form-label {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#cd-field {
+  margin-left: -26px;
+}
+
+#cd-field-label {
+  margin-left: 18px;
+}
+
+#cd-field-input {
+  margin-left: -30px;
+}

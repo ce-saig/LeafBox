@@ -14,7 +14,15 @@
         @foreach ($braille as $item)
           <tr class = "hover table-body" href="{{$bid}}/braille/{{$item->id}}">
             <td style="text-align: center;">{{$item->id}}</td>
-            <td style="text-align: center;">{{ $item->status}}</td>
+            <td style="text-align: center;">
+              @if(!$item->status)
+                ปรกติ
+              @elseif($item->status == 1)
+                ชำรุด
+              @else
+                รอซ่อม
+              @endif
+            </td>
             <td style="text-align: center;" style="text-align: center;">{{$item->pages}}</td>
             <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
           </tr>

@@ -169,7 +169,7 @@ class MediaController extends Controller{
 
     foreach($dvdDetail as $details) {
       $details->status = $input['status'][$i];
-      $details->notes = $input['note'][$i++];
+      $details->note = $input['note'][$i++];
       $details->save();
     }
 
@@ -183,7 +183,7 @@ class MediaController extends Controller{
 
     foreach($cassetteDetail as $details) {
       $details->status = $input['status'][$i];
-      $details->notes = $input['note'][$i++];
+      $details->note = $input['note'][$i++];
       $details->save();
     }
 
