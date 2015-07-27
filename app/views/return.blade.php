@@ -262,6 +262,7 @@ $('#submit-media').click(function(event) {
       if(data == "completed") {
         clearData();
         $('#form_completed').modal('show');
+        setTimeout(function() {$('#form_completed').modal('hide');}, 1500);
       }
     });
   }

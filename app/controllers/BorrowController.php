@@ -276,7 +276,7 @@ class BorrowController extends BaseController {
       if($brailles){
         foreach($brailles as $braille){
           if(!$braille->reserved) {
-            $braille->id = 'B'.str_pad($braille->id, 3, '0', STR_PAD_LEFT);
+            $braille->id = 'B'.$braille->id;
             array_push($result[sizeof($result)-1][0], $braille);
           }
         }
@@ -288,7 +288,7 @@ class BorrowController extends BaseController {
       if($cassettes){
         foreach($cassettes as $cassette){
           if(!$cassette->reserved) {
-            $cassette->id = 'C'.str_pad($cassette->id, 3, '0', STR_PAD_LEFT);
+            $cassette->id = 'C'.$cassette->id;
             array_push($result[sizeof($result)-1][1], $cassette);
           }
         }
@@ -299,7 +299,7 @@ class BorrowController extends BaseController {
       if($cds){
         foreach($cds as $cd){
           if(!$cd->reserved){
-            $cd->id = 'CD'.str_pad($cd->id, 3, '0', STR_PAD_LEFT);
+            $cd->id = 'CD'.$cd->id;
             array_push($result[sizeof($result)-1][2], $cd);
           }
         }
@@ -310,7 +310,7 @@ class BorrowController extends BaseController {
       if($daisies){
         foreach($daisies as $daisy){
           if(!$daisy->reserved) {
-            $daisy->id = 'D'.str_pad($daisy->id, 3, '0', STR_PAD_LEFT);
+            $daisy->id = 'D'.$daisy->id;
             array_push($result[sizeof($result)-1][3], $daisy);
           }
         }
@@ -321,7 +321,7 @@ class BorrowController extends BaseController {
       if($dvds){
         foreach($dvds as $dvd){
           if(!$dvd->reserved) {
-            $dvd->id = 'DVD'.str_pad($dvd->id, 3, '0', STR_PAD_LEFT);
+            $dvd->id = 'DVD'.$dvd->id;
             array_push($result[sizeof($result)-1][4], $dvd);
           }
         }
@@ -369,8 +369,8 @@ class BorrowController extends BaseController {
       }
     }
     else {
-      $media_id = (int) preg_replace("/[^0-9]/", "", $mid);
-      $media = strtoupper(preg_replace("/[0-9]/", "", $mid));
+      $media_id = (int) preg_replace("/[^0-9]/", "", $keyword);
+      $media = strtoupper(preg_replace("/[0-9]/", "", $keyword));
 
       switch ($media) {
         case 'B' :
@@ -413,7 +413,7 @@ class BorrowController extends BaseController {
       if($brailles){
         foreach($brailles as $braille){
           if(!$braille->reserved && $found_status[$book_index][0]) {
-            $braille->id = 'B'.str_pad($braille->id, 3, '0', STR_PAD_LEFT);
+            $braille->id = 'B'.$braille->id;
             array_push($result[sizeof($result)-1][0], $braille);
           }
         }
@@ -425,7 +425,7 @@ class BorrowController extends BaseController {
       if($cassettes){
         foreach($cassettes as $cassette){
           if(!$cassette->reserved && $found_status[$book_index][1]) {
-            $cassette->id = 'C'.str_pad($cassette->id, 3, '0', STR_PAD_LEFT);
+            $cassette->id = 'C'.$cassette->id;
             array_push($result[sizeof($result)-1][1], $cassette);
           }
         }
@@ -436,7 +436,7 @@ class BorrowController extends BaseController {
       if($cds){
         foreach($cds as $cd){
           if($cd && !$cd->reserved && $found_status[$book_index][2]){
-            $cd->id = 'CD'.str_pad($cd->id, 3, '0', STR_PAD_LEFT);
+            $cd->id = 'CD'.$cd->id;
             array_push($result[sizeof($result)-1][2], $cd);
           }
         }
@@ -447,7 +447,7 @@ class BorrowController extends BaseController {
       if($daisies){
         foreach($daisies as $daisy){
           if(!$daisy->reserved && $found_status[$book_index][3]) {
-            $daisy->id = 'D'.str_pad($daisy->id, 3, '0', STR_PAD_LEFT);
+            $daisy->id = 'D'.$daisy->id;
             array_push($result[sizeof($result)-1][3], $daisy);
           }
         }
@@ -458,7 +458,7 @@ class BorrowController extends BaseController {
       if($dvds){
         foreach($dvds as $dvd){
           if(!$dvd->reserved && $found_status[$book_index][4]) {
-            $dvd->id = 'DVD'.str_pad($dvd->id, 3, '0', STR_PAD_LEFT);
+            $dvd->id = 'DVD'.$dvd->id;
             array_push($result[sizeof($result)-1][4], $dvd);
           }
         }
@@ -466,12 +466,6 @@ class BorrowController extends BaseController {
       $book_index++;
     }
     return $result;
-  }
-
-  public function getNumID($string, $start_index)
-  {
-    $number = substr($string, $start_index);
-    return (is_numeric($number)) ? (int) $number : null;
   }
 }
 
