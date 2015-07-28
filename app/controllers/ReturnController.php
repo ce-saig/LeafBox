@@ -53,6 +53,7 @@ class ReturnController extends BaseController {
     $item=null;
     $last_item = null;
     $is_id_valid = false;
+    
     if ($media == "DVD") {
       $media_abbr = $media;
       $item  = DVD::find((int)$media_id);
@@ -60,6 +61,7 @@ class ReturnController extends BaseController {
         $last_item = Dvdborrow::where('dvd_id', '=', $media_id)->orderBy('id', 'desc')->first();
         $is_id_valid = (isset($item, $last_item)) ? ($last_item->dvd_id == $media_id) : false;
       }
+
     }else if ($media == "CD") { 
       $media_abbr = $media;    
       $item  = CD::find((int)$media_id);
@@ -93,6 +95,8 @@ class ReturnController extends BaseController {
       }
     }
 
+
+
     if(!$item || !(((int)$item['book_id'])>0) || !$item['reserved'] || $last_item->member_id != $member->id || !$is_id_valid )
       return Response::json(array('status'=>'not found'));
 
@@ -102,14 +106,16 @@ class ReturnController extends BaseController {
     $isHas=array_key_exists(strval($media_abbr . $media_id),$returnList);
     $status="not found";
 
-    $dateTemp = date_create($last_item->date_borrowed);
+    $borrow_date = date_create($last_item->date_borrowed);
+    $due_date = date_create($last_item->date_returned);
 
     $list['no']=count($returnList)+1;
     $list['title']=$book['title'];
     $list['id']= $media_abbr . $media_id; //$media_id
     $list['item']=$item;
     $list['type']=$media;
-    $list['date_borrowed'] = date_format($dateTemp, 'd-m-').(date_format($dateTemp, 'Y') + 543).date_format($dateTemp, ' H:i:s');
+    $list['date_borrowed'] = date_format($borrow_date, 'd-m-').(date_format($borrow_date, 'Y') + 543);
+    $list['due_date'] = date_format($due_date, 'd-m-').(date_format($due_date, 'Y') + 543);
 
     if($isHas){
       $status = "duplicated";
@@ -118,6 +124,7 @@ class ReturnController extends BaseController {
       Session::put('list', $returnList);
       $status="success";
     }
+
     return Response::json(array('status'=>$status,'media'=>$list));
   }
 
@@ -158,7 +165,7 @@ class ReturnController extends BaseController {
       $temp_media->reserved = 0;
       $temp_media->save();
 
-      $borrowed_rec->date_returned = $dateReturned;
+      $borrowed_rec->actual_returned = $dateReturned;
       $borrowed_rec->save();
     }
 

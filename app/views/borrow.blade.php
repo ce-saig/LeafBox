@@ -9,131 +9,131 @@
 <div class="container">
   <div class = "row">
     <div class = "col-md-12">
-         <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">ระบบยืมหนังสือ</h3>
+     <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">ระบบยืมหนังสือ</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+                ค้นหาหนังสือ
+              </button>
+              <table class="table table-striped table-hover result-list">
+                <thead>
+                  <tr class="info">
+                    <th>#</th>
+                    <th>ชื่อหนังสือ</th>
+                    <th>ID ของสื่อ</th>
+                    <th>ชนิดสื่อ</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class = "table_fill">
+                  <?php 
+                  $no=1;
+                  ?>
+                  <script>selectedMedia = new Array();</script>
+                  @foreach ($borrow as $item)
+                  <tr class="media-row" id="media-row_{{ $item['typeID']; }}">
+                    <td>{{$no++}}</td>
+                    <td>{{$item['title']}}</td>
+                    <td>{{$item['typeID']}}</td>
+                    <td>{{$item['type']}}</td>
+                    <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
+                  </tr>
+                  <script>selectedMedia['{{ $item['typeID']; }}'] = true;</script>
+                  @endforeach
+                </tbody>
+              </table>
+              <table class="table table-striped table-hover">
+                <tbody class = "table_sum">
+                  <tr>
+                    <th>รวม</th>
+                    <th>0 เล่ม</th>
+                    <th>0 ชุด</th>
+                    <th>0 ชิ้น</th>
+                  </tr>
+                </tbody>
+              </table>
+
             </div>
-            <div class="panel-body">
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
-                      ค้นหาหนังสือ
-                    </button>
-                    <table class="table table-striped table-hover">
-                      <thead>
-                        <tr class="info">
-                          <th>#</th>
-                          <th>ชื่อหนังสือ</th>
-                          <th>ID ของสื่อ</th>
-                          <th>ชนิดสื่อ</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody class = "table_fill">
-                        <?php 
-                          $no=1;
-                        ?>
-                        <script>selectedMedia = new Array();</script>
-                        @foreach ($borrow as $item)
-                          <tr class="media-row" id="media-row_{{ $item['typeID']; }}">
-                            <td>{{$no++}}</td>
-                            <td>{{$item['title']}}</td>
-                            <td>{{$item['typeID']}}</td>
-                            <td>{{$item['type']}}</td>
-                            <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
-                          </tr>
-                          <script>selectedMedia.push('{{ $item['typeID']; }}');</script>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    <table class="table table-striped table-hover">
-                      <tbody class = "table_sum">
-                      <tr>
-                          <th>รวม</th>
-                          <th>0 เล่ม</th>
-                          <th>0 ชุด</th>
-                          <th>0 ชิ้น</th>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-12">
+              <div class = "row">
+                <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
+                <div class = "col-md-3">
+                  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
+                    เลือกผู้ยืม
+                  </button>
                 </div>
-                <div class="col-md-6">
-                  <div class="col-md-12">
-                    <div class = "row">
-                      <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
-                      <div class = "col-md-3">
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
-                          เลือกผู้ยืม
-                        </button>
-                      </div>
-                    </div>
-                    <div class = "row">
-                      <div class = "well" id="member_data">
-                        @if(isset($member))
-                            ชื่อ   : <span id = "member_name_label">{{ $member->name }}</span><br/>
-                            เบอร์โทร : <span id = "member_phone_label">{{ $member->phone_no }}</span>
-                        @else
-                            ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
-                            เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
-                        @endif
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <h4>สรุป</h4>
-                    <div class ="well">
-                      <div class="form-inline">
-                        <div class="form-group input-group">
-                          <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y') + 543); }}</div>
-                          <div class="input-group-addon">วันคืน : </div>
-                          <input type="text" class="form-control" name="" id="datepicker"/>         
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <a href="{{ url('/borrow/submit') }}" id="submit-media"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
-                    <!-- TODO add jquery for refresh here -->
-                    <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+              </div>
+              <div class = "row">
+                <div class = "well" id="member_data">
+                  @if(isset($member))
+                  ชื่อ   : <span id = "member_name_label">{{ $member->name }}</span><br/>
+                  เบอร์โทร : <span id = "member_phone_label">{{ $member->phone_no }}</span>
+                  @else
+                  ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>
+                  เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>
+                  @endif
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <h4>สรุป</h4>
+              <div class ="well">
+                <div class="form-inline">
+                  <div class="form-group input-group">
+                    <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y') + 543); }}</div>
+                    <div class="input-group-addon">วันคืน : </div>
+                    <input type="text" class="form-control" name="" id="datepicker"/>         
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-12">
+              <a href="{{ url('/borrow/submit') }}" id="submit-media"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
+              <!-- TODO add jquery for refresh here -->
+              <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+            </div>
           </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
-  </div>
-  <div class="modal-body">
-    <div class="form-inline">
-      <div class="form-group input-group">
-        <div class="input-group-addon">ค้นหาหนังสือ</div>
-        <input type="text" class="form-control" name="" id="search-book"/>         
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
       </div>
-      <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+      <div class="modal-body">
+        <div class="form-inline">
+          <div class="form-group input-group">
+            <div class="input-group-addon">ค้นหาหนังสือ</div>
+            <input type="text" class="form-control" name="" id="search-book"/>         
+          </div>
+          <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+        </div>
+        <div id="result">
+        </div>
+
+        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
-      <div id="result">
-      </div>
-    
-      <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  </div>
-</div>
-</div>
 </div>
 
 <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -144,18 +144,18 @@
         <h4 class="modal-title" id="myModalLabel">เลือกสมาชิก</h4>
       </div>
       <div class="modal-body">
-          <div class="form-inline">
-            <div class="form-group input-group">
-              <div class="input-group-addon">ค้นหารายชื่อ</div>
-              <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>         
-            </div>
-           <button type="button" class="btn btn-primary search-member-btn">ค้นหา</button>
+        <div class="form-inline">
+          <div class="form-group input-group">
+            <div class="input-group-addon">ค้นหารายชื่อ</div>
+            <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>         
           </div>
+          <button type="button" class="btn btn-primary search-member-btn">ค้นหา</button>
+        </div>
 
         <table id="member-result" class = "table table-hover">
-        <tr>
-          <td>ชื่อ</td><td>เพศ</td>
-        </tr>
+          <tr>
+            <td>ชื่อ</td><td>เพศ</td>
+          </tr>
         </table>
       </div>
       <div class="modal-footer">
@@ -228,8 +228,8 @@
   })
 
   $('#notify').on('hidden.bs.modal', function() {
-     $('#notify-error').html('');
-  });
+   $('#notify-error').html('');
+ });
 
   $('#search-book').on('input propertychange paste', function() {
     if($('#search-book').val() == '') {
@@ -264,15 +264,13 @@
         {keyword: $('#search-book').val()},
         function(data){
           //console.log(data);
-          if(data != ""){
-          	$('#result').append('<table class="table table-striped table-hover"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-7">ชื่อหนังสือ</th><th class="col-sm-2"></th></tr></thead><tbody class = "search-table"></tbody></table>');
-            addToList(data);
+          if(data != "") {
             $('#not_found').hide();
+            $('#result').append('<table class="table table-striped table-hover result-list"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-7">ชื่อหนังสือ</th><th class="col-sm-2"></th></tr></thead><tbody class = "search-table"></tbody></table>');
+            addToList(data);
           }
-          else {
-            //$('#result').prepend('<td>no book found!!</td>');
+          else 
             $('#not_found').slideDown(250);
-          }
         });
     }
     else {
@@ -289,44 +287,45 @@
     }).done(function(data) {
       if(data['status']) {
         $("#media-row_" + id).remove();
+        selectedMedia[id] = false;
         amountOfMedia--;
       }
     });
   });
 
   $("body").on("click", ".book_choose", function(event){ 
-      var id = $(this).prop('id');
-        console.log(id);
-        $.ajax({
-          type: "GET",
-          url: "{{ url('borrow/book') }}/" + id,
-        }).done(function(data) {
-          if(data['status']){
-            var input_data = data['media'];
-            var tr_table = $('<tr id="media-row_' + id + '"></tr>');
-            selectedMedia.push(id);
-            $('#' + id + '.media_selected').fadeIn();
-            amountOfMedia++;
-            tr_table.append('<td>'+input_data['no']+'</td>');
-            tr_table.append('<td>'+input_data['title']+'</td>');
-            tr_table.append('<td>'+input_data['typeID']+'</td>');
-            tr_table.append('<td>'+input_data['type']+'</td>');
-            tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
+    var id = $(this).prop('id');
+    console.log(id);
+    $.ajax({
+      type: "GET",
+      url: "{{ url('borrow/book') }}/" + id,
+    }).done(function(data) {
+      if(data['status']){
+        var input_data = data['media'];
+        var tr_table = $('<tr id="media-row_' + id + '"></tr>');
+        selectedMedia[id] = true;
+        $('#' + id + '.media_selected').fadeIn();
+        amountOfMedia++;
+        tr_table.append('<td>'+input_data['no']+'</td>');
+        tr_table.append('<td>'+input_data['title']+'</td>');
+        tr_table.append('<td>'+input_data['typeID']+'</td>');
+        tr_table.append('<td>'+input_data['type']+'</td>');
+        tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
             $(".table_fill").append(tr_table); //or prepend 
           }
         });
-   });
+  });
 
   $('.del_btn').click(function(event) {
     event.preventDefault();
     clearData();
     $.ajax({
-          type: "GET",
-          url: "{{ url('/borrow/clear') }}",
-        }).done(function(data) {
-          console.log(data);
-          clearData();
-        });
+      type: "GET",
+      url: "{{ url('/borrow/clear') }}",
+    }).done(function(data) {
+      console.log(data);
+      clearData();
+    });
   });
 
   function clearData() {
@@ -339,7 +338,6 @@
   }
 
   function addToList(data){
-    console.log('addToList');
     //console.log(typeof data);
     var jsonArr = jQuery.parseJSON(data);
     /*
@@ -349,63 +347,76 @@
     console.log("****");
     console.log(jsonArr.length);
     console.log(jsonArr[0][0]);*/
-
+    var media_amount = 0;
     for(var i=0; i<jsonArr.length; i++){
       //TODO when click same item should not add it to list
-        for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
-        }
+      for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
+       $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
+     }
 
-        for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
-        }
+     for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
+       $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
+     }
 
-        for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
-        }
+     for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
+       $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
+     }
 
-        for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
-        }
+     for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
+       $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
+     }
 
-        for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-        	$('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
+     for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
+       $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><br>");
+     }
+     media_amount += jsonArr[i][0].length + jsonArr[i][1].length + jsonArr[i][2].length + jsonArr[i][3].length + jsonArr[i][4].length;
+   }
+
+   if(media_amount == 0) {
+      $('.result-list').remove();
+      $('#not_found').slideDown(250);
+      return;
+   }
+
+   for (var key in selectedMedia) {
+        if (selectedMedia.hasOwnProperty(key)) {
+          if(selectedMedia[key])
+            $('#' + key + '.media_selected').show();
         }
     }
-    for(var i = 0; i < selectedMedia.length; i++)
-    	$('#' + selectedMedia[i] + '.media_selected').show();
-}
+     
+ }
 
-    $('.search-member-btn').click(function() {
-        $.ajax({
-          type: "POST",
-          url: "{{ url('borrow/member') }}",
-          data: {member:$('#search-member').val()}
-        }).done(function(data) {
-          $('#member-result').empty();
-          for(var i = 0;i < data.length; i++){
-            console.log(data[i].name);
-            $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
-          }
-        });
-    });
+ $('.search-member-btn').click(function() {
+  $.ajax({
+    type: "POST",
+    url: "{{ url('borrow/member') }}",
+    data: {member:$('#search-member').val()}
+  }).done(function(data) {
+    $('#member-result').empty();
+    for(var i = 0;i < data.length; i++){
+      console.log(data[i].name);
+      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
+    }
+  });
+});
 
-    $('#member-result').on('click', '.select-member', function(){
-      selectedMember = true;
-      var member_id = $(this).children('#iden').html();
-      $.ajax({
-        type: "GET",
-        url: "{{ url('borrow/member/"+member_id+"') }}",
-      }).done(function(data) {
+ $('#member-result').on('click', '.select-member', function(){
+  selectedMember = true;
+  var member_id = $(this).children('#iden').html();
+  $.ajax({
+    type: "GET",
+    url: "{{ url('borrow/member/"+member_id+"') }}",
+  }).done(function(data) {
 
-        console.log(data);
-        $('#member_name_label').html(data.name);
-        $('#member_phone_label').html(data.phone_no);
-        $('#memberModal').modal('toggle');
-      });
+    console.log(data);
+    $('#member_name_label').html(data.name);
+    $('#member_phone_label').html(data.phone_no);
+    $('#memberModal').modal('toggle');
+  });
 
-    });
+});
 
-  </script>
-  <script src="/js/jquery-ui.js"></script>
-  @stop
+</script>
+<script src="/js/jquery-ui.js"></script>
+@stop

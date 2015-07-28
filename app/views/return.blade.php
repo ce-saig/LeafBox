@@ -27,7 +27,8 @@
                   <th>ชื่อหนังสือ</th>
                   <th>ID ของสื่อ</th>
                   <th>ชนิดสื่อ</th>
-                  <th>วัน - เวลา ที่ทำการยืม</th>
+                  <th>วันที่ทำการยืม</th>
+                  <th>วันกำหนดคืน</th>
                   <th></th>
                 </tr>
               </thead>
@@ -41,7 +42,8 @@
                   <td>{{$item['title']}}</td>
                   <td>{{$item['id']}}</td>
                   <td>{{$item['type']}}</td>
-                  <td>{{$item['date_borrowed']}}</td>
+                  <td class="text-center">{{$item['date_borrowed']}}</td>
+                  <td class="text-center">{{$item['due_date']}}</td>
                   <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['id'] }}">ลบ</button></td>
                 </tr>
                 @endforeach
@@ -190,6 +192,7 @@
         url: "{{ url('return/add') }}",
         data: {mid:$('#mid').val()}
       }).done(function(data) {
+        console.log(data);
         console.log(data['media']);
         console.log(data['input']);
         console.log(data['status']);
@@ -200,7 +203,8 @@
           tr_table.append('<td>' + input_data['title'] + '</td>');
           tr_table.append('<td>' + input_data['id'] + '</td>');
           tr_table.append('<td>' + input_data['type'] + '</td>');
-          tr_table.append('<td>' + input_data['date_borrowed'] + '</td');
+          tr_table.append('<td class="text-center">' + input_data['date_borrowed'] + '</td');
+          tr_table.append('<td class="text-center">' + input_data['due_date'] + '</td');
           tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + input_data['id'] + '">ลบ</button></td>');
           $(".table_fill").append(tr_table);
           amountOfMedia++;
