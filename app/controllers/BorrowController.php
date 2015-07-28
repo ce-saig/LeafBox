@@ -252,11 +252,10 @@ class BorrowController extends BaseController {
 
     $selectedList = Session::get('borrow', array());
 
-    if(!$result){
+    if(!$result)
       return '';
-    } else {
+    else
       return json_encode($result);
-    }
   }
 
   public function searchByName($keyword)
@@ -332,6 +331,7 @@ class BorrowController extends BaseController {
 
   public function searchByID($keyword, $search_type) //type 1 : number only, type 2 : number with media
   {
+    
     $found_status = array(array()); //(braille, casette, cd, daisy, dvd) *media status of each book
     $result = array();
     $books  = array();
@@ -375,31 +375,42 @@ class BorrowController extends BaseController {
       switch ($media) {
         case 'B' :
         $braille = Braille::find($media_id);
+        if(!isset($braille))
+          return;
         $books[0] = Book::find($braille->book_id);
         $found_status[0] = array(1, 0, 0, 0, 0);
         break;
         case 'C' :
         $cassette = Cassette::find($media_id);
+        if(!isset($cassette))
+          return;
         $books[0] = Book::find($cassette->book_id);
         $found_status[0] = array(0, 1, 0, 0, 0);
         break;
         case 'CD' :
         $cd = CD::find($media_id);
+        if(!isset($cd))
+          return;
         $books[0] = Book::find($cd->book_id);
         $found_status[0] = array(0, 0, 1, 0, 0);
         break;
         case 'D' :
         $daisy = Daisy::find($media_id);
+        if(!isset($daisy))
+          return;
         $books[0] = Book::find($daisy->book_id);
         $found_status[0] = array(0, 0, 0, 1, 0);
         break;
         case 'DVD' :
         $dvd = DVD::find($media_id);
+        if(!isset($dvd))
+          return;
         $books[0] = Book::find($dvd->book_id);
         $found_status[0] = array(0, 0, 0, 0, 1);
         break;
       }
     }
+
 
     $book_index = 0;
     foreach($books as $book){
