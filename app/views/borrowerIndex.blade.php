@@ -1,45 +1,58 @@
 @extends('library.layout')
 
 @section('head')
-	<title>ระบบจัดการผู้ยืม</title>
+<title>ระบบจัดการผู้ยืม</title>
 @stop
 @section('body')
 <div>
-	<div>
-		<a href="{{ action('BorrowerSystemController@create') }}"class="btn btn-primary btn-lg btn-block">เพิ่มรายชื่อผู้ยืม</a>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="panel">
+				<div class="panel-body">
+			      	<div class="col-md-2" style="height: 38px; line-height: 35px"><p>ค้นหาสมาชิก</div>
+			      	<div class="col-md-10"><input type="text" class="form-control" placeholder="ค้นหา"></div>
+			  	</div>
+			</div>
+		</div>
+		<div class="col-md-2" style="text-align: right">
+			<button class="btn btn-primary">เพิ่มรายชื่อผู้ยืม</button>
+		</div>
 	</div>
-	<div>
-	<table class="table table-striped">
- 		<thead>
- 			<tr>
- 				<th>Name</th>
- 				<th>Gender</th>
- 				<th>Address</th>
- 				<th>District</th>
- 				<th>Postcode</th>
- 				<th>Phone Number</th>
- 				<th>Action</th>
- 			</tr>
- 		</thead>
- 		<tbody>
- 		@foreach($members as $member)
- 			<tr>
- 				<td>{{$member->name}}</td>
- 				<td>{{$member->gender == 'ญ' ? 'หญิง':'ชาย'}}</td>
- 				<td>{{$member->address}}</td>
- 				<td>{{$member->district}}</td>
- 				<td>{{$member->province_postcode}}</td>
- 				<td>{{$member->phone_no}}</td>
- 				<td>
- 					<a href="{{ action('BorrowerSystemController@edit', $member->id) }}"class="btn btn-default">แก้ไข</a>
- 				</td>
- 				<td>
- 					<a href="{{ action('BorrowerSystemController@delete', $member->id) }}" class="btn btn-danger">ลบ</a>
- 				</td>
- 			</tr>
- 		@endforeach
- 	</tbody>
- </table>
- </div>
- </div>
- @stop
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="panel panel-info">
+				<div class="panel-body">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
+						<br>
+						<table class="table table-striped table-hover">
+						<thead>
+							<tr class="info">
+								<th class="text-center">รหัสสมาชิก</th>
+								<th>ชื่อ - สกุล</th>
+								<th>เพศ</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($members as $member)
+							<tr>
+								<td class="text-center">{{$member->id}}</td>
+								<td>{{$member->name}}</td>
+								<td>{{$member->gender == 'ญ' ? 'หญิง':'ชาย'}}</td>
+								<td><button class="btn btn-danger">ลบ</button></td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+					</div>
+					<div class="col-md-1"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+</div>
+@stop
