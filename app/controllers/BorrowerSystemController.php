@@ -2,13 +2,15 @@
 
 class BorrowerSystemController extends BaseController{
 	public function index(){
+		$selectedMember = Session::get('selectedMember');
 		$members = Member::all();
-		return View::make('borrowerIndex',compact('members'));
+		return View::make('borrowerIndex',array('members' => $members, 'selectedMember' => $selectedMember));
 	}
 	public function create(){
 		return View::make('borrowerCreate');
 	}
-	public function edit(Member $member){
+	public function edit(){
+		$member = Session::get('selectedMember');
 		return View::make('borrowerEdit',compact('member'));
 	}
 	public function delete(Member $member){
@@ -41,9 +43,28 @@ class BorrowerSystemController extends BaseController{
 	}
 	public function handleDelete(){
 		$id = Input::get('id');
-		$member = Member::findOrFail($id);
-		$member->delete();
+		$member = Member::find($id);
+		if(isset($member)) {
+			$member->delete();
+			return 'true';
+		}
+		else
+			return 'false';
+	}
 
-		return Redirect::action('BorrowerSystemController@index');
+	public function searchMember() {
+		$keyword = Input::get('keyword');
+		$members = Member::where('name', 'LIKE', "%$keyword%")->take(5)->get();
+		return json_encode($members);
+	}
+
+	public function postMember() {
+		$selectedMember = Member::find(Input::get('selectedMember'));
+		if(isset($selectedMember)) {
+			Session::forget('selectedMember');
+			Session::put('selectedMember', $selectedMember);
+			return $selectedMember;
+		}
+		return 'no member found!!';
 	}
 }
