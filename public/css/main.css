@@ -148,3 +148,20 @@ a {
 #cd-field-input {
   margin-left: -30px;
 }
+
+#search-member-label {
+  line-height: 35px;
+}
+
+.long-field {
+  margin-left: -30px;
+  width: 370px;
+}
+
+.medium-field {
+  width: 190px;
+}
+
+.small-field {
+  width: 100px;
+}
