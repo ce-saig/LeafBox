@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/datepicker.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 	<!-- font-awesome package-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,7 +54,6 @@
              <li><a href="#">เพิ่ม</a></li>
            </ul>
          </li> -->
-         <li><a href="{{ url('user/'.Auth::user()->id) }}">บรรณารักษ์</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
          <li class="dropdown">

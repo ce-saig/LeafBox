@@ -3,7 +3,6 @@
 <title>แก้ไข</title>
 @stop
 @section('body')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">แก้ไข</h3>

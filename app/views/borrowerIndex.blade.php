@@ -232,7 +232,7 @@
 		}
 		else if(member != null)
 				$('#result').prepend('<tr class="member" id="' + member['id'] + '"><td class="text-center">' + member['id'] + '</td><td>' + member['name'] + '</td><td class="text-center">' + (member['gender'] == 'ญ' ? 'หญิง' : 'ชาย') +'</td><td><button class="btn btn-success member-detail" id="' + member['id'] +'">รายละเอียด</button></td><td><button class="btn btn-danger del-member" id="' + member['id'] +'">ลบ</button></td></tr>');
-	};	
+	};
 
 
 	function addHistoryList() {

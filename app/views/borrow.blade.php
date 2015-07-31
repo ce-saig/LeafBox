@@ -4,7 +4,6 @@
 @stop
 @section('body')
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <div class="container">
   <div class = "row">
@@ -422,5 +421,4 @@
 });
 
 </script>
-<script src="/js/jquery-ui.js"></script>
 @stop
