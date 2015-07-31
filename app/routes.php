@@ -7,7 +7,7 @@
 
 
 /*Route::get('/',array('before' => 'auth',function(){
-	return "HELLO";
+  return "HELLO";
 }));*/
 // AJAX Search
 /*
@@ -105,12 +105,18 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
   Route::model('member', 'Member');
   Route::get('borrowersystem','BorrowerSystemController@index');
   Route::get('borrowersystem/create', 'BorrowerSystemController@create');
-  Route::get('borrowersystem/edit/{member}', 'BorrowerSystemController@edit');
+  Route::get('borrowersystem/editMember/', 'BorrowerSystemController@edit');
   Route::get('borrowersystem/delete/{member}', 'BorrowerSystemController@delete');
 
   Route::post('borrowersystem/create', 'BorrowerSystemController@handleCreate');
   Route::post('borrowersystem/edit', 'BorrowerSystemController@handleEdit');
   Route::post('borrowersystem/delete', 'BorrowerSystemController@handleDelete');
+
+  Route::post('borrowersystem/search', 'BorrowerSystemController@searchMember');
+  Route::post('borrowersystem/postMember', 'BorrowerSystemController@postMember');
+
+  Route::post('borrowersystem/getHistory/', 'BorrowerSystemController@getHistory');
+  Route::post('borrowersystem/getNonReturn/', 'BorrowerSystemController@getNonReturnList');
 });
 
 Route::get('authentication','HomeController@showAuthen');

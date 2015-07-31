@@ -1,60 +1,73 @@
 @extends('library.layout')
 
 @section('head')
-	<title>ลบรายละเอียดผู้ยืม</title>
+<title>เพิ่มสมาชิก</title>
 @stop
 
 @section('body')
-	<div class="panel panel-primary">
+<div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">เพิ่มรายการผู้ยืม</h3>
+    <h3 class="panel-title">เพิ่มสมาชิก</h3>
   </div>
   <div class="panel-body">   
     <form role="form" action="{{ action('BorrowerSystemController@handleCreate') }}" method="post">
       <div class='row'>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="name">
-            </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">ชื่อ - สกุล</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="name" value="">
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Gender</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="gender" placeholder="ญ หรือ ช">
-            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">เพศ</label>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="gender" id="inlineRadio1" value="ช">ชาย
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="gender" id="inlineRadio2" value="ญ">หญิง
+            </label>
           </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Address</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="address">
-            </div>
+        </div>
+        <br><br><br>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">สถานะ</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="status" value="">
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Dintrict</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="district">
-            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">ที่อยู่</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="address" value="">
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Province_Postcode</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="province_postcode"  placeholder="เช่น กทม. 10250">
-            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">อำเภอ/เขต</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="district" value="">
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Phone number</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control"  name="phone_no" placeholder="xxx-xxxxxxx" >
-            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">จังหวัด - รหัสไปรษณีย์</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="province_postcode" value="">
           </div>
-          <input type="submit" value="Save" class="btn btn-primary" />
- 			<a href="{{ action('BorrowerSystemController@index') }}" class="btn btn-link">Cancel</a>
-
-     </div>
-     </div>
-     </form>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label form-label">หมายเลขโทรศัพท์</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control"  name="phone_no" value="">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="pull-right">
+        <input type="submit" value="บันทึก" class="btn btn-primary" />
+        <a href="{{ action('BorrowerSystemController@index') }}" class="btn btn-default">ยกเลิก</a>
+      </div>
     </div>
- </div>
+  </form>
+</div>
+</div>
 @stop
