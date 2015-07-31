@@ -32,7 +32,7 @@
                   </tr>
                 </thead>
                 <tbody class = "table_fill">
-                  <?php 
+                  <?php
                   $no=1;
                   ?>
                   <script>selectedMedia = new Array();</script>
@@ -90,7 +90,7 @@
                   <div class="form-group input-group">
                     <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y') + 543); }}</div>
                     <div class="input-group-addon">วันคืน : </div>
-                    <input type="text" class="form-control" name="" id="datepicker"/>         
+                    <input type="text" class="form-control" name="" id="datepicker"/>
                   </div>
                 </div>
               </div>
@@ -120,7 +120,7 @@
         <div class="form-inline">
           <div class="form-group input-group">
             <div class="input-group-addon">ค้นหาหนังสือ</div>
-            <input type="text" class="form-control" name="" id="search-book"/>         
+            <input type="text" class="form-control" name="" id="search-book"/>
           </div>
           <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
         </div>
@@ -147,7 +147,7 @@
         <div class="form-inline">
           <div class="form-group input-group">
             <div class="input-group-addon">ค้นหารายชื่อ</div>
-            <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>         
+            <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>
           </div>
           <button type="button" class="btn btn-primary search-member-btn">ค้นหา</button>
         </div>
@@ -197,9 +197,13 @@
 <script type="text/javascript">
   var selectedMember = "{{ isset($member) }}";
   var amountOfMedia = "{{ count($borrow) }}";
-  
+
   $(function() {
-    $( "#datepicker" ).datepicker();
+  $("#datepicker").datepicker({
+              language:'th-th',
+              format: 'dd/mm/yyyy',
+              isBuddhist: true
+            });
   });
 
   $('#submit-media').click(function(event) {
@@ -269,7 +273,7 @@
             $('#result').append('<table class="table table-striped table-hover result-list"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-7">ชื่อหนังสือ</th><th class="col-sm-2"></th></tr></thead><tbody class = "search-table"></tbody></table>');
             addToList(data);
           }
-          else 
+          else
             $('#not_found').slideDown(250);
         });
     }
@@ -293,7 +297,7 @@
     });
   });
 
-  $("body").on("click", ".book_choose", function(event){ 
+  $("body").on("click", ".book_choose", function(event){
     var id = $(this).prop('id');
     console.log(id);
     $.ajax({
@@ -311,7 +315,7 @@
         tr_table.append('<td>'+input_data['typeID']+'</td>');
         tr_table.append('<td>'+input_data['type']+'</td>');
         tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
-            $(".table_fill").append(tr_table); //or prepend 
+            $(".table_fill").append(tr_table); //or prepend
           }
         });
   });
@@ -384,7 +388,7 @@
             $('#' + key + '.media_selected').show();
         }
     }
-     
+
  }
 
  $('.search-member-btn').click(function() {
