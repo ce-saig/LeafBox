@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="col-md-2 pull-right">
-			<button class="btn btn-primary">เพิ่มรายชื่อผู้ยืม</button>
+			<a href="{{ url('borrowersystem/create') }}" class="btn btn-primary">เพิ่มสมาชิก</a>
 		</div>
 	</div>
 	<div class="row">

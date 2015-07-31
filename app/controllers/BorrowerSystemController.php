@@ -20,6 +20,7 @@ class BorrowerSystemController extends BaseController{
 		$member = new Member;
 		$member->name = Input::get('name');
 		$member->gender = Input::get('gender');
+		$member->member_status = Input::get('status');
 		$member->district = Input::get('district');
 		$member->address = Input::get('address');
 		$member->province_postcode = Input::get('province_postcode');
