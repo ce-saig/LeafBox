@@ -8,7 +8,7 @@
     <h3 class="panel-title">แก้ไข</h3>
   </div>
   <div class="panel-body">
-    <form role="form" action="{{'/book/'.$book['id'].'/edit'}}" method="post">
+    <form role="form" action="{{url('/book/'.$book['id'].'/edit')}}" method="post">
       <div class="container">
         <?php
         $i=0;
@@ -61,8 +61,8 @@
             @if ($i==14||$i==17||$i==20||$i==23||$i==26)
                         <!-- TODO : Implement default value and select old value -->
                         <select name="{{$field[$i]}}" class="form-control media_status" id="select_{{$field[$i]}}">
-                          <option {{$data == 1?'selected':''}} value=1>ผลิต</option>
                           <option {{$data == 0?'selected':''}} value=0>ไม่ผลิต</option>
+                          <option {{$data == 1?'selected':''}} value=1>ผลิต</option>
                           <option {{$data == 2?'selected':''}} value=2>จองอ่าน</option>
                         </select>
                         <?php $media_status_index++ ?>
