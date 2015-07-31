@@ -109,14 +109,49 @@ class BookController extends Controller{
 
           //braile
     $braille = Braille::where('book_id','=',$book['id'])->get();
+    foreach ($braille as $key => $item) {
+      $borrow = Brailleborrow::where('braille_id', '=', $item->id)->get();
+      $borrow = $borrow->last();
+      $item->borrower = "ไม่มี";
+      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
+        $item->borrower = Member::find($borrow->member_id)->name;
+    }
           //cassette
     $cassette = Cassette::where('book_id','=',$book['id'])->get();
+    foreach ($cassette as $key => $item) {
+      $borrow = Cassetteborrow::where('cassette_id', '=', $item->id)->get();
+      $borrow = $borrow->last();
+      $item->borrower = "ไม่มี";
+      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
+        $item->borrower = Member::find($borrow->member_id)->name;
+    }
           //daisy
     $daisy = Daisy::where('book_id','=',$book['id'])->get();
+    foreach ($daisy as $key => $item) {
+      $borrow = Daisyborrow::where('daisy_id', '=', $item->id)->get();
+      $borrow = $borrow->last();
+      $item->borrower = "ไม่มี";
+      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
+        $item->borrower = Member::find($borrow->member_id)->name;
+    }
           //cd
     $cd = CD::where('book_id','=',$book['id'])->get();
+    foreach ($cd as $key => $item) {
+      $borrow = Cdborrow::where('cd_id', '=', $item->id)->get();
+      $borrow = $borrow->last();
+      $item->borrower = "ไม่มี";
+      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
+        $item->borrower = Member::find($borrow->member_id)->name;
+    }
           //dvd
     $dvd = DVD::where('book_id','=',$book['id'])->get();
+    foreach ($dvd as $key => $item) {
+      $borrow = Dvdborrow::where('dvd_id', '=', $item->id)->get();
+      $borrow = $borrow->last();
+      $item->borrower = "ไม่มี";
+      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
+        $item->borrower = Member::find($borrow->member_id)->name;
+    }
 
     $arrOfdata['field']=$field;
     $arrOfdata['book']=$book;

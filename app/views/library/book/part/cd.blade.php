@@ -7,6 +7,7 @@
         <tr>
           <th style="text-align: center;">ซีดีไอดี</th>
           <th style="text-align: center;">จำนวนชิ้นย่อย (แผ่น)</th>
+          <th style="text-align: center">ผู้ยืม</th>
         </tr>
        </thead>
       <tbody>
@@ -14,6 +15,7 @@
         <tr class = "hover table-body" href="{{$bid}}/cd/{{$item->id}}">
           <td style="text-align: center;">{{$item->id}}</td>
           <td style="text-align: center;">{{$item->numpart}}</td>
+          <td style="text-align: center">{{$item->borrower}}</td>
           <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/cd/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
         @endforeach
