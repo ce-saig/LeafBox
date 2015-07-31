@@ -6,9 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<!-- Main custom Bootstrap style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
+	<!-- date-picker style -->
+  <link rel="stylesheet" type="text/css" href=" {{ asset('css/datepicker.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
-
+	<!-- font-awesome package-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +54,6 @@
              <li><a href="#">เพิ่ม</a></li>
            </ul>
          </li> -->
-         <li><a href="#">สมาชิก</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
          <li class="dropdown">
@@ -135,6 +138,9 @@
 <!-- AJAX Databases -->
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/application.js') }}"></script>
+<!-- Bootstrap Datepicker -->
+<script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datepicker.th.js') }}" charset="UTF-8"></script>
 @show
 </body>
 </html>

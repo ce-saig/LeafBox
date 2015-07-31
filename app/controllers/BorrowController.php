@@ -70,6 +70,13 @@ class BorrowController extends BaseController {
       $media['no']=count($selectedList)+1;
       $media['type']=$mediaType;
       $media['id']=(int)$id;
+      $media['book_id'] = $item['book_id'];
+
+      if($mediaType == "Braille")
+        $media['part'] = 1;
+      else
+        $media['part'] = (int) $item['numpart'];
+
       $media['title']=$book['title'];
       $media['typeID'] = $mediaId;
       //$media['----'];
@@ -86,14 +93,18 @@ class BorrowController extends BaseController {
     $selectedList = Session::get('borrow', array());
     $isHas=array_key_exists(strval($mediaId),$selectedList);
     $status=false;
+    $book_id = null;
+    $part = 0;
     if($isHas){
       $status=true;
+      $book_id = $selectedList[$mediaId]['book_id'];
+      $part = $selectedList[$mediaId]['part'];
       unset($selectedList[$mediaId]);
     }else{
       $status=false;
     }
     Session::put('borrow', $selectedList);
-    return Response::json(array('status' => $status));
+    return Response::json(array('status' => $status, 'book_id' => $book_id, 'part' => $part));
   }
 
 
@@ -119,7 +130,7 @@ class BorrowController extends BaseController {
   {
     //TODO : find by NAME or ID
     $member = Input::get('member');//
-    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->get();
+    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->take(25)->get();
 
     return  $memberTemp;
   }

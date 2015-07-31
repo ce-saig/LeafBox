@@ -4,7 +4,6 @@
 @stop
 @section('body')
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <div class="container">
   <div class = "row">
@@ -21,7 +20,7 @@
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
                 ค้นหาหนังสือ
               </button>
-              <table class="table table-striped table-hover result-list">
+              <table class="table table-striped table-hover">
                 <thead>
                   <tr class="info">
                     <th>#</th>
@@ -32,10 +31,14 @@
                   </tr>
                 </thead>
                 <tbody class = "table_fill">
-                  <?php 
+                  <?php
                   $no=1;
                   ?>
-                  <script>selectedMedia = new Array();</script>
+                  <script>
+                    var selectedMedia = new Array();
+                    var selectedBook = new Array();
+                    var part = 0;
+                  </script>
                   @foreach ($borrow as $item)
                   <tr class="media-row" id="media-row_{{ $item['typeID']; }}">
                     <td>{{$no++}}</td>
@@ -44,7 +47,11 @@
                     <td>{{$item['type']}}</td>
                     <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
                   </tr>
-                  <script>selectedMedia['{{ $item['typeID']; }}'] = true;</script>
+                  <script>
+                    part += {{$item['part']}};
+                    selectedMedia['{{ $item['typeID']; }}'] = true;
+                    selectedBook['{{ $item['book_id']; }}'] = (!selectedBook['{{ $item['book_id']; }}'] ? 1 : selectedBook['{{ $item['book_id']; }}'] += 1);
+                  </script>
                   @endforeach
                 </tbody>
               </table>
@@ -52,9 +59,9 @@
                 <tbody class = "table_sum">
                   <tr>
                     <th>รวม</th>
-                    <th>0 เล่ม</th>
-                    <th>0 ชุด</th>
-                    <th>0 ชิ้น</th>
+                    <th id="book-amount"></th>
+                    <th id="media-amount"></th>
+                    <th id="part-amount"></th>
                   </tr>
                 </tbody>
               </table>
@@ -90,7 +97,7 @@
                   <div class="form-group input-group">
                     <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y') + 543); }}</div>
                     <div class="input-group-addon">วันคืน : </div>
-                    <input type="text" class="form-control" name="" id="datepicker"/>         
+                    <input type="text" class="form-control" name="" id="datepicker"/>
                   </div>
                 </div>
               </div>
@@ -120,7 +127,7 @@
         <div class="form-inline">
           <div class="form-group input-group">
             <div class="input-group-addon">ค้นหาหนังสือ</div>
-            <input type="text" class="form-control" name="" id="search-book"/>         
+            <input type="text" class="form-control" name="" id="search-book"/>
           </div>
           <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
         </div>
@@ -147,7 +154,7 @@
         <div class="form-inline">
           <div class="form-group input-group">
             <div class="input-group-addon">ค้นหารายชื่อ</div>
-            <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>         
+            <input type="text" class="form-control" name="" id="search-member" placeholder="ชื่อ"/>
           </div>
           <button type="button" class="btn btn-primary search-member-btn">ค้นหา</button>
         </div>
@@ -197,9 +204,15 @@
 <script type="text/javascript">
   var selectedMember = "{{ isset($member) }}";
   var amountOfMedia = "{{ count($borrow) }}";
-  
+
+  updateMediaAmount();
+
   $(function() {
-    $( "#datepicker" ).datepicker();
+  $("#datepicker").datepicker({
+              language:'th-th',
+              format: 'dd/mm/yyyy',
+              isBuddhist: true
+            });
   });
 
   $('#submit-media').click(function(event) {
@@ -263,14 +276,17 @@
       $.get('{{ url("borrow/search") }}',
         {keyword: $('#search-book').val()},
         function(data){
-          //console.log(data);
+          console.log(data);
           if(data != "") {
             $('#not_found').hide();
             $('#result').append('<table class="table table-striped table-hover result-list"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-7">ชื่อหนังสือ</th><th class="col-sm-2"></th></tr></thead><tbody class = "search-table"></tbody></table>');
             addToList(data);
+            console.log('add to list');
           }
-          else 
+          else {
             $('#not_found').slideDown(250);
+            console.log('not add to list');
+          }
         });
     }
     else {
@@ -285,15 +301,23 @@
       type: "POST",
       url: text,
     }).done(function(data) {
+      console.log(data);
       if(data['status']) {
         $("#media-row_" + id).remove();
         selectedMedia[id] = false;
+        selectedBook[data['book_id']] -= 1;
+
+        if(!selectedBook[data['book_id']])
+          delete selectedBook[data['book_id']];
+
         amountOfMedia--;
+        part -= data['part'];
+        updateMediaAmount();
       }
     });
   });
 
-  $("body").on("click", ".book_choose", function(event){ 
+  $("body").on("click", ".book_choose", function(event){
     var id = $(this).prop('id');
     console.log(id);
     $.ajax({
@@ -303,16 +327,19 @@
       if(data['status']){
         var input_data = data['media'];
         var tr_table = $('<tr id="media-row_' + id + '"></tr>');
-        selectedMedia[id] = true;
-        $('#' + id + '.media_selected').fadeIn();
-        amountOfMedia++;
+        $('#' + id + '.media_selected').show();
         tr_table.append('<td>'+input_data['no']+'</td>');
         tr_table.append('<td>'+input_data['title']+'</td>');
         tr_table.append('<td>'+input_data['typeID']+'</td>');
         tr_table.append('<td>'+input_data['type']+'</td>');
         tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
-            $(".table_fill").append(tr_table); //or prepend 
-          }
+        $(".table_fill").append(tr_table); //or prepend 
+        selectedMedia[id] = true;
+        amountOfMedia++;
+        part += input_data['part'];
+        selectedBook[input_data['book_id']] = (!selectedBook[input_data['book_id']] ? 1 : selectedBook[input_data['book_id']] += 1);
+        updateMediaAmount();
+      }
         });
   });
 
@@ -328,10 +355,43 @@
     });
   });
 
+  $('.search-member-btn').click(function() {
+    $.ajax({
+      type: "POST",
+      url: "{{ url('borrow/member') }}",
+      data: {member:$('#search-member').val()}
+    }).done(function(data) {
+      $('#member-result').empty();
+      for(var i = 0;i < data.length; i++){
+        console.log(data[i].name);
+        $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
+      }
+    });
+  });
+
+  $('#member-result').on('click', '.select-member', function(){
+    selectedMember = true;
+    var member_id = $(this).children('#iden').html();
+    $.ajax({
+      type: "GET",
+      url: "{{ url('borrow/member/"+member_id+"') }}",
+    }).done(function(data) {
+
+      console.log(data);
+      $('#member_name_label').html(data.name);
+      $('#member_phone_label').html(data.phone_no);
+      $('#memberModal').modal('toggle');
+    });
+
+  });
+
   function clearData() {
     amountOfMedia = 0;
     selectedMember = false;
     selectedMedia = new Array();
+    selectedBook = new Array();
+    part = 0;
+    updateMediaAmount();
     $(".table_fill").text("");
     $('#datepicker').val("");
     $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
@@ -373,18 +433,17 @@
    }
 
    if(media_amount == 0) {
-      $('.result-list').remove();
-      $('#not_found').slideDown(250);
-      return;
-   }
-
+    $('.result-list').remove();
+    $('#not_found').slideDown(250);
+    return;
+  }
    for (var key in selectedMedia) {
         if (selectedMedia.hasOwnProperty(key)) {
           if(selectedMedia[key])
             $('#' + key + '.media_selected').show();
         }
     }
-     
+
  }
 
  $('.search-member-btn').click(function() {
@@ -396,27 +455,26 @@
     $('#member-result').empty();
     for(var i = 0;i < data.length; i++){
       console.log(data[i].name);
-      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
+      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>");
     }
   });
 });
 
- $('#member-result').on('click', '.select-member', function(){
-  selectedMember = true;
-  var member_id = $(this).children('#iden').html();
-  $.ajax({
-    type: "GET",
-    url: "{{ url('borrow/member/"+member_id+"') }}",
-  }).done(function(data) {
+function countObj(obj) {
+  var count = 0;
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k))
+      count++;
+  }
+  return count;
+}
 
-    console.log(data);
-    $('#member_name_label').html(data.name);
-    $('#member_phone_label').html(data.phone_no);
-    $('#memberModal').modal('toggle');
-  });
-
-});
+function updateMediaAmount() {
+  console.log('part is' + part);
+  $('#book-amount').text(countObj(selectedBook) + ' เล่ม');
+  $('#media-amount').text(amountOfMedia + ' ชุด');
+  $('#part-amount').text(part + ' ชิ้น');
+}
 
 </script>
-<script src="/js/jquery-ui.js"></script>
 @stop

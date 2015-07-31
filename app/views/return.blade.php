@@ -17,7 +17,7 @@
                 <div class="input-group-addon">ระบุรหัสของสื่อ</div>
                 <input type="text" class="form-control" id="mid">
               </div>
-              <button type="submit" class="btn btn-info" id="add_btn">เพิ่ม</button>
+              <button type="submit" class="btn btn-info" id="add_btn">คืน</button>
             </div>
             <br>
             <table class="table table-striped table-hover">
@@ -36,6 +36,10 @@
                 <?php
                 $no=1;
                 ?>
+                <script>
+                    var selectedBook = new Array();
+                    var part = 0;
+                  </script>
                 @foreach ($list as $item)
                 <tr id="media-row_{{ $item['id'] }}">
                   <td>{{$no++}}</td>
@@ -46,6 +50,10 @@
                   <td class="text-center">{{$item['due_date']}}</td>
                   <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['id'] }}">ลบ</button></td>
                 </tr>
+                <script>
+                    part += {{$item['part']}};
+                    selectedBook['{{ $item['book_id']; }}'] = (!selectedBook['{{ $item['book_id']; }}'] ? 1 : selectedBook['{{ $item['book_id']; }}'] += 1);
+                  </script>
                 @endforeach
               </tbody>
             </table>
@@ -53,9 +61,9 @@
               <tbody class = "table_sum">
                 <tr>
                   <th>รวม</th>
-                  <th>X เล่ม</th>
-                  <th>Y ชุด</th>
-                  <th>Z ชิ้น</th>
+                  <th id="book-amount"></th>
+                  <th id="media-amount"></th>
+                  <th id="part-amount"></th>
                 </tr>
               </tbody>
             </table>
@@ -156,6 +164,9 @@
 <script type="text/javascript">
   var selectedMember = "{{ isset($member) }}";
   var amountOfMedia = "{{ count($list) }}";
+
+  updateMediaAmount();
+
   if(!selectedMember) {
     $('#mid').prop('disabled', true).prop('placeholder', 'กรุณาเลือกผู้ยืม');
   }
@@ -192,10 +203,6 @@
         url: "{{ url('return/add') }}",
         data: {mid:$('#mid').val()}
       }).done(function(data) {
-        console.log(data);
-        console.log(data['media']);
-        console.log(data['input']);
-        console.log(data['status']);
         if(data['status'] == "success"){
           var input_data = data['media'];
           var tr_table = $('<tr id="media-row_' + input_data['id'] + '"></tr>');
@@ -208,6 +215,9 @@
           tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + input_data['id'] + '">ลบ</button></td>');
           $(".table_fill").append(tr_table);
           amountOfMedia++;
+          part += input_data['part'];
+          selectedBook[input_data['book_id']] = (!selectedBook[input_data['book_id']] ? 1 : selectedBook[input_data['book_id']] += 1);
+          updateMediaAmount();
         }
         else {
           if(data['status'] == "not found")
@@ -283,7 +293,14 @@ $("body").on("click", ".btn_delete", function() {
     console.log(data);
     if(data['status']) {
       $("#media-row_" + id).remove();
+      selectedBook[data['book_id']] -= 1;
+
+      if(!selectedBook[data['book_id']])
+        delete selectedBook[data['book_id']];
+
       amountOfMedia--;
+      part -= data['part'];
+      updateMediaAmount();
     }
   });
 });
@@ -297,9 +314,28 @@ function notifyUser(text)
 function clearData() {
   selectedMember = false;
   amountOfMedia = 0;
+  selectedBook = new Array();
+  part = 0;
+  updateMediaAmount();
   $(".table_fill").text("");
   $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
   $('#mid').prop('value', '').prop('disabled', true).prop('placeholder', 'กรุณาเลือกผู้ยืม');
 };
+
+function countObj(obj) {
+  var count = 0;
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k))
+      count++;
+  }
+  return count;
+}
+
+function updateMediaAmount() {
+  console.log('part is' + part);
+  $('#book-amount').text(countObj(selectedBook) + ' เล่ม');
+  $('#media-amount').text(amountOfMedia + ' ชุด');
+  $('#part-amount').text(part + ' ชิ้น');
+}
 </script>
 @stop

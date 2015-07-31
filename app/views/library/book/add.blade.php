@@ -9,9 +9,9 @@
   <div class="panel-heading">
     <h3 class="panel-title">เพิ่มหนังสือใหม่</h3>
   </div>
-  <div class="panel-body">   
-    <form role="form" action="{{ url('book/add') }}" method="post">
+  <div class="panel-body">
       <div class='row'>
+    <form role="form" action="{{ url('book/add') }}" method="post">
         <div class='col-md-6'>
           <div class="form-group">
             <label class="col-sm-3 control-label">ISBN</label>
@@ -50,11 +50,11 @@
               <input type="number" min="1" class="form-control" placeholder="เช่น 1" name="pub_no" value="1">
             </div>
           </div>
-          
+
           <div class="form-group">
             <label class="col-sm-3 control-label">พ.ศ.</label>
             <div class="col-sm-9">
-              <input type="number"  min="2000" max="{{date('Y')+543}}" class="form-control" placeholder="เช่น {{date('Y')+543}}" name="pub_year" value="{{date('Y')+543}}">
+              <input type="number"  min="2000" max="{{date('Y')}}" class="form-control" placeholder="เช่น {{date('Y')}}" name="pub_year" value="{{date('Y')}}">
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
               <div class="col-sm-8">
                 <input type="text" class="form-control" name="original_no" required>
               </div>
-            </div>      
+            </div>
           </div>
 
           <div class="row">
@@ -107,14 +107,14 @@
 
         </div>
       </div>
-      
+
       <div class="form-group">
-        <input type="submit" class="btn btn-success pull-right" value="เพิ่ม">
+        <input type="submit" class="btn btn-success btn-lg pull-right" value='เพิ่ม'>
       </div>
     </form>
     <div class = "col-md-3">
           <a href = "{{ url('/') }}" class = "btn btn-lg btn-warning revous">กลับหน้าแรก</a>
-    </div> 
+    </div>
   </div>
 </div>
 @stop
