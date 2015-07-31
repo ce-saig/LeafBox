@@ -34,7 +34,11 @@
                   <?php
                   $no=1;
                   ?>
-                  <script>selectedMedia = new Array();</script>
+                  <script>
+                    var selectedMedia = new Array();
+                    var selectedBook = new Array();
+                    var part = 0;
+                  </script>
                   @foreach ($borrow as $item)
                   <tr class="media-row" id="media-row_{{ $item['typeID']; }}">
                     <td>{{$no++}}</td>
@@ -43,7 +47,11 @@
                     <td>{{$item['type']}}</td>
                     <td><button type="button" class="btn btn-danger btn_delete" id="{{ $item['typeID'] }}">ลบ</button></td>
                   </tr>
-                  <script>selectedMedia['{{ $item['typeID']; }}'] = true;</script>
+                  <script>
+                    part += {{$item['part']}};
+                    selectedMedia['{{ $item['typeID']; }}'] = true;
+                    selectedBook['{{ $item['book_id']; }}'] = (!selectedBook['{{ $item['book_id']; }}'] ? 1 : selectedBook['{{ $item['book_id']; }}'] += 1);
+                  </script>
                   @endforeach
                 </tbody>
               </table>
@@ -51,9 +59,9 @@
                 <tbody class = "table_sum">
                   <tr>
                     <th>รวม</th>
-                    <th>0 เล่ม</th>
-                    <th>0 ชุด</th>
-                    <th>0 ชิ้น</th>
+                    <th id="book-amount"></th>
+                    <th id="media-amount"></th>
+                    <th id="part-amount"></th>
                   </tr>
                 </tbody>
               </table>
@@ -197,6 +205,8 @@
   var selectedMember = "{{ isset($member) }}";
   var amountOfMedia = "{{ count($borrow) }}";
 
+  updateMediaAmount();
+
   $(function() {
   $("#datepicker").datepicker({
               language:'th-th',
@@ -288,10 +298,18 @@
       type: "POST",
       url: text,
     }).done(function(data) {
+      console.log(data);
       if(data['status']) {
         $("#media-row_" + id).remove();
         selectedMedia[id] = false;
+        selectedBook[data['book_id']] -= 1;
+
+        if(!selectedBook[data['book_id']])
+          delete selectedBook[data['book_id']];
+        
         amountOfMedia--;
+        part -= data['part'];
+        updateMediaAmount();
       }
     });
   });
@@ -306,16 +324,19 @@
       if(data['status']){
         var input_data = data['media'];
         var tr_table = $('<tr id="media-row_' + id + '"></tr>');
-        selectedMedia[id] = true;
-        $('#' + id + '.media_selected').fadeIn();
-        amountOfMedia++;
+        $('#' + id + '.media_selected').show();
         tr_table.append('<td>'+input_data['no']+'</td>');
         tr_table.append('<td>'+input_data['title']+'</td>');
         tr_table.append('<td>'+input_data['typeID']+'</td>');
         tr_table.append('<td>'+input_data['type']+'</td>');
         tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
-            $(".table_fill").append(tr_table); //or prepend
-          }
+        $(".table_fill").append(tr_table); //or prepend 
+        selectedMedia[id] = true;
+        amountOfMedia++;
+        part += input_data['part'];
+        selectedBook[input_data['book_id']] = (!selectedBook[input_data['book_id']] ? 1 : selectedBook[input_data['book_id']] += 1);
+        updateMediaAmount();
+      }
         });
   });
 
@@ -331,10 +352,43 @@
     });
   });
 
+  $('.search-member-btn').click(function() {
+    $.ajax({
+      type: "POST",
+      url: "{{ url('borrow/member') }}",
+      data: {member:$('#search-member').val()}
+    }).done(function(data) {
+      $('#member-result').empty();
+      for(var i = 0;i < data.length; i++){
+        console.log(data[i].name);
+        $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
+      }
+    });
+  });
+
+  $('#member-result').on('click', '.select-member', function(){
+    selectedMember = true;
+    var member_id = $(this).children('#iden').html();
+    $.ajax({
+      type: "GET",
+      url: "{{ url('borrow/member/"+member_id+"') }}",
+    }).done(function(data) {
+
+      console.log(data);
+      $('#member_name_label').html(data.name);
+      $('#member_phone_label').html(data.phone_no);
+      $('#memberModal').modal('toggle');
+    });
+
+  });
+
   function clearData() {
     amountOfMedia = 0;
     selectedMember = false;
     selectedMedia = new Array();
+    selectedBook = new Array();
+    part = 0;
+    updateMediaAmount();
     $(".table_fill").text("");
     $('#datepicker').val("");
     $("#member_data").html('ชื่อ   : <span id = "member_name_label">ยังไม่ได้เลือก</span><br/>เบอร์โทร : <span id = "member_phone_label">XX-XXXX-XXX</span>');
@@ -376,11 +430,10 @@
    }
 
    if(media_amount == 0) {
-      $('.result-list').remove();
-      $('#not_found').slideDown(250);
-      return;
-   }
-
+    $('.result-list').remove();
+    $('#not_found').slideDown(250);
+    return;
+  }
    for (var key in selectedMedia) {
         if (selectedMedia.hasOwnProperty(key)) {
           if(selectedMedia[key])
@@ -399,26 +452,26 @@
     $('#member-result').empty();
     for(var i = 0;i < data.length; i++){
       console.log(data[i].name);
-      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
+      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>");
     }
   });
 });
 
- $('#member-result').on('click', '.select-member', function(){
-  selectedMember = true;
-  var member_id = $(this).children('#iden').html();
-  $.ajax({
-    type: "GET",
-    url: "{{ url('borrow/member/"+member_id+"') }}",
-  }).done(function(data) {
+function countObj(obj) {
+  var count = 0;
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k))
+      count++;
+  }
+  return count;
+}
 
-    console.log(data);
-    $('#member_name_label').html(data.name);
-    $('#member_phone_label').html(data.phone_no);
-    $('#memberModal').modal('toggle');
-  });
-
-});
+function updateMediaAmount() {
+  console.log('part is' + part);
+  $('#book-amount').text(countObj(selectedBook) + ' เล่ม');
+  $('#media-amount').text(amountOfMedia + ' ชุด');
+  $('#part-amount').text(part + ' ชิ้น');
+}
 
 </script>
 @stop
