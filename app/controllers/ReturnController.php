@@ -204,7 +204,7 @@ class ReturnController extends BaseController {
   {
     //TODO : find by NAME or ID
     $member = Input::get('member');//
-    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->get();
+    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->take(25)->get();
 
     return  $memberTemp;
   }
