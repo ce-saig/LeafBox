@@ -218,19 +218,19 @@ class BookController extends Controller{
     $book['abstract']   = $bookEloquent->abstract ;
 
     $book['bm_status']     = $bookEloquent->bm_status ;
-    $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
+    $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd/m/Y');
     $book['bm_note']       = $bookEloquent->bm_note ;
     $book['setcs_status']  = $bookEloquent->setcs_status ;
-    $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd-m-Y');
+    $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd/m/Y');
     $book['setcs_note']    = $bookEloquent->setcs_note ;
     $book['setds_status']  = $bookEloquent->setds_status ;
-    $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd-m-Y');
+    $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd/m/Y');
     $book['setds_note']    = $bookEloquent->setds_note ;
     $book['setcd_status']  = $bookEloquent->setcd_status ;
-    $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd-m-Y');
+    $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd/m/Y');
     $book['setcd_note']    = $bookEloquent->setcd_note ;
     $book['setdvd_status'] = $bookEloquent->setdvd_status ;
-    $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
+    $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd/m/Y');
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
 
     $arrOfdata['label']=$label;
@@ -255,21 +255,51 @@ class BookController extends Controller{
       $book->isbn       = Input::get('isbn');
       //$book['id']         = Input::get('id'); //TODO : make ID Validator
       $book->grade      = Input::get('grade');
+
       $book->bm_status  = Input::get('bm_status');
       $book->bm_note    = Input::get('bm_note');
-      $book->bm_date    = date_format(date_create(Input::get('bm_date').date(' H:i:s')), 'Y-m-d H:i:s');
+      if(Input::get('bm_date')) {
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('bm_date'));
+        $book->bm_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+      }
+      else
+        $book->bm_date  = "0000-00-00 00:00:00";
+
       $book->setcs_status  = Input::get('cs_status');
       $book->setcs_note    = Input::get('cs_note');
-      $book->setcs_date    = date_format(date_create(Input::get('cs_date').date(' H:i:s')), 'Y-m-d H:i:s');
+      if(Input::get('cs_date')) {
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('cs_date'));
+        $book->setcs_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+      }
+      else
+        $book->setcs_date  = "0000-00-00 00:00:00";
+
       $book->setds_status  = Input::get('ds_status');
       $book->setds_note    = Input::get('ds_note');
-      $book->setds_date    = date_format(date_create(Input::get('ds_date').date(' H:i:s')), 'Y-m-d H:i:s');
+      if(Input::get('ds_date')) {
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('ds_date'));
+        $book->setds_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+      }
+      else
+        $book->setds_date  = "0000-00-00 00:00:00";
+
       $book->setcd_status  = Input::get('cd_status');
       $book->setcd_note    = Input::get('cd_note');
-      $book->setcd_date    = date_format(date_create(Input::get('cd_date').date(' H:i:s')), 'Y-m-d H:i:s');
+      if(Input::get('cd_date')) {
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('cd_date'));
+        $book->setcd_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+      }
+      else
+        $book->setcd_date  = "0000-00-00 00:00:00";
+
       $book->setdvd_status = Input::get('dvd_status');
       $book->setdvd_note   = Input::get('dvd_note');
-      $book->setdvd_date   = date_format(date_create(Input::get('dvd_date').date(' H:i:s')), 'Y-m-d H:i:s');
+      if(Input::get('dvd_date')) {
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('dvd_date'));
+        $book->setdvd_date = date_format($dateTmp, 'Y-m-d H:i:s');
+      }
+      else
+        $book->setdvd_date = "0000-00-00 00:00:00";
       // TODO : add Validator here
       $book->save();
       return Redirect::to("/book/$bid");

@@ -9,13 +9,13 @@ class MediaController extends Controller{
 
     $amount = count(Braille::where('book_id', $bookId)->get());
     if(!$amount) 
-      $book->bm_date = date('Y-m-d H:i:s');
+      $book->bm_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->bm_status = "ผลิต";
     $book->save();
 
     $braille->book()->associate(Book::find($bookId));
-    $braille->produced_date = date('Y-m-d');
+    $braille->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $braille->status = 0; // 0 normal,1 broken,2 wait for repeir
     $braille->pages = Input::get('amount');
     $braille->save();
@@ -26,14 +26,14 @@ class MediaController extends Controller{
 
     $amount = count(Cassette::where('book_id', $bookId)->get());
     if(!$amount) 
-      $book->setcs_date = date('Y-m-d H:i:s');
+      $book->setcs_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setcs_status = "ผลิต";
     $book->save();
 
     $amount = Input::get('amount');
     $cassette = new Cassette();
-    $cassette->produced_date = date('Y-m-d');
+    $cassette->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $cassette->numpart = $amount;
     $cassette->book()->associate(Book::find($bookId));
     $cassette->save();
@@ -52,14 +52,14 @@ class MediaController extends Controller{
 
     $amount = count(Daisy::where('book_id', $bookId)->get());
     if(!$amount) 
-      $book->setds_date = date('Y-m-d H:i:s');
+      $book->setds_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setds_status = "ผลิต";
     $book->save();
 
     $amount = Input::get('amount');
     $daisy = new Daisy();
-    $daisy->produced_date = date('Y-m-d');
+    $daisy->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $daisy->numpart = $amount;
     $daisy->book()->associate(Book::find($bookId));
     $daisy->save();
@@ -78,14 +78,14 @@ class MediaController extends Controller{
 
     $amount = count(CD::where('book_id', $bookId)->get());
     if(!$amount) 
-      $book->setcd_date = date('Y-m-d H:i:s');
+      $book->setcd_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setcd_status = "ผลิต";
     $book->save();
 
     $amount = Input::get('amount');
     $cd = new CD();
-    $cd->produced_date = date('Y-m-d');
+    $cd->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $cd->book()->associate(Book::find($bookId));
     $cd->numpart = $amount;
     $cd->save();
@@ -103,14 +103,14 @@ class MediaController extends Controller{
 
     $amount = count(DVD::where('book_id', $bookId)->get());
     if(!$amount) 
-      $book->setdvd_date = date('Y-m-d H:i:s');
+      $book->setdvd_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setdvd_status = "ผลิต";
     $book->save();
 
     $amount = Input::get('amount');
     $dvd = new DVD();
-    $dvd->produced_date = date('Y-m-d');
+    $dvd->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $dvd->book()->associate(Book::find($bookId));
     $dvd->numpart = $amount;
     $dvd->save();
