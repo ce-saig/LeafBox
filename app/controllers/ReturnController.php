@@ -125,8 +125,8 @@ class ReturnController extends BaseController {
     else
       $list['part'] = (int) $item['numpart'];
 
-    $list['date_borrowed'] = date_format($borrow_date, 'd-m-').(date_format($borrow_date, 'Y') + 543);
-    $list['due_date'] = date_format($due_date, 'd-m-').(date_format($due_date, 'Y') + 543);
+    $list['date_borrowed'] = date_format($borrow_date, 'd-m-Y');
+    $list['due_date'] = date_format($due_date, 'd-m-Y');
 
     if($isHas){
       $status = "duplicated";
@@ -143,7 +143,7 @@ class ReturnController extends BaseController {
   public function postSubmitReturn()
   {
     $returnList = Session::get('list', array());
-    $dateReturned = date("Y-m-d H:i:s");
+    $dateReturned = (date("Y") + 543).date("-m-d H:i:s");
     foreach ($returnList as $item) {
       $media_id = preg_replace("/[^0-9]/", "", $item['id']);
       $media = preg_replace("/[0-9]/", "", $item['id']);

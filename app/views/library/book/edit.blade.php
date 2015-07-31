@@ -61,9 +61,9 @@
             @if ($i==14||$i==17||$i==20||$i==23||$i==26)
                         <!-- TODO : Implement default value and select old value -->
                         <select name="{{$field[$i]}}" class="form-control media_status" id="select_{{$field[$i]}}">
-                          <option {{$data == "ผลิต"?'selected':''}} value="ผลิต">ผลิต</option>
-                          <option {{$data == "ไม่ผลิต"?'selected':''}} value="ไม่ผลิต">ไม่ผลิต</option>
-                          <option {{$data == "จองอ่าน"?'selected':''}} value="จองอ่าน">จองอ่าน</option>
+                          <option {{$data == 1?'selected':''}} value=1>ผลิต</option>
+                          <option {{$data == 0?'selected':''}} value=0>ไม่ผลิต</option>
+                          <option {{$data == 2?'selected':''}} value=2>จองอ่าน</option>
                         </select>
                         <?php $media_status_index++ ?>
             @elseif ($i==15||$i==18||$i==21||$i==24||$i==27)

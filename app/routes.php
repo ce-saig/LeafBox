@@ -81,7 +81,6 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
   Route::get('borrow/submit', 'BorrowController@postSubmitSelectedList');
   Route::get('borrow/clear', 'BorrowController@getClear');
 
-
   Route::post('borrow/retdate', 'BorrowController@postRetDate');
   Route::post('borrow/delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
 

@@ -151,10 +151,10 @@ class BorrowController extends BaseController {
 
     //date_borrowed
     
-    $dateBorrow = date("Y-m-d H:i:s");
+    $dateBorrow = (date("Y") + 543).date("-m-d H:i:s");
     //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
-    $dateTmp = date_create_from_format('m/d/Y', Session::get('retdate', date("m/d/Y",strtotime(' +15 day'))));
+    $dateTmp = date_create_from_format('d/m/Y', Session::get('retdate', date("d/m/Y",strtotime(' +15 day'))));
     $dateReturn = date_format($dateTmp, 'Y-m-d H:i:s');
 
     //LOOP insert media into it tb

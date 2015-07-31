@@ -255,7 +255,7 @@
     $.ajax({
       type: "POST",
       url: "{{ url('/borrow/retdate') }}",
-      data: {retdate:$('#datepicker').val()}
+      data: {retdate: $('#datepicker').val()}
     }).done(function(data) {
       console.log('retdate change ='+$('#datepicker').val());
       // update retern date

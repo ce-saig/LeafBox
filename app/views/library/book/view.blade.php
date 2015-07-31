@@ -34,9 +34,20 @@
                     <hr>
                     <div class="col-xs-12"></div>
                 @endif
-                @if ($i>=19||$i>=22||$i>=25||$i>=28||$i>=31)
+                @if ($i==19||$i==22||$i==25||$i==28||$i==31)
                   <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
-                  <div class="col-xs-6 col-sm-2"> {{$data?$data:"-"}}</div>
+                  <div class="col-xs-6 col-sm-2">
+                    @if($data == 1)
+                      ผลิต
+                    @elseif($data == 2)
+                      จองอ่าน
+                    @else
+                      ไม่ผลิต
+                    @endif
+                  </div>
+                @elseif ($i>19||$i>22||$i>25||$i>28||$i>31)
+                  <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
+                  <div class="col-xs-6 col-sm-2">{{$data?$data:"-"}}</div>
                 @else
                   <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
                   <div class="col-xs-6 col-sm-4"> {{$data?$data:"-"}}</div>
