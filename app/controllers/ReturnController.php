@@ -30,14 +30,18 @@ class ReturnController extends BaseController {
     $selectedList = Session::get('list', array());
     $isHas=array_key_exists(strval($mediaId),$selectedList);
     $status=false;
+    $book_id = null;
+    $part = 0;
     if($isHas){
       $status=true;
+      $book_id = $selectedList[$mediaId]['book_id'];
+      $part = $selectedList[$mediaId]['part'];
       unset($selectedList[$mediaId]);
     }else{
       $status=false;
     }
     Session::put('list', $selectedList);
-    return Response::json(array('status' => $status));
+    return Response::json(array('status' => $status, 'book_id' => $book_id, 'part' => $part));
   }
 
   //TODO : Title,Type and get real item
@@ -114,6 +118,13 @@ class ReturnController extends BaseController {
     $list['id']= $media_abbr . $media_id; //$media_id
     $list['item']=$item;
     $list['type']=$media;
+    $list['book_id'] = $item['book_id'];
+
+    if($media == "Braille")
+      $list['part'] = 1;
+    else
+      $list['part'] = (int) $item['numpart'];
+
     $list['date_borrowed'] = date_format($borrow_date, 'd-m-').(date_format($borrow_date, 'Y') + 543);
     $list['due_date'] = date_format($due_date, 'd-m-').(date_format($due_date, 'Y') + 543);
 
@@ -193,7 +204,7 @@ class ReturnController extends BaseController {
   {
     //TODO : find by NAME or ID
     $member = Input::get('member');//
-    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->get();
+    $memberTemp = Member::where('name', 'like', '%'.$member.'%')->orWhere('id', 'like', '%'.$member.'%')->take(25)->get();
 
     return  $memberTemp;
   }
