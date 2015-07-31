@@ -20,7 +20,7 @@
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
                 ค้นหาหนังสือ
               </button>
-              <table class="table table-striped table-hover result-list">
+              <table class="table table-striped table-hover">
                 <thead>
                   <tr class="info">
                     <th>#</th>
@@ -276,14 +276,17 @@
       $.get('{{ url("borrow/search") }}',
         {keyword: $('#search-book').val()},
         function(data){
-          //console.log(data);
+          console.log(data);
           if(data != "") {
             $('#not_found').hide();
             $('#result').append('<table class="table table-striped table-hover result-list"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-7">ชื่อหนังสือ</th><th class="col-sm-2"></th></tr></thead><tbody class = "search-table"></tbody></table>');
             addToList(data);
+            console.log('add to list');
           }
-          else
+          else {
             $('#not_found').slideDown(250);
+            console.log('not add to list');
+          }
         });
     }
     else {
@@ -306,7 +309,7 @@
 
         if(!selectedBook[data['book_id']])
           delete selectedBook[data['book_id']];
-        
+
         amountOfMedia--;
         part -= data['part'];
         updateMediaAmount();
