@@ -17,7 +17,7 @@
                 <div class="input-group-addon">ระบุรหัสของสื่อ</div>
                 <input type="text" class="form-control" id="mid">
               </div>
-              <button type="submit" class="btn btn-info" id="add_btn">เพิ่ม</button>
+              <button type="submit" class="btn btn-info" id="add_btn">คืน</button>
             </div>
             <br>
             <table class="table table-striped table-hover">

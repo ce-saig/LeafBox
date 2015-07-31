@@ -148,6 +148,7 @@ a {
 #cd-field-input {
   margin-left: -30px;
 }
+<<<<<<< HEAD
 
 #search-member-label {
   line-height: 35px;
@@ -165,3 +166,9 @@ a {
 .small-field {
   width: 100px;
 }
+=======
+/* User management page */
+ .user-card {
+   border: 1px solid black;
+ }
+>>>>>>> [#55] remove all unused jquery-ui & renovate user-manage UI

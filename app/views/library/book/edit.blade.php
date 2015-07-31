@@ -3,7 +3,6 @@
 <title>แก้ไข</title>
 @stop
 @section('body')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">แก้ไข</h3>
@@ -44,7 +43,7 @@
             </div>
             <div class="col-xs-12 col-lg-12">
               <div class="col-lg-10">
-            
+
             @elseif($i==16||$i==19||$i==22||$i==25||$i==28)
                 <div class="col-xs-6 col-lg-1">
                   <label for="input" class="control-label">{{$label[$i]}}</label>
@@ -104,14 +103,17 @@
     @stop
     @section('script')
     @parent
-    
+
     <script type="text/javascript">
     $(function() {
-    $(".datepicker").datepicker();
+    $(".datepicker").datepicker({
+                language:'th-th',
+                format: 'dd/mm/yyyy',
+                isBuddhist: true
+              });
     });
     $('#cancel-form').click(function() {
     window.history.back();
     });
     </script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     @stop
