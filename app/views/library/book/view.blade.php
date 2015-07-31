@@ -137,7 +137,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="pull-right">
-                เบรลล์เลเ่มนี้มี
+                เบรลล์เล่มนี้มี
               </div>
             </div>
             <div class="col-md-4">
