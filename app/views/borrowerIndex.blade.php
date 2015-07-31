@@ -28,10 +28,11 @@
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr class="info">
-									<th class="text-center">รหัสสมาชิก</th>
-									<th>ชื่อ - สกุล</th>
-									<th>เพศ</th>
-									<th></th>
+									<th class="text-center col-sm-3">รหัสสมาชิก</th>
+									<th class="col-sm-4"><div class="text-center">ชื่อ - สกุล</div></th>
+									<th class="text-center col-sm-2">เพศ</th>
+									<th class="col-sm-2"></th>
+									<th class="col-sm-1"></th>
 								</tr>
 							</thead>
 							<tbody id="result">
@@ -39,18 +40,17 @@
 								<tr class="member" id="{{ $member->id }}">
 									<td class="text-center">{{$member->id}}</td>
 									<td>{{$member->name}}</td>
-									<td>{{$member->gender == 'ญ' ? 'หญิง':'ชาย'}}</td>
+									<td class="text-center">{{$member->gender == 'ญ' ? 'หญิง':'ชาย'}}</td>
+									<td><button class="btn btn-success member-detail" id="{{ $member->id }}">รายละเอียด</button></td>
 									<td><button class="btn btn-danger del-member" id="{{ $member->id }}">ลบ</button></td>
 								</tr>
 								@endforeach
 							</tbody>
 						</table>
 					</div>
-					<div class="col-md-1"></div>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-2"><button class="btn btn-info" id="test-modal">ทดสอบ</button></div>
 	</div>
 </div>
 
@@ -62,7 +62,7 @@
 				<h4 class="modal-title modal-notifiation-title">คุณต้องการลบใช่หรือไม่</h4>
 			</div>
 			<div class="modal-body" id="del-conf">
-				<button class="btn btn-danger del-confirm col-md-3 col-md-offset-1" id="">ใช่</button>
+				<button class="btn btn-danger del-confirm col-md-3 col-md-offset-1">ใช่</button>
 				<button class="btn btn-default cancel-confirm col-md-3 col-md-offset-4">ไม่</button>
 				<br><br>
 			</div>
@@ -77,7 +77,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">ข้อมูลสมาชิก</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" style="overflow: auto">
 				<form class="form-inline row">
 					<div class="form-group col-md-5">
 						<div class="col-md-6" style="line-height: 33px"><label>รหัสสมาชิก</label></div>
@@ -120,14 +120,26 @@
 				<br>
 				<br>
 				<a href="{{ url('borrowersystem/editMember/') }}" class="btn btn-success pull-right edit-member">แก้ไขข้อมูล</a>
-			</div>
-			<hr>
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">ประวัติการยืม - คืน</h4>
-			</div>
-			<div class="modal-body">
-				test
+				<br>
+				<br>
+				<ul class="nav nav-tabs nav-justified">
+					<li role="presentation" class="active" id="history"><a href="#">ประวัติยืม - คืน</a></li>
+					<li role="presentation" id="non-return-list"><a href="#">รายการที่ยังไม่คืน</a></li>
+				</ul>
+				<div class="container col-md-12">
+					<table class="table table-striped table-hover" id="history-result">
+						<thead id="table-head-history">
+						</thead>
+						<tbody id="table-result-history">
+						</tbody>
+					</table>
+					<table class="table table-striped table-hover" id="non-return-result" hidden>
+						<thead id="table-head-non-return">
+						</thead>
+						<tbody id="table-result-non-return">
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -140,7 +152,21 @@
 <script>
 	var member_id = null;
 
-	$('body').on('click', '.member', function() {
+	$('body').on('click', '#history', function() {
+		$('#history').prop('class', 'active');
+		$('#non-return-list').prop('class', '');
+		$('#non-return-result').hide();
+		$('#history-result').show();
+	});
+
+	$('body').on('click', '#non-return-list', function() {
+		$('#non-return-list').prop('class', 'active');
+		$('#history').prop('class', '');
+		$('#history-result').hide();
+		$('#non-return-result').show();
+	});
+
+	$('body').on('click', '.member-detail', function() {
 		console.log('post member');
 		member_id = $(this).prop('id');
 		$.ajax({
@@ -148,14 +174,16 @@
 			url: "{{ url('borrowersystem/postMember') }}",
 			data: {selectedMember: member_id}
 		}).done(function(data) {
-			console.log('{{ $selectedMember }}');
 			$('#member-id').prop('value', data['id']);
 			$('#member-name').prop('value', data['name']);
 			$('#member-gender').prop('value', (data['gender'] == 'ช' ? 'ชาย' : 'หญิง'));
+			$('#member-tel').prop('value', data['phone_no']);
 			$('#member-status').prop('value', data['member_status']);
 			$('#member-address').prop('value', data['address']);
 			$('#member-district').prop('value', data['district']);
 			$('#member-pro-post').prop('value', data['province_postcode']);
+			addHistoryList();
+			addNonReturnList();
 			$('.show-member-data').modal('show');
 		});
 	});
@@ -172,20 +200,18 @@
 	});
 
 	$('body').on('click', '.del-member', function() {
-		$('.del-confirm').prop('id', $(this).prop('id'));
+		member_id = $(this).prop('id');
 		$('#notify').modal('show');
 	});
 
 	$('.del-confirm').click(function() {
-		var id = $(this).prop('id');
 		$.ajax({
 			type: "POST",
 			url: " {{ url('borrowersystem/delete') }} ",
-			data: {id}
+			data: {id: member_id}
 		}).done(function(data) {
-			console.log(data);
 			if(data == "true") {
-				$('#' + id + '.member').remove();
+				$('#' + member_id + '.member').remove();
 				$('#notify').modal('hide');
 				console.log('success');
 			}
@@ -196,16 +222,64 @@
 		$('#notify').modal('hide');
 	});
 
-	$('#test-modal').click(function() {
-		$('.show-member-data').modal('toggle');
-	});
-
 	function addToList(data) {
 		$('#result').html('');
 		var member = jQuery.parseJSON(data);
-		console.log(member.length);
-		for(var i = 0; i < member.length; i++)
-			$('#result').prepend('<tr class="member" id="' + member[i]['id'] + '"><td class="text-center">' + member[i]['id'] + '</td><td>' + member[i]['name'] + '</td><td>' + (member[i]['gender'] == 'ญ' ? 'หญิง' : 'ชาย') +'</td><td><button class="btn btn-danger del-member" id="' + member[i]['id'] +'">ลบ</button></td></tr>');
+		console.log(member);
+		if(Array.isArray(member)) {
+			for(var i = member.length - 1; i >= 0; i--)
+				$('#result').prepend('<tr class="member" id="' + member[i]['id'] + '"><td class="text-center">' + member[i]['id'] + '</td><td>' + member[i]['name'] + '</td><td class="text-center">' + (member[i]['gender'] == 'ญ' ? 'หญิง' : 'ชาย') +'</td><td><button class="btn btn-success member-detail" id="' + member[i]['id'] +'">รายละเอียด</button></td><td><button class="btn btn-danger del-member" id="' + member[i]['id'] +'">ลบ</button></td></tr>');
+		}
+		else if(member != null)
+				$('#result').prepend('<tr class="member" id="' + member['id'] + '"><td class="text-center">' + member['id'] + '</td><td>' + member['name'] + '</td><td class="text-center">' + (member['gender'] == 'ญ' ? 'หญิง' : 'ชาย') +'</td><td><button class="btn btn-success member-detail" id="' + member['id'] +'">รายละเอียด</button></td><td><button class="btn btn-danger del-member" id="' + member['id'] +'">ลบ</button></td></tr>');
+	};	
+
+
+	function addHistoryList() {
+		$.ajax({
+			type: "POST",
+			url: "{{ url('borrowersystem/getHistory/') }}",
+			data: {member_id}
+		}).done(function(data) {
+			$('#table-head-history').html('');
+			$('#table-head-history').append('<tr class="info text-center"><td class="col-sm-4">ชื่อหนังสือ</td><td class="col-sm-2">ประเภท</td><td class="col-sm-2">รหัส</td><td class="col-sm-2">วันที่ยืม</td><td class="col-sm-2">วันที่คืน</td></tr>');
+			$('#table-result-history').html('');
+			data = jQuery.parseJSON(data);
+			var index = 0;
+			var date_borrowed = null;
+			var date_return = null;
+			while(data[index]) {
+				date_borrowed = data[index]['date_borrowed'];
+				date_returned = data[index]['actual_returned'];
+				$('#table-result-history').append("<tr><td>" + data[index]['book_name'] + "</td><td class='text-center'>" + data[index]['type'] + "</td><td class='text-center'>" + data[index]['typeID'] + "</td><td>" + date_borrowed.substring(0, 6) + (parseInt(date_borrowed.substring(6, 10)) + 543 ) + "</td><td>" + date_returned.substring(0, 6) + (parseInt(date_returned.substring(6, 10)) + 543 ) + "</td></tr>");
+				index++;
+			}
+		});
+	};
+
+	function addNonReturnList() {
+		$.ajax({
+			type: "POST",
+			url: "{{ url('borrowersystem/getNonReturn/') }}",
+			data: {member_id}
+		}).done(function(data) {
+
+			if(data == null)
+				console.log('no log');
+			$('#table-head-non-return').html('');
+			$('#table-head-non-return').append('<tr class="info text-center"><td class="col-sm-4">ชื่อหนังสือ</td><td class="col-sm-2">ประเภท</td><td class="col-sm-2">รหัส</td><td class="col-sm-2">วันที่ยืม</td><td class="col-sm-2">กำหนดคืน</td></tr>');
+			$('#table-result-non-return').html('');
+			data = jQuery.parseJSON(data);
+			var index = 0;
+			var date_borrowed = null;
+			var date_return = null;
+			while(data[index]) {
+				date_borrowed = data[index]['date_borrowed'];
+				due_date = data[index]['date_returned'];
+				$('#table-result-non-return').append("<tr><td>" + data[index]['book_name'] + "</td><td class='text-center'>" + data[index]['type'] + "</td><td class='text-center'>" + data[index]['typeID'] + "</td><td>" + date_borrowed.substring(0, 6) + (parseInt(date_borrowed.substring(6, 10)) + 543 ) + "</td><td>" + due_date.substring(0, 6) + (parseInt(due_date.substring(6, 10)) + 543 ) + "</td></tr>");
+				index++;
+			}
+		});
 	};
 </script>
 @stop

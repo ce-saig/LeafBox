@@ -32,6 +32,12 @@
         </div>
         <br><br><br>
         <div class="form-group">
+          <label class="col-sm-2 control-label form-label">สถานะ</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="status" value="{{ $member->member_status }}">
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label form-label">ที่อยู่</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" name="address" value="{{ $member->address }}">

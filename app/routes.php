@@ -114,6 +114,9 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
 
   Route::post('borrowersystem/search', 'BorrowerSystemController@searchMember');
   Route::post('borrowersystem/postMember', 'BorrowerSystemController@postMember');
+
+  Route::post('borrowersystem/getHistory/', 'BorrowerSystemController@getHistory');
+  Route::post('borrowersystem/getNonReturn/', 'BorrowerSystemController@getNonReturnList');
 });
 
 Route::get('authentication','HomeController@showAuthen');
