@@ -5,9 +5,9 @@
 //use Eloquent;
 
 class Book extends Eloquent {
-    
+
    // protected $connection = 'mysql2-library';
-    
+
     protected $table = 'book';
 
     protected $primaryKey = 'id';
@@ -17,8 +17,6 @@ class Book extends Eloquent {
     public function cd()   { return $this->hasMany('CD', 'book_id'); }
     public function daisy()   { return $this->hasMany('Daisy', 'book_id'); }
     public function dvd()   { return $this->hasMany('DVD', 'book_id'); }
-    
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
-    
 }

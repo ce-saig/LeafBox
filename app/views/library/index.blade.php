@@ -17,7 +17,7 @@
 			    <option value = "id" >ID</option>
 			 </select>
 		</div>
-
+		<!-- Search Result -->
 		<div class = "col-md-8">
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>
@@ -33,7 +33,10 @@
 
 		<div class = "search_result">
 		</div>
-
+		<div class="search_control">
+			<button class="paginate-control-left btn btn-success search_previous"><i class="fa fa-angle-left"></i></button>
+		 	<button class="paginate-control-right btn btn-success search_next"><i class="fa fa-angle-right"></i></button>
+		</div>
 		<br/>
 		{{--  @forelse ($books as $book)
 		<a href = "{{url('book/'.$book->id) }}">

@@ -51,7 +51,7 @@ class BookController extends Controller{
     $field[16]='จำนวนเดซี่';
     $field[17]='จำนวน CD';
     $field[18]='จำนวน DVD';
-    
+
     $field[19]='สถานะของเบรลล์';
     $field[20]='หมายเหตุ';
     $field[21]='เมื่อ';
@@ -91,19 +91,19 @@ class BookController extends Controller{
     $book['cd_number']     = count($bookEloquent->cd);
     $book['dvd_number']     = count($bookEloquent->dvd);
 
-    $book['bm_status']     = $bookEloquent->bm_status ;
+    $book['bm_status']     = $this->getWordStatus($bookEloquent->bm_status) ;
     $book['bm_note']       = $bookEloquent->bm_note ;
     $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
-    $book['setcs_status']  = $bookEloquent->setcs_status ;
+    $book['setcs_status']  = $this->getWordStatus($bookEloquent->setcs_status) ;
     $book['setcs_note']    = $bookEloquent->setcs_note ;
     $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd-m-Y');
-    $book['setds_status']  = $bookEloquent->setds_status ;
+    $book['setds_status']  = $this->getWordStatus($bookEloquent->setds_status) ;
     $book['setds_note']    = $bookEloquent->setds_note ;
     $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd-m-Y');
-    $book['setcd_status']  = $bookEloquent->setcd_status ;
+    $book['setcd_status']  = $this->getWordStatus($bookEloquent->setcd_status) ;
     $book['setcd_note']    = $bookEloquent->setcd_note ;
     $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd-m-Y');
-    $book['setdvd_status'] = $bookEloquent->setdvd_status ;
+    $book['setdvd_status'] = $this->getWordStatus($bookEloquent->setdvd_status) ;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
     $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
 
@@ -126,10 +126,9 @@ class BookController extends Controller{
     $arrOfdata['daisy']=$daisy;
     $arrOfdata['cd']=$cd;
     $arrOfdata['dvd']=$dvd;
+    $arrOfdata['bookEloquent'] = $bookEloquent;
     return View::make('library.book.view')->with($arrOfdata);
   }
-
-
 
   public function getEdit($bid){
     $bookEloquent = Book::find($bid);
@@ -155,7 +154,7 @@ class BookController extends Controller{
     $field[9]='btype';
     $label[10]='หนังสือระดับ';
     $field[10]='grade';
-    
+
     $label[11]='ISBN';
     $field[11]='isbn';
     $label[12]='เลขหนังสือ';
@@ -305,30 +304,29 @@ class BookController extends Controller{
       return Redirect::to("/book/$bid");
     }
 
-    // Search getter 
+    // Search getter
     public function SearchFromAttr(){
       $type = Input::get('search_type');
       $input = Input::get('search_value');
-      $hanlder = new Book();
+      $offset = Input::get('data_offset');
       if($type == "title"){
-        $obj = $hanlder->where("title","LIKE","%".$input."%")->get();
+        $query = Book::where("title","LIKE","%".$input."%");
       }else if($type == "author"){
-        $obj = $hanlder->where("author","LIKE","%".$input."%")->get();
+        $query = Book::where("author","LIKE","%".$input."%");
       }else if($type == "translate"){
-        $obj = $hanlder->where("translate","LIKE","%".$input."%")->get();
+        $query = Book::where("translate","LIKE","%".$input."%");
       }else if($type == "isbn"){
-        $obj = $hanlder->where("isbn","=","LIKE","%".$input."%")->get();
+        $query = Book::where("isbn","=","LIKE","%".$input."%");
       }else if($type == "id"){
-        $obj = $hanlder->where("id","=",$input)->take(6)->get();
+        $query = Book::where("id","=",$input);
       }else{
-        return "ERROR :: Some Wrong Format !!";
+        return "ERROR :: Wrong Format !!";
       }
+      $obj = $query->take(6)->offset($offset)->get();
+      $count = $query->count();
       //return View::make('library.index',array('books' => $obj ));
-      return $obj;
+      return array($obj,$count);
     }
-
-
-
 
     // For Ajax search Call (INCOMPLETE)
     public function getDatatable()
@@ -338,6 +336,13 @@ class BookController extends Controller{
       ->searchColumns('title')
       ->orderColumns('title','author')
       ->make();
+    }
+
+    // Enum media status helper
+    public function getWordStatus($status){
+      $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','ไม่ถูกต้อง');
+      if($status == null)$status=3;
+      return $enum[(int)$status];
     }
 
   }
