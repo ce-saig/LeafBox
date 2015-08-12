@@ -62,7 +62,7 @@
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >
           @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเบลล์</button>
+        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเบรลล์</button>
       </div>
     </div>
 
