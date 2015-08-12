@@ -17,7 +17,7 @@
             <td style="text-align: center;">{{$item->id}}</td>
             <td style="text-align: center;">
               @if(!$item->status)
-                ปรกติ
+                ปกติ
               @elseif($item->status == 1)
                 ชำรุด
               @else
