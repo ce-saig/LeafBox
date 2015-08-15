@@ -56,7 +56,7 @@
           </table>
         </div>
         <div class="col-md-12">
-          <button class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </button>
+          <button type="button" class = "btn btn-warning pull-left" onclick="window.history.back()" > กลัjnjkบ </button>
           <input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
         </div>
       </form>

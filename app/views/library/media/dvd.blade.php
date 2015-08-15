@@ -41,7 +41,7 @@
 							<th>ID</th>
 							<th>ส่วนที่</th>
 							<th>สถานะ</th>
-							<th>หมายเหตุ</th>	
+							<th>หมายเหตุ</th>
 						</tr>
 						@foreach ($detail as $key => $value)
 						<tr>
@@ -55,15 +55,15 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" name="note[]" class="form-control note" value="{{$value->notes}}">	
+								<input type="text" name="note[]" class="form-control note" value="{{$value->notes}}">
 							</td>
 						</tr>
 						@endforeach
 					</table>
 				</div>
 				<div class="col-md-12">
-					<button class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </button>
-          			<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
+					<button type="button" class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </button>
+          <input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
 				</div>
 			</form>
 		</div>
