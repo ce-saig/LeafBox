@@ -31,12 +31,12 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
 
     Route::get('/', 'BookController@getBook');
 
-    Route::get('edit', 'BookController@getEdit');
+    Route::post('edit', 'BookController@getEdit');
     Route::post('edit', 'BookController@postEdit');
 
     Route::post('braille/add', 'MediaController@addBraille');
     Route::post('cassette/add', 'MediaController@addCassette');
-    Route::post('cd/add', 'MediaController@addCD');
+    Route::post('cd/add/', 'MediaController@addCD');
     Route::post('dvd/add', 'MediaController@addDVD');
     Route::post('daisy/add', 'MediaController@addDaisy');
 

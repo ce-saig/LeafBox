@@ -23,7 +23,7 @@
 							</select>
 						</div>
 						<div class="col-md-2 form-label">หมายเหตุ</div>
-						<div class="col-md-5"><input type="text" name="note[]" class="form-control" id="head-note" value=""></div>	
+						<div class="col-md-5"><input type="text" name="note[]" class="form-control" id="head-note" value=""></div>
 					</div>
 					<div class="col-md-2">
 						<button type="button" class="btn btn-warning" id="edit-all-field">แก้ไขทั้งหมด</button>
@@ -74,7 +74,7 @@
 					</table>
 				</div>
 				<div class="col-md-12">
-					<button class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </button>
+					<div class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </div>
 					<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
 				</div>
 			</form>

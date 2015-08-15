@@ -8,7 +8,7 @@ class MediaController extends Controller{
     $book = Book::find($bookId);
 
     $amount = count(Braille::where('book_id', $bookId)->get());
-    if(!$amount) 
+    if(!$amount)
       $book->bm_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->bm_status = "ผลิต";
@@ -18,6 +18,8 @@ class MediaController extends Controller{
     $braille->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $braille->status = 0; // 0 normal,1 broken,2 wait for repeir
     $braille->pages = Input::get('amount');
+    $braille->numpart = Input::get('part');
+    $braille->examiner = Input::get('examiner');
     $braille->save();
   }
 
@@ -25,7 +27,7 @@ class MediaController extends Controller{
     $book = Book::find($bookId);
 
     $amount = count(Cassette::where('book_id', $bookId)->get());
-    if(!$amount) 
+    if(!$amount)
       $book->setcs_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setcs_status = "ผลิต";
@@ -51,7 +53,7 @@ class MediaController extends Controller{
     $book = Book::find($bookId);
 
     $amount = count(Daisy::where('book_id', $bookId)->get());
-    if(!$amount) 
+    if(!$amount)
       $book->setds_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setds_status = "ผลิต";
@@ -77,7 +79,7 @@ class MediaController extends Controller{
     $book = Book::find($bookId);
 
     $amount = count(CD::where('book_id', $bookId)->get());
-    if(!$amount) 
+    if(!$amount)
       $book->setcd_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setcd_status = "ผลิต";
@@ -98,11 +100,12 @@ class MediaController extends Controller{
       $cddetail->save();
     }
   }
+
   public function addDVD($bookId){
     $book = Book::find($bookId);
 
     $amount = count(DVD::where('book_id', $bookId)->get());
-    if(!$amount) 
+    if(!$amount)
       $book->setdvd_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setdvd_status = "ผลิต";
@@ -169,7 +172,7 @@ class MediaController extends Controller{
 
     foreach($dvdDetail as $details) {
       $details->status = $input['status'][$i];
-      $details->note = $input['note'][$i++];
+      $details->notes = $input['note'][$i++];
       $details->save();
     }
 
@@ -183,7 +186,7 @@ class MediaController extends Controller{
 
     foreach($cassetteDetail as $details) {
       $details->status = $input['status'][$i];
-      $details->note = $input['note'][$i++];
+      $details->notes = $input['note'][$i++];
       $details->save();
     }
 
