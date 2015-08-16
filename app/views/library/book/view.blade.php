@@ -151,7 +151,7 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                <input type="number" class="form-control" id="amountBraille" min=1 value="1"/>
+                <input type="number" class="form-control" id="pageBraille" min=1 value="1"/>
               </div>
             </div>
             <div class="col-md-2">
@@ -159,7 +159,7 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                <input type="number" class="form-control" id="partBraille" min=1 value="1"/>
+                <input type="number" class="form-control" id="amountBraille" min=1 value="1"/>
               </div>
             </div>
             <div class="col-md-2">
@@ -254,18 +254,18 @@
     function add(){
       console.log($('#amount').val());
       var amount = $('#amount').val();
-      var part = null;
+      var page = null;
       var examiner = null;
       if(tabClicked == "braille"){
         amount = $('#amountBraille').val();
-        part = $('#partBraille').val();
+        page = $('#pageBraille').val();
         examiner = $('#examiner').val();
       }
 
       console.log(amount);
       console.log(tabClicked);
       //$.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
-      $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount, examiner: examiner, part: part}, function(result){
+      $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount, examiner: examiner, page: page}, function(result){
         console.log(result);
         //alert(result);
         //console.log("eiei");

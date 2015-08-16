@@ -5,6 +5,7 @@ use Library\Books;
 use Library\Member;
 use Library\Braille;
 use Library\Brailleborrow;
+use Library\Brailledetail;
 use Library\Cassette;
 use Library\Cassettedetail;
 use Library\Cassetteborrow;
@@ -206,7 +207,7 @@ class LibraryController extends BaseController {
 
 
 	// ################ Borrow #############
-	
+
 	public function anyBorrow() {
 
 		$search = "";
@@ -293,7 +294,7 @@ class LibraryController extends BaseController {
 
 		$member_id = Input::get('member_id');
 		$member = Member::find($member_id);
-		
+
 		$roles = array(
 			'super-admin' => "Super Admin",
 			'admin'       => "Admin",
@@ -448,7 +449,7 @@ class LibraryController extends BaseController {
 			$detail['PRODUCED_DATE'] = Input::get('PRODUCED_DATE');
 			if($type != "braille") $detail['NOTES'] = Input::get('NOTES');
 			else $detail['EXAMINER'] = Input::get('EXAMINER');
-			
+
 			$detail['NUMPART'] = Input::get('NUMPART');
 			$detail->save();
 			// Reserve
@@ -457,7 +458,7 @@ class LibraryController extends BaseController {
 			$detail->borrow->RETURNED_DATE = Input::get('RETURNED_DATE');
 			$detail->borrow->save();
 
-			// More Parts Details 
+			// More Parts Details
 			if(Input::has('part')) {
 				$parts = Input::get('part');
 				foreach ($parts as $part => $status) {
@@ -567,7 +568,7 @@ class LibraryController extends BaseController {
 			$detail['PRODUCED_DATE'] = Input::get('PRODUCED_DATE');
 			if($type != "braille") $detail['NOTES'] = Input::get('NOTES');
 			else $detail['EXAMINER'] = Input::get('EXAMINER');
-			
+
 			$detail['NUMPART'] = Input::get('NUMPART');
 			$detail->save();
 			// Reserve
@@ -584,7 +585,7 @@ class LibraryController extends BaseController {
 			}
 			$borrow->save();
 
-			// More Parts Details 
+			// More Parts Details
 			if(Input::has('addpart')) {
 				$parts = Input::get('addpart');
 				$countPart = $detail->detail()->count();

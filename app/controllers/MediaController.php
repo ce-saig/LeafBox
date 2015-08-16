@@ -9,18 +9,26 @@ class MediaController extends Controller{
 
     $amount = count(Braille::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->bm_date = (date("Y") + 543).date("-m-d H:i:s");
+    $book->bm_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->bm_status = "ผลิต";
     $book->save();
 
+    $amount = Input::get('amount');
     $braille->book()->associate(Book::find($bookId));
     $braille->produced_date = (date("Y") + 543).date("-m-d H:i:s");
-    $braille->status = 0; // 0 normal,1 broken,2 wait for repeir
-    $braille->pages = Input::get('amount');
-    $braille->numpart = Input::get('part');
+    //$braille->status = 0; // 0 normal,1 broken,2 wait for repeir
+    $braille->pages = Input::get('page');
+    $braille->numpart = $amount;
     $braille->examiner = Input::get('examiner');
     $braille->save();
+
+    for($i=1; $i<=$amount; $i++){
+      $brailledetail = new Brailledetail();
+      $brailledetail->part = $i;
+      $brailledetail->braille()->associate($braille);
+      $brailledetail->save();
+    }
   }
 
   public function addCassette($bookId){
@@ -28,7 +36,7 @@ class MediaController extends Controller{
 
     $amount = count(Cassette::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->setcs_date = (date("Y") + 543).date("-m-d H:i:s");
+    $book->setcs_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setcs_status = "ผลิต";
     $book->save();
@@ -54,7 +62,7 @@ class MediaController extends Controller{
 
     $amount = count(Daisy::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->setds_date = (date("Y") + 543).date("-m-d H:i:s");
+    $book->setds_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setds_status = "ผลิต";
     $book->save();
@@ -80,7 +88,7 @@ class MediaController extends Controller{
 
     $amount = count(CD::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->setcd_date = (date("Y") + 543).date("-m-d H:i:s");
+    $book->setcd_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setcd_status = "ผลิต";
     $book->save();
@@ -106,7 +114,7 @@ class MediaController extends Controller{
 
     $amount = count(DVD::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->setdvd_date = (date("Y") + 543).date("-m-d H:i:s");
+    $book->setdvd_date = (date("Y") + 543).date("-m-d H:i:s");
 
     $book->setdvd_status = "ผลิต";
     $book->save();
@@ -132,7 +140,8 @@ class MediaController extends Controller{
   public function getBraille($bid,$id){
     $book =Book::find($bid);
     $braille = Braille::find($id);
-    return View::make('library.media.braille')->with(array('book'=>$book,'item'=>$braille,'bid'=>$bid));
+    $brailledetail = Brailledetail::where('braille_id', '=', $braille->id)->get();
+    return View::make('library.media.braille')->with(array('book'=>$book,'item'=>$braille, 'detail'=>$brailledetail, 'bid'=>$bid));
   }
 
   public function getCassette($bid,$id){
@@ -208,10 +217,10 @@ class MediaController extends Controller{
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
 
-   public function setDaisy($bookId,$daisyId){
+  public function setDaisy($bookId,$daisyId){
     $input = Input::all();
     $daisyDetail = Daisydetail::where('daisy_id' ,$daisyId)->get();
-     $i = 0;
+    $i = 0;
 
     foreach($daisyDetail as $details) {
       $details->status = $input['status'][$i];
@@ -224,10 +233,14 @@ class MediaController extends Controller{
 
   public function setBraille($bookId,$brailleId){
     $input = Input::all();
-    $braille = Braille::where('id', $brailleId)->first();
-    $braille->status = $input['status'];
-    $braille->notes = $input['notes'];
-    $braille->save();
+    $brailleDetail = Brailledetail::where('braille_id', $brailleId)->get();
+
+    $i = 0;
+    foreach($brailleDetail as $details) {
+      $details->status = $input['status'][$i];
+      $details->notes = $input['note'][$i++];
+      $details->save();
+    }
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
@@ -292,8 +305,10 @@ class MediaController extends Controller{
 
   public function removeAllBraille($bookId){
     $items = Braille::where('book_id',$bookId)->get();
-    foreach ($items as $item)
+    foreach ($items as $item) {
+      $item->detail()->delete();
       $item->delete();
+    }
 
     $book = Book::find($bookId);
     $book->bm_status = "ไม่ผลิต";
@@ -302,7 +317,7 @@ class MediaController extends Controller{
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
-   public function removeSelectedCassette($bookId,$cassetteId){
+  public function removeSelectedCassette($bookId,$cassetteId){
     $item = Cassette::find($cassetteId);
     $item->detail()->delete();
     $item->delete();
@@ -344,6 +359,7 @@ class MediaController extends Controller{
   }
   public function removeSelectedBraille($bookId,$brailleId){
     $item = Braille::find($brailleId);
+    $item->detail()->delete();
     $item->delete();
 
     if(!count(Braille::where('book_id',$bookId)->get())) {
