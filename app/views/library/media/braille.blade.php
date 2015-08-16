@@ -7,7 +7,7 @@
   <div class="panel panel-{{$item->reserved?'warning':'success'}}">
     <div class="panel-heading">
       <h3 class="panel-title">
-      {{$item->id}}. {{$book->title}} {{$item->reserved?"(ถูกยืม)":""}}
+      {{$item->id}}. {{$book->title}} {{$item->reserved?"(ถูกยืม)":"(ยืมได้)"}}
       </h3>
     </div>
     <div class="panel-body">

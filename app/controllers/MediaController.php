@@ -26,6 +26,7 @@ class MediaController extends Controller{
     for($i=1; $i<=$amount; $i++){
       $brailledetail = new Brailledetail();
       $brailledetail->part = $i;
+      $brailledetail->date = (date("Y") + 543).date("-m-d H:i:s");
       $brailledetail->braille()->associate($braille);
       $brailledetail->save();
     }
