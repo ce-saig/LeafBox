@@ -8,6 +8,8 @@
           <th style="text-align: center;">เบรลล์ไอดี</th>
           <th style="text-align: center;">สถานะ</th>
           <th style="text-align: center;">จำนวนหน้า</th>
+          <th style="text-align: center;">จำนวนตอน</th>
+          <th style="text-align: center;">ผู้ตรวจสอบ</th>
           <th style="text-align: center;">ผู้ยืม</th>
         </tr>
       </thead>
@@ -25,6 +27,8 @@
               @endif
             </td>
             <td style="text-align: center">{{$item->pages}}</td>
+            <td style="text-align: center">{{$item->numpart}}</td>
+            <td style="text-align: center">{{$item->examiner}}</td>
             <td style="text-align: center">{{$item->borrower}}</td>
             <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
           </tr>

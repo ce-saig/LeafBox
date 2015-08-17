@@ -71,11 +71,7 @@ class BorrowController extends BaseController {
       $media['type']=$mediaType;
       $media['id']=(int)$id;
       $media['book_id'] = $item['book_id'];
-
-      if($mediaType == "Braille")
-        $media['part'] = 1;
-      else
-        $media['part'] = (int) $item['numpart'];
+      $media['part'] = (int) $item['numpart'];
 
       $media['title']=$book['title'];
       $media['typeID'] = $mediaId;
@@ -150,7 +146,7 @@ class BorrowController extends BaseController {
     //cassette_id
 
     //date_borrowed
-    
+
     $dateBorrow = (date("Y") + 543).date("-m-d H:i:s");
     //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
@@ -342,7 +338,7 @@ class BorrowController extends BaseController {
 
   public function searchByID($keyword, $search_type) //type 1 : number only, type 2 : number with media
   {
-    
+
     $found_status = array(array()); //(braille, casette, cd, daisy, dvd) *media status of each book
     $result = array();
     $books  = array();
@@ -490,4 +486,3 @@ class BorrowController extends BaseController {
     return $result;
   }
 }
-

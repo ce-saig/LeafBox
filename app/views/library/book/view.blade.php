@@ -62,7 +62,7 @@
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >
           @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเบรลล์</button>
+        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#addBraille">เพิ่มเบรลล์</button>
       </div>
     </div>
 
@@ -142,22 +142,33 @@
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
           </button>
-          <h4 class="modal-title">เพิ่มสื่อ</h4>
+          <h4 class="modal-title">เพิ่มหนังสือเบรลล์</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-4">
-              <div class="pull-right">
-                เบรลล์เลเ่มนี้มี
+            <div class="col-md-2">
+              จำนวนหน้า
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <input type="number" class="form-control" id="pageBraille" min=1 value="1"/>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
+              จำนวนตอน
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <input type="number" class="form-control" id="amountBraille" min=1 value="1"/>
               </div>
             </div>
-            <div class="col-md-4">
-              หน้า
+            <div class="col-md-2">
+              ผู้ตรวจสอบ
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <input class="form-control" id="examiner" value=""/>
+              </div>
             </div>
             <div class="col-md-12">
               <div class="text-center">
@@ -243,14 +254,18 @@
     function add(){
       console.log($('#amount').val());
       var amount = $('#amount').val();
+      var page = null;
+      var examiner = null;
       if(tabClicked == "braille"){
         amount = $('#amountBraille').val();
+        page = $('#pageBraille').val();
+        examiner = $('#examiner').val();
       }
 
       console.log(amount);
       console.log(tabClicked);
       //$.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
-      $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
+      $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount, examiner: examiner, page: page}, function(result){
         console.log(result);
         //alert(result);
         //console.log("eiei");
