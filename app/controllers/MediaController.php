@@ -215,7 +215,9 @@ class MediaController extends Controller{
 
     foreach($daisyDetail as $details) {
       $details->status = $input['status'][$i];
-      $details->notes = $input['note'][$i++];
+      $details->notes = $input['note'][$i];
+      $details->track_fr = $input['track_fr'][$i];
+      $details->track_to = $input['track_to'][$i++];
       $details->save();
     }
 
