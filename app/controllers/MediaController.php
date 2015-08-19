@@ -46,6 +46,7 @@ class MediaController extends Controller{
     $cassette = new Cassette();
     $cassette->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $cassette->numpart = $amount;
+    $cassette->length_min = Input::get('length');
     $cassette->book()->associate(Book::find($bookId));
     $cassette->save();
 
@@ -72,6 +73,7 @@ class MediaController extends Controller{
     $daisy = new Daisy();
     $daisy->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $daisy->numpart = $amount;
+    $daisy->length_min = Input::get('length');
     $daisy->book()->associate(Book::find($bookId));
     $daisy->save();
 
@@ -99,6 +101,7 @@ class MediaController extends Controller{
     $cd->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $cd->book()->associate(Book::find($bookId));
     $cd->numpart = $amount;
+    $cd->length_min = Input::get('length');
     $cd->save();
 
     for($i=1; $i<=$amount; $i++){
@@ -125,6 +128,7 @@ class MediaController extends Controller{
     $dvd->produced_date = (date("Y") + 543).date("-m-d H:i:s");
     $dvd->book()->associate(Book::find($bookId));
     $dvd->numpart = $amount;
+    $dvd->length_min = Input::get('length');
     $dvd->save();
 
     for($i=1; $i<=$amount; $i++){
