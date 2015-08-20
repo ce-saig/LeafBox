@@ -12,23 +12,24 @@
 		</div>
 		<div class="panel-body">
 			<div class="text-center">
-				<div class="input col-md-10">
-					<div class="col-md-1 form-label">สถานะ</div>
-					<div class="col-md-4">
-						<select class="form-control" id="select-all-status">
-							<option value="0">ปกติ</option>
-							<option value="1">ชำรุด</option>
-							<option value="2">รอซ่อม</option>
-						</select>
+				<div class="line1">
+					<div class="input col-md-10" >
+						<div class="col-md-2 form-label" style="text-align: left">สถานะ</div>
+						<div class="col-md-3">
+							<select class="form-control" id="select-all-status">
+								<option value="0">ปกติ</option>
+								<option value="1">ชำรุด</option>
+								<option value="2">รอซ่อม</option>
+							</select>
+						</div>
+						<div class="col-md-2 form-label">หมายเหตุ</div>
+						<div class="col-md-5"><input type="text" name="note[]" class="form-control" id="head-note" value=""></div>
 					</div>
-					<div class="col-md-1 form-label">หมายเหตุ</div>
-					<div class="col-md-6"><input type="text" name="note[]" class="form-control" id="head-note" value=""></div>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-warning" id="edit-all-field">แก้ไขทั้งหมด</button>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-warning" id="edit-all-field">แก้ไขทั้งหมด</button>
+					</div>
 				</div>
 			</div>
-			<br><br>
 			<hr>
 			<form action="{{ URL::to('book/'.$book->id.'/daisy/'.$item->id.'/edit'); }}" method="POST" role="form">
 				<div class="col-md-12">
@@ -38,6 +39,8 @@
 							<th>ส่วนที่</th>
 							<th>สถานะ</th>
 							<th>หมายเหตุ</th>
+							<th>แทร็กเริ่มต้น</th>
+							<th>แทร็กสุดท้าย</th>
 						</tr>
 						@foreach ($detail as $key => $value)
 						<tr>
@@ -52,6 +55,12 @@
 							</td>
 							<td>
 								<input type="text" name="note[]" class="form-control note" value="{{$value->notes}}">
+							</td>
+							<td>
+								<input type="number" name="track_fr[]" class="form-control track-start" value="{{$value->track_fr}}">
+							</td>
+							<td>
+								<input type="number" name="track_to[]" class="form-control track-end" value="{{$value->track_to}}">
 							</td>
 						</tr>
 						@endforeach
