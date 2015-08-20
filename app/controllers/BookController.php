@@ -344,8 +344,11 @@ class BookController extends Controller{
       $type = Input::get('search_type');
       $input = Input::get('search_value');
       $offset = Input::get('data_offset');
+      $select = Input::get('select_type'); //add by oat
       if($type == "title"){
-        $query = Book::where("title","LIKE","%".$input."%");
+        //if($select == "all"){
+          $query = Book::where("title","LIKE","%".$input."%");
+        //}
       }else if($type == "author"){
         $query = Book::where("author","LIKE","%".$input."%");
       }else if($type == "translate"){

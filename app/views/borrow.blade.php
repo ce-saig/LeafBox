@@ -129,6 +129,11 @@
             <div class="input-group-addon">ค้นหาหนังสือ</div>
             <input type="text" class="form-control" name="" id="search-book"/>
           </div>
+          <!-- add by oat-->
+          <select name = "select_type" class="form-control" id = "select_type" role="menu">
+            <option value = "all" selected id="select_all">ทั้งหมด</option>
+            <option value = "avaiable" >ไม่ถูกยืม</option>
+          </select>
           <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
         </div>
         <div id="result">
@@ -266,6 +271,7 @@
   $('#searchModal').on('hidden.bs.modal', function() {
     $('#not_found').hide();
     $('#result').html('');
+    $('#select_all').attr('selected', 'selected');
     $('#search-book').prop('value', '');
   });
 
@@ -274,7 +280,7 @@
     $('#result').html('');
     if($('#search-book').val() != ''){
       $.get('{{ url("borrow/search") }}',
-        {keyword: $('#search-book').val()},
+        {keyword: $('#search-book').val(), status:$('#select_type').val()},
         function(data){
           console.log(data);
           if(data != "") {
@@ -333,7 +339,7 @@
         tr_table.append('<td>'+input_data['typeID']+'</td>');
         tr_table.append('<td>'+input_data['type']+'</td>');
         tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
-        $(".table_fill").append(tr_table); //or prepend 
+        $(".table_fill").append(tr_table); //or prepend
         selectedMedia[id] = true;
         amountOfMedia++;
         part += input_data['part'];
