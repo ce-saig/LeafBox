@@ -29,13 +29,6 @@
 						<button type="button" class="btn btn-warning" id="edit-all-field">แก้ไขทั้งหมด</button>
 					</div>
 				</div>
-				<br><br><br>
-				<div class="line2 row" id="cd-field">
-					<div class="col-md-2 form-label">แทร็กเริ่มต้น</div>
-					<div class="col-md-2"><input type="number" name="track_fr[]" class="form-control" id="tr-start" value="0"></div>
-					<div class="col-md-2 form-label" id="cd-field-label">แทร็กสุดท้าย</div>
-					<div class="col-md-2" id="cd-field-input"><input type="number" name="track_to[]" class="form-control" id="tr-end" value="0"></div>
-				</div>
 			</div>
 			<hr>
 			<form action="{{ URL::to('book/'.$book->id.'/daisy/'.$item->id.'/edit'); }}" method="POST" role="form">
@@ -46,6 +39,8 @@
 							<th>ส่วนที่</th>
 							<th>สถานะ</th>
 							<th>หมายเหตุ</th>
+							<th>แทร็กเริ่มต้น</th>
+							<th>แทร็กสุดท้าย</th>
 						</tr>
 						@foreach ($detail as $key => $value)
 						<tr>
@@ -87,8 +82,6 @@
 	$('#edit-all-field').click(function() {
 		$('.select-status').prop('value', $('#select-all-status').val());
 		$('.note').prop('value', $('#head-note').val());
-		$('.track-start').prop('value', $('#tr-start').val());
-		$('.track-end').prop('value', $('#tr-end').val());
 	});
 </script>
 @stop
