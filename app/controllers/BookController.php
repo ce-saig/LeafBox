@@ -271,121 +271,127 @@ class BookController extends Controller{
     return View::make('library.book.edit')->with($arrOfdata);
   }
 
-    public function postEdit($bid){
-      $book = Book::find($bid);
-      $book->title      = Input::get('title');
-      $book->author     = Input::get('author');
-      $book->translate  = Input::get('translate');
-      $book->created_at = Input::get('regis_date');
-      $book->publisher  = Input::get('publisher');
-      $book->pub_no     = Input::get('pub_no');
-      $book->pub_year   = Input::get('pub_year');
-      $book->produce_no = Input::get('produce_no');
-      $book->book_type      = Input::get('btype');
-      $book->abstract   = Input::get('abstract');
-      $book->isbn       = Input::get('isbn');
+  public function postEdit($bid){
+    $book = Book::find($bid);
+    $book->title      = Input::get('title');
+    $book->author     = Input::get('author');
+    $book->translate  = Input::get('translate');
+    $book->created_at = Input::get('regis_date');
+    $book->publisher  = Input::get('publisher');
+    $book->pub_no     = Input::get('pub_no');
+    $book->pub_year   = Input::get('pub_year');
+    $book->produce_no = Input::get('produce_no');
+    $book->book_type      = Input::get('btype');
+    $book->abstract   = Input::get('abstract');
+    $book->isbn       = Input::get('isbn');
       //$book['id']         = Input::get('id'); //TODO : make ID Validator
-      $book->grade      = Input::get('grade');
+    $book->grade      = Input::get('grade');
 
-      $book->bm_status  = Input::get('bm_status');
-      $book->bm_note    = Input::get('bm_note');
-      if(Input::get('bm_date')) {
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('bm_date'));
-        $book->bm_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-      }
-      else
-        $book->bm_date  = "0000-00-00 00:00:00";
-
-      $book->setcs_status  = Input::get('cs_status');
-      $book->setcs_note    = Input::get('cs_note');
-      if(Input::get('cs_date')) {
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('cs_date'));
-        $book->setcs_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-      }
-      else
-        $book->setcs_date  = "0000-00-00 00:00:00";
-
-      $book->setds_status  = Input::get('ds_status');
-      $book->setds_note    = Input::get('ds_note');
-      if(Input::get('ds_date')) {
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('ds_date'));
-        $book->setds_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-      }
-      else
-        $book->setds_date  = "0000-00-00 00:00:00";
-
-      $book->setcd_status  = Input::get('cd_status');
-      $book->setcd_note    = Input::get('cd_note');
-      if(Input::get('cd_date')) {
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('cd_date'));
-        $book->setcd_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-      }
-      else
-        $book->setcd_date  = "0000-00-00 00:00:00";
-
-      $book->setdvd_status = Input::get('dvd_status');
-      $book->setdvd_note   = Input::get('dvd_note');
-      if(Input::get('dvd_date')) {
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('dvd_date'));
-        $book->setdvd_date = date_format($dateTmp, 'Y-m-d H:i:s');
-      }
-      else
-        $book->setdvd_date = "0000-00-00 00:00:00";
-      // TODO : add Validator here
-      $book->save();
-      return Redirect::to("/book/$bid");
+    $book->bm_status  = Input::get('bm_status');
+    $book->bm_note    = Input::get('bm_note');
+    if(Input::get('bm_date')) {
+      $dateTmp = date_create_from_format('d/m/Y', Input::get('bm_date'));
+      $book->bm_date  = date_format($dateTmp, 'Y-m-d H:i:s');
     }
+    else
+      $book->bm_date  = "0000-00-00 00:00:00";
+
+    $book->setcs_status  = Input::get('cs_status');
+    $book->setcs_note    = Input::get('cs_note');
+    if(Input::get('cs_date')) {
+      $dateTmp = date_create_from_format('d/m/Y', Input::get('cs_date'));
+      $book->setcs_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+    }
+    else
+      $book->setcs_date  = "0000-00-00 00:00:00";
+
+    $book->setds_status  = Input::get('ds_status');
+    $book->setds_note    = Input::get('ds_note');
+    if(Input::get('ds_date')) {
+      $dateTmp = date_create_from_format('d/m/Y', Input::get('ds_date'));
+      $book->setds_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+    }
+    else
+      $book->setds_date  = "0000-00-00 00:00:00";
+
+    $book->setcd_status  = Input::get('cd_status');
+    $book->setcd_note    = Input::get('cd_note');
+    if(Input::get('cd_date')) {
+      $dateTmp = date_create_from_format('d/m/Y', Input::get('cd_date'));
+      $book->setcd_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+    }
+    else
+      $book->setcd_date  = "0000-00-00 00:00:00";
+
+    $book->setdvd_status = Input::get('dvd_status');
+    $book->setdvd_note   = Input::get('dvd_note');
+    if(Input::get('dvd_date')) {
+      $dateTmp = date_create_from_format('d/m/Y', Input::get('dvd_date'));
+      $book->setdvd_date = date_format($dateTmp, 'Y-m-d H:i:s');
+    }
+    else
+      $book->setdvd_date = "0000-00-00 00:00:00";
+      // TODO : add Validator here
+    $book->save();
+    return Redirect::to("/book/$bid");
+  }
 
     // Search getter
-    public function SearchFromAttr(){
-      $type = Input::get('search_type');
-      $input = Input::get('search_value');
-      $offset = Input::get('data_offset');
-      if($type == "title"){
-        $query = Book::where("title","LIKE","%".$input."%");
-      }else if($type == "author"){
-        $query = Book::where("author","LIKE","%".$input."%");
-      }else if($type == "translate"){
-        $query = Book::where("translate","LIKE","%".$input."%");
-      }else if($type == "isbn"){
-        $query = Book::where("isbn","=","LIKE","%".$input."%");
-      }else if($type == "id"){
-        $query = Book::where("id","=",$input);
-      }else{
-        return "ERROR :: Wrong Format !!";
-      }
-      $obj = $query->take(6)->offset($offset)->get();
-      $count = $query->count();
-      //return View::make('library.index',array('books' => $obj ));
-      return array($obj,$count);
+  public function SearchFromAttr(){
+    $type = Input::get('search_type');
+    $input = Input::get('search_value');
+    $offset = Input::get('data_offset');
+    if($type == "title"){
+      $query = Book::where("title","LIKE","%".$input."%");
+    }else if($type == "author"){
+      $query = Book::where("author","LIKE","%".$input."%");
+    }else if($type == "translate"){
+      $query = Book::where("translate","LIKE","%".$input."%");
+    }else if($type == "isbn"){
+      $query = Book::where("isbn","=","LIKE","%".$input."%");
+    }else if($type == "id"){
+      $query = Book::where("id","=",$input);
+    }else{
+      return "ERROR :: Wrong Format !!";
     }
+    $obj = $query->take(6)->offset($offset)->get();
+    $count = $query->count();
+      //return View::make('library.index',array('books' => $obj ));
+    return array($obj,$count);
+  }
 
     // For Ajax search Call (INCOMPLETE)
-    public function getDatatable()
-    {
-      return Datatable::collection(Book::all(array('title','author')))
-      ->showColumns('title', 'author')
-      ->searchColumns('title')
-      ->orderColumns('title','author')
-      ->make();
-    }
+  public function getDatatable()
+  {
+    return Datatable::collection(Book::all(array('title','author')))
+    ->showColumns('title', 'author')
+    ->searchColumns('title')
+    ->orderColumns('title','author')
+    ->make();
+  }
 
     // Enum media status helper
-    public function getWordStatus($status){
-      $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','ไม่ถูกต้อง');
-      if($status == null)$status=3;
-      return $enum[(int)$status];
-    }
-
-    public function postProdAdd()
-    {
-      return View::make('library.book.prodadd');
-      /*
-วันปฏิบัติ
-CD,TAPE - อ่าน,ทำต้นฉบับ,ทำกล่อง,ส่งตรวจ
-ผู้ปฏิบัติ
-วันเสร็จ
-      */
-    }
-
+  public function getWordStatus($status){
+    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','ไม่ถูกต้อง');
+    if($status == null)$status=3;
+    return $enum[(int)$status];
   }
+
+  public function postProdAdd()
+  {
+
+    $bp = new BookProd;
+    $bp->book_id=Input::get("book_id", null);
+    $bp->act_date=Input::get("act_date", null);
+    $bp->action=Input::get("action", null);
+    $bp->actioner=Input::get("actioner", null);
+    $bp->finish_date=Input::get("finish_date", null);
+    if ($bp->act_date==""||$bp->action==""||$bp->actioner=="")
+      return "failed, null not permit";
+      
+    if($bp->save())
+      return "success";
+    return "failed";
+  }
+
+}

@@ -12,6 +12,8 @@ class Book extends Eloquent {
 
     protected $primaryKey = 'id';
 
+    public function bookProd()   { return $this->hasMany('bookProd', 'book_id'); }
+
     public function braille()   { return $this->hasMany('Braille', 'book_id'); }
     public function cassette()   { return $this->hasMany('Cassette', 'book_id'); }
     public function cd()   { return $this->hasMany('CD', 'book_id'); }

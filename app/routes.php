@@ -4,12 +4,10 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
 Route::group(array('before' => 'auth'), function() {
   Route::get('/','HomeController@index');
   Route::post('/search/book','BookController@SearchFromAttr');
-
-  Route::get('book/add','BookController@newBook');
-  
-  Route::post('book/add','BookController@postBook');
-
   Route::get('logout','HomeController@doLogout');
+  
+  Route::get('book/add','BookController@newBook');
+  Route::post('book/add','BookController@postBook');
 
   Route::group(array('prefix' => 'book/{bid}'), function($bid){
 

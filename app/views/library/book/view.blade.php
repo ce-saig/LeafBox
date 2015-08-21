@@ -55,10 +55,139 @@
               @endif
           <?php $i++; ?>
         @endforeach
+      </div>
+      <br>
+      <br>
+      <h3>สถานะการผลิต  <p  class="btn btn-sm btn-warning pull-right" data-toggle="modal" data-target="#addProd">เพิ่มสถานะการผลิต</p>
+      </h3>
+      <div class="row">
+        {{-- List of Prod --}}
+        <div class="col-xs-12">
+          <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">เบรลล์</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>วันที่ปฏิบัติ</th>
+                      <th>ขั้นตอน</th>
+                      <th>ผู้ปฏิบัติ</th>
+                      <th>วันเสร็จ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1111</td>
+                      <td>2222</td>
+                      <td>3333</td>
+                      <td>4444</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="panel-heading">
+                <h3 class="panel-title">เทปคาสเซ็ท</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>วันที่ปฏิบัติ</th>
+                      <th>ขั้นตอน</th>
+                      <th>ผู้ปฏิบัติ</th>
+                      <th>วันเสร็จ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1111</td>
+                      <td>2222</td>
+                      <td>3333</td>
+                      <td>4444</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="panel-heading">
+                <h3 class="panel-title">เดซี่</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>วันที่ปฏิบัติ</th>
+                      <th>ขั้นตอน</th>
+                      <th>ผู้ปฏิบัติ</th>
+                      <th>วันเสร็จ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1111</td>
+                      <td>2222</td>
+                      <td>3333</td>
+                      <td>4444</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
+              <div class="panel-heading">
+                <h3 class="panel-title">CD</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>วันที่ปฏิบัติ</th>
+                      <th>ขั้นตอน</th>
+                      <th>ผู้ปฏิบัติ</th>
+                      <th>วันเสร็จ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1111</td>
+                      <td>2222</td>
+                      <td>3333</td>
+                      <td>4444</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="panel-heading">
+                <h3 class="panel-title">DVD</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>วันที่ปฏิบัติ</th>
+                      <th>ขั้นตอน</th>
+                      <th>ผู้ปฏิบัติ</th>
+                      <th>วันเสร็จ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr onclick="prodEdit(1)">
+                      <td>1111</td>
+                      <td>2222</td>
+                      <td>3333</td>
+                      <td>4444</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+        
       </div>
     </div>
-
+    
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >
           @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
@@ -121,14 +250,10 @@
             <div class="col-md-4">
               ชิ้นย่อย
             </div>
-            <div class="col-md-12">
-              <div class="text-center">
-                <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
-              </div>
-            </div>
           </div>
         </div>
         <div class="modal-footer">
+                <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
         </div>
       </div>
     </div>
@@ -170,14 +295,10 @@
                 <input class="form-control" id="examiner" value=""/>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="text-center">
-                <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
-              </div>
-            </div>
           </div>
         </div>
         <div class="modal-footer">
+                <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
         </div>
       </div>
     </div>
@@ -200,7 +321,72 @@
     </div>
 </div>
 
+<div class="modal fade" id="addProd">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">เพิ่มสถานะการผลิต</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" id="addProdBody">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">สื่อ</label>
+              <div class="col-sm-10">
+                <select name="" id="prod_media_type" class="form-control" required="required">
+                  <option value="">เลือกสื่อ</option>
+                  <option value="0">เบรลล์</option>
+                  <option value="1">เทปคาสเซ็ท</option>
+                  <option value="2">เดซี่</option>
+                  <option value="3">CD</option>
+                  <option value="4">DVD</option>
+                </select>
+              </div>
+            </div>
 
+            <div class="form-group">
+              <label class="col-sm-2 control-label">วันปฏิบัติ</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control datepicker" id="prod_act_date">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-2 control-label">สถานะ</label>
+              <div class="col-sm-10">
+                <select name="" id="prod_action" class="form-control" required="required">
+                  <option value="">เลือกสถานะ</option>
+                  <option value="0">อ่าน</option>
+                  <option value="1">ทำต้นฉบับ</option>
+                  <option value="2">ทำกล่อง</option>
+                  <option value="3">ส่งตรวจ</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">ผู้ปฏิบัติ</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="prod_actioner">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">วันเสร็จ</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control datepicker" id="prod_finish_date">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+        <button class="btn btn-success" onClick="addProd()" >เพิ่ม</button>  
+        {{-- data-dismiss="modal" --}}
+      </div>
+    </div>
+  </div>
+</div>
 
 @stop
 @section('script')
@@ -264,11 +450,8 @@
 
       console.log(amount);
       console.log(tabClicked);
-      //$.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
       $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount, examiner: examiner, page: page}, function(result){
         console.log(result);
-        //alert(result);
-        //console.log("eiei");
         $('#success').modal('show');
       });
       $('#amount').val(1);
@@ -312,6 +495,39 @@
       }
     }
 
+    
+  $(function() {
+    $(".datepicker").datepicker({
+                language:'th-th',
+                format: 'dd/mm/yyyy',
+                isBuddhist: true
+              });
+    });
 
+  function addProd(){
+      var act_date = $('#prod_act_date').val();
+      var action = $('#prod_action').val();
+      var actioner = $('#prod_actioner').val();
+      var finish_date = $('#prod_finish_date').val();
+
+      console.log(act_date);
+      console.log(action);
+      console.log(actioner);
+      console.log(finish_date);
+      
+      $.post( "{{ $book['id'] }}/prod/add", {book_id:{{ $book['id'] }},act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+        console.log(result);
+        if(result=="success")
+          $('#success').modal('show');
+        else{
+          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">ใส่ข้อมูลไม่ครบ</div></div>")
+
+        }
+      });
+    }
+
+  function prodEdit (prodID) {
+    console.log(prodID);
+  }
   </script>
 @stop
