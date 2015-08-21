@@ -7,10 +7,7 @@
 @section('body')
 <div class="well">
   <div>
-    <h2>I{{$book['id']}}:{{$book['title']}}
-      <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-warning pull-right">แก้ไข</a>
-
-    </h2>
+    <h2>I{{$book['id']}}:{{$book['title']}}</h2>
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">ข้อมูล</a></li>
@@ -55,7 +52,11 @@
               @endif
           <?php $i++; ?>
         @endforeach
-
+        <div class="row">
+          <div class="col-md-12 ">
+            <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-warning btn-lg pull-right">แก้ไข</a>
+          </div>
+        </div>
       </div>
     </div>
 
