@@ -113,14 +113,14 @@
           <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
-                <div class="input-group-addon">สื่อชิ้นนี้มี</div>
-                <input type="number" class="form-control" id="amount" min=1 value="1">
-                <div class="input-group-addon">ชิ้นย่อย</div>
-                <div class="input-group-addon">ความยาว</div>
-                <input type="number" class="form-control" id="length" min=1 value="1">
-                <div class="input-group-addon">นาที</div>
-              </div>
+              <div class="input-group-addon">สื่อชิ้นนี้มี</div>
+              <input type="number" class="form-control" id="amount" min=1 value="1">
+              <div class="input-group-addon">ชิ้นย่อย</div>
+              <div class="input-group-addon">ความยาว</div>
+              <input type="number" class="form-control" id="length" min=1 value="1">
+              <div class="input-group-addon">นาที</div>
             </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -140,40 +140,24 @@
         </button>
         <h4 class="modal-title">เพิ่มหนังสือเบรลล์</h4>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-2">
-            จำนวนหน้า
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <input type="number" class="form-control" id="pageBraille" min=1 value="1"/>
-            </div>
-          </div>
-          <div class="col-md-2">
-            จำนวนตอน
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <input type="number" class="form-control" id="amountBraille" min=1 value="1"/>
-            </div>
-          </div>
-          <div class="col-md-2">
-            ผู้ตรวจสอบ
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <input class="form-control" id="examiner" value=""/>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="text-center">
-              <button class="btn btn-success btn-lg" onClick="add()" data-dismiss="modal">เพิ่ม</button>
-            </div>
-          </div>
+      <div class="modal-body row">
+        <div class="col-md-2">จำนวนหน้า</div>
+        <div class="col-md-4">
+          <input type="number" class="form-control" id="pageBraille" min=1 value="1">
+        </div><br><br><br>
+        <div class="col-md-2">จำนวนตอน</div>
+        <div class="col-md-4">
+          <input type="number" class="form-control" id="amountBraille" min=1 value="1">
+        </div><br><br><br>
+        <div class="col-md-2">ผู้ตรวจสอบ</div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="examiner"value="">
         </div>
       </div>
       <div class="modal-footer">
+        <div class="text-center pull-right">
+          <button class="btn btn-success btn" onClick="add()" data-dismiss="modal">เพิ่ม</button>
+        </div>
       </div>
     </div>
   </div>
