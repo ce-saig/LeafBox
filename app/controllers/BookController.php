@@ -380,4 +380,15 @@ class BookController extends Controller{
       return $enum[(int)$status];
     }
 
+    public function postProdAdd()
+    {
+      return View::make('library.book.prodadd');
+      /*
+วันปฏิบัติ
+CD,TAPE - อ่าน,ทำต้นฉบับ,ทำกล่อง,ส่งตรวจ
+ผู้ปฏิบัติ
+วันเสร็จ
+      */
+    }
+
   }

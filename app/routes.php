@@ -1,31 +1,15 @@
 <?php
 
-// Route::get('/', function() { return Redirect::to('home/index'); });
-
-//Route::controller('library', 'LibraryController');
-//Route::controller('/', 'LibraryController');
-
-
-/*Route::get('/',array('before' => 'auth',function(){
-  return "HELLO";
-}));*/
-// AJAX Search
-/*
-Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@getDatatable'));*/
-  Route::group(array('before' => 'auth'), function() {
+Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@getDatatable'));
+Route::group(array('before' => 'auth'), function() {
   Route::get('/','HomeController@index');
   Route::post('/search/book','BookController@SearchFromAttr');
 
-  //move to route group
-  //Route::get('book/{bid}','BookController@getBook');
-
   Route::get('book/add','BookController@newBook');
-  //Route::post('add','BookController@postBook');
+  
   Route::post('book/add','BookController@postBook');
 
-
   Route::get('logout','HomeController@doLogout');
-
 
   Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
@@ -34,44 +18,54 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
     Route::post('edit', 'BookController@getEdit');
     Route::post('edit', 'BookController@postEdit');
 
-    Route::post('braille/add', 'MediaController@addBraille');
-    Route::post('cassette/add', 'MediaController@addCassette');
-    Route::post('cd/add/', 'MediaController@addCD');
-    Route::post('dvd/add', 'MediaController@addDVD');
-    Route::post('daisy/add', 'MediaController@addDaisy');
+    Route::group(array('prefix' => 'prod/'), function(){
+      Route::post('add', 'BookController@postProdAdd');
+    });
 
-    Route::get('braille/deleteAll','MediaController@removeAllBraille');
-    Route::get('cassette/deleteAll','MediaController@removeAllCassette');
-    Route::get('cd/deleteAll','MediaController@removeAllCd');
-    Route::get('dvd/deleteAll','MediaController@removeAllDvd');
-    Route::get('daisy/deleteAll','MediaController@removeAllDaisy');
+    Route::group(array('prefix' => 'braille/'), function(){
+      Route::post('add', 'MediaController@addBraille');
+      Route::get('delete/{part_id}','MediaController@removeSelectedBraille');
+      Route::get('deleteAll','MediaController@removeAllBraille');
+      Route::get('{id}', 'MediaController@getBraille');
+      Route::post('{id}', 'MediaController@getBraille');
+      Route::post('{id}/edit','MediaController@setBraille');
+    });
 
-    Route::get('braille/delete/{part_id}','MediaController@removeSelectedBraille');
-    Route::get('cassette/delete/{part_id}','MediaController@removeSelectedCassette');
-    Route::get('cd/delete/{part_id}','MediaController@removeSelectedCd');
-    Route::get('dvd/delete/{part_id}','MediaController@removeSelectedDvd');
-    Route::get('daisy/delete/{part_id}','MediaController@removeSelectedDaisy');
+    Route::group(array('prefix' => 'cassette/'), function(){
+      Route::post('add', 'MediaController@addCassette');
+      Route::get('delete/{part_id}','MediaController@removeSelectedCassette');
+      Route::get('deleteAll','MediaController@removeAllCassette');
+      Route::get('{id}', 'MediaController@getCassette');
+      Route::post('{id}', 'MediaController@getCassette');
+      Route::post('{id}/edit','MediaController@setCassette');
+    });
 
-    Route::get('braille/{id}', 'MediaController@getBraille');//TODO
-    Route::post('braille/{id}', 'MediaController@getBraille');//TODO
+    Route::group(array('prefix' => 'cd/'), function(){
+      Route::post('add/', 'MediaController@addCD');
+      Route::get('delete/{part_id}','MediaController@removeSelectedCd');
+      Route::get('deleteAll','MediaController@removeAllCd');
+      Route::get('{id}', 'MediaController@getCD');
+      Route::post('{id}', 'MediaController@getCD');
+      Route::post('{id}/edit','MediaController@setCD');
+    });
 
-    Route::get('cassette/{id}', 'MediaController@getCassette');//TODO
-    Route::post('cassette/{id}', 'MediaController@getCassette');//TODO
-    Route::get('cd/{id}', 'MediaController@getCD');//TODO
-    Route::post('cd/{id}', 'MediaController@getCD');//TODO
+    Route::group(array('prefix' => 'daisy/'), function(){
+      Route::post('add', 'MediaController@addDaisy');
+      Route::get('delete/{part_id}','MediaController@removeSelectedDaisy');
+      Route::get('deleteAll','MediaController@removeAllDaisy');
+      Route::get('{id}', 'MediaController@getDaisy');
+      Route::post('{id}', 'MediaController@getDaisy');
+      Route::post('{id}/edit','MediaController@setDaisy');
+    });
 
-    Route::get('dvd/{id}', 'MediaController@getDVD');//TODO
-    Route::post('dvd/{id}', 'MediaController@getDVD');//TODO
-
-    Route::get('daisy/{id}', 'MediaController@getDaisy');//TODO
-    Route::post('daisy/{id}', 'MediaController@getDaisy');//TODO
-
-    Route::post('dvd/{id}/edit','MediaController@setDVD');
-    Route::post('cd/{id}/edit','MediaController@setCD');
-    Route::post('daisy/{id}/edit','MediaController@setDaisy');
-    Route::post('cassette/{id}/edit','MediaController@setCassette');
-    Route::post('braille/{id}/edit','MediaController@setBraille');
-
+    Route::group(array('prefix' => 'dvd/'), function(){
+      Route::post('add', 'MediaController@addDVD');
+      Route::get('delete/{part_id}','MediaController@removeSelectedDvd');
+      Route::get('deleteAll','MediaController@removeAllDvd');
+      Route::get('{id}', 'MediaController@getDVD');
+      Route::post('{id}', 'MediaController@getDVD');
+      Route::post('{id}/edit','MediaController@setDVD');
+    });
   });
 
   // Borrow media
