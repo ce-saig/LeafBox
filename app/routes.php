@@ -5,7 +5,7 @@ Route::group(array('before' => 'auth'), function() {
   Route::get('/','HomeController@index');
   Route::post('/search/book','BookController@SearchFromAttr');
   Route::get('logout','HomeController@doLogout');
-  
+
   Route::get('book/add','BookController@newBook');
   Route::post('book/add','BookController@postBook');
 
@@ -18,6 +18,8 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('add', 'BookController@postProdAdd');
+      Route::get('view/{id}', 'BookController@getProd');
+
     });
 
     Route::group(array('prefix' => 'braille/'), function(){

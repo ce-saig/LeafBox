@@ -394,4 +394,11 @@ class BookController extends Controller{
     return "failed";
   }
 
+  public function getProd($id)
+  {
+    $book = Book::find($id);
+    $bp = $book->prod();
+    return $bp;
+  }
+
 }
