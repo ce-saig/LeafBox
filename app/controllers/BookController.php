@@ -231,6 +231,9 @@ class BookController extends Controller{
     $label[26]='เมื่อ';
     $field[26]='dvd_date';
 
+    $label[28]='สร้างเมื่อ';
+    $field[28]='created_at';
+
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;

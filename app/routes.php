@@ -31,7 +31,7 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
 
     Route::get('/', 'BookController@getBook');
 
-    Route::post('edit', 'BookController@getEdit');
+    Route::get('edit', 'BookController@getEdit');
     Route::post('edit', 'BookController@postEdit');
 
     Route::post('braille/add', 'MediaController@addBraille');
