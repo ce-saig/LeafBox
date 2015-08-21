@@ -54,11 +54,10 @@ return array(
         */
 		'mysql' => array(
 			'driver'    => 'mysql',
-			// 'host'      => 'localhost',
 			'host'      => 'localhost',
-			'database'  => 'localhost',
-			'username'  => 'localhost',
-			'password'  => 'localhost',
+			'database'  => 'leafbox',
+			'username'  => 'leafbox',
+			'password'  => '{ko-hv,^]',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
