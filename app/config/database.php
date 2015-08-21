@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'leafbox',
+			'database'  => 'leafbox_production',
 			'username'  => 'leafbox',
 			'password'  => '{ko-hv,^]',
 			'charset'   => 'utf8',
@@ -133,3 +133,4 @@ return array(
 	),
 
 );
+
