@@ -196,6 +196,28 @@ class MediaController extends Controller{
     return View::make('library.media.dvd')->with(array('book'=>$book,'item'=>$dvd,'detail'=>$dvddetail,'bid'=>$bid));
   }
 
+  public function editMedia() {
+    $data = Input::get('data');
+    if($data['media_type'] == "braille") {
+      $media = Braille::find($data['media_id']);
+      $media->pages = $data['page_amount'];
+      $media->examiner = $data['examiner'];
+    }
+    else {
+      if($data['media_type'] == "cassette")
+        $media = Cassette::find($data['media_id']);
+      else if($data['media_type'] == "cd")
+        $media = CD::find($data['media_id']);
+      else if($data['media_type'] == "daisy")
+        $media = Daisy::find($data['media_id']);
+      else
+        $media = DVD::find($data['media_id']);
+      $media->length_min = $data['length'];
+    }
+    $media->save();
+    return 'success';
+  }
+
   /* Setter */
 
   public function setDVD($bookId,$dvdId){

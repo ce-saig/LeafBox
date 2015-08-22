@@ -13,10 +13,10 @@
        </thead>
       <tbody>
         @foreach ($daisy as $item)
-        <tr class = "hover table-body" href="{{$bid}}/daisy/{{$item->id}}">
-          <td class="text-center">{{$item->id}}</td>
+        <tr class = "hover table-body" href="{{$bid}}/daisy/{{$item->id}}" id="daisy-{{$item->id}}">
+          <td class="text-center" id="media-id">{{$item->id}}</td>
           <td class="text-center">{{$item->numpart}}</td>
-          <td class="text-center">{{$item->length_min}}</td>
+          <td class="text-center" id="media-length">{{$item->length_min}}</td>
           <td class="text-center">{{$item->borrower}}</td>
           <td class="text-center"><a href = "{{ url('/book/'.$bid.'/daisy/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>

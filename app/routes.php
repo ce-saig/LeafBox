@@ -26,7 +26,8 @@ Route::get('api/search/book', array('as'=>'api.book', 'uses'=>'BookController@ge
 
   Route::get('logout','HomeController@doLogout');
 
-
+  Route::post('editMedia', 'MediaController@editMedia');
+  
   Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
     Route::get('/', 'BookController@getBook');
