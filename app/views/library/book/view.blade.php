@@ -206,8 +206,10 @@
 <script>
   var examiner = null;
   var page_amount = null;
+  var part_amount = null;
   var length = null;
   var media_id = null;
+  var original_part = null;
 
   $(function()
   {
@@ -245,22 +247,36 @@ $("table").on("click", "tr.table-body", function() {
   media_id = $(this).children('#media-id').text();
   $('#media-title-head').text('แก้ไขรายละเอียด' + media_type[tabClicked]);
   if(tabClicked == "braille") {
+    original_part = $(this).children('.braille-part').text();
     $('#test').html('<div class="col-md-2">จำนวนหน้า</div>\
-     <div class="col-md-4">\
-      <input type="number" class="form-control" id="edit-page-braille" min=1 value="">\
-    </div><br><br><br>\
-    <div class="col-md-2">ผู้ตรวจสอบ</div>\
-    <div class="col-md-6"><input type="text" class="form-control" id="edit-examiner-braille"value="">\
-    </div>');
+                     <div class="col-md-4">\
+                     <input type="number" class="form-control" id="edit-page-braille" min=1 value="">\
+                     </div><br><br><br>\
+                     <div class="col-md-2">จำนวนตอน</div>\
+                     <div class="col-md-4">\
+                     <input type="number" class="form-control" id="edit-part-braille" min=1 value="">\
+                     </div><br><br><br>\
+                     <div class="col-md-2">ผู้ตรวจสอบ</div>\
+                     <div class="col-md-6"><input type="text" class="form-control" id="edit-examiner-braille"value="">\
+                     </div>');
     $('#edit-page-braille').attr('value', $(this).children('.braille-page').text());
+    $('#edit-part-braille').attr('value', original_part);
     $('#edit-examiner-braille').attr('value', $(this).children('.braille-examiner').text());
   }
   else {
-    $('#test').html('<div class="col-md-2">ความยาว</div>\
-     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
-     </div>\
-     <div class="col-md-2">นาที</div>');
+    original_part = $(this).children('#media-part').text();
+    $('#test').html('<div class="col-md-3">ความยาว</div>\
+                     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
+                     </div>\
+                     <div class="col-md-2">นาที</div>\
+                     <br><br><br>\
+                     <div class="col-md-3">จำนวนชิ้นย่อย</div>\
+                     <div class="col-md-3"><input type="number" class="form-control" id="edit-part" value="">\
+                     </div>\
+                     <div class="col-md-2">ชิ้น</div>');
+
     $('#edit-length').attr('value', $(this).children('#media-length').text());
+    $('#edit-part').attr('value', original_part);
   }
   $('#link-edit-page').attr('href', $(this).attr('href'));
   $('#edit-detail').modal('show');
@@ -271,8 +287,14 @@ $('body').on('click', '#send-data', function() {
   page_amount = $('#edit-page-braille').val();
   examiner = $('#edit-examiner-braille').val();
   length = $('#edit-length').val();
+  part_amount = (tabClicked == "braille" ? $('#edit-part-braille').val() : $('#edit-part').val());
 
-  var data = {media_type: tabClicked, media_id: media_id, page_amount: page_amount, length: length, examiner: examiner};
+  if(original_part != part_amount) {
+    if(!confirm('การดำเนินการต่อจะทำให้มีการเพิ่มหรือลบจำนวนตอนหรือจำนวนชิ้นย่อยของสื่อ\nคุณต้องการดำเนินการต่อหรือไม่ '))
+      return;
+  }
+
+  var data = {media_type: tabClicked, media_id: media_id, page_amount: page_amount, part_amount: part_amount, length: length, examiner: examiner};
   $.ajax({
     type: "POST",
     url: "{{ url('editMedia') }}",
@@ -283,9 +305,12 @@ $('body').on('click', '#send-data', function() {
     if(tabClicked == "braille") {
       $('#' + tabClicked + '-' + media_id).children('.braille-page').text(page_amount);
       $('#' + tabClicked + '-' + media_id).children('.braille-examiner').text(examiner);
+      $('#' + tabClicked + '-' + media_id).children('.braille-part').text(part_amount);
     }
-    else
+    else {
       $('#' + tabClicked + '-' + media_id).children('#media-length').text(length);
+      $('#' + tabClicked + '-' + media_id).children('#media-part').text(part_amount);
+    }
     $('#edit-detail').modal('hide');
   });
 });

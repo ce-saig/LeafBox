@@ -18,7 +18,7 @@
           <tr class = "hover table-body" href="{{$bid}}/braille/{{$item->id}}" id="braille-{{$item->id}}">
             <td style="text-align: center;" id="media-id">{{$item->id}}</td>
             <td style="text-align: center" class="braille-page">{{$item->pages}}</td>
-            <td style="text-align: center">{{$item->numpart}}</td>
+            <td style="text-align: center" class="braille-part">{{$item->numpart}}</td>
             <td style="text-align: center" class="braille-examiner">{{$item->examiner}}</td>
             <td style="text-align: center">{{$item->borrower}}</td>
             <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/braille/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>

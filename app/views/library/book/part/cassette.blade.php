@@ -14,7 +14,7 @@
         @foreach ($cassette as $item)
         <tr class = "hover table-body" href="{{$bid}}/cassette/{{$item->id}}" id="cassette-{{$item->id}}">
           <td class="text-center" id="media-id">{{$item->id}}</td>
-          <td class="text-center">{{$item->numpart}}</td>
+          <td class="text-center" id="media-part">{{$item->numpart}}</td>
           <td class="text-center" id="media-length">{{$item->length_min}}</td>
           <td class="text-center">{{$item->borrower}}</td>
           <td class="text-center"><a href = "{{ url('/book/'.$bid.'/cassette/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
