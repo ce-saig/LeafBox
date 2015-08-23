@@ -182,22 +182,41 @@
 </div>
 
 
+<div class="modal fade" id="edit-detail">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="media-title-head">แก้ไขรายละเอียดสื่อ</h4>
+      </div>
+      <div class="modal-body row" id="test">
+
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary pull-left" id="link-edit-page" href="">แก้ไขรายละเอียดรายสื่อ</a>
+        <button class="btn btn-success pull-right" id="send-data">บันทึก</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @stop
 @section('script')
 @parent
 <script>
-$(function()
-{
-  $('myTab a:last').tab('show.bs.tab');
-});
+  var examiner = null;
+  var page_amount = null;
+  var part_amount = null;
+  var length = null;
+  var media_id = null;
+  var original_part = null;
+
+  $(function()
+  {
+    $('myTab a:last').tab('show.bs.tab');
+  });
 
 //make table row as a link
-$("table").on("click", "tr.table-body", function(e) {
-  if ($(e.target).is("a,input"))
-  return;
-  location.href = $(this).attr("href");
-});
 //var tabClicked = "braille";
 var tabClicked = "";
 //check and set tab if access tab panel from url link.
@@ -223,6 +242,79 @@ function tabSelect(tab){
   }
 }
 
+$("table").on("click", "tr.table-body", function() {
+  var media_type = {braille:'เบรลล์', cassette:'เทปคาสเซ็ท', cd:' CD', daisy:'เดซี่', dvd:' DVD'};
+  media_id = $(this).children('#media-id').text();
+  $('#media-title-head').text('แก้ไขรายละเอียด' + media_type[tabClicked]);
+  if(tabClicked == "braille") {
+    original_part = $(this).children('.braille-part').text();
+    $('#test').html('<div class="col-md-2">จำนวนหน้า</div>\
+                     <div class="col-md-4">\
+                     <input type="number" class="form-control" id="edit-page-braille" min=1 value="">\
+                     </div><br><br><br>\
+                     <div class="col-md-2">จำนวนตอน</div>\
+                     <div class="col-md-4">\
+                     <input type="number" class="form-control" id="edit-part-braille" min=1 value="">\
+                     </div><br><br><br>\
+                     <div class="col-md-2">ผู้ตรวจสอบ</div>\
+                     <div class="col-md-6"><input type="text" class="form-control" id="edit-examiner-braille"value="">\
+                     </div>');
+    $('#edit-page-braille').attr('value', $(this).children('.braille-page').text());
+    $('#edit-part-braille').attr('value', original_part);
+    $('#edit-examiner-braille').attr('value', $(this).children('.braille-examiner').text());
+  }
+  else {
+    original_part = $(this).children('#media-part').text();
+    $('#test').html('<div class="col-md-3">ความยาว</div>\
+                     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
+                     </div>\
+                     <div class="col-md-2">นาที</div>\
+                     <br><br><br>\
+                     <div class="col-md-3">จำนวนชิ้นย่อย</div>\
+                     <div class="col-md-3"><input type="number" class="form-control" id="edit-part" value="">\
+                     </div>\
+                     <div class="col-md-2">ชิ้น</div>');
+
+    $('#edit-length').attr('value', $(this).children('#media-length').text());
+    $('#edit-part').attr('value', original_part);
+  }
+  $('#link-edit-page').attr('href', $(this).attr('href'));
+  $('#edit-detail').modal('show');
+  console.log(tabClicked + "sd");
+});
+
+$('body').on('click', '#send-data', function() {
+  page_amount = $('#edit-page-braille').val();
+  examiner = $('#edit-examiner-braille').val();
+  length = $('#edit-length').val();
+  part_amount = (tabClicked == "braille" ? $('#edit-part-braille').val() : $('#edit-part').val());
+
+  if(original_part != part_amount) {
+    if(!confirm('การดำเนินการต่อจะทำให้มีการเพิ่มหรือลบจำนวนตอนหรือจำนวนชิ้นย่อยของสื่อ\nคุณต้องการดำเนินการต่อหรือไม่ '))
+      return;
+  }
+
+  var data = {media_type: tabClicked, media_id: media_id, page_amount: page_amount, part_amount: part_amount, length: length, examiner: examiner};
+  $.ajax({
+    type: "POST",
+    url: "{{ url('editMedia') }}",
+    data: {data: data}
+  }).done(function(data) {
+    console.log(data);
+    console.log('#' + tabClicked + '-' + media_id);
+    if(tabClicked == "braille") {
+      $('#' + tabClicked + '-' + media_id).children('.braille-page').text(page_amount);
+      $('#' + tabClicked + '-' + media_id).children('.braille-examiner').text(examiner);
+      $('#' + tabClicked + '-' + media_id).children('.braille-part').text(part_amount);
+    }
+    else {
+      $('#' + tabClicked + '-' + media_id).children('#media-length').text(length);
+      $('#' + tabClicked + '-' + media_id).children('#media-part').text(part_amount);
+    }
+    $('#edit-detail').modal('hide');
+  });
+});
+
 //Enable Link to tab
 
 
@@ -247,30 +339,30 @@ function add(){
   console.log(amount);
   console.log(tabClicked);
   //$.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount}, function(result){
-  $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount, examiner: examiner, page: page, length: length}, function(result){
-    console.log(result);
+    $.post( "{{ $book['id'] }}/" + tabClicked + "/add", {amount: amount, examiner: examiner, page: page, length: length}, function(result){
+      console.log(result);
     //alert(result);
     //console.log("eiei");
     $('#success').modal('show');
   });
-  $('#amount').val(1);
-}
+    $('#amount').val(1);
+  }
 
-var myModal = $('#success').on('show.bs.modal', function () {
-  clearTimeout(myModal.data('hideInteval'));
-  var id = setTimeout(function(){
-    myModal.modal('hide');
-    if (!window.location.href.match('#')) {
-      document.location.href += ("#"+ tabClicked);
-      console.log("on here");
-    }else{
-      document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+"#"+tabClicked;
-      console.log("here");
-    }
-    window.location.reload();
-  }, 1500);
-  myModal.data('hideInteval', id);
-});
+  var myModal = $('#success').on('show.bs.modal', function () {
+    clearTimeout(myModal.data('hideInteval'));
+    var id = setTimeout(function(){
+      myModal.modal('hide');
+      if (!window.location.href.match('#')) {
+        document.location.href += ("#"+ tabClicked);
+        console.log("on here");
+      }else{
+        document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+"#"+tabClicked;
+        console.log("here");
+      }
+      window.location.reload();
+    }, 1500);
+    myModal.data('hideInteval', id);
+  });
 
 // Delete Button Cofirmation
 $(function() {
