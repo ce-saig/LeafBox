@@ -129,7 +129,7 @@
             <div class="input-group-addon">ค้นหาหนังสือ</div>
             <input type="text" class="form-control" name="" id="search-book"/>
           </div>
-          <!-- add by oat-->
+          <!-- add by oat!-->
           <select name = "select_type" class="form-control" id = "select_type" role="menu">
             <option value = "all" selected id="select_all">ทั้งหมด</option>
             <option value = "avaiable" >ไม่ถูกยืม</option>
