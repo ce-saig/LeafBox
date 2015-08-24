@@ -142,7 +142,7 @@
         <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
-        <label class="text-left" style="color:#ccc">*ตัวอักษรสีเทาคือถูกยืมแล้ว</label>
+        <label class="pull-left" style="color: #ccc">*ตัวอักษรสีเทาคือถูกยืมแล้ว</label>
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
       </div>
     </div>
