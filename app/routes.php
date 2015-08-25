@@ -18,7 +18,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('add', 'BookController@postProdAdd');
-      Route::get('view/{id}', 'BookController@getProd');
+      Route::get('view', 'BookController@getProd');
 
     });
 
@@ -83,7 +83,7 @@ Route::group(array('before' => 'auth'), function() {
 
   // Return media
   Route::get('return','ReturnController@getIndex');
-  Route::get('return/clear','ReturnController@getClear');
+  Route::get('return/clear',R'eturnController@getClear');
   Route::post('return/add','ReturnController@postAdd');
   Route::get('return/member/{memberId}','ReturnController@getMember');
   Route::post('return/member','ReturnController@postMember');

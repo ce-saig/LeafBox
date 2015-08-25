@@ -12,7 +12,7 @@ class Book extends Eloquent {
 
     protected $primaryKey = 'id';
 
-    public function prod()   { return $this->hasMany('bookProd', 'book_id'); }
+    public function prod()   { return $this->hasMany('BookProd', 'book_id'); }
 
     public function braille()   { return $this->hasMany('Braille', 'book_id'); }
     public function cassette()   { return $this->hasMany('Cassette', 'book_id'); }

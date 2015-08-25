@@ -515,11 +515,12 @@
       console.log(actioner);
       console.log(finish_date);
       
-      $.post( "{{ $book['id'] }}/prod/add", {book_id:{{ $book['id'] }},act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+      $.post( "prod/add", {book_id:{{ $book['id'] }},act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
         console.log(result);
-        if(result=="success")
+        if(result=="success"){
+          $("#addProd").hide();
           $('#success').modal('show');
-        else{
+        }else{
           $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">ใส่ข้อมูลไม่ครบ</div></div>")
 
         }

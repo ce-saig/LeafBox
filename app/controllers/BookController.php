@@ -245,7 +245,7 @@ class BookController extends Controller{
 
 
     $book['isbn']          = $bookEloquent->isbn ;
-    $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
+    $book['id']            = $bookEloquent->id;
     $book['abstract']   = $bookEloquent->abstract ;
 
     $book['bm_status']     = $bookEloquent->bm_status ;
@@ -397,7 +397,8 @@ class BookController extends Controller{
   public function getProd($id)
   {
     $book = Book::find($id);
-    $bp = $book->prod();
+    $bp = $book->prod;
+    //var_dump($bp);
     return $bp;
   }
 
