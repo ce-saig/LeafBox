@@ -241,6 +241,7 @@ class BorrowController extends BaseController {
   {
     $result = array();
     $keyword = Input::get('keyword');
+    $status = Input::get('status'); //add by oat
 
     $media_id = preg_replace("/[^0-9]/", "", $keyword);
     $media = strtoupper(preg_replace("/[0-9]/", "", $keyword));
@@ -251,11 +252,11 @@ class BorrowController extends BaseController {
 
     //$result = $this->searchByName($keyword);
     if(is_numeric($keyword))
-      $result = $this->searchByID($keyword, 1);
+      $result = $this->searchByID($keyword, 1,$status);
     else if($dvd_condition || $cd_condition || $bcd_condition)
-      $result = $this->searchByID($keyword, 2);
+      $result = $this->searchByID($keyword, 2,$status);
     else
-      $result = $this->searchByName($keyword);
+      $result = $this->searchByName($keyword,$status);
 
     $selectedList = Session::get('borrow', array());
 
@@ -265,7 +266,7 @@ class BorrowController extends BaseController {
       return json_encode($result);
   }
 
-  public function searchByName($keyword)
+  public function searchByName($keyword,$status)
   {
     $result = array();
     //if user search from book's title
@@ -277,66 +278,86 @@ class BorrowController extends BaseController {
       array_push($result, array_fill_keys(array('title'),$book->title));
       array_push($result[sizeof($result)-1], array());
       //return $result;
-      $brailles = $book->braille()->take(5)->get(); // TODO Limit
+      $brailles;
+      if($status == 'all') {
+        $brailles = $book->braille()->take(5)->get(); // TODO Limit
+      }
+      else if($status == 'avaiable') {
+        $brailles = $book->braille()->where('reserved', '=', '0')->take(5)->get();
+      }
       //return sizeof($brailles);
       if($brailles){
         foreach($brailles as $braille){
-          if(!$braille->reserved) {
-            $braille->id = 'B'.$braille->id;
-            array_push($result[sizeof($result)-1][0], $braille);
-          }
+          $braille->id = 'B'.$braille->id;
+          array_push($result[sizeof($result)-1][0], $braille);
         }
       }
 
-      $cassettes = $book->cassette()->take(5)->get();
+      $cassettes;
+      if($status == 'all'){
+        $cassettes = $book->cassette()->take(5)->get();
+      }
+      else if($status == 'avaiable'){
+        $cassettes = $book->cassette()->where('reserved','=','0')->take(5)->get();
+      }
       array_push($result[sizeof($result)-1], array());
       //return sizeof($cassette);
       if($cassettes){
         foreach($cassettes as $cassette){
-          if(!$cassette->reserved) {
-            $cassette->id = 'C'.$cassette->id;
-            array_push($result[sizeof($result)-1][1], $cassette);
-          }
+          $cassette->id = 'C'.$cassette->id;
+          array_push($result[sizeof($result)-1][1], $cassette);
         }
       }
 
-      $cds = $book->cd()->take(5)->get();
+      $cds;
+      if($status == 'all'){
+        $cds = $book->cd()->take(5)->get();
+      }
+      else if($status == 'avaiable'){
+        $cds = $book->cd()->where('reserved','=','0')->take(5)->get();
+      }
       array_push($result[sizeof($result)-1], array());
       if($cds){
         foreach($cds as $cd){
-          if(!$cd->reserved){
-            $cd->id = 'CD'.$cd->id;
-            array_push($result[sizeof($result)-1][2], $cd);
-          }
+          $cd->id = 'CD'.$cd->id;
+          array_push($result[sizeof($result)-1][2], $cd);
         }
       }
 
-      $daisies = $book->daisy()->take(5)->get();
+      $daisies;
+      if($status == 'all'){
+        $daisies = $book->daisy()->take(5)->get();
+      }
+      else if($status == 'avaiable') {
+        $daisies = $book->daisy()->where('reserved','=','0')->take(5)->get();
+      }
       array_push($result[sizeof($result)-1], array());
       if($daisies){
         foreach($daisies as $daisy){
-          if(!$daisy->reserved) {
-            $daisy->id = 'D'.$daisy->id;
-            array_push($result[sizeof($result)-1][3], $daisy);
-          }
+          $daisy->id = 'D'.$daisy->id;
+          array_push($result[sizeof($result)-1][3], $daisy);
         }
       }
 
-      $dvds = $book->dvd()->take(5)->get();
+      $dvds;
+      if($status == 'all'){
+        $dvds = $book->dvd()->take(5)->get();
+      }
+      else if($status == 'avaiable') {
+        $dvds = $book->dvd()->where('reserved','=','0')->take(5)->get();
+      }
       array_push($result[sizeof($result)-1], array());
       if($dvds){
         foreach($dvds as $dvd){
-          if(!$dvd->reserved) {
-            $dvd->id = 'DVD'.$dvd->id;
-            array_push($result[sizeof($result)-1][4], $dvd);
-          }
+          $dvd->id = 'DVD'.$dvd->id;
+          array_push($result[sizeof($result)-1][4], $dvd);
         }
       }
     }
     return $result;
   }
 
-  public function searchByID($keyword, $search_type) //type 1 : number only, type 2 : number with media
+  public function searchByID($keyword, $search_type,$status) //type 1 : number only, type 2 : number with media
   {
 
     $found_status = array(array()); //(braille, casette, cd, daisy, dvd) *media status of each book
@@ -426,56 +447,86 @@ class BorrowController extends BaseController {
       array_push($result, array_fill_keys(array('title'),$book->title));
       array_push($result[sizeof($result)-1], array());
       //return $result;
-      $brailles = $book->braille()->get(); // TODO Limit
+      $brailles;
+      if($status == 'all') {
+        $brailles = $book->braille()->get(); // TODO Limit
+      }
+      else if($status == 'avaiable') {
+        $brailles = $book->braille()->where('reserved','=','0')->get();
+      }
       //return sizeof($brailles);
       if($brailles){
         foreach($brailles as $braille){
-          if(!$braille->reserved && $found_status[$book_index][0]) {
+          if($found_status[$book_index][0]) {
             $braille->id = 'B'.$braille->id;
             array_push($result[sizeof($result)-1][0], $braille);
           }
         }
       }
 
-      $cassettes = $book->cassette()->get();
+      $cassettes;
+      if($status == 'all'){
+        $cassettes = $book->cassette()->get();
+      }
+      else if($status == 'avaiable') {
+        $cassettes = $book->cassette()->where('reserved','=','0')->get();
+      }
       array_push($result[sizeof($result)-1], array());
       //return sizeof($cassette);
       if($cassettes){
         foreach($cassettes as $cassette){
-          if(!$cassette->reserved && $found_status[$book_index][1]) {
+          if($found_status[$book_index][1]) {
             $cassette->id = 'C'.$cassette->id;
             array_push($result[sizeof($result)-1][1], $cassette);
           }
         }
       }
 
-      $cds = $book->cd()->get();
+      $cds;
+      if($status == 'all'){
+        $cds = $book->cd()->get();
+      }
+      else if($status == 'avaiable') {
+        $cds = $book->cd()->where('reserved','=','0')->get();
+      }
       array_push($result[sizeof($result)-1], array());
       if($cds){
         foreach($cds as $cd){
-          if($cd && !$cd->reserved && $found_status[$book_index][2]){
+          if($cd && $found_status[$book_index][2]){
             $cd->id = 'CD'.$cd->id;
             array_push($result[sizeof($result)-1][2], $cd);
           }
         }
       }
 
-      $daisies = $book->daisy()->get();
+      $daisies;
+      if($status == 'all') {
+        $daisies = $book->daisy()->get();
+      }
+      else if($status == 'avaiable') {
+        $daisies = $book->daisy()->where('reserved','=','0')->get();
+      }
       array_push($result[sizeof($result)-1], array());
       if($daisies){
         foreach($daisies as $daisy){
-          if(!$daisy->reserved && $found_status[$book_index][3]) {
+          if($found_status[$book_index][3]) {
             $daisy->id = 'D'.$daisy->id;
             array_push($result[sizeof($result)-1][3], $daisy);
           }
         }
       }
 
-      $dvds = $book->dvd()->get();
+      $dvds;
+      if($status == 'all'){
+        $dvds = $book->dvd()->get();
+      }
+      else if($status == 'avaiable') {
+        $dvds = $book->dvd()->where('reserved','=','0')->get();
+      }
       array_push($result[sizeof($result)-1], array());
       if($dvds){
         foreach($dvds as $dvd){
-          if(!$dvd->reserved && $found_status[$book_index][4]) {
+          if($found_status[$book_index][4]) {
             $dvd->id = 'DVD'.$dvd->id;
             array_push($result[sizeof($result)-1][4], $dvd);
           }
