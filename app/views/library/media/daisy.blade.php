@@ -35,12 +35,13 @@
 				<div class="col-md-12">
 					<table class="table">
 						<tr>
-							<th>ID</th>
-							<th>ส่วนที่</th>
-							<th>สถานะ</th>
-							<th>หมายเหตุ</th>
-							<th>แทร็กเริ่มต้น</th>
-							<th>แทร็กสุดท้าย</th>
+							<th class="col-md-1">ID</th>
+							<th class="col-md-1">ส่วนที่</th>
+							<th class="col-md-1">สถานะ</th>
+							<th class="col-md-2">วันที่แก้ไข</th>
+							<th class="col-md-2">แทร็กเริ่มต้น</th>
+							<th class="col-md-2">แทร็กสุดท้าย</th>
+							<th class="col-md-3">หมายเหตุ</th>
 						</tr>
 						@foreach ($detail as $key => $value)
 						<tr>
@@ -54,13 +55,16 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" name="note[]" class="form-control note" value="{{$value->notes}}">
+								<input type="text" class="form-control datepicker" name="date[]" value="{{$value->date}}">
 							</td>
 							<td>
 								<input type="number" name="track_fr[]" class="form-control track-start" value="{{$value->track_fr}}">
 							</td>
 							<td>
 								<input type="number" name="track_to[]" class="form-control track-end" value="{{$value->track_to}}">
+							</td>
+							<td>
+								<input type="text" name="note[]" class="form-control note" value="{{$value->notes}}">
 							</td>
 						</tr>
 						@endforeach
@@ -79,6 +83,12 @@
 @section('script')
 @parent
 <script>
+$(".datepicker").datepicker({
+				language:'th-th',
+				format: 'dd/mm/yyyy',
+				isBuddhist: true
+			});
+			
 	$('#edit-all-field').click(function() {
 		$('.select-status').prop('value', $('#select-all-status').val());
 		$('.note').prop('value', $('#head-note').val());

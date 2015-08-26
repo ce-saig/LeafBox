@@ -4,18 +4,20 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th width="300" style="text-align: center;">คาสเซ็ทไอดี</th>
-          <th style="text-align: center;">จำนวนชิ้นย่อย (ตลับ)</th>
-          <th style="text-align: center">ผู้ยืม</th>
+          <th width="300" class="text-center">คาสเซ็ทไอดี</th>
+          <th class="text-center">จำนวนชิ้นย่อย (ตลับ)</th>
+          <th class="text-center">ความยาว(นาที)</th>
+          <th class="text-center">ผู้ยืม</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($cassette as $item)
-        <tr class = "hover table-body" href="{{$bid}}/cassette/{{$item->id}}">
-          <td style="text-align: center;" style="text-align: center;" style="text-align: center;">{{$item->id}}</td>
-          <td style="text-align: center;" style="text-align: center;">{{$item->numpart}}</td>
-          <td style="text-align: center">{{$item->borrower}}</td>
-          <td style="text-align: center;"><a href = "{{ url('/book/'.$bid.'/cassette/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
+        <tr class = "hover table-body" href="{{$bid}}/cassette/{{$item->id}}" id="cassette-{{$item->id}}">
+          <td class="text-center" id="media-id">{{$item->id}}</td>
+          <td class="text-center" id="media-part">{{$item->numpart}}</td>
+          <td class="text-center" id="media-length">{{$item->length_min}}</td>
+          <td class="text-center">{{$item->borrower}}</td>
+          <td class="text-center"><a href = "{{ url('/book/'.$bid.'/cassette/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
         @endforeach
       </tbody>

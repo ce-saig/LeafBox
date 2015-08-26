@@ -231,6 +231,9 @@ class BookController extends Controller{
     $label[26]='เมื่อ';
     $field[26]='dvd_date';
 
+    $label[28]='สร้างเมื่อ';
+    $field[28]='created_at';
+
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
@@ -342,9 +345,9 @@ class BookController extends Controller{
     $input = Input::get('search_value');
     $offset = Input::get('data_offset');
     if($type == "title"){
-      $query = Book::where("title","LIKE","%".$input."%");
+     $query = Book::where("title","LIKE","%".$input."%");
     }else if($type == "author"){
-      $query = Book::where("author","LIKE","%".$input."%");
+    $query = Book::where("author","LIKE","%".$input."%");
     }else if($type == "translate"){
       $query = Book::where("translate","LIKE","%".$input."%");
     }else if($type == "isbn"){
@@ -356,11 +359,11 @@ class BookController extends Controller{
     }
     $obj = $query->take(6)->offset($offset)->get();
     $count = $query->count();
-      //return View::make('library.index',array('books' => $obj ));
+        //return View::make('library.index',array('books' => $obj ));
     return array($obj,$count);
   }
 
-    // For Ajax search Call (INCOMPLETE)
+      // For Ajax search Call (INCOMPLETE)
   public function getDatatable()
   {
     return Datatable::collection(Book::all(array('title','author')))
@@ -388,7 +391,7 @@ class BookController extends Controller{
     $bp->finish_date=Input::get("finish_date", null);
     if ($bp->act_date==""||$bp->action==""||$bp->actioner=="")
       return "failed, null not permit";
-      
+
     if($bp->save())
       return "success";
     return "failed";
@@ -398,7 +401,7 @@ class BookController extends Controller{
   {
     $book = Book::find($id);
     $bp = $book->prod;
-    //var_dump($bp);
+      //var_dump($bp);
     return $bp;
   }
 

@@ -34,9 +34,10 @@
 				<div class="col-md-12">
 					<table class="table">
 						<tr>
-							<th>ID</th>
-							<th>ส่วนที่</th>
-							<th>สถานะ</th>
+							<th class="col-md-1">ID</th>
+							<th class="col-md-1">ส่วนที่</th>
+							<th class="col-md-2">สถานะ</th>
+							<th class="col-md-2">วันที่</th>
 							<th>หมายเหตุ</th>
 						</tr>
 						@foreach ($detail as $key => $value)
@@ -49,6 +50,9 @@
 									<option {{$value->status==1?'selected':''}} value="1">ชำรุด</option>
 									<option {{$value->status==2?'selected':''}} value="2">รอซ่อม</option>
 								</select>
+							</td>
+							<td>
+								<input type="text" class="form-control datepicker" name="date[]" value="{{$value->date}}">
 							</td>
 							<td>
 								<input type="text" name="note[]" class="form-control note" value="{{$value->notes}}">
@@ -70,6 +74,14 @@
 @section('script')
 @parent
 <script>
+	$(function() {
+		$(".datepicker").datepicker({
+						language:'th-th',
+						format: 'dd/mm/yyyy',
+						isBuddhist: true
+					});
+	});
+
 	$('#edit-all-field').click(function() {
 		$('.select-status').prop('value', $('#select-all-status').val());
 		$('.note').prop('value', $('#head-note').val());

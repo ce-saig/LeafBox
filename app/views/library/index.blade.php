@@ -17,6 +17,7 @@
 			    <option value = "id" >ID</option>
 			 </select>
 		</div>
+
 		<!-- Search Result -->
 		<div class = "col-md-8">
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >

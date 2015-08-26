@@ -129,7 +129,7 @@ $(document).ready(function() {
 
 		//append to node
 		for(var i = 0;i < response.length; i++){
-			console.log(response[i].title);
+			//console.log(response[i].title);
 			var id_book = response[i].id;
 			var wrapper = $('<div class = "col-sm-4"></div>');
 			var link_wrapper = $('<a></a>');
@@ -154,10 +154,10 @@ $(document).ready(function() {
 			for(label in mediatype){
 				var badge = $('<div></div>').addClass('col-sm-6');
 				badge.text(mediatype[label]);
-				console.log("response = " + response[i][status_attr_type]);
-				console.log("badge status = " + response[i][status_attr_type[label]] );
+				// console.log("response = " + response[i][status_attr_type]);
+				// console.log("badge status = " + response[i][status_attr_type[label]] );
 				var badgetag = badgeGenerator(response[i][status_attr_type[label]]);
-				console.log(badgetag);
+				// console.log(badgetag);
 				badge.append(badgetag);
 				outer_badge.append(badge);
 			}

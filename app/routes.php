@@ -9,11 +9,14 @@ Route::group(array('before' => 'auth'), function() {
   Route::get('book/add','BookController@newBook');
   Route::post('book/add','BookController@postBook');
 
+  Route::get('logout','HomeController@doLogout');
+  Route::post('editMedia', 'MediaController@editMedia');
+
   Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
     Route::get('/', 'BookController@getBook');
 
-    Route::post('edit', 'BookController@getEdit');
+    Route::get('edit', 'BookController@getEdit');
     Route::post('edit', 'BookController@postEdit');
 
     Route::group(array('prefix' => 'prod/'), function(){
