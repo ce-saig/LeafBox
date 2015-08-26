@@ -9,11 +9,11 @@
   <div>
     <h2>I{{$book['id']}}:{{$book['title']}}
       <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-warning pull-right">แก้ไข</a>
-
     </h2>
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">ข้อมูล</a></li>
+    <li role="presentation"><a href="#prod" role="prod" data-toggle="tab" >สถานะการผลิต</a></li>
     <li role="presentation"><a href="#braille" role="braille" data-toggle="tab" onClick="tabSelect(this)">เบรลล์</a></li>
     <li role="presentation"><a href="#cassette" role="cassette" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
     <li role="presentation"><a href="#daisy" role="daisy" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
@@ -56,137 +56,14 @@
           <?php $i++; ?>
         @endforeach
       </div>
-      <br>
-      <br>
-      <h3>สถานะการผลิต  <p  class="btn btn-sm btn-warning pull-right" data-toggle="modal" data-target="#addProd">เพิ่มสถานะการผลิต</p>
-      </h3>
-      <div class="row">
-        {{-- List of Prod --}}
-        <div class="col-xs-12">
-          <div class="panel panel-info">
-              <div class="panel-heading">
-                <h3 class="panel-title">เบรลล์</h3>
-              </div>
-              <div class="panel-body">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>วันที่ปฏิบัติ</th>
-                      <th>ขั้นตอน</th>
-                      <th>ผู้ปฏิบัติ</th>
-                      <th>วันเสร็จ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1111</td>
-                      <td>2222</td>
-                      <td>3333</td>
-                      <td>4444</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="panel-heading">
-                <h3 class="panel-title">เทปคาสเซ็ท</h3>
-              </div>
-              <div class="panel-body">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>วันที่ปฏิบัติ</th>
-                      <th>ขั้นตอน</th>
-                      <th>ผู้ปฏิบัติ</th>
-                      <th>วันเสร็จ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1111</td>
-                      <td>2222</td>
-                      <td>3333</td>
-                      <td>4444</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              <div class="panel-heading">
-                <h3 class="panel-title">เดซี่</h3>
-              </div>
-              <div class="panel-body">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>วันที่ปฏิบัติ</th>
-                      <th>ขั้นตอน</th>
-                      <th>ผู้ปฏิบัติ</th>
-                      <th>วันเสร็จ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1111</td>
-                      <td>2222</td>
-                      <td>3333</td>
-                      <td>4444</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="panel-heading">
-                <h3 class="panel-title">CD</h3>
-              </div>
-              <div class="panel-body">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>วันที่ปฏิบัติ</th>
-                      <th>ขั้นตอน</th>
-                      <th>ผู้ปฏิบัติ</th>
-                      <th>วันเสร็จ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1111</td>
-                      <td>2222</td>
-                      <td>3333</td>
-                      <td>4444</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="panel-heading">
-                <h3 class="panel-title">DVD</h3>
-              </div>
-              <div class="panel-body">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>วันที่ปฏิบัติ</th>
-                      <th>ขั้นตอน</th>
-                      <th>ผู้ปฏิบัติ</th>
-                      <th>วันเสร็จ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr onclick="prodEdit(1)">
-                      <td>1111</td>
-                      <td>2222</td>
-                      <td>3333</td>
-                      <td>4444</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
-        </div>
-        
-      </div>
     </div>
+
+    <div role="tabpanel" class="tab-pane" id="prod">
+      <div class="row" >
+          @include('library.book.part.prod',array('bid'=>$book['id']))
+          {{-- @include('library.book.part.proc',array('braille'=>$braille,'bid'=>$book['id'])) --}}
+      </div>
+    </div>    
     
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >

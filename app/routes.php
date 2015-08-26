@@ -69,47 +69,55 @@ Route::group(array('before' => 'auth'), function() {
   });
 
   // Borrow media
-  Route::get('borrow', 'BorrowController@index');
-  Route::get('borrow/book/{mediaId}', 'BorrowController@postSelectBook');
-  Route::get('borrow/search', 'BorrowController@getSearch');
-  Route::get('borrow/submit', 'BorrowController@postSubmitSelectedList');
-  Route::get('borrow/clear', 'BorrowController@getClear');
+  Route::group(array('prefix' => 'borrow/'), function(){
+    Route::get('/', 'BorrowController@index');
+    Route::get('book/{mediaId}', 'BorrowController@postSelectBook');
+    Route::get('search', 'BorrowController@getSearch');
+    Route::get('submit', 'BorrowController@postSubmitSelectedList');
+    Route::get('clear', 'BorrowController@getClear');
 
-  Route::post('borrow/retdate', 'BorrowController@postRetDate');
-  Route::post('borrow/delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
+    Route::post('retdate', 'BorrowController@postRetDate');
+    Route::post('delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
 
-  Route::get('borrow/member/{memberId}','BorrowController@getMember');
-  Route::post('borrow/member','BorrowController@postMember');
+    Route::get('member/{memberId}','BorrowController@getMember');
+    Route::post('member','BorrowController@postMember');
+  });
 
-  // Return media
-  Route::get('return','ReturnController@getIndex');
-  Route::get('return/clear',R'eturnController@getClear');
-  Route::post('return/add','ReturnController@postAdd');
-  Route::get('return/member/{memberId}','ReturnController@getMember');
-  Route::post('return/member','ReturnController@postMember');
-  Route::post('return/submit', 'ReturnController@postSubmitReturn');
-  Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
+    // Return media
+  Route::group(array('prefix' => 'return/'), function(){
+    Route::get('/','ReturnController@getIndex');
+    Route::get('clear','ReturnController@getClear');
+    Route::post('add','ReturnController@postAdd');
+    Route::get('member/{memberId}','ReturnController@getMember');
+    Route::post('member','ReturnController@postMember');
+    Route::post('submit', 'ReturnController@postSubmitReturn');
+    Route::post('delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
+  });
 
-  // User
+    // User
   Route::get('user/{id}','UsersController@show');
   Route::post('user/{id}/destroy','UsersController@destroy');
 
   // borrower system
   Route::model('member', 'Member');
-  Route::get('borrowersystem','BorrowerSystemController@index');
-  Route::get('borrowersystem/create', 'BorrowerSystemController@create');
-  Route::get('borrowersystem/editMember/', 'BorrowerSystemController@edit');
-  Route::get('borrowersystem/delete/{member}', 'BorrowerSystemController@delete');
 
-  Route::post('borrowersystem/create', 'BorrowerSystemController@handleCreate');
-  Route::post('borrowersystem/edit', 'BorrowerSystemController@handleEdit');
-  Route::post('borrowersystem/delete', 'BorrowerSystemController@handleDelete');
+  Route::group(array('prefix' => 'borrower/'), function(){
+    Route::get('/','BorrowerSystemController@index');
+    Route::get('create', 'BorrowerSystemController@create');
+    Route::get('editMember', 'BorrowerSystemController@edit');
+    Route::get('delete/{member}', 'BorrowerSystemController@delete');
 
-  Route::post('borrowersystem/search', 'BorrowerSystemController@searchMember');
-  Route::post('borrowersystem/postMember', 'BorrowerSystemController@postMember');
+    Route::post('create', 'BorrowerSystemController@handleCreate');
+    Route::post('edit', 'BorrowerSystemController@handleEdit');
+    Route::post('delete', 'BorrowerSystemController@handleDelete');
 
-  Route::post('borrowersystem/getHistory/', 'BorrowerSystemController@getHistory');
-  Route::post('borrowersystem/getNonReturn/', 'BorrowerSystemController@getNonReturnList');
+    Route::post('search', 'BorrowerSystemController@searchMember');
+    Route::post('postMember', 'BorrowerSystemController@postMember');
+
+    Route::post('getHistory', 'BorrowerSystemController@getHistory');
+    Route::post('getNonReturn', 'BorrowerSystemController@getNonReturnList');
+  });
+
 });
 
 Route::get('authentication','HomeController@showAuthen');
