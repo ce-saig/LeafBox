@@ -37,14 +37,12 @@ class BookController extends Controller{
     $field[4]='สำนักพิมพ์';
     $field[5]='พิมพ์ครั้งที่';
     $field[6]='ปีที่พิมพ์';
-
     $field[7]='ทะเบียนผลิต';
     $field[8]='ประเภทหนังสือ';
     $field[9]='เนื้อเรื่องย่อ';
     $field[10]='ISBN';
     $field[11]='ID';
     $field[12]='ระดับ';
-
     $field[13]='จำนวนหนังสือเบรลล์';
     $field[14]='จำนวนเทปคาสเส็ท';
     $field[15]='จำนวนเดซี่';
@@ -52,21 +50,33 @@ class BookController extends Controller{
     $field[17]='จำนวน DVD';
 
     $field[18]='สถานะของเบรลล์';
-    $field[19]='หมายเหตุ';
-    $field[20]='เมื่อ';
-    $field[21]='สถานะของคาสเส็ท';
-    $field[22]='หมายเหตุ';
+    $field[19]='เมื่อ';
+    $field[20]='เบลล์ต้นฉบับ';
+    $field[21]='หมายเหตุ';
+
+    $field[22]='สถานะของคาสเส็ท';
     $field[23]='เมื่อ';
-    $field[24]='สถานะของเดซี่';
+    $field[24]='คาสเซ็ทต้นฉบับ';
     $field[25]='หมายเหตุ';
-    $field[26]='เมื่อ';
-    $field[27]='สถานะของ CD';
-    $field[28]='หมายเหตุ';
-    $field[29]='เมื่อ';
-    $field[30]='สถานะของ DVD';
-    $field[31]='หมายเหตุ';
-    $field[32]='เมื่อ';
-    $field[33]='เพิ่มเมื่อ';
+
+    $field[26]='สถานะของเดซี่';
+    $field[27]='เมื่อ';
+    $field[28]='เดซี่ต้นฉบับ';
+    $field[29]='หมายเหตุ';
+
+    $field[30]='สถานะของซีดี';
+    $field[31]='เมื่อ';
+    $field[33]='หมายเหตุ';
+    $field[32]='CDต้นฉบับ';
+
+
+    $field[34]='สถานะของดีวีดี';
+    $field[35]='เมื่อ';
+    $field[36]='DVDต้นฉบับ';
+    $field[37]='หมายเหตุ';
+    $field[38]='หนังสือสร้างเมื่อ';
+
+
 
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
@@ -84,28 +94,39 @@ class BookController extends Controller{
     $book['id']            = $bookEloquent->id ;
     $book['grade']         = $bookEloquent->grade ;
 
-    $book['b_number']     = count($bookEloquent->braille);
+    $book['b_number']      = count($bookEloquent->braille);
     $book['cs_number']     = count($bookEloquent->cassette);
     $book['ds_number']     = count($bookEloquent->daisy);
     $book['cd_number']     = count($bookEloquent->cd);
-    $book['dvd_number']     = count($bookEloquent->dvd);
+    $book['dvd_number']    = count($bookEloquent->dvd);
 
     $book['bm_status']     = $this->getWordStatus($bookEloquent->bm_status) ;
-    $book['bm_note']       = $bookEloquent->bm_note ;
     $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
+    $book['bm_no']         = $bookEloquent->bm_no;
+    $book['bm_note']       = $bookEloquent->bm_note ;
     $book['setcs_status']  = $this->getWordStatus($bookEloquent->setcs_status) ;
-    $book['setcs_note']    = $bookEloquent->setcs_note ;
     $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd-m-Y');
+    $book['cm_no']         = $bookEloquent->cm_no;
+    $book['setcs_note']    = $bookEloquent->setcs_note ;
     $book['setds_status']  = $this->getWordStatus($bookEloquent->setds_status) ;
-    $book['setds_note']    = $bookEloquent->setds_note ;
     $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd-m-Y');
+    $book['dm_no']         = $bookEloquent->dm_no;
+    $book['setds_note']    = $bookEloquent->setds_note ;
     $book['setcd_status']  = $this->getWordStatus($bookEloquent->setcd_status) ;
-    $book['setcd_note']    = $bookEloquent->setcd_note ;
     $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd-m-Y');
+    $book['cdm_no']        = $bookEloquent->cdm_no;
+    $book['setcd_note']    = $bookEloquent->setcd_note ;
     $book['setdvd_status'] = $this->getWordStatus($bookEloquent->setdvd_status) ;
-    $book['setdvd_note']   = $bookEloquent->setdvd_note ;
     $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
+    $book['dvdm_no']       = $bookEloquent->dvdm_no;
+    $book['setdvd_note']   = $bookEloquent->setdvd_note ;
     $book['created_at']    = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
+    $book['bm_no']         = $bookEloquent->bm_no;
+    $book['cm_no']         = $bookEloquent->cm_no;
+    $book['cdm_no']        = $bookEloquent->cdm_no;
+    $book['dm_no']         = $bookEloquent->dm_no;
+    $book['dvdm_no']       = $bookEloquent->dvdm_no;
+    $book['created_at']    = $bookEloquent->created_at;
 
           //braile
     $braille = Braille::where('book_id','=',$book['id'])->get();
@@ -187,12 +208,10 @@ class BookController extends Controller{
     $field[8]='btype';
     $label[9]='หนังสือระดับ';
     $field[9]='grade';
-
     $label[10]='ISBN';
     $field[10]='isbn';
     $label[11]='เลขหนังสือ';
     $field[11]='id';
-
     $label[12]='เนื้อเรื่องย่อ';
     $field[12]='abstract';
 
@@ -200,77 +219,84 @@ class BookController extends Controller{
     $field[13]='bm_status';
     $label[14]='เมื่อ';
     $field[14]='bm_date';
-    $label[15]='หมายเหตุ';
-    $field[15]='bm_note';
+    $label[15]='เบลล์ต้นฉบับ';
+    $field[15]='bm_no';
+    $label[16]='หมายเหตุ';
+    $field[16]='bm_note';
 
-    $label[16]='สถานะของคาสเส็ท';
-    $field[16]='cs_status';
-    $label[18]='หมายเหตุ';
-    $field[18]='cs_note';
-    $label[17]='เมื่อ';
-    $field[17]='cs_date';
+    $label[17]='สถานะของคาสเส็ท';
+    $field[17]='cs_status';
+    $label[18]='เมื่อ';
+    $field[18]='cs_date';
+    $label[19]='คาสเซ็ทต้นฉบับ';
+    $field[19]='cm_no';
+    $label[20]='หมายเหตุ';
+    $field[20]='cs_note';
 
-    $label[19]='สถานะของเดซี่';
-    $field[19]='ds_status';
-    $label[21]='หมายเหตุ';
-    $field[21]='ds_note';
-    $label[20]='เมื่อ';
-    $field[20]='ds_date';
-
-    $label[22]='สถานะของซีดี';
-    $field[22]='cd_status';
+    $label[21]='สถานะของเดซี่';
+    $field[21]='ds_status';
+    $label[22]='เมื่อ';
+    $field[22]='ds_date';
+    $label[23]='เดซี่ต้นฉบับ';
+    $field[23]='dm_no';
     $label[24]='หมายเหตุ';
-    $field[24]='cd_note';
-    $label[23]='เมื่อ';
-    $field[23]='cd_date';
+    $field[24]='ds_note';
 
-    $label[25]='สถานะของดีวีดี';
-    $field[25]='dvd_status';
-    $label[27]='หมายเหตุ';
-    $field[27]='dvd_note';
+    $label[25]='สถานะของซีดี';
+    $field[25]='cd_status';
     $label[26]='เมื่อ';
-    $field[26]='dvd_date';
+    $field[26]='cd_date';
+    $label[28]='หมายเหตุ';
+    $field[28]='cd_note';
+    $label[27]='CDต้นฉบับ';
+    $field[27]='cdm_no';
 
-    $label[28]='สร้างเมื่อ';
-    $field[28]='created_at';
+
+    $label[29]='สถานะของดีวีดี';
+    $field[29]='dvd_status';
+    $label[30]='เมื่อ';
+    $field[30]='dvd_date';
+    $label[31]='DVDต้นฉบับ';
+    $field[31]='dvdm_no';
+    $label[32]='หมายเหตุ';
+    $field[32]='dvd_note';
 
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
-    $book['regis_date']     = $bookEloquent->regis_date ;
+    $book['regis_date']    = $bookEloquent->regis_date ;
     $book['publisher']     = $bookEloquent->publisher ;
-    $book['pub_no']     = $bookEloquent->pub_no ;
-    $book['pub_year']     = $bookEloquent->pub_year ;
-
-    $book['produce_no']   = $bookEloquent->produce_no ;
-    $book['btype']   = $bookEloquent->btype ;
+    $book['pub_no']        = $bookEloquent->pub_no ;
+    $book['pub_year']      = $bookEloquent->pub_year ;
+    $book['produce_no']    = $bookEloquent->produce_no ;
+    $book['btype']         = $bookEloquent->btype ;
     $book['grade']         = $bookEloquent->grade ;
-
-
     $book['isbn']          = $bookEloquent->isbn ;
-    $book['id']            = $bookEloquent->id;
-    $book['abstract']   = $bookEloquent->abstract ;
-
+    $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
+    $book['abstract']      = $bookEloquent->abstract ;
     $book['bm_status']     = $bookEloquent->bm_status ;
     $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd/m/Y');
+    $book['bm_no']         = $bookEloquent->bm_no;
     $book['bm_note']       = $bookEloquent->bm_note ;
     $book['setcs_status']  = $bookEloquent->setcs_status ;
     $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd/m/Y');
+    $book['cm_no']         = $bookEloquent->cm_no;
     $book['setcs_note']    = $bookEloquent->setcs_note ;
     $book['setds_status']  = $bookEloquent->setds_status ;
     $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd/m/Y');
+    $book['dm_no']         = $bookEloquent->dm_no;
     $book['setds_note']    = $bookEloquent->setds_note ;
     $book['setcd_status']  = $bookEloquent->setcd_status ;
     $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd/m/Y');
+    $book['cdm_no']        = $bookEloquent->cdm_no;
     $book['setcd_note']    = $bookEloquent->setcd_note ;
     $book['setdvd_status'] = $bookEloquent->setdvd_status ;
     $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd/m/Y');
+    $book['dvdm_no']       = $bookEloquent->dvdm_no;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
-    $book['created_at']    = ($bookEloquent->created_at == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" :  date_format(date_create($bookEloquent->created_at), 'd/m/Y');
-
-    $arrOfdata['label']=$label;
-    $arrOfdata['field']=$field;
-    $arrOfdata['book']=$book;
+    $arrOfdata['label']    = $label;
+    $arrOfdata['field']    = $field;
+    $arrOfdata['book']     = $book;
     return View::make('library.book.edit')->with($arrOfdata);
   }
 
@@ -284,7 +310,7 @@ class BookController extends Controller{
     $book->pub_no     = Input::get('pub_no');
     $book->pub_year   = Input::get('pub_year');
     $book->produce_no = Input::get('produce_no');
-    $book->book_type      = Input::get('btype');
+    $book->book_type  = Input::get('btype');
     $book->abstract   = Input::get('abstract');
     $book->isbn       = Input::get('isbn');
       //$book['id']         = Input::get('id'); //TODO : make ID Validator
@@ -345,9 +371,9 @@ class BookController extends Controller{
     $input = Input::get('search_value');
     $offset = Input::get('data_offset');
     if($type == "title"){
-     $query = Book::where("title","LIKE","%".$input."%");
+      $query = Book::where("title","LIKE","%".$input."%");
     }else if($type == "author"){
-    $query = Book::where("author","LIKE","%".$input."%");
+      $query = Book::where("author","LIKE","%".$input."%");
     }else if($type == "translate"){
       $query = Book::where("translate","LIKE","%".$input."%");
     }else if($type == "isbn"){
@@ -359,11 +385,11 @@ class BookController extends Controller{
     }
     $obj = $query->take(6)->offset($offset)->get();
     $count = $query->count();
-        //return View::make('library.index',array('books' => $obj ));
+          //return View::make('library.index',array('books' => $obj ));
     return array($obj,$count);
   }
 
-      // For Ajax search Call (INCOMPLETE)
+        // For Ajax search Call (INCOMPLETE)
   public function getDatatable()
   {
     return Datatable::collection(Book::all(array('title','author')))
@@ -373,7 +399,7 @@ class BookController extends Controller{
     ->make();
   }
 
-    // Enum media status helper
+      // Enum media status helper
   public function getWordStatus($status){
     $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','ไม่ถูกต้อง');
     if($status == null)$status=3;
@@ -401,7 +427,7 @@ class BookController extends Controller{
   {
     $book = Book::find($id);
     $bp = $book->prod;
-      //var_dump($bp);
+        //var_dump($bp);
     return $bp;
   }
 

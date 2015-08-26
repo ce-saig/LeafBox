@@ -28,11 +28,11 @@
         ?>
         @foreach ($book as $data)
         @if ($field[$i]!='ID')
-        @if ($i==19||$i==22||$i==25||$i==28||$i==31)
+        @if ($i==18||$i==22||$i==26||$i==30||$i==34)
         <hr>
         <div class="col-xs-12"></div>
         @endif
-        @if ($i==19||$i==22||$i==25||$i==28||$i==31)
+        @if ($i==18||$i==22||$i==26||$i==30||$i==34)
         <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
         <div class="col-xs-6 col-sm-2">
           @if($data == 1)
@@ -43,7 +43,7 @@
           ไม่ผลิต
           @endif
         </div>
-        @elseif ($i>19||$i>22||$i>25||$i>28||$i>31)
+        @elseif ($i>18||$i>22||$i>26||$i>30||$i>34)
         <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
         <div class="col-xs-6 col-sm-2">{{$data?$data:"-"}}</div>
         @else
