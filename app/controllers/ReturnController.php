@@ -20,6 +20,7 @@ class ReturnController extends BaseController {
   //get list
   public function getList()
   {
+
 //    Session::get()
   }
 
@@ -145,6 +146,7 @@ class ReturnController extends BaseController {
     $returnList = Session::get('list', array());
     $dateReturned = (date("Y") + 543).date("-m-d H:i:s");
     foreach ($returnList as $item) {
+      // id form is "cd5" it's need to split to two parameter.
       $media_id = preg_replace("/[^0-9]/", "", $item['id']);
       $media = preg_replace("/[0-9]/", "", $item['id']);
       $temp_media = null;
@@ -208,5 +210,50 @@ class ReturnController extends BaseController {
 
     return  $memberTemp;
   }
+
+  public function getUserMedia(){
+    // get user by name
+    $member_name = Input::get('member');
+    $member = Member::where('name', '=', $member_name)->first();
+    $member_id = $member->id;
+    
+    // borrowed array
+    $borrowed_rec = array();
+
+    // get user borrowed media to array 
+    $borrowed_rec["dvd"]["borrow"]      =  Dvdborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["cd"]["borrow"]       =  Cdborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["daisy"]["borrow"]    =  Daisyborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["cassette"]["borrow"] =  Cassetteborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["braille"]["borrow"]  =  Brailleborrow::where('member_id', '=', $member_id)->get(); 
+    // get user media details
+    $borrowed_rec["dvd"]["media"]      = $this->getBorrowInfo('dvd', $member_id);
+    $borrowed_rec["cd"]["media"]       = $this->getBorrowInfo('cd', $member_id);
+    $borrowed_rec["daisy"]["media"]    = $this->getBorrowInfo('daisy', $member_id);
+    $borrowed_rec["cassette"]["media"] = $this->getBorrowInfo('cassette', $member_id);
+    $borrowed_rec["braille"]["media"]  = $this->getBorrowInfo('braille', $member_id);
+
+    return $borrowed_rec;
+  }
+
+  function getBorrowInfo($type, $member_id) {
+    // change sting of type to class
+    $class_name = ucfirst($type)."borrow";
+    // create class from string
+    $medias = $class_name::where('member_id', '=', $member_id)->get();
+    
+    $media_obj = array();
+    foreach ($medias as $key => $media) {
+      // lower case for get attribute
+      $type_lower = strtolower($type);
+      $str_id = $type_lower.'_id';
+      // upper case for call class
+      $type_upper = strtoupper($type);
+      // media object
+      array_push($media_obj, $type_upper::find($media->$str_id));
+    }
+    return $media_obj;
+  }
+
 }
 

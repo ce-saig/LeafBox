@@ -98,7 +98,30 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
   });
 
-    // User
+  // Borrow media
+  Route::get('borrow', 'BorrowController@index');
+  Route::get('borrow/book/{mediaId}', 'BorrowController@postSelectBook');
+  Route::get('borrow/search', 'BorrowController@getSearch');
+  Route::get('borrow/submit', 'BorrowController@postSubmitSelectedList');
+  Route::get('borrow/clear', 'BorrowController@getClear');
+
+  Route::post('borrow/retdate', 'BorrowController@postRetDate');
+  Route::post('borrow/delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
+
+  Route::get('borrow/member/{memberId}','BorrowController@getMember');
+  Route::post('borrow/member','BorrowController@postMember');
+
+  // Return media
+  Route::get('return','ReturnController@getIndex');
+  Route::get('return/clear','ReturnController@getClear');
+  Route::post('return/add','ReturnController@postAdd');
+  Route::get('return/member/{memberId}','ReturnController@getMember');
+  Route::post('return/member','ReturnController@postMember');
+  Route::post('return/submit', 'ReturnController@postSubmitReturn');
+  Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
+  Route::post('return/member/borrowed', 'ReturnController@getUserMedia');
+
+  // User
   Route::get('user/{id}','UsersController@show');
   Route::post('user/{id}/destroy','UsersController@destroy');
 
@@ -143,3 +166,5 @@ Route::get('authentication','HomeController@showAuthen');
 Route::post('loginUser','HomeController@doLogin');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
+
+Route::get('/test','ReturnController@getList');
