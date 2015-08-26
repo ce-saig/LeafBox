@@ -17,48 +17,65 @@
         $media_status_index = 0;
         $media_date_index = 0;
         ?>
-        <div class="col-lg-12" style="padding: 0;">
+        <div style="padding: 0;">
         @foreach ($book as $data)
-
-        @if ($i==14)
-        </div>
-        <hr>
-        <div class="row">
-          <h5>{{ substr($label[$i],24) }}</h5>
-        @elseif ($i==14||$i==17||$i==20||$i==23||$i==26)
-        <hr>
-        <div class="row">
-          <h5>{{ substr($label[$i],24) }}</h5>
-        @endif
-          <div class="form-group">
-            @if ($i<13)
-            <div class="col-xs-6 col-lg-3">
-              <label for="input" class="control-label">{{$label[$i]}}</label>
+          <!-- ### LABEL ### -->
+          @if ($i==13)
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+               <h5>{{ substr($label[$i],24) }}</h5>
             </div>
-            <div class="col-xs-6 col-lg-3">
-              <div class="col-lg-10">
-            @elseif ($i==13)
-            <div class="col-xs-12 col-lg-12">
-              <label for="input" class="control-label">{{$label[$i]}}</label>
+          @elseif ($i==13||$i==17||$i==21||$i==25||$i==29)
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+               <h5>{{ substr($label[$i],24) }}</h5>
             </div>
-            <div class="col-xs-12 col-lg-12">
-              <div class="col-lg-10">
+          @endif
+            <div class="form-group">
+              @if ($i<12)
+              <div class="col-xs-6 col-lg-2">
+                <label for="input" class="control-label">{{$label[$i]}}</label>
+              </div>
+              <div class="col-xs-6 col-lg-2">
+                <div class="col-lg-10">
+              @elseif ($i==12)
+              <div class="col-xs-12 col-lg-12">
+                <label for="input" class="control-label">{{$label[$i]}}</label>
+              </div>
+              <div class="col-xs-12 col-lg-12">
+                <div class="col-lg-10">
 
-            @elseif($i==16||$i==19||$i==22||$i==25||$i==28)
-                <div class="col-xs-6 col-lg-1">
-                  <label for="input" class="control-label">{{$label[$i]}}</label>
-                </div>
-                <div class="col-xs-6 col-lg-3">
-                  <div class="col-lg-10">
-            @else
-                    <div class="col-xs-6 col-lg-1">
-                      <label for="input" class="control-label">{{substr($label[$i],0,15)}}</label>
-                    </div>
-                    <div class="col-xs-6 col-lg-3">
-                      <div class="col-lg-10">
-            @endif
-
-            @if ($i==14||$i==17||$i==20||$i==23||$i==26)
+              @elseif($i==16||$i==22||$i==28)
+                  <div class="col-xs-6 col-lg-1">
+                    <label for="input" class="control-label">{{$label[$i]}}</label>
+                  </div>
+                  <div class="col-xs-6 col-lg-2">
+                    <div class="col-lg-10">
+              @elseif($i==15||$i==19||$i==23||$i==27||$i==31)
+                  <div class="col-xs-6 col-lg-1">
+                    <label for="input" class="control-label">{{ substr($label[$i],-21) }}</label>
+                  </div>
+                  <div class="col-xs-6 col-lg-2">
+                    <div class="col-lg-10">
+              @elseif($i==13||$i==17||$i==21||$i==25||$i==29)
+                     <div class="col-xs-6 col-lg-1">
+                        <label for="input" class="control-label">{{ substr($label[$i],0,15) }}</label> 
+                      </div>
+                      <div class="col-xs-6 col-lg-2">
+                        <div class="col-lg-10">
+              @else
+                      <div class="col-xs-6 col-lg-1">
+                        <label for="input" class="control-label">{{ $label[$i] }}</label> 
+                      </div>
+                      <div class="col-xs-6 col-lg-2">
+                        <div class="col-lg-10">
+              @endif
+            <!-- ### FIELD ### -->
+            <!-- status dropdown -->
+            @if ($i==13||$i==17||$i==21||$i==25||$i==29)
                         <!-- TODO : Implement default value and select old value -->
                         <select name="{{$field[$i]}}" class="form-control media_status" id="select_{{$field[$i]}}">
                           <option {{$data == 0?'selected':''}} value=0>ไม่ผลิต</option>
@@ -66,25 +83,25 @@
                           <option {{$data == 2?'selected':''}} value=2>จองอ่าน</option>
                         </select>
                         <?php $media_status_index++ ?>
-            @elseif ($i==15||$i==18||$i==21||$i==24||$i==27)
+            <!-- text fields -->
+            @elseif ($i==14||$i==18||$i==22||$i==26||$i==30)
                         <script>console.log('date is {{$data}}');</script>
               @if($data == "ยังไม่ได้ระบุ")
                         <input type="text" name="{{$field[$i]}}" class="form-control datepicker" id="{{$field[$i]}}" value="" placeholder="{{ $data }}">
               @else
                         <input type="text" name="{{$field[$i]}}" class="form-control datepicker" id="{{$field[$i]}}" value="{{ $data }}">
               @endif
-
-            @elseif ($i==13)
+            <!-- text area book description -->
+            @elseif ($i==12)
                         <textarea name="{{$field[$i]}}"  cols="50" rows="10" class="form-control">{{$data}}</textarea>
                         <br>
             @else
                         <input type="text" name="{{$field[$i]}}" class="form-control" value="{{$data}}" >
             @endif
-
                       </div>
                     </div>
                   </div>
-            @if ($i==16||$i==19||$i==22||$i==25||$i==28)
+            @if ($i==16||$i==20||$i==24||$i==2||$i==28)
                 </div>
             @endif
                 <?php $i++; ?>
