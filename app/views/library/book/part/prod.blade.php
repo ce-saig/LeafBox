@@ -33,8 +33,8 @@
             <tbody>
               @foreach ($prod as $data)
               @if ($data["media_type"]==$i)
-              <tr data-prodId="{{$data["id"]}}" onclick="prodEdit(this)">
-                <td>
+              <tr data-prodId="{{$data["id"]}}" onclick="prodEditShow(this)">
+                <td data-action="{{$data["action"]}}">
                   @if ($data["action"]==0)
                     อ่าน
                   @elseif ($data["action"]==1)
@@ -45,15 +45,14 @@
                     ส่งตรวจ
                   @endif
                 </td>
-                <td>{{$data["actioner"]}}</td>
-                <td>
-                @if ($data["act_date"] == "0000-00-00 00:00:00")
+                <td data-actioner="{{$data["actioner"]}}">{{$data["actioner"]}}</td>
+                <td>@if ($data["act_date"] == "0000-00-00 00:00:00")
                   ยังไม่ได้ระบุ
                 @else
                   {{date_format(date_create($data["act_date"]), 'd-m-Y')}}
                 @endif
                 </td>
-                <td>
+                <td data-finish-date="{{$data["finish_date"]}}">
                   @if ($data["finish_date"] == "0000-00-00 00:00:00"||$data["finish_date"] == null)
                     ยังไม่ได้ระบุ
                   @else
@@ -93,7 +92,7 @@
                   <option value="4">DVD</option>
                 </select>
               </div>
-            </div>            
+            </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">*สถานะ</label>
               <div class="col-sm-10">

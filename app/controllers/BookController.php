@@ -452,6 +452,7 @@ class BookController extends Controller{
         //var_dump($bp);
     return $bp;
   }
+  
   public function postProdedit()
   {
     $bpId = Input::get("prod_id", null);

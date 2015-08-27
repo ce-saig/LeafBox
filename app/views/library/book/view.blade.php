@@ -492,7 +492,10 @@ function confirmation(link) {
     function prodEditShow(prodObj) {
       $("#prod-edit").modal('show');
       // Append hidden field for prodId
-      $("#prod-edit-body").append('<input type="hidden" value="'+$(prodObj).attr("data-prodid"); +'"'+'>')
+      console.log($(prodObj).children()[0]);
+      console.log($(prodObj).children()[1]);
+      console.log($(prodObj).children()[2]);
+      $("#prod-edit-body").append('<input type="hidden" value="'+$(prodObj).attr("data-prodid")+'"'+'>')
 
     }
 
