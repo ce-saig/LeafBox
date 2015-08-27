@@ -16,6 +16,7 @@
     <li class="list-group-item">Book 1</li>
     <li class="list-group-item">Book 2</li>
     <li class="list-group-item">Book 3</li>
+    <li class="list-group-item">Book 4</li>
   </ul>
  </div>
 </div>
@@ -29,6 +30,7 @@
     <li class="list-group-item">Borrow 1</li>
     <li class="list-group-item">Borrow 2</li>
     <li class="list-group-item">Borrow 3</li>
+    <li class="list-group-item">Borrow 4</li>
   </ul>
  </div>
 </div>
