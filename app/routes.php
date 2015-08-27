@@ -166,5 +166,3 @@ Route::get('authentication','HomeController@showAuthen');
 Route::post('loginUser','HomeController@doLogin');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
-
-Route::get('/test','ReturnController@getList');

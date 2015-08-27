@@ -281,7 +281,6 @@ $('#member-result').on('click', '.select-member', function(){
               $(".table_fill").append(tr_table);
               // increase number of returned media 
               amountOfMedia++;
-              
               selectedBook[data["borrow"][key][i]['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
               updateMediaAmount();
         }
