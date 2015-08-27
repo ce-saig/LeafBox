@@ -29,6 +29,7 @@ class ReturnController extends BaseController {
   public function deleteSelectedMedia($mediaId)
   {
     $selectedList = Session::get('list', array());
+    return $selectedList;
     $isHas=array_key_exists(strval($mediaId),$selectedList);
     $status=false;
     $book_id = null;
@@ -221,31 +222,44 @@ class ReturnController extends BaseController {
     $borrowed_rec = array();
 
     // get user borrowed media to array 
-    $borrowed_rec["borrow"]["dvd"]      =  Dvdborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["borrow"]["cd"]       =  Cdborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["borrow"]["daisy"]    =  Daisyborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["borrow"]["cassette"] =  Cassetteborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["borrow"]["braille"]  =  Brailleborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["dvd"]       =  Dvdborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["cd"]        =  Cdborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["daisy"]     =  Daisyborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["cassette"]  =  Cassetteborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["braille"]   =  Brailleborrow::where('member_id', '=', $member_id)->get(); 
+    // get user book details
+    $dvd_arr        = $this->getBookInfo('dvd', $member_id);
+    $cd_arr         = $this->getBookInfo('cd', $member_id);
+    $daisy_arr      = $this->getBookInfo('daisy', $member_id);
+    $cassette_arr   = $this->getBookInfo('cassette', $member_id);
+    $braille_arr    = $this->getBookInfo('braille', $member_id);
+
+    // get user book details
+    $borrowed_rec["book"]["dvd"]        = $dvd_arr['book'];
+    $borrowed_rec["book"]["cd"]         = $cd_arr['book'];
+    $borrowed_rec["book"]["daisy"]      = $daisy_arr['book'];
+    $borrowed_rec["book"]["cassette"]   = $cassette_arr['book'];
+    $borrowed_rec["book"]["braille"]    = $braille_arr['book'];
     // get user media details
-    $borrowed_rec["media"]["dvd"]        = $this->getMediaInfo('dvd', $member_id);
-    $borrowed_rec["media"]["cd"]         = $this->getMediaInfo('cd', $member_id);
-    $borrowed_rec["media"]["daisy"]      = $this->getMediaInfo('daisy', $member_id);
-    $borroiswed_rec["media"]["cassette"] = $this->getMediaInfo('cassette', $member_id);
-    $borrowed_rec["media"]["braille"]    = $this->getMediaInfo('braille', $member_id);
+    $borrowed_rec["media"]["dvd"]        = $dvd_arr['media'];
+    $borrowed_rec["media"]["cd"]         = $cd_arr['media'];
+    $borrowed_rec["media"]["daisy"]      = $daisy_arr['media'];
+    $borrowed_rec["media"]["cassette"]   = $cassette_arr['media'];
+    $borrowed_rec["media"]["braille"]    = $braille_arr['media'];           
     return $borrowed_rec;
   }
 
-  function getMediaInfo($type, $member_id) {
+  function getBookInfo($type, $member_id) {
     // change sting of type to class
     $class_name = ucfirst($type)."borrow";
     // create class from string
     $borrows = $class_name::where('member_id', '=', $member_id)->get();
     
-    $book_obj = array();
+    $book_obj['media'] = array();
+    $book_obj['book'] = array();
+    
     foreach ($borrows as $key => $borrow) {
 
-      // upper case for call class
-      //$type_upper = strtoupper($type);
       if($type == 'cd'||$type == 'dvd'){
         $media_class = strtoupper($type);
       }else{
@@ -255,13 +269,68 @@ class ReturnController extends BaseController {
       // lower case for get attribute
       $type_lower = strtolower($type);
       $str_id = $type_lower.'_id';
-
       $media = $media_class::find($borrow[$str_id]);
-
+      // media object
+      array_push($book_obj['media'], $media);
       // book object
-      array_push($book_obj, Book::find($media->book_id));
+      array_push($book_obj['book'], Book::find($media->book_id));
     }
     return $book_obj;
+  }
+
+
+  function create_borrow_session($mediatype){
+    // change sting of type to class
+    $class_name = ucfirst($type)."borrow";
+    // create class from string
+    $borrows = $class_name::where('member_id', '=', $member_id)->get();
+    // get session
+    $returnList = Session::get('list', array());
+    // check existing
+    $isHas=array_key_exists(strval($media_abbr . $media_id),$returnList);
+    $status="not found";
+    // iterate to add media to session
+    foreach ($borrows as $key => $borrow) {
+      
+      // get class name by media type
+      if($type == 'cd'||$type == 'dvd'){
+        $media_class = strtoupper($type);
+      }else{
+        $media_class = ucfirst($type);
+      }
+
+      // lower case for get attribute
+      $type_lower = strtolower($type);
+      $str_id = $type_lower.'_id';
+      $media = $media_class::find($borrow[$str_id]);
+
+      // get book object 
+      $book = Book::find($media->book_id);
+
+      // assign date
+      $borrow_date = date_create($borrow->date_borrowed);
+      $due_date    = date_create($borrow->date_returned);
+
+      // get media type first letter
+      $media_type      = strtoupper($mediatype[0]); 
+
+      $list['no']      = count($returnList)+1;
+      $list['title']   = $book['title'];
+      $list['id']      = $media_type . $media->id;
+      $list['item']    = $media;
+      $list['type']    = $mediatype;
+      $list['book_id'] = $book->id;
+      $list['part']    = (int)$media['numpart'];
+
+      $list['date_borrowed'] = date_format($borrow_date, 'd-m-Y');
+      $list['due_date']      = date_format($due_date, 'd-m-Y');
+
+      // get id  
+      $returnList[$list['id']]=$list; 
+    }
+    Session::put('list', $returnList);
+
+    return $borrows;
   }
 
 }

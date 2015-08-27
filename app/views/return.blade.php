@@ -216,6 +216,7 @@
           $(".table_fill").append(tr_table);
           amountOfMedia++;
           part += input_data['part'];
+          selectedBook[input_data['book_id']] = (!selectedBook[input_data['book_id']] ? 1 : selectedBook[input_data['book_id']] += 1);
           updateMediaAmount();
         }
         else {
@@ -268,20 +269,29 @@ $('#member-result').on('click', '.select-member', function(){
     for(var key in data["borrow"]){
       if(data["borrow"][key].length != 0){
         for(var i in data["borrow"][key]){
-
+          var type;
+          // find first letter
+          if(key === "cd"){
+            type = 'Cd';
+          }else{
+            type = key[0].toUpperCase();
+          }
+          // get media type
+          var input_data = key;
           // append table with new info
-          var tr_table = $('<tr id="media-row_' + data["media"][key][i]['id'] + '"></tr>');
+          var tr_table = $('<tr id="media-row_' + type + data["book"][key][i]['id'] + '"></tr>');
               tr_table.append('<td>' + amountOfMedia + '</td>');
-              tr_table.append('<td>' + data["media"][key][i]['title'] + '</td>');
-              tr_table.append('<td>' + data["media"][key][i]['id'] + '</td>');
+              tr_table.append('<td>' + data["book"][key][i]['title'] + '</td>');
+              tr_table.append('<td>' + data["book"][key][i]['id'] + '</td>');
               tr_table.append('<td>' + key + '</td>');
-              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_borrowed'] + '</td');
-              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_returned'] + '</td');
-              tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + data["media"][key][i]['id'] + '">ลบ</button></td>');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_borrowed'] + '</td>');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_returned'] + '</td>');
+              tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="'+ type + data["book"][key][i]['id'] + '">ลบ</button></td>');
               $(".table_fill").append(tr_table);
-              // increase number of returned media 
+              // increase number of returned book 
               amountOfMedia++;
-              selectedBook[data["borrow"][key][i]['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
+              part += parseInt(data['media'][key][i]['numpart']);
+              selectedBook[input_data['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
               updateMediaAmount();
         }
       }
