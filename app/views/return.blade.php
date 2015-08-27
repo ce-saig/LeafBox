@@ -276,7 +276,7 @@ $('#member-result').on('click', '.select-member', function(){
               tr_table.append('<td>' + data["media"][key][i]['id'] + '</td>');
               tr_table.append('<td>' + key + '</td>');
               tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_borrowed'] + '</td');
-              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['due_date'] + '</td');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_returned'] + '</td');
               tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + data["media"][key][i]['id'] + '">ลบ</button></td>');
               $(".table_fill").append(tr_table);
               // increase number of returned media 
