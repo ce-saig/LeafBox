@@ -64,7 +64,7 @@
 
     <div role="tabpanel" class="tab-pane" id="prod">
       <div class="row" >
-          @include('library.book.part.prod',array('bid'=>$book['id']))
+          @include('library.book.part.prod',array('prod'=>$prod,'bid'=>$book['id']))
           {{-- @include('library.book.part.proc',array('braille'=>$braille,'bid'=>$book['id'])) --}}
       </div>
     </div>    
@@ -200,7 +200,7 @@
       <div class="modal-body">
         <div class="row" id="addProdBody">
             <div class="form-group">
-              <label class="col-sm-2 control-label">สื่อ</label>
+              <label class="col-sm-2 control-label">*สื่อ</label>
               <div class="col-sm-10">
                 <select name="" id="prod_media_type" class="form-control" required="required">
                   <option value="">เลือกสื่อ</option>
@@ -211,17 +211,9 @@
                   <option value="4">DVD</option>
                 </select>
               </div>
-            </div>
-
+            </div>            
             <div class="form-group">
-              <label class="col-sm-2 control-label">วันปฏิบัติ</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control datepicker" id="prod_act_date">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-2 control-label">สถานะ</label>
+              <label class="col-sm-2 control-label">*สถานะ</label>
               <div class="col-sm-10">
                 <select name="" id="prod_action" class="form-control" required="required">
                   <option value="">เลือกสถานะ</option>
@@ -233,9 +225,15 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">ผู้ปฏิบัติ</label>
+              <label class="col-sm-2 control-label">*ผู้ปฏิบัติ</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="prod_actioner">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">*วันปฏิบัติ</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control datepicker" id="prod_act_date">
               </div>
             </div>
             <div class="form-group">
@@ -461,16 +459,17 @@ function confirmation(link) {
     
   $(function() {
     $(".datepicker").datepicker({
-                language:'th-th',
-                format: 'dd/mm/yyyy',
-                isBuddhist: true
-              });
+      language:'th-th',
+      format: 'dd/mm/yyyy',
+      isBuddhist: true
     });
+  });
 
   function addProd(){
-      var act_date = $('#prod_act_date').val();
+      var media_type = $('#prod_media_type').val();
       var action = $('#prod_action').val();
       var actioner = $('#prod_actioner').val();
+      var act_date = $('#prod_act_date').val();
       var finish_date = $('#prod_finish_date').val();
 
       // console.log(act_date);
@@ -478,21 +477,49 @@ function confirmation(link) {
       // console.log(actioner);
       // console.log(finish_date);
       
-      $.post( "prod/add", {book_id:{{ $book['id'] }},act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+      $.post( "/book/{{ $book['id'] }}/prod/add", {book_id:{{ $book['id'] }},media_type:media_type,act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
         // console.log(result);
         if(result=="success"){
           $("#addProd").hide();
           $('#success').modal('show');
         }else{
-          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">ใส่ข้อมูลไม่ครบ</div></div>")
+          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน</div></div>")
 
         }
       });
     }
 
-  function prodEdit (prodID) {
-    // console.log(prodID);
-  }
+    function prodEditShow(prodObj) {
+      $("#prod-edit").modal('show');
+      // Append hidden field for prodId
+      $("#prod-edit-body").append('<input type="hidden" value="'+$(prodObj).attr("data-prodid"); +'"'+'>')
+
+    }
+
+    function prodEditAjax(){
+      var prodId = $('#prod_edit_id').val();
+      var media_type = $('#prod_edit_media_type').val();
+      var action = $('#prod_edit_action').val();
+      var actioner = $('#prod_edit_actioner').val();
+      var act_date = $('#prod_edit_act_date').val();
+      var finish_date = $('#prod_edit_finish_date').val();
+
+      // console.log(act_date);
+      // console.log(action);
+      // console.log(actioner);
+      // console.log(finish_date);
+      
+      $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},media_type:media_type,act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+        // console.log(result);
+        if(result=="success"){
+          $("#addProd").hide();
+          $('#success').modal('show');
+        }else{
+          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน</div></div>")
+
+        }
+      });
+    }
   </script>
 
 @stop

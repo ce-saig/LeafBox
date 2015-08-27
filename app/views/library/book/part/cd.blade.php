@@ -1,4 +1,4 @@
-<div role="tabpanel" class="tab-pane active" >
+<div role="tabpanel" class="tab-pane" >
 
   <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/cd/deleteAll">ลบสื่อนี้ทั้งหมด</a>
   <div class = "list-media">
@@ -13,12 +13,12 @@
        </thead>
       <tbody>
         @foreach ($cd as $item)
-        <tr class = "hover table-body" href="{{$bid}}/cd/{{$item->id}}" id="cd-{{$item->id}}">
+        <tr class = "hover table-body" id="cd-{{$item->id}}" href="{{$bid}}/cd/{{$item->id}}">
           <td class="text-center" id="media-id">{{$item->id}}</td>
           <td class="text-center" id="media-part">{{$item->numpart}}</td>
           <td class="text-center" id="media-length">{{$item->length_min}}</td>
           <td class="text-center">{{$item->borrower}}</td>
-          <td class="text-center"><a href = "{{ url('/book/'.$bid.'/cd/delete/'.$item->id) }}"class="btn btn-danger del_media_btn">ลบ</a></td>
+          <td class="text-center"><a href = "{{ url('/book/'.$bid.'/cd/delete/'.$item->id) }}" class="btn btn-danger del_media_btn">ลบ</a></td>
         </tr>
         @endforeach
       </tbody>

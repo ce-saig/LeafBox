@@ -174,6 +174,9 @@ class BookController extends Controller{
         $item->borrower = Member::find($borrow->member_id)->name;
     }
 
+
+    $prod = $bookEloquent->prod;
+
     $arrOfdata['field']=$field;
     $arrOfdata['book']=$book;
 
@@ -183,6 +186,9 @@ class BookController extends Controller{
     $arrOfdata['cd']=$cd;
     $arrOfdata['dvd']=$dvd;
     $arrOfdata['bookEloquent'] = $bookEloquent;
+    $arrOfdata['prod'] = $prod;
+
+
     return View::make('library.book.view')->with($arrOfdata);
   }
 
@@ -411,11 +417,27 @@ class BookController extends Controller{
 
     $bp = new BookProd;
     $bp->book_id=Input::get("book_id", null);
-    $bp->act_date=Input::get("act_date", null);
+    $bp->media_type=Input::get("media_type", null);
     $bp->action=Input::get("action", null);
     $bp->actioner=Input::get("actioner", null);
-    $bp->finish_date=Input::get("finish_date", null);
-    if ($bp->act_date==""||$bp->action==""||$bp->actioner=="")
+
+    if(Input::get('act_date',null)){
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
+        $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
+    }else{
+        $bp->act_date=null;
+    }
+
+    if(Input::get('finish_date',null)){
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('finish_date',null));
+        $bp->finish_date=date_format($dateTmp, 'Y-m-d H:i:s');
+    }else{
+        $bp->finish_date=null;
+    }
+
+    if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
+        (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
+        )
       return "failed, null not permit";
 
     if($bp->save())
@@ -429,6 +451,38 @@ class BookController extends Controller{
     $bp = $book->prod;
         //var_dump($bp);
     return $bp;
+  }
+  public function postProdedit()
+  {
+    $bpId = Input::get("prod_id", null);
+    $bp = BookProd::find();
+    $bp->book_id=Input::get("book_id", null);
+    $bp->media_type=Input::get("media_type", null);
+    $bp->action=Input::get("action", null);
+    $bp->actioner=Input::get("actioner", null);
+
+    if(Input::get('act_date',null)){
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
+        $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
+    }else{
+        $bp->act_date=null;
+    }
+
+    if(Input::get('finish_date',null)){
+        $dateTmp = date_create_from_format('d/m/Y', Input::get('finish_date',null));
+        $bp->finish_date=date_format($dateTmp, 'Y-m-d H:i:s');
+    }else{
+        $bp->finish_date=null;
+    }
+
+    if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
+        (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
+        )
+      return "failed, null not permit";
+
+    if($bp->save())
+      return "success";
+    return "failed";
   }
 
 }
