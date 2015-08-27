@@ -216,7 +216,6 @@
           $(".table_fill").append(tr_table);
           amountOfMedia++;
           part += input_data['part'];
-          selectedBook[input_data['book_id']] = (!selectedBook[input_data['book_id']] ? 1 : selectedBook[input_data['book_id']] += 1);
           updateMediaAmount();
         }
         else {
@@ -266,11 +265,26 @@ $('#member-result').on('click', '.select-member', function(){
     url: "{{ url('return/member/borrowed') }}",
     data: {member:member_name} 
   }).done(function(data) {
-    console.log(">>>>>>>>>>>>>" + data);
-    for(var key in data){
-      if(data[key].length != 0){
-      console.log("media : "+ data[key]);
+    for(var key in data["borrow"]){
+      if(data["borrow"][key].length != 0){
+        for(var i in data["borrow"][key]){
 
+          // append table with new info
+          var tr_table = $('<tr id="media-row_' + data["media"][key][i]['id'] + '"></tr>');
+              tr_table.append('<td>' + amountOfMedia + '</td>');
+              tr_table.append('<td>' + data["media"][key][i]['title'] + '</td>');
+              tr_table.append('<td>' + data["media"][key][i]['id'] + '</td>');
+              tr_table.append('<td>' + key + '</td>');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_borrowed'] + '</td');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['due_date'] + '</td');
+              tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + data["media"][key][i]['id'] + '">ลบ</button></td>');
+              $(".table_fill").append(tr_table);
+              // increase number of returned media 
+              amountOfMedia++;
+              
+              selectedBook[data["borrow"][key][i]['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
+              updateMediaAmount();
+        }
       }
     }
   });

@@ -221,38 +221,47 @@ class ReturnController extends BaseController {
     $borrowed_rec = array();
 
     // get user borrowed media to array 
-    $borrowed_rec["dvd"]["borrow"]      =  Dvdborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["cd"]["borrow"]       =  Cdborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["daisy"]["borrow"]    =  Daisyborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["cassette"]["borrow"] =  Cassetteborrow::where('member_id', '=', $member_id)->get(); 
-    $borrowed_rec["braille"]["borrow"]  =  Brailleborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["dvd"]      =  Dvdborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["cd"]       =  Cdborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["daisy"]    =  Daisyborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["cassette"] =  Cassetteborrow::where('member_id', '=', $member_id)->get(); 
+    $borrowed_rec["borrow"]["braille"]  =  Brailleborrow::where('member_id', '=', $member_id)->get(); 
     // get user media details
-    $borrowed_rec["dvd"]["media"]      = $this->getBorrowInfo('dvd', $member_id);
-    $borrowed_rec["cd"]["media"]       = $this->getBorrowInfo('cd', $member_id);
-    $borrowed_rec["daisy"]["media"]    = $this->getBorrowInfo('daisy', $member_id);
-    $borrowed_rec["cassette"]["media"] = $this->getBorrowInfo('cassette', $member_id);
-    $borrowed_rec["braille"]["media"]  = $this->getBorrowInfo('braille', $member_id);
-
+    $borrowed_rec["media"]["dvd"]        = $this->getMediaInfo('dvd', $member_id);
+    $borrowed_rec["media"]["cd"]         = $this->getMediaInfo('cd', $member_id);
+    $borrowed_rec["media"]["daisy"]      = $this->getMediaInfo('daisy', $member_id);
+    $borroiswed_rec["media"]["cassette"] = $this->getMediaInfo('cassette', $member_id);
+    $borrowed_rec["media"]["braille"]    = $this->getMediaInfo('braille', $member_id);
     return $borrowed_rec;
   }
 
-  function getBorrowInfo($type, $member_id) {
+  function getMediaInfo($type, $member_id) {
     // change sting of type to class
     $class_name = ucfirst($type)."borrow";
     // create class from string
-    $medias = $class_name::where('member_id', '=', $member_id)->get();
+    $borrows = $class_name::where('member_id', '=', $member_id)->get();
     
-    $media_obj = array();
-    foreach ($medias as $key => $media) {
+    $book_obj = array();
+    foreach ($borrows as $key => $borrow) {
+
+      // upper case for call class
+      //$type_upper = strtoupper($type);
+      if($type == 'cd'||$type == 'dvd'){
+        $media_class = strtoupper($type);
+      }else{
+        $media_class = ucfirst($type);
+      }
+
       // lower case for get attribute
       $type_lower = strtolower($type);
       $str_id = $type_lower.'_id';
-      // upper case for call class
-      $type_upper = strtoupper($type);
-      // media object
-      array_push($media_obj, $type_upper::find($media->$str_id));
+
+      $media = $media_class::find($borrow[$str_id]);
+
+      // book object
+      array_push($book_obj, Book::find($media->book_id));
     }
-    return $media_obj;
+    return $book_obj;
   }
 
 }
