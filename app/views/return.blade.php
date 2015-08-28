@@ -291,8 +291,12 @@ $('#member-result').on('click', '.select-member', function(){
               // increase number of returned book 
               amountOfMedia++;
               part += parseInt(data['media'][key][i]['numpart']);
-              selectedBook[input_data['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
+
+              selectedBook[data["borrow"][key][i]['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
+              
               updateMediaAmount();
+
+              console.log("sb = " + selectedBook[data["borrow"][key][i]['book_id']]);
         }
       }
     }

@@ -29,7 +29,6 @@ class ReturnController extends BaseController {
   public function deleteSelectedMedia($mediaId)
   {
     $selectedList = Session::get('list', array());
-    return $selectedList;
     $isHas=array_key_exists(strval($mediaId),$selectedList);
     $status=false;
     $book_id = null;
@@ -246,6 +245,14 @@ class ReturnController extends BaseController {
     $borrowed_rec["media"]["daisy"]      = $daisy_arr['media'];
     $borrowed_rec["media"]["cassette"]   = $cassette_arr['media'];
     $borrowed_rec["media"]["braille"]    = $braille_arr['media'];           
+    
+    // create borrow session
+    $this->create_borrow_session("dvd", $member_id);
+    $this->create_borrow_session("cd", $member_id);
+    $this->create_borrow_session("daisy", $member_id);
+    $this->create_borrow_session("cassette", $member_id);
+    $this->create_borrow_session("braille", $member_id);
+
     return $borrowed_rec;
   }
 
@@ -279,28 +286,26 @@ class ReturnController extends BaseController {
   }
 
 
-  function create_borrow_session($mediatype){
+  function create_borrow_session($mediatype, $member_id){
     // change sting of type to class
-    $class_name = ucfirst($type)."borrow";
+    $class_name = ucfirst($mediatype)."borrow";
     // create class from string
     $borrows = $class_name::where('member_id', '=', $member_id)->get();
     // get session
     $returnList = Session::get('list', array());
-    // check existing
-    $isHas=array_key_exists(strval($media_abbr . $media_id),$returnList);
-    $status="not found";
+    
     // iterate to add media to session
     foreach ($borrows as $key => $borrow) {
       
       // get class name by media type
-      if($type == 'cd'||$type == 'dvd'){
-        $media_class = strtoupper($type);
+      if($mediatype == 'cd'||$mediatype == 'dvd'){
+        $media_class = strtoupper($mediatype);
       }else{
-        $media_class = ucfirst($type);
+        $media_class = ucfirst($mediatype);
       }
 
       // lower case for get attribute
-      $type_lower = strtolower($type);
+      $type_lower = strtolower($mediatype);
       $str_id = $type_lower.'_id';
       $media = $media_class::find($borrow[$str_id]);
 
@@ -316,7 +321,9 @@ class ReturnController extends BaseController {
 
       $list['no']      = count($returnList)+1;
       $list['title']   = $book['title'];
-      $list['id']      = $media_type . $media->id;
+      // if Cd 
+      if($mediatype == 'cd')$media_type = 'Cd';
+      $list['id']      = $media_type . $book->id;
       $list['item']    = $media;
       $list['type']    = $mediatype;
       $list['book_id'] = $book->id;
