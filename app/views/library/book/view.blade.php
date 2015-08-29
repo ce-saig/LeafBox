@@ -490,10 +490,10 @@ function confirmation(link) {
 
     function prodEditShow(prodObj) {
       // Append hidden field for prodId
-      $('#prod_edit_action option[value=' + $(prodObj).children().eq(0).attr("data-action") + ']').attr('selected', 'selected');
-      $('#prod_edit_actioner').val($(prodObj).children().eq(1).attr("data-actioner"));
-      $('#prod_edit_act_date').val($(prodObj).children().eq(2).text().trim());
-      $('#prod_edit_finish_date').val($(prodObj).children().eq(3).text().trim());
+      $('#prod_edit_action option[value=' + $(prodObj).parent().children().eq(0).attr("data-action") + ']').attr('selected', 'selected');
+      $('#prod_edit_actioner').val($(prodObj).parent().children().eq(1).attr("data-actioner"));
+      $('#prod_edit_act_date').val($(prodObj).parent().children().eq(2).text().trim());
+      $('#prod_edit_finish_date').val($(prodObj).parent().children().eq(3).text().trim());
       console.log($(prodObj).children()[1]);
       console.log($(prodObj).children()[2]);
       console.log($(prodObj).children()[3]);
@@ -525,6 +525,19 @@ function confirmation(link) {
 
         }
       });
+    }
+
+    function prodDelete(prodObj) {
+      if(confirm("คุณต้องการลบรายการนี้ใช่หรือไม่")) {
+        $.ajax({
+          type: "POST",
+          url: "/book/{{ $book['id'] }}/prod/delete",
+          data: {prod_id: $(prodObj).parent().attr('data-prodId')}
+        }).done(function(data) {
+          if(data == "success")
+            $(prodObj).parent().remove();
+        }); 
+      }
     }
   </script>
 

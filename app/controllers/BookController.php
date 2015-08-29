@@ -483,4 +483,12 @@ class BookController extends Controller{
     return "failed";
   }
 
+  public function deleteProd()
+  {
+    $bpId = Input::get("prod_id", null);
+    $bp = BookProd::find($bpId);
+    $bp->delete();
+    return "success";
+  }
+
 }

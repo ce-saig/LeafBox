@@ -33,8 +33,8 @@
             <tbody>
               @foreach ($prod as $data)
               @if ($data["media_type"]==$i)
-              <tr data-prodId="{{$data["id"]}}" onclick="prodEditShow(this)">
-                <td data-action="{{$data["action"]}}">
+              <tr data-prodId="{{$data["id"]}}" >
+                <td data-action="{{$data["action"]}}" onclick="prodEditShow(this)">
                   @if ($data["action"]==0)
                     อ่าน
                   @elseif ($data["action"]==1)
@@ -45,20 +45,21 @@
                     ส่งตรวจ
                   @endif
                 </td>
-                <td data-actioner="{{$data["actioner"]}}">{{$data["actioner"]}}</td>
-                <td class="prodEdit-act_date">@if ($data["act_date"] == "0000-00-00 00:00:00")
+                <td data-actioner="{{$data["actioner"]}}" onclick="prodEditShow(this)">{{$data["actioner"]}}</td>
+                <td class="prodEdit-act_date" onclick="prodEditShow(this)">@if ($data["act_date"] == "0000-00-00 00:00:00")
                   ยังไม่ได้ระบุ
                 @else
                   {{date_format(date_create($data["act_date"]), 'd/m/Y')}}
                 @endif
                 </td>
-                <td class="prodEdit-act_date" data-finish-date="{{$data["finish_date"]}}">
+                <td class="prodEdit-act_date" data-finish-date="{{$data["finish_date"]}}" onclick="prodEditShow(this)">
                   @if ($data["finish_date"] == "0000-00-00 00:00:00"||$data["finish_date"] == null)
                     ยังไม่ได้ระบุ
                   @else
                     {{date_format(date_create($data["finish_date"]), 'd/m/Y')}}
                   @endif
                 </td>
+                <td onclick="prodDelete(this)"><button class="btn btn-danger">ลบ</button></td>
               </tr>
               @endif
               @endforeach

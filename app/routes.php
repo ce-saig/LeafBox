@@ -22,6 +22,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('add', 'BookController@postProdAdd');
       Route::post('edit', 'BookController@postProdedit');
+      Route::post('delete', 'BookController@deleteProd');
       Route::get('view', 'BookController@getProd');
 
     });
