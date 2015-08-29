@@ -198,6 +198,17 @@
         <h4 class="modal-title">เพิ่มสถานะการผลิต</h4>
       </div>
       <div class="modal-body">
+        <div class="row">
+          <div class="alert alert-danger" id='prod-noti1' hidden>
+            ไม่สามารถเพิ่มสถานะได้ เนื่องจากยังไม่มีการระบุวันเสร็จในสถานะล่าสุด
+          </div>
+          <div class="alert alert-danger" id='prod-noti2' hidden>
+            กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน
+          </div>
+          <div class="alert alert-danger" id='prod-noti3' hidden>
+            ไม่สามารถเพิ่มสถานะได้ เนื่องจากเสร็จสิ้นกระบวนการทำต้นฉบับแล้ว
+          </div>
+        </div>
         <div class="row" id="addProdBody">
             <div class="form-group">
               <label class="col-sm-2 control-label">*สื่อ</label>
@@ -215,7 +226,8 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">*สถานะ</label>
               <div class="col-sm-10">
-                <select name="" id="prod_action" class="form-control" required="required">
+                <input type="text" class="form-control" id="prod_action_text" disabled="disabled">
+                <select name="" id="prod_action" class="form-control" required="required" style="display: none">
                   <option value="">เลือกสถานะ</option>
                   <option value="0">อ่าน</option>
                   <option value="1">ทำต้นฉบับ</option>
@@ -246,7 +258,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-        <button class="btn btn-success" onClick="addProd()" >เพิ่ม</button>  
+        <button class="btn btn-success" onClick="postProd()" >เพิ่ม</button>  
         {{-- data-dismiss="modal" --}}
       </div>
     </div>
@@ -464,7 +476,51 @@ function confirmation(link) {
     });
   });
 
-  function addProd(){
+  $('#prod_media_type').change(function() {
+    var media_type = $('#prod_media_type').val();
+    $("#prod_media_type option[value='']").remove();
+    enableProdText();
+    hideProdNoti();
+    console.log('test add');
+    $('#addProd').modal('show');
+    $.ajax({
+        type: "POST",
+        url: "/book/{{ $book['id'] }}/prod/get_status",
+        data: {book_id: {{ $book['id'] }}, media_type: media_type}
+      }).done(function(data) {
+        $('#prod_action option[value=' + (++data['action_status']) + ']').attr('selected', 'selected');
+        $('#prod_action_text').val($('#prod_action option[value=' + data['action_status'] + ']').text());
+        if(data['finish_date'] == null) {
+          disableProdText();
+          $('#prod-noti1').slideDown(300);
+        }
+        if(data['finish_date'] && (data['action_status'] == 4)) {
+          disableProdText();
+          $('#prod-noti3').slideDown(300);
+        }
+      });
+    });
+
+
+  function enableProdText() {
+    $('#prod_actioner').removeAttr('disabled');
+    $('#prod_act_date').removeAttr('disabled');
+    $('#prod_finish_date').removeAttr('disabled');
+  }
+
+  function disableProdText() {
+    $('#prod_actioner').prop('disabled', 'disabled');
+    $('#prod_act_date').prop('disabled', 'disabled');
+    $('#prod_finish_date').prop('disabled', 'disabled');
+  }
+
+  function hideProdNoti() {
+    $('#prod-noti1').hide();
+    $('#prod-noti2').hide();
+    $('#prod-noti3').hide();
+  }
+
+  function postProd(){
       var media_type = $('#prod_media_type').val();
       var action = $('#prod_action').val();
       var actioner = $('#prod_actioner').val();
@@ -481,9 +537,9 @@ function confirmation(link) {
         if(result=="success"){
           $("#addProd").hide();
           $('#success').modal('show');
-        }else{
-          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน</div></div>")
-
+        }else{ 
+          if(!$('#prod-noti1').is(':visible') && !$('#prod-noti3').is(':visible'))
+            $('#prod-noti2').slideDown(300);
         }
       });
     }
@@ -497,12 +553,12 @@ function confirmation(link) {
       console.log($(prodObj).children()[1]);
       console.log($(prodObj).children()[2]);
       console.log($(prodObj).children()[3]);
-      $("#prod_edit_id").val($(prodObj).attr("data-prodid"));
+      $("#prod_edit_id").val($(prodObj).parent().attr("data-prodid"));
+      $('#prod-edit-noti').hide();
       $("#prod-edit").modal('show');
     }
 
     function prodEditAjax(){
-      console.log('sending');
       var prodId = $('#prod_edit_id').val();
       console.log(prodId + " bookid {{ $book['id'] }}");
       var action = $('#prod_edit_action').val();
@@ -521,8 +577,7 @@ function confirmation(link) {
           $("#addProd").hide();
           $('#success').modal('show');
         }else{
-          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน</div></div>")
-
+          $('#prod-edit-noti').slideDown(300);
         }
       });
     }

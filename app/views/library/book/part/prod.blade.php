@@ -80,6 +80,11 @@
         <h4 class="modal-title">แก้ไขสถานะการผลิต</h4>
       </div>
       <div class="modal-body">
+        <div class="row">
+          <div class="alert alert-danger" id='prod-edit-noti' hidden>
+            กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน
+          </div>
+        </div>
         <div class="row" id="prod-edit-body">
             <div class="form-group">
               <label class="col-sm-2 control-label">*สถานะ</label>
@@ -115,7 +120,7 @@
         <input id="prod_edit_id" type="hidden" value="">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
         <button type="button" class="btn btn-primary" onclick="prodEditAjax()">Save changes</button>
       </div>
     </div>

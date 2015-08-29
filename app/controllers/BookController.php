@@ -452,6 +452,16 @@ class BookController extends Controller{
         //var_dump($bp);
     return $bp;
   }
+
+  public function getLastProdStatus()
+  {
+    $lastProd = BookProd::where('book_id', '=', Input::get('book_id'))
+                ->where('media_type', '=', Input::get('media_type'))->get();
+    $lastProd = $lastProd->last();
+    if(!count($lastProd))
+        return array('action_status' => -1, 'finish_date' => 1);
+    return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date);
+  }
   
   public function postProdedit()
   {
