@@ -124,12 +124,13 @@
         <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
       </div>
       <div class="modal-body">
+        <!-- add by oat!-->
+      <!--
         <div class="form-inline">
           <div class="form-group input-group">
             <div class="input-group-addon">ค้นหาหนังสือ</div>
-            <input type="text" class="form-control" name="" id="search-book"/>
+            <input type="text" class="form-control" name="" id="search-book">
           </div>
-          <!-- add by oat!-->
           <select name = "select_type" class="form-control" id = "select_type" role="menu">
             <option value = "all" selected id="select_all">ทั้งหมด</option>
             <option value = "avaiable" >ไม่ถูกยืม</option>
@@ -137,8 +138,31 @@
           <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
         </div>
         <div id="result">
-        </div>
-
+        </div>!-->
+        <div class="row">
+          <div class = "col-md-3">
+            <select name = "search_type" class="form-control" id = "search_type" role="menu">
+                <option value = "title" >ชื่อ</option>
+                <option value = "author" >ชื่อผู้แต่ง</option>
+                <option value = "translate" >ชื่อผู้แปล</option>
+                <option value = "isbn" >ISBN</option>
+                <option value = "id" >ID</option>
+             </select>
+          </div>
+          <div class="col-md-4"> 
+           <input type="text" class="form-control" name="" id="search-book" placeholder = "ค้นหาหนังสือ">
+          </div>
+          <div class="col-md-3">
+            <select name = "select_type" class="form-control" id = "select_type" role="menu">
+              <option value = "all" selected id="select_all">ทั้งหมด</option>
+              <option value = "avaiable" >ไม่ถูกยืม</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+          </div>
+          <div id="result">
+          </div>
         <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
@@ -281,7 +305,7 @@
     $('#result').html('');
     if($('#search-book').val() != ''){
       $.get('{{ url("borrow/search") }}',
-        {keyword: $('#search-book').val(), status:$('#select_type').val()},
+        {keyword: $('#search-book').val(), status:$('#select_type').val(),type:$('#search_type').val()},
         function(data){
           console.log(data);
           if(data != "") {
