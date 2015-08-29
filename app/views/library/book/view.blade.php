@@ -384,7 +384,6 @@ $('body').on('click', '#send-data', function() {
     $('#edit-detail').modal('hide');
   });
 });
-
 //Enable Link to tab
 
 
@@ -490,29 +489,33 @@ function confirmation(link) {
     }
 
     function prodEditShow(prodObj) {
-      $("#prod-edit").modal('show');
       // Append hidden field for prodId
-      console.log($(prodObj).children()[0]);
+      $('#prod_edit_action option[value=' + $(prodObj).children().eq(0).attr("data-action") + ']').attr('selected', 'selected');
+      $('#prod_edit_actioner').val($(prodObj).children().eq(1).attr("data-actioner"));
+      $('#prod_edit_act_date').val($(prodObj).children().eq(2).text().trim());
+      $('#prod_edit_finish_date').val($(prodObj).children().eq(3).text().trim());
       console.log($(prodObj).children()[1]);
       console.log($(prodObj).children()[2]);
-      $("#prod-edit-body").append('<input type="hidden" value="'+$(prodObj).attr("data-prodid")+'"'+'>')
-
+      console.log($(prodObj).children()[3]);
+      $("#prod_edit_id").val($(prodObj).attr("data-prodid"));
+      $("#prod-edit").modal('show');
     }
 
     function prodEditAjax(){
+      console.log('sending');
       var prodId = $('#prod_edit_id').val();
-      var media_type = $('#prod_edit_media_type').val();
+      console.log(prodId + " bookid {{ $book['id'] }}");
       var action = $('#prod_edit_action').val();
       var actioner = $('#prod_edit_actioner').val();
-      var act_date = $('#prod_edit_act_date').val();
-      var finish_date = $('#prod_edit_finish_date').val();
+      var act_date = ($('#prod_edit_act_date').val().trim() == "ยังไม่ได้ระบุ" ? null : $('#prod_edit_act_date').val());
+      var finish_date = ($('#prod_edit_finish_date').val().trim() == "ยังไม่ได้ระบุ" ? null : $('#prod_edit_finish_date').val());
 
       // console.log(act_date);
       // console.log(action);
       // console.log(actioner);
       // console.log(finish_date);
       
-      $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},media_type:media_type,act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+      $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},prod_id: prodId, act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
         // console.log(result);
         if(result=="success"){
           $("#addProd").hide();

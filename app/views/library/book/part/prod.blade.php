@@ -46,17 +46,17 @@
                   @endif
                 </td>
                 <td data-actioner="{{$data["actioner"]}}">{{$data["actioner"]}}</td>
-                <td>@if ($data["act_date"] == "0000-00-00 00:00:00")
+                <td class="prodEdit-act_date">@if ($data["act_date"] == "0000-00-00 00:00:00")
                   ยังไม่ได้ระบุ
                 @else
-                  {{date_format(date_create($data["act_date"]), 'd-m-Y')}}
+                  {{date_format(date_create($data["act_date"]), 'd/m/Y')}}
                 @endif
                 </td>
-                <td data-finish-date="{{$data["finish_date"]}}">
+                <td class="prodEdit-act_date" data-finish-date="{{$data["finish_date"]}}">
                   @if ($data["finish_date"] == "0000-00-00 00:00:00"||$data["finish_date"] == null)
                     ยังไม่ได้ระบุ
                   @else
-                    {{date_format(date_create($data["finish_date"]), 'd-m-Y')}}
+                    {{date_format(date_create($data["finish_date"]), 'd/m/Y')}}
                   @endif
                 </td>
               </tr>
@@ -76,23 +76,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Prod Edit</h4>
+        <h4 class="modal-title">แก้ไขสถานะการผลิต</h4>
       </div>
       <div class="modal-body">
         <div class="row" id="prod-edit-body">
-            <div class="form-group">
-              <label class="col-sm-2 control-label">*สื่อ</label>
-              <div class="col-sm-10">
-                <select name="" id="prod_edit_media_type" class="form-control" required="required">
-                  <option value="">เลือกสื่อ</option>
-                  <option value="0">เบรลล์</option>
-                  <option value="1">เทปคาสเซ็ท</option>
-                  <option value="2">เดซี่</option>
-                  <option value="3">CD</option>
-                  <option value="4">DVD</option>
-                </select>
-              </div>
-            </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">*สถานะ</label>
               <div class="col-sm-10">
@@ -124,10 +111,11 @@
               </div>
             </div>
         </div>
+        <input id="prod_edit_id" type="hidden" value="">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="prodEditAjax()">Save changes</button>
       </div>
     </div>
   </div>

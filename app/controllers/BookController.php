@@ -456,12 +456,9 @@ class BookController extends Controller{
   public function postProdedit()
   {
     $bpId = Input::get("prod_id", null);
-    $bp = BookProd::find();
-    $bp->book_id=Input::get("book_id", null);
-    $bp->media_type=Input::get("media_type", null);
-    $bp->action=Input::get("action", null);
-    $bp->actioner=Input::get("actioner", null);
-
+    $bp = BookProd::find($bpId);
+    $bp->action = Input::get("action");
+    $bp->actioner = Input::get("actioner", null);
     if(Input::get('act_date',null)){
         $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
         $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
