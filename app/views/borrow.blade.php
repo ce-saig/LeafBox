@@ -139,7 +139,7 @@
         </div>
         <div id="result">
         </div>!-->
-        <div class="row">
+        <div class="from-inline">
           <div class = "col-md-3">
             <select name = "search_type" class="form-control" id = "search_type" role="menu">
                 <option value = "title" >ชื่อ</option>
@@ -163,7 +163,7 @@
           </div>
           <div id="result">
           </div>
-        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
+        <div hidden="hidden" id="not_found" class="row alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
         <label class="pull-left" style="color: #ccc">*ตัวอักษรสีเทาคือถูกยืมแล้ว</label>

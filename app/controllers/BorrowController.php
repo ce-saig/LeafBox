@@ -242,6 +242,7 @@ class BorrowController extends BaseController {
     $result = array();
     $keyword = Input::get('keyword');
     $status = Input::get('status'); //add by oat
+    $type = Input::get('type');
 
     $media_id = preg_replace("/[^0-9]/", "", $keyword);
     $media = strtoupper(preg_replace("/[0-9]/", "", $keyword));
@@ -250,13 +251,18 @@ class BorrowController extends BaseController {
     $cd_condition   = ($media == "CD") && is_numeric($media_id);
     $bcd_condition  = in_array($media, array('B', 'C', 'D')) && is_numeric($media_id);
 
-    //$result = $this->searchByName($keyword);
-    if(is_numeric($keyword))
+   /*if(is_numeric($keyword))
       $result = $this->searchByID($keyword, 1,$status);
     else if($dvd_condition || $cd_condition || $bcd_condition)
       $result = $this->searchByID($keyword, 2,$status);
     else
-      $result = $this->searchByName($keyword,$status);
+      $result = $this->searchByName($keyword,$status);*/
+    if(is_numeric($keyword) && $type == "id")
+      $result = $this->searchByID($keyword, 1,$status);
+    else if(($dvd_condition || $cd_condition || $bcd_condition) && $type == "id")
+      $result = $this->searchByID($keyword, 2,$status);
+    else
+      $result = $this->searchAllexID($keyword,$status,$type);
 
     $selectedList = Session::get('borrow', array());
 
@@ -266,11 +272,11 @@ class BorrowController extends BaseController {
       return json_encode($result);
   }
 
-  public function searchByName($keyword,$status)
+  public function searchAllexID($keyword,$status,$type)
   {
     $result = array();
     //if user search from book's title
-    $books = Book::where('title', 'LIKE', "%$keyword%")->take(5)->get();
+    $books = Book::where($type, 'LIKE', "%$keyword%")->take(5)->get();
     //return $books;
     foreach($books as $book){
       //find braille associate this book
