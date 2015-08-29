@@ -140,28 +140,31 @@
         <div id="result">
         </div>!-->
         <div class="from-inline">
-          <div class = "col-md-3">
-            <select name = "search_type" class="form-control" id = "search_type" role="menu">
-                <option value = "title" >ชื่อ</option>
-                <option value = "author" >ชื่อผู้แต่ง</option>
-                <option value = "translate" >ชื่อผู้แปล</option>
-                <option value = "isbn" >ISBN</option>
-                <option value = "id" >ID</option>
-             </select>
-          </div>
-          <div class="col-md-4"> 
-           <input type="text" class="form-control" name="" id="search-book" placeholder = "ค้นหาหนังสือ">
-          </div>
-          <div class="col-md-3">
-            <select name = "select_type" class="form-control" id = "select_type" role="menu">
-              <option value = "all" selected id="select_all">ทั้งหมด</option>
-              <option value = "avaiable" >ไม่ถูกยืม</option>
-            </select>
-          </div>
-          <div>
-            <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
-          </div>
-          <div id="result">
+          <div class="row">
+            <div class = "col-md-3">
+              <select name = "search_type" class="form-control" id = "search_type" role="menu">
+                  <option value = "title" >ชื่อ</option>
+                  <option value = "author" >ชื่อผู้แต่ง</option>
+                  <option value = "translate" >ชื่อผู้แปล</option>
+                  <option value = "isbn" >ISBN</option>
+                  <option value = "id" >ID</option>
+               </select>
+            </div>
+            <div class="col-md-4"> 
+             <input type="text" class="form-control" name="" id="search-book" placeholder = "ค้นหาหนังสือ">
+            </div>
+            <div class="col-md-3">
+              <select name = "select_type" class="form-control" id = "select_type" role="menu">
+                <option value = "all" selected id="select_all">ทั้งหมด</option>
+                <option value = "avaiable" >ไม่ถูกยืม</option>
+              </select>
+            </div>
+            <div>
+              <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+            </div>
+            <div><br></div>
+            <div id="result">
+            </div>
           </div>
         <div hidden="hidden" id="not_found" class="row alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
