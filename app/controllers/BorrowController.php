@@ -365,7 +365,6 @@ class BorrowController extends BaseController {
 
   public function searchByID($keyword, $search_type,$status) //type 1 : number only, type 2 : number with media
   {
-
     $found_status = array(array()); //(braille, casette, cd, daisy, dvd) *media status of each book
     $result = array();
     $books  = array();
