@@ -121,7 +121,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-primary" onclick="prodEditAjax()">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="prodEditAjax()">บันทึก</button>
       </div>
     </div>
   </div>

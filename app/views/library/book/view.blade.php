@@ -11,7 +11,7 @@
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">ข้อมูล</a></li>
-    <li role="presentation"><a href="#prod" role="prod" data-toggle="tab" >สถานะการผลิต</a></li>
+    <li role="presentation"><a href="#prod" role="prod" data-toggle="tab" onClick="tabSelect(this)">สถานะการผลิต</a></li>
     <li role="presentation"><a href="#braille" role="braille" data-toggle="tab" onClick="tabSelect(this)">เบรลล์</a></li>
     <li role="presentation"><a href="#cassette" role="cassette" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
     <li role="presentation"><a href="#daisy" role="daisy" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
@@ -72,35 +72,35 @@
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >
         @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#addBraille">เพิ่มเบรลล์</button>
+        <button  class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(0)">เพิ่มเบรลล์</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
       <div class="row" >
         @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มคาสเซ็ท</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(1)">เพิ่มคาสเซ็ท</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
       <div class="row">
         @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเดซี่</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(2)">เพิ่มเดซี่</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
       <div class="row">
         @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มCD</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(3)">เพิ่มCD</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
       <div class="row">
         @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มDVD</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(4)">เพิ่มDVD</button>
       </div>
     </div>
 
@@ -190,6 +190,23 @@
   </div>
 </div>
 
+<div class="modal fade" id="prod-notify">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ไม่สามารถเพิ่มสื่อได้</h4>
+      </div>
+      <div class="modal-body">
+        กระบวนการผลิตยังไม่เสร็จสมบูรณ์ โปรดตรวจสอบสถานะการผลิต
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="addProd">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -206,7 +223,7 @@
             กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน
           </div>
           <div class="alert alert-danger" id='prod-noti3' hidden>
-            ไม่สามารถเพิ่มสถานะได้ เนื่องจากเสร็จสิ้นกระบวนการทำต้นฉบับแล้ว
+            ไม่สามารถเพิ่มสถานะได้ เนื่องจากเสร็จสิ้นกระบวนการผลิตแล้ว
           </div>
         </div>
         <div class="row" id="addProdBody">
@@ -311,6 +328,7 @@ function tabSelect(tab){
   //console.log(tab);
   //console.log(tab.getAttribute('role').toLowerCase());
   tabClicked = tab.getAttribute('role').toLowerCase();
+  console.log(tabClicked);
   document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked;
   window.scrollTo(0, 0);
   if(tabClicked == "braille"){
@@ -404,6 +422,19 @@ $(function() {
   hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 });
 
+  function verifyAdding(media_type) {
+    var data = getLastProdStatus(media_type);
+    data.success(function(data) {
+        if(data['finish_date'] && (data['action_status'] == 3)) {
+          if(!media_type)
+            $('#addBraille').modal('show');
+          else
+            $('#add').modal('show');
+        }
+        else
+          $('#prod-notify').modal('show');
+      });
+  }
 
 function add(){
   //console.log($('#amount').val());
@@ -481,14 +512,10 @@ function confirmation(link) {
     $("#prod_media_type option[value='']").remove();
     enableProdText();
     hideProdNoti();
-    console.log('test add');
     $('#addProd').modal('show');
-    $.ajax({
-        type: "POST",
-        url: "/book/{{ $book['id'] }}/prod/get_status",
-        data: {book_id: {{ $book['id'] }}, media_type: media_type}
-      }).done(function(data) {
-        $('#prod_action option[value=' + (++data['action_status']) + ']').attr('selected', 'selected');
+    var data = getLastProdStatus(media_type);
+    data.success(function(data) {
+        $('#prod_action option[value=' + (++data['action_status']) + ']').attr('selected', 'true');
         $('#prod_action_text').val($('#prod_action option[value=' + data['action_status'] + ']').text());
         if(data['finish_date'] == null) {
           disableProdText();
@@ -501,6 +528,13 @@ function confirmation(link) {
       });
     });
 
+  function getLastProdStatus(media_type) {
+    return $.ajax({
+              type: "POST",
+              url: "/book/{{ $book['id'] }}/prod/get_status",
+              data: {book_id: {{ $book['id'] }}, media_type: media_type}
+            });
+  }
 
   function enableProdText() {
     $('#prod_actioner').removeAttr('disabled');
@@ -509,9 +543,9 @@ function confirmation(link) {
   }
 
   function disableProdText() {
-    $('#prod_actioner').prop('disabled', 'disabled');
-    $('#prod_act_date').prop('disabled', 'disabled');
-    $('#prod_finish_date').prop('disabled', 'disabled');
+    $('#prod_actioner').prop('disabled', 'false');
+    $('#prod_act_date').prop('disabled', 'false');
+    $('#prod_finish_date').prop('disabled', 'false');
   }
 
   function hideProdNoti() {
@@ -574,7 +608,7 @@ function confirmation(link) {
       $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},prod_id: prodId, act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
         // console.log(result);
         if(result=="success"){
-          $("#addProd").hide();
+          $("#prod-edit").hide();
           $('#success').modal('show');
         }else{
           $('#prod-edit-noti').slideDown(300);
