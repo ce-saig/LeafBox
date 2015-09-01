@@ -36,7 +36,7 @@
 					<table class="table">
 						<tr>
 							<th class="col-md-1">ID</th>
-							<th class="col-md-1">ส่วนที่</th>
+							<th class="col-md-1">ชิ้นที่</th>
 							<th class="col-md-1">สถานะ</th>
 							<th class="col-md-2">วันที่แก้ไข</th>
 							<th class="col-md-2">แทร็กเริ่มต้น</th>
@@ -72,7 +72,7 @@
 				</div>
 				<div class="col-md-12">
 					<div class = "btn btn-warning pull-left" onclick="window.history.back()" > กลับ </div>
-					<input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
+					<input type = "submit"  class="btn btn-success pull-right" value = "บันทึก">
 				</div>
 			</form>
 		</div>

@@ -4,17 +4,17 @@
     <div class="col-xs-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <div class="panel-title" style="">
+          <div class="panel-title">
             @if ($i==0)
-            เบรลล์ <a class="pull-right" onclick="addProd(0)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิตเบรลล์</h3></a>
+            เบรลล์ <a class="pull-right" onclick="addProd(0)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==1)
-            คาสเซ็ท <a class="pull-right" onclick="addProd(1)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิตคาสเซ็ท</h3></a>
+            คาสเซ็ท <a class="pull-right" onclick="addProd(1)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==2)
-            เดซี่ <a class="pull-right" onclick="addProd(2)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิตเดซี่</h3></a>
+            เดซี่ <a class="pull-right" onclick="addProd(2)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==3)
-            CD <a class="pull-right" onclick="addProd(3)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต CD</h3></a>
+            CD <a class="pull-right" onclick="addProd(3)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==4)
-            DVD <a class="pull-right" onclick="addProd(4)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต DVD</h3></a>
+            DVD <a class="pull-right" onclick="addProd(4)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @endif
           </div>
         </div>
@@ -31,7 +31,7 @@
             <tbody>
               @foreach ($prod as $data)
               @if ($data["media_type"]==$i)
-              <tr data-prodId="{{$data["id"]}}" >
+              <tr data-prodId="{{$data["id"]}}" class="hover">
                 <td data-action="{{$data["action"]}}" onclick="prodEditShow(this)">
                   @if($i == 0)
                     @if ($data["action"]==0)

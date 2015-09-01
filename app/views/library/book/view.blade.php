@@ -123,9 +123,9 @@
           <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
-              <div class="input-group-addon">สื่อชิ้นนี้มี</div>
+              <div class="input-group-addon" id="add-media-prefix">จำนวนแผ่น</div>
               <input type="number" class="form-control" id="amount" min=1 value="1">
-              <div class="input-group-addon">ชิ้นย่อย</div>
+              <div class="input-group-addon" id="add-media-suffix">แผ่น</div>
               <div class="input-group-addon">ความยาว</div>
               <input type="number" class="form-control" id="length" min=1 value="1">
               <div class="input-group-addon">นาที</div>
@@ -184,7 +184,7 @@
         <h4 class="modal-title">ข้อความ</h4>
       </div>
       <div class="modal-body">
-        เพิ่มสื่อสำเร็จ
+        การทำรายการสำเร็จ
       </div>
     </div>
   </div>
@@ -348,33 +348,44 @@ $("table").on("click", "tr.table-body", function() {
   media_id = $(this).children('#media-id').text();
   $('#media-title-head').text('แก้ไขรายละเอียด' + media_type[tabClicked]);
   if(tabClicked == "braille") {
-    original_part = $(this).children('.braille-part').text();
+    original_part = $(this).children('#braille-part').text();
     $('#test').html('<div class="col-md-2">จำนวนหน้า</div>\
                      <div class="col-md-4">\
                      <input type="number" class="form-control" id="edit-page-braille" min=1 value="">\
-                     </div><br><br><br>\
+                     </div>\
+                     <div class="col-md-2">หน้า</div><br><br><br>\
                      <div class="col-md-2">จำนวนตอน</div>\
                      <div class="col-md-4">\
                      <input type="number" class="form-control" id="edit-part-braille" min=1 value="">\
-                     </div><br><br><br>\
+                     </div>\
+                     <div class="col-md-2">ตอน</div><br><br><br>\
                      <div class="col-md-2">ผู้ตรวจสอบ</div>\
                      <div class="col-md-6"><input type="text" class="form-control" id="edit-examiner-braille"value="">\
                      </div>');
-    $('#edit-page-braille').attr('value', $(this).children('.braille-page').text());
+    console.log("test" +$(this).children('.braille-page').text());
+    $('#edit-page-braille').attr('value', $(this).children('#braille-page').text());
     $('#edit-part-braille').attr('value', original_part);
-    $('#edit-examiner-braille').attr('value', $(this).children('.braille-examiner').text());
+    $('#edit-examiner-braille').attr('value', $(this).children('#braille-examiner').text());
   }
   else {
     original_part = $(this).children('#media-part').text();
-    $('#test').html('<div class="col-md-3">ความยาว</div>\
-                     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
-                     </div>\
-                     <div class="col-md-2">นาที</div>\
-                     <br><br><br>\
-                     <div class="col-md-3">จำนวนชิ้นย่อย</div>\
+    $('#test').html('<div class="col-md-3" id="amount-prefix">จำนวนแผ่น</div>\
                      <div class="col-md-3"><input type="number" class="form-control" id="edit-part" value="">\
                      </div>\
-                     <div class="col-md-2">ชิ้น</div>');
+                     <div class="col-md-2" id="amount-suffix">แผ่น</div>\
+                     <br><br><br>\
+                      <div class="col-md-3">ความยาว</div>\
+                     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
+                     </div>\
+                     <div class="col-md-2">นาที</div>');
+    if(tabClicked == "daisy") {
+      $('#amount-prefix').text("จำนวนชิ้น");
+      $('#amount-suffix').text("ชิ้น");
+    }
+    else if(tabClicked == "cassette") {
+      $('#amount-prefix').text("จำนวนตลับ");
+      $('#amount-suffix').text("ตลับ");
+    }
 
     $('#edit-length').attr('value', $(this).children('#media-length').text());
     $('#edit-part').attr('value', original_part);
@@ -404,9 +415,9 @@ $('body').on('click', '#send-data', function() {
     //console.log(data);
     //console.log('#' + tabClicked + '-' + media_id);
     if(tabClicked == "braille") {
-      $('#' + tabClicked + '-' + media_id).children('.braille-page').text(page_amount);
-      $('#' + tabClicked + '-' + media_id).children('.braille-examiner').text(examiner);
-      $('#' + tabClicked + '-' + media_id).children('.braille-part').text(part_amount);
+      $('#' + tabClicked + '-' + media_id).children('#braille-page').text(page_amount);
+      $('#' + tabClicked + '-' + media_id).children('#braille-examiner').text(examiner);
+      $('#' + tabClicked + '-' + media_id).children('#braille-part').text(part_amount);
     }
     else {
       $('#' + tabClicked + '-' + media_id).children('#media-length').text(length);
@@ -426,11 +437,20 @@ $(function() {
   function verifyAdding(media_type) {
     var data = getLastProdStatus(media_type);
     data.success(function(data) {
-        if(data['finish_date'] && (data['action_status'] == 3)) {
+        if(data['finish_date'] && (media_type && (data['action_status'] == 3) || media_type == 0 && (data['action_status'] == 2))) {
           if(!media_type)
             $('#addBraille').modal('show');
-          else
+          else {
+            if(media_type == 1) {
+              $('#add-media-prefix').text('จำนวนตลับ');
+              $('#add-media-suffix').text('ตลับ');
+            }
+            else if(media_type == 2) {
+              $('#add-media-prefix').text('จำนวนชิ้น');
+              $('#add-media-suffix').text('ชิ้น');
+            }
             $('#add').modal('show');
+          }
         }
         else
           $('#prod-notify').modal('show');
