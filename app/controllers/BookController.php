@@ -174,8 +174,7 @@ class BookController extends Controller{
         $item->borrower = Member::find($borrow->member_id)->name;
     }
 
-
-    $prod = $bookEloquent->prod;
+    $prod = $this->addLastStatusToProd($bookEloquent->prod);
 
     $arrOfdata['field']=$field;
     $arrOfdata['book']=$book;
@@ -448,8 +447,7 @@ class BookController extends Controller{
   public function getProd($id)
   {
     $book = Book::find($id);
-    $bp = $book->prod;
-        //var_dump($bp);
+    $bp = $this->addLastStatusToProd($book->prod);
     return $bp;
   }
 
@@ -501,4 +499,19 @@ class BookController extends Controller{
     return "success";
   }
 
+  public function addLastStatusToProd($prod)
+  {
+    $lastAction = array(-1, -1, -1, -1, -1);
+    foreach ($prod as $key => $item) {
+        if($item->action > $lastAction[$item->media_type])
+            $lastAction[$item->media_type] = $item->action;
+    }
+    foreach ($prod as $key => $item) {
+        if($item->action == $lastAction[$item->media_type])
+            $item->isLastStatus = true;
+        else
+            $item->isLastStatus = false;
+    }
+    return $prod;
+  }
 }

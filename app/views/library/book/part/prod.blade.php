@@ -35,14 +35,24 @@
               @if ($data["media_type"]==$i)
               <tr data-prodId="{{$data["id"]}}" >
                 <td data-action="{{$data["action"]}}" onclick="prodEditShow(this)">
-                  @if ($data["action"]==0)
-                    อ่าน
-                  @elseif ($data["action"]==1)
-                    ทำต้นฉบับ
-                  @elseif ($data["action"]==2)
-                    ทำกล่อง
-                  @elseif ($data["action"]==3)
-                    ส่งตรวจ
+                  @if($i == 0)
+                    @if ($data["action"]==0)
+                      พิมพ์ต้นฉบับ
+                    @elseif ($data["action"]==1)
+                      ตรวจตาดี
+                    @elseif ($data["action"]==2)
+                      ตรวจบรู๊ฟเบรลล์
+                    @endif
+                  @else
+                    @if ($data["action"]==0)
+                      อ่าน
+                    @elseif ($data["action"]==1)
+                      ทำต้นฉบับ
+                    @elseif ($data["action"]==2)
+                      ทำกล่อง
+                    @elseif ($data["action"]==3)
+                      ส่งตรวจ
+                    @endif
                   @endif
                 </td>
                 <td data-actioner="{{$data["actioner"]}}" onclick="prodEditShow(this)">{{$data["actioner"]}}</td>
@@ -59,7 +69,11 @@
                     {{date_format(date_create($data["finish_date"]), 'd/m/Y')}}
                   @endif
                 </td>
-                <td onclick="prodDelete(this)"><button class="btn btn-danger">ลบ</button></td>
+                <td><button onclick="prodEditShowOnButton(this)" class="btn btn-success">แก้ไข</button>
+                @if($data["isLastStatus"])
+                  <button onclick="prodDelete(this)" class="btn btn-danger">ลบ</button>
+                @endif
+                </td>
               </tr>
               @endif
               @endforeach
@@ -89,7 +103,8 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">*สถานะ</label>
               <div class="col-sm-10">
-                <select name="" id="prod_edit_action" class="form-control" required="required">
+                <input type="text" class="form-control" id="prod_edit_action_text" disabled>
+                <select name="" id="prod_edit_action" class="form-control" required="required" style="display: none">
                   <option value="">เลือกสถานะ</option>
                   <option value="0">อ่าน</option>
                   <option value="1">ทำต้นฉบับ</option>

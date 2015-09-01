@@ -246,9 +246,9 @@
                 <input type="text" class="form-control" id="prod_action_text" disabled="disabled">
                 <select name="" id="prod_action" class="form-control" required="required" style="display: none">
                   <option value="">เลือกสถานะ</option>
-                  <option value="0">อ่าน</option>
-                  <option value="1">ทำต้นฉบับ</option>
-                  <option value="2">ทำกล่อง</option>
+                  <option value="0"></option>
+                  <option value="1"></option>
+                  <option value="2"></option>
                   <option value="3">ส่งตรวจ</option>
                 </select>
               </div>
@@ -515,18 +515,33 @@ function confirmation(link) {
     $('#addProd').modal('show');
     var data = getLastProdStatus(media_type);
     data.success(function(data) {
+        changeProdAction(media_type);
         $('#prod_action option[value=' + (++data['action_status']) + ']').attr('selected', 'true');
         $('#prod_action_text').val($('#prod_action option[value=' + data['action_status'] + ']').text());
         if(data['finish_date'] == null) {
           disableProdText();
           $('#prod-noti1').slideDown(300);
         }
-        if(data['finish_date'] && (data['action_status'] == 4)) {
+        if(data['finish_date'] && ((media_type && (data['action_status'] == 4)) || (media_type == 0 && data['action_status'] == 3))) { //if finish_date is filled and (if media_type != braille && action_status == last action status || media_type == braille && action_status == last action status of braille)
           disableProdText();
           $('#prod-noti3').slideDown(300);
         }
       });
     });
+
+  function changeProdAction(media_type) {
+    console.log(media_type);
+    if(media_type == 0) {
+      $('#prod_action option[value="0"]').text('พิมพ์ต้นฉบับ');
+      $('#prod_action option[value="1"]').text('ตรวจตาดี');
+      $('#prod_action option[value="2"]').text('ตรวจบรู๊ฟเบรลล์');
+    }
+    else {
+      $('#prod_action option[value="0"]').text('อ่าน');
+      $('#prod_action option[value="1"]').text('ทำต้นฉบับ');
+      $('#prod_action option[value="2"]').text('ทำกล่อง');
+    }
+  }
 
   function getLastProdStatus(media_type) {
     return $.ajax({
@@ -577,10 +592,14 @@ function confirmation(link) {
         }
       });
     }
+    function prodEditShowOnButton(prodObj) {
+      prodEditShow($(prodObj).parent());
+    }
 
     function prodEditShow(prodObj) {
       // Append hidden field for prodId
       $('#prod_edit_action option[value=' + $(prodObj).parent().children().eq(0).attr("data-action") + ']').attr('selected', 'selected');
+      $('#prod_edit_action_text').val($(prodObj).parent().children().eq(0).text().trim());
       $('#prod_edit_actioner').val($(prodObj).parent().children().eq(1).attr("data-actioner"));
       $('#prod_edit_act_date').val($(prodObj).parent().children().eq(2).text().trim());
       $('#prod_edit_finish_date').val($(prodObj).parent().children().eq(3).text().trim());
@@ -621,10 +640,14 @@ function confirmation(link) {
         $.ajax({
           type: "POST",
           url: "/book/{{ $book['id'] }}/prod/delete",
-          data: {prod_id: $(prodObj).parent().attr('data-prodId')}
+          data: {prod_id: $(prodObj).closest('tr').attr('data-prodId')}
         }).done(function(data) {
-          if(data == "success")
-            $(prodObj).parent().remove();
+          if(data == "success") {
+            var lastProdStatus = $(prodObj).closest('tr').children().eq(0).attr('data-action');
+            if(lastProdStatus != "undefine")
+              $(prodObj).parent().parent().parent().children().eq(--lastProdStatus).children().eq(4).append('<button onclick="prodDelete(this)" class="btn btn-danger">ลบ</button>');
+            $(prodObj).closest('tr').remove();
+          }
         }); 
       }
     }
