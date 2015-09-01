@@ -228,9 +228,10 @@
         </div>
         <div class="row" id="addProdBody">
             <div class="form-group">
-              <label class="col-sm-2 control-label">*สื่อ</label>
+              <label class="col-sm-2 control-label">ประเภทสื่อ</label>
               <div class="col-sm-10">
-                <select name="" id="prod_media_type" class="form-control" required="required">
+                <input type="text" class="form-control" id="prod_media_type_text" disabled="disabled">
+                <select name="" id="prod_media_type" class="form-control" required="required" style="display: none">
                   <option value="">เลือกสื่อ</option>
                   <option value="0">เบรลล์</option>
                   <option value="1">เทปคาสเซ็ท</option>
@@ -507,7 +508,7 @@ function confirmation(link) {
     });
   });
 
-  $('#prod_media_type').change(function() {
+  function addProdModal() {
     var media_type = $('#prod_media_type').val();
     $("#prod_media_type option[value='']").remove();
     enableProdText();
@@ -527,7 +528,7 @@ function confirmation(link) {
           $('#prod-noti3').slideDown(300);
         }
       });
-    });
+    }
 
   function changeProdAction(media_type) {
     console.log(media_type);
@@ -567,6 +568,14 @@ function confirmation(link) {
     $('#prod-noti1').hide();
     $('#prod-noti2').hide();
     $('#prod-noti3').hide();
+  }
+
+  function addProd(media_type) {
+    changeProdAction(media_type);
+    $('#prod_media_type option[value="' + media_type + '"]').attr('selected', 'true');
+    $('#prod_media_type_text').val($('#prod_media_type option[value="' + media_type + '"]').text().trim());
+    $('#addProd').modal('show');
+    addProdModal();
   }
 
   function postProd(){

@@ -8,6 +8,7 @@
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 	<!-- Main custom Bootstrap style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
+  <link rel="stylesheet" type="text/css" href=" {{ asset('css/font-awesome.css') }}">
 	<!-- date-picker style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/datepicker.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">

@@ -1,24 +1,22 @@
 <div role="tabpanel" class="tab-pane" >
   <div>
-  <h3>สถานะการผลิต<p class="btn btn-sm btn-warning pull-right" data-toggle="modal" data-target="#addProd">เพิ่มสถานะการผลิต</p>
-  </h3>
       @for ($i = 0; $i < 5; $i++)
     <div class="col-xs-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title">
+          <div class="panel-title" style="">
             @if ($i==0)
-            เบรลล์
+            เบรลล์ <a class="pull-right" onclick="addProd(0)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิตเบรลล์</h3></a>
             @elseif ($i==1)
-            คาสเซ็ท
+            คาสเซ็ท <a class="pull-right" onclick="addProd(1)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิตคาสเซ็ท</h3></a>
             @elseif ($i==2)
-            เดซี่
+            เดซี่ <a class="pull-right" onclick="addProd(2)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิตเดซี่</h3></a>
             @elseif ($i==3)
-            CD
+            CD <a class="pull-right" onclick="addProd(3)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต CD</h3></a>
             @elseif ($i==4)
-            DVD
+            DVD <a class="pull-right" onclick="addProd(4)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต DVD</h3></a>
             @endif
-          </h3>
+          </div>
         </div>
         <div class="panel-body">
           <table class="table table-hover">
