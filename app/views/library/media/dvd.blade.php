@@ -39,7 +39,7 @@
 					<table class="table">
 						<tr>
 							<th class="col-md-1">ID</th>
-							<th class="col-md-1">ตอนที่</th>
+							<th class="col-md-1">แผ่นที่</th>
 							<th class="col-md-2">สถานะ</th>
 							<th class="col-md-2">วันที่แก้ไข</th>
 							<th>หมายเหตุ</th>
@@ -67,7 +67,7 @@
 				</div>
 				<div class="col-md-12">
 					<div onclick="window.history.back()" class = "btn btn-warning pull-left"> กลับ </div>
-          <input type = "submit"  class="btn btn-success pull-right" value = "แก้ไข">
+          <input type = "submit"  class="btn btn-success pull-right" value = "บันทึก">
 				</div>
 			</form>
 		</div>

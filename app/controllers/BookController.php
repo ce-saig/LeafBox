@@ -174,8 +174,7 @@ class BookController extends Controller{
         $item->borrower = Member::find($borrow->member_id)->name;
     }
 
-
-    $prod = $bookEloquent->prod;
+    $prod = $this->addLastStatusToProd($bookEloquent->prod);
 
     $arrOfdata['field']=$field;
     $arrOfdata['book']=$book;
@@ -448,20 +447,26 @@ class BookController extends Controller{
   public function getProd($id)
   {
     $book = Book::find($id);
-    $bp = $book->prod;
-        //var_dump($bp);
+    $bp = $this->addLastStatusToProd($book->prod);
     return $bp;
+  }
+
+  public function getLastProdStatus()
+  {
+    $lastProd = BookProd::where('book_id', '=', Input::get('book_id'))
+                ->where('media_type', '=', Input::get('media_type'))->get();
+    $lastProd = $lastProd->last();
+    if(!count($lastProd))
+        return array('action_status' => -1, 'finish_date' => 1);
+    return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date);
   }
   
   public function postProdedit()
   {
     $bpId = Input::get("prod_id", null);
-    $bp = BookProd::find();
-    $bp->book_id=Input::get("book_id", null);
-    $bp->media_type=Input::get("media_type", null);
-    $bp->action=Input::get("action", null);
-    $bp->actioner=Input::get("actioner", null);
-
+    $bp = BookProd::find($bpId);
+    $bp->action = Input::get("action");
+    $bp->actioner = Input::get("actioner", null);
     if(Input::get('act_date',null)){
         $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
         $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
@@ -486,4 +491,27 @@ class BookController extends Controller{
     return "failed";
   }
 
+  public function deleteProd()
+  {
+    $bpId = Input::get("prod_id", null);
+    $bp = BookProd::find($bpId);
+    $bp->delete();
+    return "success";
+  }
+
+  public function addLastStatusToProd($prod)
+  {
+    $lastAction = array(-1, -1, -1, -1, -1);
+    foreach ($prod as $key => $item) {
+        if($item->action > $lastAction[$item->media_type])
+            $lastAction[$item->media_type] = $item->action;
+    }
+    foreach ($prod as $key => $item) {
+        if($item->action == $lastAction[$item->media_type])
+            $item->isLastStatus = true;
+        else
+            $item->isLastStatus = false;
+    }
+    return $prod;
+  }
 }

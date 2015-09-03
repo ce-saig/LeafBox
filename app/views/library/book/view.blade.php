@@ -11,7 +11,7 @@
   </div>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#detail" role="tab" data-toggle="tab">ข้อมูล</a></li>
-    <li role="presentation"><a href="#prod" role="prod" data-toggle="tab" >สถานะการผลิต</a></li>
+    <li role="presentation"><a href="#prod" role="prod" data-toggle="tab" onClick="tabSelect(this)">สถานะการผลิต</a></li>
     <li role="presentation"><a href="#braille" role="braille" data-toggle="tab" onClick="tabSelect(this)">เบรลล์</a></li>
     <li role="presentation"><a href="#cassette" role="cassette" data-toggle="tab" onClick="tabSelect(this)">เทปคาสเซ็ท</a></li>
     <li role="presentation"><a href="#daisy" role="daisy" data-toggle="tab" onClick="tabSelect(this)">เดซี่</a></li>
@@ -72,35 +72,35 @@
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >
         @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
-        <button  class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#addBraille">เพิ่มเบรลล์</button>
+        <button  class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(0)">เพิ่มเบรลล์</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
       <div class="row" >
         @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มคาสเซ็ท</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(1)">เพิ่มคาสเซ็ท</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
       <div class="row">
         @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มเดซี่</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(2)">เพิ่มเดซี่</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
       <div class="row">
         @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มCD</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(3)">เพิ่มCD</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
       <div class="row">
         @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
-        <button class="pull-right addButton btn btn-lg btn-success" data-toggle="modal" data-target="#add">เพิ่มDVD</button>
+        <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(4)">เพิ่มDVD</button>
       </div>
     </div>
 
@@ -123,9 +123,9 @@
           <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
-              <div class="input-group-addon">สื่อชิ้นนี้มี</div>
+              <div class="input-group-addon" id="add-media-prefix">จำนวนแผ่น</div>
               <input type="number" class="form-control" id="amount" min=1 value="1">
-              <div class="input-group-addon">ชิ้นย่อย</div>
+              <div class="input-group-addon" id="add-media-suffix">แผ่น</div>
               <div class="input-group-addon">ความยาว</div>
               <input type="number" class="form-control" id="length" min=1 value="1">
               <div class="input-group-addon">นาที</div>
@@ -184,7 +184,24 @@
         <h4 class="modal-title">ข้อความ</h4>
       </div>
       <div class="modal-body">
-        เพิ่มสื่อสำเร็จ
+        การทำรายการสำเร็จ
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="prod-notify">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ไม่สามารถเพิ่มสื่อได้</h4>
+      </div>
+      <div class="modal-body">
+        กระบวนการผลิตยังไม่เสร็จสมบูรณ์ โปรดตรวจสอบสถานะการผลิต
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
       </div>
     </div>
   </div>
@@ -198,11 +215,23 @@
         <h4 class="modal-title">เพิ่มสถานะการผลิต</h4>
       </div>
       <div class="modal-body">
+        <div class="row">
+          <div class="alert alert-danger" id='prod-noti1' hidden>
+            ไม่สามารถเพิ่มสถานะได้ เนื่องจากยังไม่มีการระบุวันเสร็จในสถานะล่าสุด
+          </div>
+          <div class="alert alert-danger" id='prod-noti2' hidden>
+            กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน
+          </div>
+          <div class="alert alert-danger" id='prod-noti3' hidden>
+            ไม่สามารถเพิ่มสถานะได้ เนื่องจากเสร็จสิ้นกระบวนการผลิตแล้ว
+          </div>
+        </div>
         <div class="row" id="addProdBody">
             <div class="form-group">
-              <label class="col-sm-2 control-label">*สื่อ</label>
+              <label class="col-sm-2 control-label">ประเภทสื่อ</label>
               <div class="col-sm-10">
-                <select name="" id="prod_media_type" class="form-control" required="required">
+                <input type="text" class="form-control" id="prod_media_type_text" disabled="disabled">
+                <select name="" id="prod_media_type" class="form-control" required="required" style="display: none">
                   <option value="">เลือกสื่อ</option>
                   <option value="0">เบรลล์</option>
                   <option value="1">เทปคาสเซ็ท</option>
@@ -215,11 +244,12 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">*สถานะ</label>
               <div class="col-sm-10">
-                <select name="" id="prod_action" class="form-control" required="required">
+                <input type="text" class="form-control" id="prod_action_text" disabled="disabled">
+                <select name="" id="prod_action" class="form-control" required="required" style="display: none">
                   <option value="">เลือกสถานะ</option>
-                  <option value="0">อ่าน</option>
-                  <option value="1">ทำต้นฉบับ</option>
-                  <option value="2">ทำกล่อง</option>
+                  <option value="0"></option>
+                  <option value="1"></option>
+                  <option value="2"></option>
                   <option value="3">ส่งตรวจ</option>
                 </select>
               </div>
@@ -246,7 +276,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-        <button class="btn btn-success" onClick="addProd()" >เพิ่ม</button>  
+        <button class="btn btn-success" onClick="postProd()" >เพิ่ม</button>  
         {{-- data-dismiss="modal" --}}
       </div>
     </div>
@@ -299,6 +329,7 @@ function tabSelect(tab){
   //console.log(tab);
   //console.log(tab.getAttribute('role').toLowerCase());
   tabClicked = tab.getAttribute('role').toLowerCase();
+  console.log(tabClicked);
   document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked;
   window.scrollTo(0, 0);
   if(tabClicked == "braille"){
@@ -317,33 +348,44 @@ $("table").on("click", "tr.table-body", function() {
   media_id = $(this).children('#media-id').text();
   $('#media-title-head').text('แก้ไขรายละเอียด' + media_type[tabClicked]);
   if(tabClicked == "braille") {
-    original_part = $(this).children('.braille-part').text();
+    original_part = $(this).children('#braille-part').text();
     $('#test').html('<div class="col-md-2">จำนวนหน้า</div>\
                      <div class="col-md-4">\
                      <input type="number" class="form-control" id="edit-page-braille" min=1 value="">\
-                     </div><br><br><br>\
+                     </div>\
+                     <div class="col-md-2">หน้า</div><br><br><br>\
                      <div class="col-md-2">จำนวนตอน</div>\
                      <div class="col-md-4">\
                      <input type="number" class="form-control" id="edit-part-braille" min=1 value="">\
-                     </div><br><br><br>\
+                     </div>\
+                     <div class="col-md-2">ตอน</div><br><br><br>\
                      <div class="col-md-2">ผู้ตรวจสอบ</div>\
                      <div class="col-md-6"><input type="text" class="form-control" id="edit-examiner-braille"value="">\
                      </div>');
-    $('#edit-page-braille').attr('value', $(this).children('.braille-page').text());
+    console.log("test" +$(this).children('.braille-page').text());
+    $('#edit-page-braille').attr('value', $(this).children('#braille-page').text());
     $('#edit-part-braille').attr('value', original_part);
-    $('#edit-examiner-braille').attr('value', $(this).children('.braille-examiner').text());
+    $('#edit-examiner-braille').attr('value', $(this).children('#braille-examiner').text());
   }
   else {
     original_part = $(this).children('#media-part').text();
-    $('#test').html('<div class="col-md-3">ความยาว</div>\
-                     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
-                     </div>\
-                     <div class="col-md-2">นาที</div>\
-                     <br><br><br>\
-                     <div class="col-md-3">จำนวนชิ้นย่อย</div>\
+    $('#test').html('<div class="col-md-3" id="amount-prefix">จำนวนแผ่น</div>\
                      <div class="col-md-3"><input type="number" class="form-control" id="edit-part" value="">\
                      </div>\
-                     <div class="col-md-2">ชิ้น</div>');
+                     <div class="col-md-2" id="amount-suffix">แผ่น</div>\
+                     <br><br><br>\
+                      <div class="col-md-3">ความยาว</div>\
+                     <div class="col-md-3"><input type="number" class="form-control" id="edit-length" value="">\
+                     </div>\
+                     <div class="col-md-2">นาที</div>');
+    if(tabClicked == "daisy") {
+      $('#amount-prefix').text("จำนวนชิ้น");
+      $('#amount-suffix').text("ชิ้น");
+    }
+    else if(tabClicked == "cassette") {
+      $('#amount-prefix').text("จำนวนตลับ");
+      $('#amount-suffix').text("ตลับ");
+    }
 
     $('#edit-length').attr('value', $(this).children('#media-length').text());
     $('#edit-part').attr('value', original_part);
@@ -373,9 +415,9 @@ $('body').on('click', '#send-data', function() {
     //console.log(data);
     //console.log('#' + tabClicked + '-' + media_id);
     if(tabClicked == "braille") {
-      $('#' + tabClicked + '-' + media_id).children('.braille-page').text(page_amount);
-      $('#' + tabClicked + '-' + media_id).children('.braille-examiner').text(examiner);
-      $('#' + tabClicked + '-' + media_id).children('.braille-part').text(part_amount);
+      $('#' + tabClicked + '-' + media_id).children('#braille-page').text(page_amount);
+      $('#' + tabClicked + '-' + media_id).children('#braille-examiner').text(examiner);
+      $('#' + tabClicked + '-' + media_id).children('#braille-part').text(part_amount);
     }
     else {
       $('#' + tabClicked + '-' + media_id).children('#media-length').text(length);
@@ -384,7 +426,6 @@ $('body').on('click', '#send-data', function() {
     $('#edit-detail').modal('hide');
   });
 });
-
 //Enable Link to tab
 
 
@@ -393,6 +434,28 @@ $(function() {
   hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 });
 
+  function verifyAdding(media_type) {
+    var data = getLastProdStatus(media_type);
+    data.success(function(data) {
+        if(data['finish_date'] && (media_type && (data['action_status'] == 3) || media_type == 0 && (data['action_status'] == 2))) {
+          if(!media_type)
+            $('#addBraille').modal('show');
+          else {
+            if(media_type == 1) {
+              $('#add-media-prefix').text('จำนวนตลับ');
+              $('#add-media-suffix').text('ตลับ');
+            }
+            else if(media_type == 2) {
+              $('#add-media-prefix').text('จำนวนชิ้น');
+              $('#add-media-suffix').text('ชิ้น');
+            }
+            $('#add').modal('show');
+          }
+        }
+        else
+          $('#prod-notify').modal('show');
+      });
+  }
 
 function add(){
   //console.log($('#amount').val());
@@ -465,7 +528,77 @@ function confirmation(link) {
     });
   });
 
-  function addProd(){
+  function addProdModal() {
+    var media_type = $('#prod_media_type').val();
+    $("#prod_media_type option[value='']").remove();
+    enableProdText();
+    hideProdNoti();
+    $('#addProd').modal('show');
+    var data = getLastProdStatus(media_type);
+    data.success(function(data) {
+        changeProdAction(media_type);
+        $('#prod_action option[value=' + (++data['action_status']) + ']').attr('selected', 'true');
+        $('#prod_action_text').val($('#prod_action option[value=' + data['action_status'] + ']').text());
+        if(data['finish_date'] == null) {
+          disableProdText();
+          $('#prod-noti1').slideDown(300);
+        }
+        if(data['finish_date'] && ((media_type && (data['action_status'] == 4)) || (media_type == 0 && data['action_status'] == 3))) { //if finish_date is filled and (if media_type != braille && action_status == last action status || media_type == braille && action_status == last action status of braille)
+          disableProdText();
+          $('#prod-noti3').slideDown(300);
+        }
+      });
+    }
+
+  function changeProdAction(media_type) {
+    console.log(media_type);
+    if(media_type == 0) {
+      $('#prod_action option[value="0"]').text('พิมพ์ต้นฉบับ');
+      $('#prod_action option[value="1"]').text('ตรวจตาดี');
+      $('#prod_action option[value="2"]').text('ตรวจบรู๊ฟเบรลล์');
+    }
+    else {
+      $('#prod_action option[value="0"]').text('อ่าน');
+      $('#prod_action option[value="1"]').text('ทำต้นฉบับ');
+      $('#prod_action option[value="2"]').text('ทำกล่อง');
+    }
+  }
+
+  function getLastProdStatus(media_type) {
+    return $.ajax({
+              type: "POST",
+              url: "/book/{{ $book['id'] }}/prod/get_status",
+              data: {book_id: {{ $book['id'] }}, media_type: media_type}
+            });
+  }
+
+  function enableProdText() {
+    $('#prod_actioner').removeAttr('disabled');
+    $('#prod_act_date').removeAttr('disabled');
+    $('#prod_finish_date').removeAttr('disabled');
+  }
+
+  function disableProdText() {
+    $('#prod_actioner').prop('disabled', 'false');
+    $('#prod_act_date').prop('disabled', 'false');
+    $('#prod_finish_date').prop('disabled', 'false');
+  }
+
+  function hideProdNoti() {
+    $('#prod-noti1').hide();
+    $('#prod-noti2').hide();
+    $('#prod-noti3').hide();
+  }
+
+  function addProd(media_type) {
+    changeProdAction(media_type);
+    $('#prod_media_type option[value="' + media_type + '"]').attr('selected', 'true');
+    $('#prod_media_type_text').val($('#prod_media_type option[value="' + media_type + '"]').text().trim());
+    $('#addProd').modal('show');
+    addProdModal();
+  }
+
+  function postProd(){
       var media_type = $('#prod_media_type').val();
       var action = $('#prod_action').val();
       var actioner = $('#prod_actioner').val();
@@ -482,46 +615,70 @@ function confirmation(link) {
         if(result=="success"){
           $("#addProd").hide();
           $('#success').modal('show');
-        }else{
-          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน</div></div>")
-
+        }else{ 
+          if(!$('#prod-noti1').is(':visible') && !$('#prod-noti3').is(':visible'))
+            $('#prod-noti2').slideDown(300);
         }
       });
     }
+    function prodEditShowOnButton(prodObj) {
+      prodEditShow($(prodObj).parent());
+    }
 
     function prodEditShow(prodObj) {
-      $("#prod-edit").modal('show');
       // Append hidden field for prodId
-      console.log($(prodObj).children()[0]);
+      $('#prod_edit_action option[value=' + $(prodObj).parent().children().eq(0).attr("data-action") + ']').attr('selected', 'selected');
+      $('#prod_edit_action_text').val($(prodObj).parent().children().eq(0).text().trim());
+      $('#prod_edit_actioner').val($(prodObj).parent().children().eq(1).attr("data-actioner"));
+      $('#prod_edit_act_date').val($(prodObj).parent().children().eq(2).text().trim());
+      $('#prod_edit_finish_date').val($(prodObj).parent().children().eq(3).text().trim());
       console.log($(prodObj).children()[1]);
       console.log($(prodObj).children()[2]);
-      $("#prod-edit-body").append('<input type="hidden" value="'+$(prodObj).attr("data-prodid")+'"'+'>')
-
+      console.log($(prodObj).children()[3]);
+      $("#prod_edit_id").val($(prodObj).parent().attr("data-prodid"));
+      $('#prod-edit-noti').hide();
+      $("#prod-edit").modal('show');
     }
 
     function prodEditAjax(){
       var prodId = $('#prod_edit_id').val();
-      var media_type = $('#prod_edit_media_type').val();
+      console.log(prodId + " bookid {{ $book['id'] }}");
       var action = $('#prod_edit_action').val();
       var actioner = $('#prod_edit_actioner').val();
-      var act_date = $('#prod_edit_act_date').val();
-      var finish_date = $('#prod_edit_finish_date').val();
+      var act_date = ($('#prod_edit_act_date').val().trim() == "ยังไม่ได้ระบุ" ? null : $('#prod_edit_act_date').val());
+      var finish_date = ($('#prod_edit_finish_date').val().trim() == "ยังไม่ได้ระบุ" ? null : $('#prod_edit_finish_date').val());
 
       // console.log(act_date);
       // console.log(action);
       // console.log(actioner);
       // console.log(finish_date);
       
-      $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},media_type:media_type,act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+      $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},prod_id: prodId, act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
         // console.log(result);
         if(result=="success"){
-          $("#addProd").hide();
+          $("#prod-edit").hide();
           $('#success').modal('show');
         }else{
-          $("#addProdBody").before("<div class=\"row\"><div class=\"alert alert-danger\">กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน</div></div>")
-
+          $('#prod-edit-noti').slideDown(300);
         }
       });
+    }
+
+    function prodDelete(prodObj) {
+      if(confirm("คุณต้องการลบรายการนี้ใช่หรือไม่")) {
+        $.ajax({
+          type: "POST",
+          url: "/book/{{ $book['id'] }}/prod/delete",
+          data: {prod_id: $(prodObj).closest('tr').attr('data-prodId')}
+        }).done(function(data) {
+          if(data == "success") {
+            var lastProdStatus = $(prodObj).closest('tr').children().eq(0).attr('data-action');
+            if(lastProdStatus != "undefine")
+              $(prodObj).parent().parent().parent().children().eq(--lastProdStatus).children().eq(4).append('<button onclick="prodDelete(this)" class="btn btn-danger">ลบ</button>');
+            $(prodObj).closest('tr').remove();
+          }
+        }); 
+      }
     }
   </script>
 
