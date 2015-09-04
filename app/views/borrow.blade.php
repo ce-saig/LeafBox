@@ -125,7 +125,7 @@
       </div>
       <div class="modal-body">
         <!-- add by oat!-->
-        <div class="from-inline">
+        <div class="form-inline">
           <div class = "col-md-3">
             <select name = "search_type" class="form-control" id = "search_type" role="menu">
               <option value = "title" selected id="select_title">ชื่อ</option>

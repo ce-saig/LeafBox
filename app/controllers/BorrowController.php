@@ -257,11 +257,11 @@ class BorrowController extends BaseController {
       $result = $this->searchByID($keyword, 2,$status);
     else
       $result = $this->searchByName($keyword,$status);*/
-    if(is_numeric($keyword) && $type == "id")
+    /*if(is_numeric($keyword) && $type == "id")
       $result = $this->searchByID($keyword, 1,$status);
     else if(($dvd_condition || $cd_condition || $bcd_condition) && $type == "id")
       $result = $this->searchByID($keyword, 2,$status);
-    else
+    else*/
       $result = $this->searchAllexID($keyword,$status,$type);
 
     $selectedList = Session::get('borrow', array());
@@ -275,13 +275,75 @@ class BorrowController extends BaseController {
   public function searchAllexID($keyword,$status,$type)
   {
     $result = array();
+    $books = array();
     //if user search from book's title
-    $books = Book::where($type, 'LIKE', "%$keyword%")->take(5)->get();
-    //return $books;
+    if($type != "id") {
+      $books = Book::where($type, "LIKE", "%$keyword%")->take(5)->get();
+    }
+    else {
+      if(is_numeric($keyword)) {
+        $braille = Braille::where("id", "LIKE", "%$keyword%")->get();
+        $cassette = Cassette::where("id", "LIKE", "%$keyword%")->get();
+        $daisy = Daisy::where("id", "LIKE", "%$keyword%")->get();
+        $cd = CD::where("id", "LIKE", "%$keyword%")->get();
+        $dvd = DVD::where("id", "LIKE", "%$keyword%")->get();
+        foreach ($braille as $br) {
+            array_push($books, $br->book()->get());
+        }
+        foreach ($cassette as $cas) {
+            array_push($books, $cas->book()->get());
+        }
+        foreach ($daisy as $da) {
+            array_push($books, $da->book()->get());
+        }
+        foreach ($cd as $c) {
+            array_push($books, $c->book()->get());
+        }
+        foreach ($dvd as $d) {
+            array_push($books, $d->book()->get());
+        }
+      }
+      else {
+        $media_id = (int) preg_replace("/[^0-9]/", "", $keyword);
+        $media = strtoupper(preg_replace("/[0-9]/", "", $keyword));
+        if($media == "B") {
+          $braille = Braille::where("id", "LIKE", "%$media_id%")->get();
+          foreach ($braille as $br) {
+            array_push($books, $br->book()->get());
+          }
+          //return $books;
+        }
+        else if($media == "C") {
+          $cassette = Cassette::where("id", "LIKE", "%$media_id%")->get();
+          foreach ($cassette as $cas) {
+            array_push($books, $cas->book()->get());
+          }
+        }
+        else if($media == "D") {
+          $daisy = Daisy::where("id", "LIKE", "%$media_id%")->get();
+          foreach ($daisy as $da) {
+            array_push($books, $da->book()->get());
+          }
+        }
+        else if($media == "CD") {
+          $cd = CD::where("id", "LIKE", "%$media_id%")->get();
+          foreach ($cd as $c) {
+            array_push($books, $c->book()->get());
+          }
+        }
+        else if($media == "DVD") {
+          $dvd = DVD::where("id", "LIKE", "%$media_id%")->get();
+          foreach ($dvd as $d) {
+            array_push($books, $d->book()->get());
+          }
+        }
+      }
+    }
     foreach($books as $book){
       //find braille associate this book
       //then add to result if exist
-      array_push($result, array_fill_keys(array('title'),$book->title));
+      //return $book[0]["title"];
+      array_push($result, array_fill_keys(array('title'), $book[0]['title']));
       array_push($result[sizeof($result)-1], array());
       //return $result;
       $brailles;
@@ -363,7 +425,7 @@ class BorrowController extends BaseController {
     return $result;
   }
 
-  public function searchByID($keyword, $search_type,$status) //type 1 : number only, type 2 : number with media
+  /*public function searchByID($keyword, $search_type,$status) //type 1 : number only, type 2 : number with media
   {
     $found_status = array(array()); //(braille, casette, cd, daisy, dvd) *media status of each book
     $result = array();
@@ -540,5 +602,5 @@ class BorrowController extends BaseController {
       $book_index++;
     }
     return $result;
-  }
+  }*/
 }
