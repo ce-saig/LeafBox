@@ -17,7 +17,7 @@
                 <div class="input-group-addon">ระบุรหัสของสื่อ</div>
                 <input type="text" class="form-control" id="mid">
               </div>
-              <button type="submit" class="btn btn-info" id="add_btn">คืน</button>
+              <button type="submit" class="btn btn-info" id="add_btn">ค้น</button>
             </div>
             <br>
             <table class="table table-striped table-hover">
@@ -230,6 +230,7 @@
 });
 
 $('.search-member-btn').click(function() {
+  // AJAX for get member infomation
   $.ajax({
     type: "POST",
     url: "{{ url('return/member') }}",
@@ -238,14 +239,16 @@ $('.search-member-btn').click(function() {
     $('#member-result').empty();
     for(var i = 0;i < data.length; i++){
       console.log(data[i].name);
-      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' > "+data[i].name+" </td><td id = 'gender'>"+data[i].gender+"</td></tr>")
+      $('#member-result').append("<tr class = 'select-member' ><td id = 'iden'>"+data[i].id+"</td><td id = 'name' >"+data[i].name+"</td><td id = 'gender'>"+data[i].gender+"</td></tr>")
     }
   });
+
 });
 
 $('#member-result').on('click', '.select-member', function(){
   selectedMember = true;
   var member_id = $(this).children('#iden').html();
+  // AJAX for get info about member ,then show it !
   $.ajax({
     type: "GET",
     url: "{{ url('return/member/"+member_id+"') }}",
@@ -255,6 +258,48 @@ $('#member-result').on('click', '.select-member', function(){
     $('#member_phone_label').html(data.phone_no);
     $('#memberModal').modal('toggle');
     $('#mid').prop('disabled', false).removeAttr('placeholder');
+  });
+  // AJAX for get borrowed media information
+  var member_name = $(this).children('#name').html();
+  $.ajax({
+    type: "POST",
+    url: "{{ url('return/member/borrowed') }}",
+    data: {member:member_name} 
+  }).done(function(data) {
+    for(var key in data["borrow"]){
+      if(data["borrow"][key].length != 0){
+        for(var i in data["borrow"][key]){
+          var type;
+          // find first letter
+          if(key === "cd"){
+            type = 'Cd';
+          }else{
+            type = key[0].toUpperCase();
+          }
+          // get media type
+          var input_data = key;
+          // append table with new info
+          var tr_table = $('<tr id="media-row_' + type + data["book"][key][i]['id'] + '"></tr>');
+              tr_table.append('<td>' + amountOfMedia + '</td>');
+              tr_table.append('<td>' + data["book"][key][i]['title'] + '</td>');
+              tr_table.append('<td>' + data["book"][key][i]['id'] + '</td>');
+              tr_table.append('<td>' + key + '</td>');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_borrowed'] + '</td>');
+              tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_returned'] + '</td>');
+              tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="'+ type + data["book"][key][i]['id'] + '">ลบ</button></td>');
+              $(".table_fill").append(tr_table);
+              // increase number of returned book 
+              amountOfMedia++;
+              part += parseInt(data['media'][key][i]['numpart']);
+
+              selectedBook[data["borrow"][key][i]['book_id']] = (!selectedBook[data["borrow"][key][i]['book_id']] ? 1 : selectedBook[data["borrow"][key][i]['book_id']] += 1);
+              
+              updateMediaAmount();
+
+              console.log("sb = " + selectedBook[data["borrow"][key][i]['book_id']]);
+        }
+      }
+    }
   });
 });
 
