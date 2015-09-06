@@ -277,6 +277,7 @@ class BorrowController extends BaseController {
     $result = array();
     $books = array();
     $media_id;
+    $media;
     //if user search from book's title
     if($type != "id") {
       $books = Book::where($type, "LIKE", "%$keyword%")->take(5)->get();
@@ -306,39 +307,63 @@ class BorrowController extends BaseController {
         }
       }
       else {
-        $media_id = (int) preg_replace("/[^0-9]/", "", $keyword);
+        $media_id = (int) preg_replace("/[^0-9]/", "", $keyword);      
         $media = strtoupper(preg_replace("/[0-9]/", "", $keyword));
         if($media == "B") {
-          $braille = Braille::where("id", "LIKE", "%$media_id%")->get();
+          if($media_id == null) {
+            $braille = Braille::all();
+          }
+          else {
+            $braille = Braille::where("id", "LIKE", "%$media_id%")->get();
+          }
           foreach ($braille as $br) {
             array_push($books, $br->book()->get());
           }
         }
         else if($media == "C") {
+          if($media_id == null) {
+             $cassette = Cassette::all();
+          }
           $cassette = Cassette::where("id", "LIKE", "%$media_id%")->get();
           foreach ($cassette as $cas) {
             array_push($books, $cas->book()->get());
           }
         }
         else if($media == "D") {
-          $daisy = Daisy::where("id", "LIKE", "%$media_id%")->get();
+          if($media_id == null) {
+            $daisy = Daisy::all();
+          }
+          else {
+            $daisy = Daisy::where("id", "LIKE", "%$media_id%")->get();
+          }
           foreach ($daisy as $da) {
             array_push($books, $da->book()->get());
           }
         }
         else if($media == "CD") {
-          $cd = CD::where("id", "LIKE", "%$media_id%")->get();
+          if($media_id == null) {
+            $cd = CD::all();
+          }
+          else {
+            $cd = CD::where("id", "LIKE", "%$media_id%")->get();
+          }
           foreach ($cd as $c) {
             array_push($books, $c->book()->get());
           }
         }
         else if($media == "DVD") {
-          $dvd = DVD::where("id", "LIKE", "%$media_id%")->get();
+          if($media_id == null) {
+            $dvd = DVD::all();
+          }
+          else {
+            $dvd = DVD::where("id", "LIKE", "%$media_id%")->get();
+          }
           foreach ($dvd as $d) {
             array_push($books, $d->book()->get());
           }
         }
       }
+      $books = array_map("unserialize", array_unique(array_map("serialize", $books)));
     }
 
     foreach($books as $book){
@@ -351,7 +376,7 @@ class BorrowController extends BaseController {
       array_push($result[sizeof($result)-1], array());
       //return $result;
       $brailles;
-      if($type != "id") {
+      if($type != "id" || ($type == "id" && $media_id == null && $media == "B")) {
         if($status == 'all') {
           $brailles = $book->braille()->take(5)->get(); // TODO Limit
         }
@@ -360,7 +385,7 @@ class BorrowController extends BaseController {
         }
       }
       else {
-         if($status == 'all') {
+        if($status == 'all') {
           $brailles = $book->braille()->where('id','LIKE',"%$media_id%")->take(5)->get(); // TODO Limit
         }
         else if($status == 'avaiable') {
@@ -375,7 +400,7 @@ class BorrowController extends BaseController {
       }
 
       $cassettes;
-      if($type != "id") {
+      if($type != "id" || ($type == "id" && $media_id == null && $media == "C")) {
         if($status == 'all'){
           $cassettes = $book->cassette()->take(5)->get();
         }
@@ -400,7 +425,7 @@ class BorrowController extends BaseController {
       }
 
       $cds;
-      if($type != "id") {
+      if($type != "id" || ($type == "id" && $media_id == null && $media == "CD")) {
         if($status == 'all'){
          $cds = $book->cd()->take(5)->get();
         }
@@ -425,7 +450,7 @@ class BorrowController extends BaseController {
       }
 
       $daisies;
-      if($type != "id") {
+      if($type != "id" || ($type == "id" && $media_id == null && $media == "D")) {
         if($status == 'all'){
           $daisies = $book->daisy()->take(5)->get();
         }
@@ -450,7 +475,7 @@ class BorrowController extends BaseController {
       }
 
       $dvds;
-      if($type != "id") {
+      if($type != "id" || ($type == "id" && $media_id == null && $media == "DVD")) {
         if($status == 'all'){
           $dvds = $book->dvd()->take(5)->get();
         }
