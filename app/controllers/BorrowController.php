@@ -262,8 +262,8 @@ class BorrowController extends BaseController {
     else if(($dvd_condition || $cd_condition || $bcd_condition) && $type == "id")
       $result = $this->searchByID($keyword, 2,$status);
     else*/
-      $result = $this->searchAllexID($keyword,$status,$type);
-
+  
+    $result = $this->searchAll($keyword,$status,$type);
     $selectedList = Session::get('borrow', array());
 
     if(!$result)
@@ -272,35 +272,37 @@ class BorrowController extends BaseController {
       return json_encode($result);
   }
 
-  public function searchAllexID($keyword,$status,$type)
+  public function searchAll($keyword,$status,$type)
   {
     $result = array();
     $books = array();
+    $media_id;
     //if user search from book's title
     if($type != "id") {
       $books = Book::where($type, "LIKE", "%$keyword%")->take(5)->get();
     }
     else {
       if(is_numeric($keyword)) {
-        $braille = Braille::where("id", "LIKE", "%$keyword%")->get();
-        $cassette = Cassette::where("id", "LIKE", "%$keyword%")->get();
-        $daisy = Daisy::where("id", "LIKE", "%$keyword%")->get();
-        $cd = CD::where("id", "LIKE", "%$keyword%")->get();
-        $dvd = DVD::where("id", "LIKE", "%$keyword%")->get();
+        $media_id = $keyword;
+        $braille = Braille::where("id", "LIKE", "%$media_id%")->get();
+        $cassette = Cassette::where("id", "LIKE", "%$media_id%")->get();
+        $daisy = Daisy::where("id", "LIKE", "%$media_id%")->get();
+        $cd = CD::where("id", "LIKE", "%$media_id%")->get();
+        $dvd = DVD::where("id", "LIKE", "%$media_id%")->get();
         foreach ($braille as $br) {
-            array_push($books, $br->book()->get());
+          array_push($books, $br->book()->get());
         }
         foreach ($cassette as $cas) {
-            array_push($books, $cas->book()->get());
+          array_push($books, $cas->book()->get());
         }
         foreach ($daisy as $da) {
-            array_push($books, $da->book()->get());
+          array_push($books, $da->book()->get());
         }
         foreach ($cd as $c) {
-            array_push($books, $c->book()->get());
+          array_push($books, $c->book()->get());
         }
         foreach ($dvd as $d) {
-            array_push($books, $d->book()->get());
+          array_push($books, $d->book()->get());
         }
       }
       else {
@@ -311,7 +313,6 @@ class BorrowController extends BaseController {
           foreach ($braille as $br) {
             array_push($books, $br->book()->get());
           }
-          //return $books;
         }
         else if($media == "C") {
           $cassette = Cassette::where("id", "LIKE", "%$media_id%")->get();
@@ -339,21 +340,33 @@ class BorrowController extends BaseController {
         }
       }
     }
+
     foreach($books as $book){
       //find braille associate this book
       //then add to result if exist
-      //return $book[0]["title"];
-      array_push($result, array_fill_keys(array('title'), $book[0]['title']));
+      if($type == "id") {
+        $book = $book[0];
+      }
+      array_push($result, array_fill_keys(array('title'), $book->title));
       array_push($result[sizeof($result)-1], array());
       //return $result;
       $brailles;
-      if($status == 'all') {
-        $brailles = $book->braille()->take(5)->get(); // TODO Limit
+      if($type != "id") {
+        if($status == 'all') {
+          $brailles = $book->braille()->take(5)->get(); // TODO Limit
+        }
+        else if($status == 'avaiable') {
+          $brailles = $book->braille()->where('reserved', '=', '0')->take(5)->get();
+        }
       }
-      else if($status == 'avaiable') {
-        $brailles = $book->braille()->where('reserved', '=', '0')->take(5)->get();
+      else {
+         if($status == 'all') {
+          $brailles = $book->braille()->where('id','LIKE',"%$media_id%")->take(5)->get(); // TODO Limit
+        }
+        else if($status == 'avaiable') {
+          $brailles = $book->braille()->where('id','LIKE',"%$media_id%")->where('reserved', '=', '0')->take(5)->get();
+        }
       }
-      //return sizeof($brailles);
       if($brailles){
         foreach($brailles as $braille){
           $braille->id = 'B'.$braille->id;
@@ -362,14 +375,23 @@ class BorrowController extends BaseController {
       }
 
       $cassettes;
-      if($status == 'all'){
-        $cassettes = $book->cassette()->take(5)->get();
+      if($type != "id") {
+        if($status == 'all'){
+          $cassettes = $book->cassette()->take(5)->get();
+        }
+        else if($status == 'avaiable'){
+          $cassettes = $book->cassette()->where('reserved','=','0')->take(5)->get();
+        }
       }
-      else if($status == 'avaiable'){
-        $cassettes = $book->cassette()->where('reserved','=','0')->take(5)->get();
+      else {
+        if($status == 'all'){
+          $cassettes = $book->cassette()->where('id','LIKE',"%$media_id%")->take(5)->get();
+        }
+        else if($status == 'avaiable'){
+          $cassettes = $book->cassette()->where('id','LIKE',"%$media_id%")->where('reserved','=','0')->take(5)->get();
+        }
       }
       array_push($result[sizeof($result)-1], array());
-      //return sizeof($cassette);
       if($cassettes){
         foreach($cassettes as $cassette){
           $cassette->id = 'C'.$cassette->id;
@@ -378,11 +400,21 @@ class BorrowController extends BaseController {
       }
 
       $cds;
-      if($status == 'all'){
-        $cds = $book->cd()->take(5)->get();
+      if($type != "id") {
+        if($status == 'all'){
+         $cds = $book->cd()->take(5)->get();
+        }
+        else if($status == 'avaiable'){
+          $cds = $book->cd()->where('reserved','=','0')->take(5)->get();
+        }
       }
-      else if($status == 'avaiable'){
-        $cds = $book->cd()->where('reserved','=','0')->take(5)->get();
+      else {
+        if($status == 'all'){
+          $cds = $book->cd()->where('id','LIKE',"%$media_id%")->take(5)->get();
+        }
+        else if($status == 'avaiable'){
+          $cds = $book->cd()->where('id','LIKE',"%$media_id%")->where('reserved','=','0')->take(5)->get();
+        }
       }
       array_push($result[sizeof($result)-1], array());
       if($cds){
@@ -393,11 +425,21 @@ class BorrowController extends BaseController {
       }
 
       $daisies;
-      if($status == 'all'){
-        $daisies = $book->daisy()->take(5)->get();
+      if($type != "id") {
+        if($status == 'all'){
+          $daisies = $book->daisy()->take(5)->get();
+        }
+        else if($status == 'avaiable') {
+          $daisies = $book->daisy()->where('reserved','=','0')->take(5)->get();
+        }
       }
-      else if($status == 'avaiable') {
-        $daisies = $book->daisy()->where('reserved','=','0')->take(5)->get();
+      else {
+        if($status == 'all'){
+          $daisies = $book->cd()->where('id','LIKE',"%$media_id%")->take(5)->get();
+        }
+        else if($status == 'avaiable'){
+          $daisies = $book->cd()->where('id','LIKE',"%$media_id%")->where('reserved','=','0')->take(5)->get();
+        }
       }
       array_push($result[sizeof($result)-1], array());
       if($daisies){
@@ -408,11 +450,21 @@ class BorrowController extends BaseController {
       }
 
       $dvds;
-      if($status == 'all'){
-        $dvds = $book->dvd()->take(5)->get();
+      if($type != "id") {
+        if($status == 'all'){
+          $dvds = $book->dvd()->take(5)->get();
+        }
+        else if($status == 'avaiable') {
+          $dvds = $book->dvd()->where('reserved','=','0')->take(5)->get();
+        }
       }
-      else if($status == 'avaiable') {
-        $dvds = $book->dvd()->where('reserved','=','0')->take(5)->get();
+      else {
+        if($status == 'all'){
+          $dvds = $book->dvd()->where('id','LIKE',"%$media_id%")->take(5)->get();
+        }
+        else if($status == 'avaiable') {
+          $dvds = $book->dvd()->where('id','LIKE',"%$media_id%")->where('reserved','=','0')->take(5)->get();
+        }
       }
       array_push($result[sizeof($result)-1], array());
       if($dvds){
