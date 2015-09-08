@@ -124,22 +124,33 @@
         <h4 class="modal-title" id="myModalLabel">เลือกหนังสือ</h4>
       </div>
       <div class="modal-body">
+        <!-- add by oat!-->
         <div class="form-inline">
-          <div class="form-group input-group">
-            <div class="input-group-addon">ค้นหาหนังสือ</div>
-            <input type="text" class="form-control" name="" id="search-book"/>
+          <div class = "col-md-3">
+            <select name = "search_type" class="form-control" id = "search_type" role="menu">
+              <option value = "title" selected id="select_title">ชื่อ</option>
+              <option value = "author" >ชื่อผู้แต่ง</option>
+              <option value = "translate" >ชื่อผู้แปล</option>
+              <option value = "isbn" >ISBN</option>
+              <option value = "id" >ID</option>
+            </select>
           </div>
-          <!-- add by oat!-->
-          <select name = "select_type" class="form-control" id = "select_type" role="menu">
-            <option value = "all" selected id="select_all">ทั้งหมด</option>
-            <option value = "avaiable" >ไม่ถูกยืม</option>
-          </select>
-          <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+          <div class="col-md-4"> 
+             <input type="text" class="form-control" name="" id="search-book" placeholder = "ค้นหาหนังสือ">
+          </div>
+          <div class="col-md-3">
+            <select name = "select_type" class="form-control" id = "select_type" role="menu">
+              <option value = "all" selected id="select_all">ทั้งหมด</option>
+              <option value = "avaiable" >ไม่ถูกยืม</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary book_search_btn">ค้นหา</button>
+          </div>
+          <div id="result">
+          </div>
+          <div hidden="hidden" id="not_found" class="row alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
         </div>
-        <div id="result">
-        </div>
-
-        <div hidden="hidden" id="not_found" class="alert alert-danger" role="alert">ไม่พบผลลัพธ์การค้นหา</div>
       </div>
       <div class="modal-footer">
         <label class="pull-left" style="color: #ccc">*ตัวอักษรสีเทาคือถูกยืมแล้ว</label>
@@ -224,6 +235,9 @@
   $('#submit-media').click(function(event) {
     event.preventDefault();
     if(!selectedMember || amountOfMedia == 0 || !$('#datepicker').val()) {
+      console.log("asdfasd");
+    console.log(selectedMember);
+    console.log(amountOfMedia);
       if(!selectedMember)
         $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');
       if(amountOfMedia == 0)
@@ -273,6 +287,7 @@
     $('#not_found').hide();
     $('#result').html('');
     $('#select_all').attr('selected', 'selected');
+    $('#select_title').attr('selected','selected');
     $('#search-book').prop('value', '');
   });
 
@@ -281,7 +296,7 @@
     $('#result').html('');
     if($('#search-book').val() != ''){
       $.get('{{ url("borrow/search") }}',
-        {keyword: $('#search-book').val(), status:$('#select_type').val()},
+        {keyword: $('#search-book').val(), status:$('#select_type').val(),type:$('#search_type').val()},
         function(data){
           console.log(data);
           if(data != "") {
@@ -327,6 +342,7 @@
   $("body").on("click", ".book_choose", function(event){
     var id = $(this).prop('id');
     var isBorrowed = $(this).children('.isBorrowed').text();
+    var type = "";
     console.log(id);
     if(isBorrowed == "n") { //add by oat
       $.ajax({
@@ -340,7 +356,22 @@
           tr_table.append('<td>'+input_data['no']+'</td>');
           tr_table.append('<td>'+input_data['title']+'</td>');
           tr_table.append('<td>'+input_data['typeID']+'</td>');
-          tr_table.append('<td>'+input_data['type']+'</td>');
+          if(input_data['type'] == "Braille") {
+            type = "เบรลล์";
+          }
+          else if(input_data['type'] == "Cassette") {
+            type = "เทปคาสเซท";
+          }
+          else if(input_data['type'] == "Daisy") {
+            type = "เดซี่";
+          }
+          else if(input_data['type'] == "CD") {
+            type = "CD";
+          }
+          else if(input_data['type'] == "DVD") {
+            type = "DVD";
+          }
+          tr_table.append('<td>'+type+'</td>');
           tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
           $(".table_fill").append(tr_table); //or prepend
           selectedMedia[id] = true;
