@@ -212,6 +212,7 @@ class ReturnController extends BaseController {
   }
 
   public function getUserMedia(){
+    Session::forget(array('list'));
     // get user by name
     $member_name = Input::get('member');
     $member = Member::where('name', '=', $member_name)->first();

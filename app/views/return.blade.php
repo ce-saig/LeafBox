@@ -259,6 +259,7 @@ $('#member-result').on('click', '.select-member', function(){
     $('#memberModal').modal('toggle');
     $('#mid').prop('disabled', false).removeAttr('placeholder');
   });
+
   // AJAX for get borrowed media information
   var member_name = $(this).children('#name').html();
   $.ajax({
