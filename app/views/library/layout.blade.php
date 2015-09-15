@@ -46,7 +46,7 @@
           <li><a href="{{URL::to('/book/add')}}">เพิ่มหนังสือใหม่</a></li>
           <li><a href="{{URL::to('/borrow')}}">ระบบยืม</a></li>
           <li><a href="{{URL::to('/return')}}">ระบบคืน</a></li>
-          <li><a href="{{URL::to('/borrowersystem')}}">ระบบจัดการผู้ยืม</a></li>
+          <li><a href="{{URL::to('/borrower')}}">ระบบจัดการผู้ยืม</a></li>
           
           <!-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

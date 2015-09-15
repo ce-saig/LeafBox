@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="col-md-2 pull-right">
-			<a href="{{ url('borrowersystem/create') }}" class="btn btn-primary">เพิ่มสมาชิก</a>
+			<a href="{{ url('borrower/create') }}" class="btn btn-primary">เพิ่มสมาชิก</a>
 		</div>
 	</div>
 	<div class="row">
@@ -119,7 +119,7 @@
 				</form>
 				<br>
 				<br>
-				<a href="{{ url('borrowersystem/editMember/') }}" class="btn btn-success pull-right edit-member">แก้ไขข้อมูล</a>
+				<a href="{{ url('borrower/editMember/') }}" class="btn btn-success pull-right edit-member">แก้ไขข้อมูล</a>
 				<br>
 				<br>
 				<ul class="nav nav-tabs nav-justified">
@@ -171,7 +171,7 @@
 		member_id = $(this).prop('id');
 		$.ajax({
 			type: "POST",
-			url: "{{ url('borrowersystem/postMember') }}",
+			url: "{{ url('borrower/postMember') }}",
 			data: {selectedMember: member_id}
 		}).done(function(data) {
 			$('#member-id').prop('value', data['id']);
@@ -192,7 +192,7 @@
 		$('#result').html('');
 		$.ajax({
 			type: "POST",
-			url: " {{ url('borrowersystem/search') }} ",
+			url: " {{ url('borrower/search') }} ",
 			data: {keyword: $('#find-member').val()}
 		}).done(function(data) {
 			addToList(data);
@@ -207,7 +207,7 @@
 	$('.del-confirm').click(function() {
 		$.ajax({
 			type: "POST",
-			url: " {{ url('borrowersystem/delete') }} ",
+			url: " {{ url('borrower/delete') }} ",
 			data: {id: member_id}
 		}).done(function(data) {
 			if(data == "true") {
@@ -238,7 +238,7 @@
 	function addHistoryList() {
 		$.ajax({
 			type: "POST",
-			url: "{{ url('borrowersystem/getHistory/') }}",
+			url: "{{ url('borrower/getHistory/') }}",
 			data: {member_id}
 		}).done(function(data) {
 			$('#table-head-history').html('');
@@ -260,7 +260,7 @@
 	function addNonReturnList() {
 		$.ajax({
 			type: "POST",
-			url: "{{ url('borrowersystem/getNonReturn/') }}",
+			url: "{{ url('borrower/getNonReturn/') }}",
 			data: {member_id}
 		}).done(function(data) {
 
