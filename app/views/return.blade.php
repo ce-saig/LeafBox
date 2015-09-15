@@ -266,8 +266,11 @@ $('#member-result').on('click', '.select-member', function(){
     url: "{{ url('return/member/borrowed') }}",
     data: {member:member_name} 
   }).done(function(data) {
-    for(var key in data["borrow"]){
+    console.log(data);
+    location.reload();
+    /*for(var key in data["borrow"]){
       if(data["borrow"][key].length != 0){
+        console.log("test" + data);
         for(var i in data["borrow"][key]){
           var type;
           // find first letter
@@ -279,10 +282,11 @@ $('#member-result').on('click', '.select-member', function(){
           // get media type
           var input_data = key;
           // append table with new info
+          console.log(data["borrow"][key][i]);
           var tr_table = $('<tr id="media-row_' + type + data["book"][key][i]['id'] + '"></tr>');
               tr_table.append('<td>' + amountOfMedia + '</td>');
               tr_table.append('<td>' + data["book"][key][i]['title'] + '</td>');
-              tr_table.append('<td>' + data["book"][key][i]['id'] + '</td>');
+              tr_table.append('<td>' + data["borrow"][key][i]['id'] + '</td>');
               tr_table.append('<td>' + key + '</td>');
               tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_borrowed'] + '</td>');
               tr_table.append('<td class="text-center">' + data["borrow"][key][i]['date_returned'] + '</td>');
@@ -299,12 +303,13 @@ $('#member-result').on('click', '.select-member', function(){
               console.log("sb = " + selectedBook[data["borrow"][key][i]['book_id']]);
         }
       }
-    }
+    }*/
   });
 });
 
 $('#submit-media').click(function(event) {
   event.preventDefault();
+  console.log('return');
   if(!selectedMember || amountOfMedia == 0) {
     if(!selectedMember)
       $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');

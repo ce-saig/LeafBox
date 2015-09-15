@@ -215,6 +215,7 @@ class ReturnController extends BaseController {
     // get user by name
     $member_name = Input::get('member');
     $member = Member::where('name', '=', $member_name)->first();
+    Session::put('member', $member);
     $member_id = $member->id;
     
     // borrowed array
@@ -323,7 +324,7 @@ class ReturnController extends BaseController {
       $list['title']   = $book['title'];
       // if Cd 
       if($mediatype == 'cd')$media_type = 'Cd';
-      $list['id']      = $media_type . $book->id;
+      $list['id']      = $media_type . $media->id;
       $list['item']    = $media;
       $list['type']    = $mediatype;
       $list['book_id'] = $book->id;
