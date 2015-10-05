@@ -95,6 +95,8 @@
             @elseif ($i==12)
                         <textarea name="{{$field[$i]}}"  cols="50" rows="10" class="form-control">{{$data}}</textarea>
                         <br>
+            @elseif ($i==3)
+                        <input type="text" name="{{$field[$i]}}" class="form-control datepicker" value="{{$data}}" >
             @else
                         <input type="text" name="{{$field[$i]}}" class="form-control" value="{{$data}}" >
             @endif
