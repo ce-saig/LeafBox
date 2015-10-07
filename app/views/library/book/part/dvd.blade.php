@@ -1,6 +1,6 @@
 <div role="tabpanel" class="tab-pane" >
 
-  <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/dvd/deleteAll">ลบสื่อนี้ทั้งหมด</a>
+  <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/dvd/deleteAll" data-media="dvd" data-bookid="{{$bid}}">ลบสื่อนี้ทั้งหมด</a>
   <div class = "list-media">
     <table class="table table-hover">
       <thead>

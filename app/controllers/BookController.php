@@ -82,7 +82,7 @@ class BookController extends Controller{
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
-    $book['regis_date']     = $bookEloquent->regis_date ;
+    $book['regis_date']     = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
     $book['publisher']     = $bookEloquent->publisher ;
     $book['pub_no']     = $bookEloquent->pub_no ;
     $book['pub_year']     = $bookEloquent->pub_year ;
@@ -270,7 +270,7 @@ class BookController extends Controller{
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
-    $book['regis_date']    = date_format(date_create($bookEloquent->created_at), 'd/m/Y');
+    $book['regis_date']    = date_format(date_create($bookEloquent->registered_date), 'd/m/Y');
     $book['publisher']     = $bookEloquent->publisher ;
     $book['pub_no']        = $bookEloquent->pub_no ;
     $book['pub_year']      = $bookEloquent->pub_year ;
@@ -312,7 +312,7 @@ class BookController extends Controller{
     $book->author     = Input::get('author');
     $book->translate  = Input::get('translate');
     $dateTmp = date_create_from_format('d/m/Y', Input::get('regis_date'));
-    $book->created_at  = date_format($dateTmp, 'Y-m-d H:i:s');
+    $book->registered_date  = date_format($dateTmp, 'Y-m-d H:i:s');
     $book->publisher  = Input::get('publisher');
     $book->pub_no     = Input::get('pub_no');
     $book->pub_year   = Input::get('pub_year');
@@ -411,14 +411,13 @@ class BookController extends Controller{
 
       // Enum media status helper
   public function getWordStatus($status){
-    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','ไม่ถูกต้อง');
+    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต');
     if($status == null)$status=3;
     return $enum[(int)$status];
   }
 
   public function postProdAdd()
   {
-
     $bp = new BookProd;
     $bp->book_id=Input::get("book_id", null);
     $bp->media_type=Input::get("media_type", null);

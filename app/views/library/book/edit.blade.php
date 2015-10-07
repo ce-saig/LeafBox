@@ -79,6 +79,7 @@
                         <!-- TODO : Implement default value and select old value -->
                         <select name="{{$field[$i]}}" class="form-control media_status" id="select_{{$field[$i]}}">
                           <option {{$data == 0?'selected':''}} value=0>ไม่ผลิต</option>
+                          <option {{$data == 3?'selected':''}} value=3>กำลังผลิต</option>
                           <option {{$data == 1?'selected':''}} value=1>ผลิต</option>
                           <option {{$data == 2?'selected':''}} value=2>จองอ่าน</option>
                         </select>

@@ -11,6 +11,7 @@ Route::group(array('before' => 'auth'), function() {
 
   Route::get('logout','HomeController@doLogout');
   Route::post('editMedia', 'MediaController@editMedia');
+  Route::post('anyborrower', 'MediaController@isAnyBorrower');
 
   Route::group(array('prefix' => 'book/{bid}'), function($bid){
 
