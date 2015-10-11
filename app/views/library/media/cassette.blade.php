@@ -7,7 +7,7 @@
 	<div class="panel panel-{{$item->reserved?'warning':'success'}}">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				คาสเซ็ท: {{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
+				{{$book['setcm_no']==$item['id']?"(Master)":""}} คาสเซ็ท: {{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
 			</h3>
 		</div>
 		<div class="panel-body">
@@ -34,7 +34,7 @@
 				<div class="col-md-12">
 					<table class="table">
 						<tr>
-							<th class="col-md-1">ID</th>
+							<th class="col-md-1">{{$book['setcm_no']==$item['id']?"CMaster":"CSlave"}}</th>
 							<th class="col-md-1">ตลับที่</th>
 							<th class="col-md-2">สถานะ</th>
 							<th class="col-md-2">วันที่แก้ไข</th>

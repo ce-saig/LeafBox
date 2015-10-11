@@ -16,7 +16,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">ISBN</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" name="isbn">
+              <input type="text" class="form-control" name="isbn" placeholder="เช่น 903-246-542-1">
             </div>
           </div>
           <div class="form-group">
@@ -47,14 +47,14 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">พิมพ์ครั้งที่</label>
             <div class="col-sm-9">
-              <input type="number" min="1" class="form-control" placeholder="เช่น 1" name="pub_no" value="1">
+              <input type="number" min="1" class="form-control" placeholder="เช่น 1" name="pub_no">
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-3 control-label">พ.ศ.</label>
             <div class="col-sm-9">
-              <input type="number"  min="2000" max="{{date('Y')}}" class="form-control" placeholder="เช่น {{date('Y')}}" name="pub_year" value="{{date('Y')}}">
+              <input type="number"  min="2000" max="{{date('Y') + 543}}" class="form-control" placeholder="เช่น {{date('Y')}}" name="pub_year" value="{{date('Y') + 543}}">
             </div>
           </div>
         </div>

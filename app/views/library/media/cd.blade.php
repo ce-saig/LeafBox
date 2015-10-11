@@ -7,7 +7,7 @@
 	<div class="panel panel-{{$item->reserved?'warning':'success'}}">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				CD: {{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
+				{{$book['setcdm_no']==$item['id']?"(Master)":""}} CD: {{$item->id}}. {{$book->title}} ({{$item->reserved?"ถูกยืม":"ยืมได้"}})
 			</h3>
 		</div>
 		<div class="panel-body">
@@ -35,7 +35,7 @@
 				<div class="col-md-12">
 					<table class="table">
 						<tr>
-							<th class="col-md-1">ID</th>
+							<th class="col-md-1">{{$book['setcdm_no']==$item['id']?"CDMaster":"CDSlave"}}</th>
 							<th class="col-md-1">แผ่นที่</th>
 							<th class="col-md-1">สถานะ</th>
 							<th class="col-md-2">วันที่แก้ไข</th>

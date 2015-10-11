@@ -1,11 +1,10 @@
 <div role="tabpanel" class="tab-pane" >
-
-  <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/dvd/deleteAll">ลบสื่อนี้ทั้งหมด</a>
+  <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/dvd/deleteAll" data-media="dvd" data-bookid="{{$bid}}">ลบสื่อนี้ทั้งหมด</a>
   <div class = "list-media">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th class="text-center">ดีวีดีไอดี</th>
+          <th class="text-center">ดีวีดีเซ็ทไอดี</th>
           <th class="text-center">จำนวนชิ้นย่อย (แผ่น)</th>
           <th class="text-center">ความยาว(นาที)</th>
           <th class="text-center">ผู้ยืม</th>

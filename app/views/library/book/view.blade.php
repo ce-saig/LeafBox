@@ -34,14 +34,7 @@
         @endif
         @if ($i==18||$i==22||$i==26||$i==30||$i==34)
         <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
-        <div class="col-xs-6 col-sm-2">
-          @if($data == 1)
-          ผลิต
-          @elseif($data == 2)
-          จองอ่าน
-          @else
-          ไม่ผลิต
-          @endif
+        <div class="col-xs-6 col-sm-2">{{$data}}
         </div>
         @elseif ($i>18||$i>22||$i>26||$i>30||$i>34)
         <div class="col-xs-6 col-sm-2"><b>{{$field[$i]}}</b></div>
@@ -498,18 +491,38 @@ function add(){
   });
 
 // Delete Button Cofirmation
-$(function() {
   $('.del_media_btn').click(function(e) {
     e.preventDefault();
-    var link = $(this).attr('href');
-    confirmation(link);
+    var borrower = $(this).parent().prev().attr('data-borrower');
+    console.log('borrower : ' + borrower);
+    if(borrower == "ไม่มี") {
+      var link = $(this).attr('href');
+      confirmation(link);
+    }
+    else
+      window.alert('ไม่สามารถลบได้เนื่องจากสื่อถูกยืมโดยผู้ใช้');
   });
+
   $('.del_media_btn_all').click(function(e) {
     e.preventDefault();
-    var link = $(this).attr('href');
-    confirmation(link);
+    media_type = $(this).attr('data-media');
+    book_id = $(this).attr('data-bookid');
+    console.log(media_type + book_id);
+    $.ajax({
+      type: "POST",
+      url: "{{url('anyborrower')}}",
+      data: {media_type: media_type, book_id: book_id}
+    }).done(function(data) {
+      if(data == "false") {
+        var link = $(this).attr('href');
+        confirmation(link);
+      }
+      else if(data == "true")
+        window.alert('ไม่สามารถลบได้เนื่องจากสื่อถูกยืมโดยผู้ใช้');
+      else
+        window.alert('ไม่มีสื่อ');
+    });
   });
-});
 
 function confirmation(link) {
   if(confirm('คุณต้องการลบจริงหรือไม่ ?')){

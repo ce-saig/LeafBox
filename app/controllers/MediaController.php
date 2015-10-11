@@ -448,6 +448,25 @@ class MediaController extends Controller{
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
+  public function isAnyBorrower()
+  {
+    $book_id = Input::get('book_id');
+    $media_type = Input::get('media_type');
+    $media_type = ($media_type == 'cd') ? 'CD' : $media_type;
+    $media_type = ($media_type == 'dvd') ? 'DVD' : $media_type;
+    $media_type = ucfirst($media_type);
+    $media = $media_type::where('book_id', '=', $book_id)->get();
+
+    if(!count($media))
+      return "no media";
+    
+    foreach ($media as $key => $item) {
+      if($item->reserved)
+        return "true";
+    }
+    return "false";
+  }
+
   public function removeAllDvd($bookId){
 
     $dvds = DVD::where('book_id',$bookId)->get();

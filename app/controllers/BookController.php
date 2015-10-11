@@ -19,6 +19,7 @@ class BookController extends Controller{
     $Book->pub_no = Input::get('pub_no');
     $Book->pub_year = Input::get('pub_year');
     $Book->publisher = Input::get('publisher');
+    $Book->created_at = (date("Y") + 543).date("-m-d H:i:s");
     $Book->save();
     return Redirect::to('book/add');
   }
@@ -81,13 +82,13 @@ class BookController extends Controller{
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
-    $book['regis_date']     = $bookEloquent->regis_date ;
+    $book['regis_date']     = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
     $book['publisher']     = $bookEloquent->publisher ;
     $book['pub_no']     = $bookEloquent->pub_no ;
     $book['pub_year']     = $bookEloquent->pub_year ;
 
     $book['produce_no']   = $bookEloquent->produce_no ;
-    $book['btype']   = $bookEloquent->btype ;
+    $book['booktype']   = $bookEloquent->book_type ;
     $book['abstract']   = $bookEloquent->abstract ;
 
     $book['isbn']          = $bookEloquent->isbn ;
@@ -101,7 +102,7 @@ class BookController extends Controller{
     $book['dvd_number']    = count($bookEloquent->dvd);
 
     $book['bm_status']     = $this->getWordStatus($bookEloquent->bm_status) ;
-    $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
+    $book['bm_date']       = (in_array($bookEloquent->bm_date, array("0000-00-00 00:00:00", null))) ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd-m-Y');
     $book['bm_no']         = $bookEloquent->bm_no;
     $book['bm_note']       = $bookEloquent->bm_note ;
     $book['setcs_status']  = $this->getWordStatus($bookEloquent->setcs_status) ;
@@ -264,12 +265,12 @@ class BookController extends Controller{
     $book['title']         =  $bookEloquent->title;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
-    $book['regis_date']    = $bookEloquent->regis_date ;
+    $book['regis_date']    = date_format(date_create($bookEloquent->registered_date), 'd/m/Y');
     $book['publisher']     = $bookEloquent->publisher ;
     $book['pub_no']        = $bookEloquent->pub_no ;
     $book['pub_year']      = $bookEloquent->pub_year ;
     $book['produce_no']    = $bookEloquent->produce_no ;
-    $book['btype']         = $bookEloquent->btype ;
+    $book['btype']         = $bookEloquent->book_type ;
     $book['grade']         = $bookEloquent->grade ;
     $book['isbn']          = $bookEloquent->isbn ;
     $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
@@ -305,7 +306,8 @@ class BookController extends Controller{
     $book->title      = Input::get('title');
     $book->author     = Input::get('author');
     $book->translate  = Input::get('translate');
-    $book->created_at = Input::get('regis_date');
+    $dateTmp = date_create_from_format('d/m/Y', Input::get('regis_date'));
+    $book->registered_date  = date_format($dateTmp, 'Y-m-d H:i:s');
     $book->publisher  = Input::get('publisher');
     $book->pub_no     = Input::get('pub_no');
     $book->pub_year   = Input::get('pub_year');
@@ -361,6 +363,9 @@ class BookController extends Controller{
     else
       $book->setdvd_date = "0000-00-00 00:00:00";
       // TODO : add Validator here
+
+    $book->updated_at = (date("Y") + 543).date("-m-d H:i:s");
+
     $book->save();
     return Redirect::to("/book/$bid");
   }
@@ -401,14 +406,13 @@ class BookController extends Controller{
 
       // Enum media status helper
   public function getWordStatus($status){
-    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','ไม่ถูกต้อง');
+    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต');
     if($status == null)$status=3;
     return $enum[(int)$status];
   }
 
   public function postProdAdd()
   {
-
     $bp = new BookProd;
     $bp->book_id=Input::get("book_id", null);
     $bp->media_type=Input::get("media_type", null);
