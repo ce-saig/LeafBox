@@ -71,35 +71,35 @@
     
     <div role="tabpanel" class="tab-pane" id="braille">
       <div class="row" >
-        @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id']))
+        @include('library.book.part.braille',array('braille'=>$braille,'bid'=>$book['id'],'master'=>$book['bm_no']))
         <button  class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(0)">เพิ่มเบรลล์</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cassette">
       <div class="row" >
-        @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id']))
+        @include('library.book.part.cassette',array('cassette'=>$cassette,'bid'=>$book['id'],'master'=>$book['setcm_no']))
         <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(1)">เพิ่มคาสเซ็ท</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="daisy">
       <div class="row">
-        @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id']))
+        @include('library.book.part.daisy',array('daisy'=>$daisy,'bid'=>$book['id'],'master'=>$book['setdm_no']))
         <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(2)">เพิ่มเดซี่</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="cd">
       <div class="row">
-        @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id']))
+        @include('library.book.part.cd',array('cd'=>$cd,'bid'=>$book['id'],'master'=>$book['setcdm_no']))
         <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(3)">เพิ่มCD</button>
       </div>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="dvd">
       <div class="row">
-        @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id']))
+        @include('library.book.part.dvd',array('dvd'=>$dvd,'bid'=>$book['id'],'master'=>$book['setdvdm_no']))
         <button class="pull-right addButton btn btn-lg btn-success" onclick="verifyAdding(4)">เพิ่มDVD</button>
       </div>
     </div>

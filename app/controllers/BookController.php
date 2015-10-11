@@ -106,26 +106,21 @@ class BookController extends Controller{
     $book['bm_note']       = $bookEloquent->bm_note ;
     $book['setcs_status']  = $this->getWordStatus($bookEloquent->setcs_status) ;
     $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd-m-Y');
-    $book['cm_no']         = $bookEloquent->cm_no;
+    $book['setcm_no']         = $bookEloquent->setcm_no;
     $book['setcs_note']    = $bookEloquent->setcs_note ;
     $book['setds_status']  = $this->getWordStatus($bookEloquent->setds_status) ;
     $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd-m-Y');
-    $book['dm_no']         = $bookEloquent->dm_no;
+    $book['setdm_no']         = $bookEloquent->setdm_no;
     $book['setds_note']    = $bookEloquent->setds_note ;
     $book['setcd_status']  = $this->getWordStatus($bookEloquent->setcd_status) ;
     $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd-m-Y');
-    $book['cdm_no']        = $bookEloquent->cdm_no;
+    $book['setcdm_no']        = $bookEloquent->setcdm_no;
     $book['setcd_note']    = $bookEloquent->setcd_note ;
     $book['setdvd_status'] = $this->getWordStatus($bookEloquent->setdvd_status) ;
     $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
-    $book['dvdm_no']       = $bookEloquent->dvdm_no;
+    $book['setdvdm_no']       = $bookEloquent->setdvdm_no;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
     $book['created_at']    = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
-    $book['bm_no']         = $bookEloquent->bm_no;
-    $book['cm_no']         = $bookEloquent->cm_no;
-    $book['cdm_no']        = $bookEloquent->cdm_no;
-    $book['dm_no']         = $bookEloquent->dm_no;
-    $book['dvdm_no']       = $bookEloquent->dvdm_no;
     $book['created_at']    = $bookEloquent->created_at;
 
           //braile

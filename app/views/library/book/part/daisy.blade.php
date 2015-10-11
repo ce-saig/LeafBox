@@ -14,7 +14,7 @@
       <tbody>
         @foreach ($daisy as $item)
         <tr class = "hover table-body" id="daisy-{{$item->id}}" href="{{$bid}}/daisy/{{$item->id}}">
-          <td class="text-center" id="media-id">{{$item->id}}</td>
+          <td class="text-center" id="media-id">{{$master==$item->id?"M":""}}{{$item->id}}</td>
           <td class="text-center" id="media-part">{{$item->numpart}}</td>
           <td class="text-center" id="media-length">{{$item->length_min}}</td>
           <td class="text-center">{{$item->borrower}}</td>

@@ -17,7 +17,7 @@
         <script type="text/javascript">console.log('{{$braille}}')</script>
         {{-- href="{{$bid}}/braille/{{$item->id}}" --}}
           <tr class = "hover table-body"  id="braille-{{$item->id}}" href="{{$bid}}/braille/{{$item->id}}">
-            <td style="text-align: center" id="media-id">{{$item->id}}</td>
+            <td style="text-align: center" id="media-id">{{$master==$item->id?"M":""}}{{$item->id}}</td>
             <td style="text-align: center" id="braille-page">{{$item->pages}}</td>
             <td style="text-align: center" id="braille-part">{{$item->numpart}}</td>
             <td style="text-align: center" id="braille-examiner">{{$item->examiner}}</td>

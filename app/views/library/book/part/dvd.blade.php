@@ -14,7 +14,7 @@
       <tbody>
         @foreach ($dvd as $item)
         <tr class = "hover table-body" id="dvd-{{$item->id}}" href="{{$bid}}/dvd/{{$item->id}}">
-          <td class="text-center" id="media-id">{{$item->id}}</td>
+          <td class="text-center" id="media-id">{{$master==$item->id?"M":""}}{{$item->id}}</td>
           <td class="text-center" id="media-part">{{$item->numpart}}</td>
           <td class="text-center" id="media-length">{{$item->length_min}}</td>
           <td class="text-center">{{$item->borrower}}</td>
