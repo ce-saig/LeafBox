@@ -43,7 +43,7 @@
 						@foreach ($detail as $key => $value)
 						<tr>
 							<td>{{$value->id}}</td>
-							<td>{{$value->part}}</td>
+							<td>{{$value->part}}/{{count($detail)}}</td>
 							<td>
 								<select name="status[]" class="form-control select-status">
 									<option {{$value->status==0?'selected':''}} value="0">ปกติ</option>
