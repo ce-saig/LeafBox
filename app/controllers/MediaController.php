@@ -30,6 +30,8 @@ class MediaController extends Controller{
       $brailledetail->braille()->associate($braille);
       $brailledetail->save();
     }
+
+    $book->updateMediaStatus(0);
   }
 
   public function addCassette($bookId){
@@ -58,6 +60,8 @@ class MediaController extends Controller{
       $cassetteDetail->cassette()->associate($cassette);
       $cassetteDetail->save();
     }
+
+    $book->updateMediaStatus(1);
   }
 
   public function addDaisy($bookId){
@@ -86,6 +90,8 @@ class MediaController extends Controller{
       $daisydetail->daisy()->associate($daisy);
       $daisydetail->save();
     }
+
+    $book->updateMediaStatus(2);
   }
 
   public function addCD($bookId){
@@ -114,6 +120,8 @@ class MediaController extends Controller{
       $cddetail->cd()->associate($cd);
       $cddetail->save();
     }
+
+    $book->updateMediaStatus(3);
   }
 
   public function addDVD($bookId){
@@ -122,8 +130,6 @@ class MediaController extends Controller{
     $amount = count(DVD::where('book_id', $bookId)->get());
     if(!$amount)
     $book->setdvd_date = (date("Y") + 543).date("-m-d H:i:s");
-
-    $book->setdvd_status = "ผลิต";
     $book->save();
 
     $amount = Input::get('amount');
@@ -142,6 +148,8 @@ class MediaController extends Controller{
       $dvddetail->dvd()->associate($dvd);
       $dvddetail->save();
     }
+
+    $book->updateMediaStatus(4);
   }
 
   /* Getter */
@@ -476,9 +484,9 @@ class MediaController extends Controller{
     }
 
     $book = Book::find($bookId);
-    $book->setdvd_status = "ไม่ผลิต";
     $book->setdvd_date = date_create("0000-00-00 00:00:00");
     $book->save();
+    $book->updateMediaStatus(4);
     return Redirect::to(url('book/'.$bookId.'#dvd'));
   }
 
@@ -491,9 +499,9 @@ class MediaController extends Controller{
     }
 
     $book = Book::find($bookId);
-    $book->setcd_status = "ไม่ผลิต";
     $book->setcd_date = date_create("0000-00-00 00:00:00");
     $book->save();
+    $book->updateMediaStatus(3);
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
 
@@ -506,9 +514,9 @@ class MediaController extends Controller{
     }
 
     $book = Book::find($bookId);
-    $book->setds_status = "ไม่ผลิต";
     $book->setds_date = date_create("0000-00-00 00:00:00");
     $book->save();
+    $book->updateMediaStatus(2);
     return Redirect::to(url('book/'.$bookId.'#daisy'));
   }
 
@@ -520,9 +528,9 @@ class MediaController extends Controller{
     }
 
     $book = Book::find($bookId);
-    $book->setcs_status = "ไม่ผลิต";
     $book->setcs_date = date_create("0000-00-00 00:00:00");
     $book->save();
+    $book->updateMediaStatus(1);
     return Redirect::to(url('book/'.$bookId.'#cassette'));
   }
 
@@ -534,9 +542,9 @@ class MediaController extends Controller{
     }
 
     $book = Book::find($bookId);
-    $book->bm_status = "ไม่ผลิต";
     $book->bm_date = date_create("0000-00-00 00:00:00");
     $book->save();
+    $book->updateMediaStatus(0);
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
 
@@ -547,9 +555,9 @@ class MediaController extends Controller{
 
     if(!count(Cassette::where('book_id',$bookId)->get())) {
       $book = Book::find($bookId);
-      $book->setcs_status = "ไม่ผลิต";
       $book->setcs_date = date_create("0000-00-00 00:00:00");
       $book->save();
+      $book->updateMediaStatus(1);
     }
     return Redirect::to(url('book/'.$bookId.'#cassette'));
   }
@@ -561,9 +569,9 @@ class MediaController extends Controller{
 
     if(!count(CD::where('book_id',$bookId)->get())) {
       $book = Book::find($bookId);
-      $book->setcd_status = "ไม่ผลิต";
       $book->setcd_date = date_create("0000-00-00 00:00:00");
       $book->save();
+      $book->updateMediaStatus(3);
     }
     return Redirect::to(url('book/'.$bookId.'#cd'));
   }
@@ -574,9 +582,9 @@ class MediaController extends Controller{
 
     if(!count(DVD::where('book_id',$bookId)->get())) {
       $book = Book::find($bookId);
-      $book->setdvd_status = "ไม่ผลิต";
       $book->setdvd_date = date_create("0000-00-00 00:00:00");
       $book->save();
+      $book->updateMediaStatus(4);
     }
     return Redirect::to(url('book/'.$bookId.'#dvd'));
   }
@@ -587,9 +595,9 @@ class MediaController extends Controller{
 
     if(!count(Braille::where('book_id',$bookId)->get())) {
       $book = Book::find($bookId);
-      $book->bm_status = "ไม่ผลิต";
       $book->bm_date = date_create("0000-00-00 00:00:00");
       $book->save();
+      $book->updateMediaStatus(0);
     }
     return Redirect::to(url('book/'.$bookId.'#braille'));
   }
@@ -601,9 +609,9 @@ class MediaController extends Controller{
 
     if(!count(Daisy::where('book_id',$bookId)->get())) {
       $book = Book::find($bookId);
-      $book->setds_status = "ไม่ผลิต";
       $book->setds_date = date_create("0000-00-00 00:00:00");
       $book->save();
+      $book->updateMediaStatus(2);
     }
     return Redirect::to(url('book/'.$bookId.'#daisy'));
   }
