@@ -764,7 +764,10 @@ function postProd(){
           data: {prod_id: $(prodObj).closest('tr').attr('data-prodId')}
         }).done(function(data) {
           console.log(data['status']);
-          if(data['status'] != "error") {
+          if(data['status'] == "error" || data['status'] == "cannot delete") {
+            window.alert("ไม่สามารถลบสถานะการผลิตได้เนื่องจากยังมีสื่อคงเหลืออยู่");
+          }
+          else {
             console.log(data['media_type']);
             var lastProdStatus = $(prodObj).closest('tr').children().eq(0).attr('data-action');
             if(lastProdStatus != "undefine")
@@ -772,8 +775,6 @@ function postProd(){
             $(prodObj).closest('tr').remove();
             updateProductionStatus(data);
           }
-          else
-            window.alert("ไม่สามารถลบสถานะการผลิตได้เนื่องจากยังมีสื่อคงเหลืออยู่");
         }); 
       }
     }

@@ -420,8 +420,10 @@ class BookController extends Controller{
     $book = Book::find($bp->book_id);
     $media_type = $bp->media_type;
 
-    if($book->countMedia($media_type))
-        return $book->countMedia($media_type);
+    if($book->countMedia($media_type)) {
+      $data['status'] = 'cannot delete';
+      return $data;
+    }
 
     $bp->delete();
     
