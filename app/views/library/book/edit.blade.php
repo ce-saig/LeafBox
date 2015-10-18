@@ -250,12 +250,7 @@
          </div>
         <div class="col-xs-6 col-lg-2">
           <div class="col-lg-10">
-            <select name="bm_status" class="form-control media_status" id="select_bm_status">
-              <option value="0" {{ ($book['bm_status'] == 0) ? 'selected' : ''}}>ไม่ผลิต</option>
-              <option value="3" {{ ($book['bm_status'] == 3) ? 'selected' : ''}}>กำลังผลิต</option>
-              <option value="1" {{ ($book['bm_status'] == 1) ? 'selected' : ''}}>ผลิต</option>
-              <option value="2" {{ ($book['bm_status'] == 2) ? 'selected' : ''}}>จองอ่าน</option>
-            </select>
+            <input type="text" class="form-control" value="{{$book['bm_status']}}" disabled>
           </div>
         </div>
       </div>
@@ -306,12 +301,7 @@
       </div>
       <div class="col-xs-6 col-lg-2">
         <div class="col-lg-10">
-          <select name="cs_status" class="form-control media_status" id="select_cs_status">
-            <option value="0" {{ ($book['setcs_status'] == 0) ? 'selected' : ''}}>ไม่ผลิต</option>
-            <option value="3" {{ ($book['setcs_status'] == 3) ? 'selected' : ''}}>กำลังผลิต</option>
-            <option value="1" {{ ($book['setcs_status'] == 1) ? 'selected' : ''}}>ผลิต</option>
-            <option value="2" {{ ($book['setcs_status'] == 2) ? 'selected' : ''}}>จองอ่าน</option>
-          </select>
+          <input type="text" class="form-control" value="{{$book['setcs_status']}}" disabled>
         </div>
       </div>
     </div>
@@ -361,12 +351,7 @@
     </div>
     <div class="col-xs-6 col-lg-2">
       <div class="col-lg-10">
-        <select name="ds_status" class="form-control media_status" id="select_ds_status">
-          <option value="0" {{ ($book['setds_status'] == 0) ? 'selected' : ''}}>ไม่ผลิต</option>
-          <option value="3" {{ ($book['setds_status'] == 3) ? 'selected' : ''}}>กำลังผลิต</option>
-          <option value="1" {{ ($book['setds_status'] == 1) ? 'selected' : ''}}>ผลิต</option>
-          <option value="2" {{ ($book['setds_status'] == 2) ? 'selected' : ''}}>จองอ่าน</option>
-        </select>
+        <input type="text" class="form-control" value="{{$book['setds_status']}}" disabled>
       </div>
     </div>
   </div>
@@ -417,12 +402,7 @@
   </div>
   <div class="col-xs-6 col-lg-2">
     <div class="col-lg-10">
-      <select name="cd_status" class="form-control media_status" id="select_cd_status">
-        <option value="0" {{ ($book['setcd_status'] == 0) ? 'selected' : ''}}>ไม่ผลิต</option>
-        <option value="3" {{ ($book['setcd_status'] == 3) ? 'selected' : ''}}>กำลังผลิต</option>
-        <option value="1" {{ ($book['setcd_status'] == 1) ? 'selected' : ''}}>ผลิต</option>
-        <option value="2" {{ ($book['setcd_status'] == 2) ? 'selected' : ''}}>จองอ่าน</option>
-      </select>
+      <input type="text" class="form-control" value="{{$book['setcd_status']}}" disabled>
     </div>
   </div>
 </div>
@@ -472,13 +452,7 @@
   </div>
   <div class="col-xs-6 col-lg-2">
     <div class="col-lg-10">
-      <select name="dvd_status" class="form-control media_status" id="select_dvd_status">
-        <option value="0" {{ ($book['setdvd_status'] == 0) ? 'selected' : ''}}>ไม่ผลิต</option>
-        <option value="3" {{ ($book['setdvd_status'] == 3) ? 'selected' : ''}}>กำลังผลิต</option>
-        <option value="1" {{ ($book['setdvd_status'] == 1) ? 'selected' : ''}}>ผลิต</option>
-        <option value="2" {{ ($book['setdvd_status'] == 2) ? 'selected' : ''}}>จองอ่าน</option>
-      </select>
-      <!-- text fields -->
+      <input type="text" class="form-control" value="{{$book['setdvd_status']}}" disabled>
     </div>
   </div>
 </div>

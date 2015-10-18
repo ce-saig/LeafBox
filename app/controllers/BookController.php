@@ -94,6 +94,7 @@ class BookController extends Controller{
     }
 
     $all_media = substr($all_media, 0, -2).")";
+    $all_media = ($all_media == ")") ? "" : $all_media;
 
           //braile
     $braille = Braille::where('book_id','=',$book['id'])->get();
@@ -186,23 +187,23 @@ class BookController extends Controller{
     $book['isbn']          = $bookEloquent->isbn ;
     $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
     $book['abstract']      = $bookEloquent->abstract ;
-    $book['bm_status']     = $bookEloquent->bm_status ;
+    $book['bm_status']     = ($bookEloquent->bm_status == 2) ? "กำลังผลิต" : $this->getWordStatus($bookEloquent->bm_status);
     $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd/m/Y');
     $book['bm_no']         = $bookEloquent->bm_no;
     $book['bm_note']       = $bookEloquent->bm_note ;
-    $book['setcs_status']  = $bookEloquent->setcs_status ;
+    $book['setcs_status']  = $this->getWordStatus($bookEloquent->setcs_status);
     $book['setcs_date']    = ($bookEloquent->setcs_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcs_date), 'd/m/Y');
     $book['setcm_no']      = $bookEloquent->setcm_no;
     $book['setcs_note']    = $bookEloquent->setcs_note ;
-    $book['setds_status']  = $bookEloquent->setds_status ;
+    $book['setds_status']  = $this->getWordStatus($bookEloquent->setds_status);
     $book['setds_date']    = ($bookEloquent->setds_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setds_date), 'd/m/Y');
     $book['setdm_no']      = $bookEloquent->setdm_no;
     $book['setds_note']    = $bookEloquent->setds_note ;
-    $book['setcd_status']  = $bookEloquent->setcd_status ;
+    $book['setcd_status']  = $this->getWordStatus($bookEloquent->setcd_status);
     $book['setcd_date']    = ($bookEloquent->setcd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setcd_date), 'd/m/Y');
     $book['setcdm_no']     = $bookEloquent->setcdm_no;
     $book['setcd_note']    = $bookEloquent->setcd_note ;
-    $book['setdvd_status'] = $bookEloquent->setdvd_status ;
+    $book['setdvd_status'] = $this->getWordStatus($bookEloquent->setdvd_status);
     $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd/m/Y');
     $book['setdvdm_no']       = $bookEloquent->setdvdm_no;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
@@ -234,7 +235,6 @@ class BookController extends Controller{
       //$book['id']         = Input::get('id'); //TODO : make ID Validator
     $book->grade      = Input::get('grade');
 
-    $book->bm_status  = Input::get('bm_status');
     $book->bm_note    = Input::get('bm_note');
     $book->bm_no    = Input::get('bm_no');
     if(Input::get('bm_date')) {
@@ -244,7 +244,6 @@ class BookController extends Controller{
     else
       $book->bm_date  = "0000-00-00 00:00:00";
 
-    $book->setcs_status  = Input::get('cs_status');
     $book->setcs_note    = Input::get('cs_note');
     $book->setcm_no     = Input::get('setcm_no');
     if(Input::get('cs_date')) {
@@ -254,7 +253,6 @@ class BookController extends Controller{
     else
       $book->setcs_date  = "0000-00-00 00:00:00";
 
-    $book->setds_status  = Input::get('ds_status');
     $book->setds_note    = Input::get('ds_note');
     $book->setdm_no     = Input::get('setdm_no');
     if(Input::get('ds_date')) {
@@ -264,7 +262,6 @@ class BookController extends Controller{
     else
       $book->setds_date  = "0000-00-00 00:00:00";
 
-    $book->setcd_status  = Input::get('cd_status');
     $book->setcd_note    = Input::get('cd_note');
     $book->setcdm_no     = Input::get('setcdm_no');
     if(Input::get('cd_date')) {
@@ -274,7 +271,6 @@ class BookController extends Controller{
     else
       $book->setcd_date  = "0000-00-00 00:00:00";
 
-    $book->setdvd_status = Input::get('dvd_status');
     $book->setdvd_note   = Input::get('dvd_note');
     $book->setdvdm_no     = Input::get('setdvdm_no');
     if(Input::get('dvd_date')) {
