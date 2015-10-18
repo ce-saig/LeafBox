@@ -371,6 +371,7 @@
   var length = null;
   var media_id = null;
   var original_part = null;
+  var preventModal = false;
 
   $(function()
   {
@@ -405,11 +406,16 @@ function tabSelect(tab){
 }
 
 $("table").on("click", "tr.table-body", function() {
+  if(preventModal) {
+    preventModal = false;
+    return;
+  }
   var media_type = {braille:'เบรลล์', cassette:'เทปคาสเซ็ท', cd:' CD', daisy:'เดซี่', dvd:' DVD'};
   media_id = $(this).children('#media-id').text();
   $('#media-title-head').text('แก้ไขรายละเอียด' + media_type[tabClicked]);
   if(tabClicked == "braille") {
-    original_part = $(this).children('#braille-part').text();
+    original_part = $(this).children('#braille-part').attr('data-part');
+    console.log(original_part);
     $('#test').html('<div class="col-md-2">จำนวนหน้า</div>\
      <div class="col-md-4">\
        <input type="number" class="form-control" id="edit-page-braille" min=1 value="">\
@@ -429,7 +435,7 @@ $("table").on("click", "tr.table-body", function() {
     $('#edit-examiner-braille').attr('value', $(this).children('#braille-examiner').text());
   }
   else {
-    original_part = $(this).children('#media-part').text();
+    original_part = $(this).children('#media-part').attr('data-part');
     $('#test').html('<div class="col-md-3" id="amount-prefix">จำนวนแผ่น</div>\
      <div class="col-md-3"><input type="number" class="form-control" id="edit-part" value="">\
      </div>\
@@ -468,21 +474,24 @@ $('body').on('click', '#send-data', function() {
   }
 
   var data = {media_type: tabClicked, media_id: media_id, page_amount: page_amount, part_amount: part_amount, length: length, examiner: examiner};
+  console.log(data);
   $.ajax({
     type: "POST",
     url: "{{ url('editMedia') }}",
     data: {data: data}
   }).done(function(data) {
-    //console.log(data);
+    console.log(data);
     //console.log('#' + tabClicked + '-' + media_id);
     if(tabClicked == "braille") {
       $('#' + tabClicked + '-' + media_id).children('#braille-page').text(page_amount);
       $('#' + tabClicked + '-' + media_id).children('#braille-examiner').text(examiner);
-      $('#' + tabClicked + '-' + media_id).children('#braille-part').text(part_amount);
+      $('#' + tabClicked + '-' + media_id).children('#braille-part').attr('data-part', part_amount);
+      $('#' + tabClicked + '-' + media_id).children('#braille-part').text(part_amount + " " + data);
     }
     else {
       $('#' + tabClicked + '-' + media_id).children('#media-length').text(length);
-      $('#' + tabClicked + '-' + media_id).children('#media-part').text(part_amount);
+      $('#' + tabClicked + '-' + media_id).children('#media-part').attr('data-part', part_amount);
+      $('#' + tabClicked + '-' + media_id).children('#media-part').text(part_amount + " " + data);
     }
     $('#edit-detail').modal('hide');
   });
@@ -561,6 +570,7 @@ function add(){
 // Delete Button Cofirmation
 $('.del_media_btn').click(function(e) {
   e.preventDefault();
+  preventModal = true;
   var borrower = $(this).parent().prev().attr('data-borrower');
   console.log('borrower : ' + borrower);
   if(borrower == "ไม่มี") {

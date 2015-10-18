@@ -98,10 +98,12 @@ class BookController extends Controller{
 
           //braile
     $braille = Braille::where('book_id','=',$book['id'])->get();
+    $successiveID  = true;
     foreach ($braille as $key => $item) {
       $borrow = Brailleborrow::where('braille_id', '=', $item->id)->get();
       $borrow = $borrow->last();
       $item->borrower = "ไม่มี";
+      $item->submedia_id = $item->getSubmediaRangeID();
       if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
         $item->borrower = Member::find($borrow->member_id)->name;
     }
@@ -111,6 +113,7 @@ class BookController extends Controller{
       $borrow = Cassetteborrow::where('cassette_id', '=', $item->id)->get();
       $borrow = $borrow->last();
       $item->borrower = "ไม่มี";
+      $item->submedia_id = $item->getSubmediaRangeID();
       if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
         $item->borrower = Member::find($borrow->member_id)->name;
     }
@@ -120,6 +123,7 @@ class BookController extends Controller{
       $borrow = Daisyborrow::where('daisy_id', '=', $item->id)->get();
       $borrow = $borrow->last();
       $item->borrower = "ไม่มี";
+      $item->submedia_id = $item->getSubmediaRangeID();
       if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
         $item->borrower = Member::find($borrow->member_id)->name;
     }
@@ -129,6 +133,7 @@ class BookController extends Controller{
       $borrow = Cdborrow::where('cd_id', '=', $item->id)->get();
       $borrow = $borrow->last();
       $item->borrower = "ไม่มี";
+      $item->submedia_id = $item->getSubmediaRangeID();
       if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
         $item->borrower = Member::find($borrow->member_id)->name;
     }
@@ -138,6 +143,7 @@ class BookController extends Controller{
       $borrow = Dvdborrow::where('dvd_id', '=', $item->id)->get();
       $borrow = $borrow->last();
       $item->borrower = "ไม่มี";
+      $item->submedia_id = $item->getSubmediaRangeID();
       if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
         $item->borrower = Member::find($borrow->member_id)->name;
     }
