@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 	function cardGenerate(input_response, card_path) {
 		var response = input_response
-		var mediatype = ['เบลล์ ', 'คาสเซ็ท ', 'DVD ', 'CD ', 'Daisy '];
+		var mediatype = ['เบรลล์', 'คาสเซ็ท', 'DVD', 'CD', 'Daisy'];
 		var status_attr_type = ['bm_status','setcs_status','setdvd_status','setcd_status','setds_status'];
 		$('.search_result').text('');
 
@@ -156,7 +156,7 @@ $(document).ready(function() {
 				badge.text(mediatype[label]);
 				// console.log("response = " + response[i][status_attr_type]);
 				// console.log("badge status = " + response[i][status_attr_type[label]] );
-				var badgetag = badgeGenerator(response[i][status_attr_type[label]]);
+				var badgetag = badgeGenerator(response[i][status_attr_type[label]], mediatype[label]);
 				// console.log(badgetag);
 				badge.append(badgetag);
 				outer_badge.append(badge);
@@ -173,15 +173,18 @@ $(document).ready(function() {
 		}
 	}
 
-	function badgeGenerator(status) {
+	function badgeGenerator(status, label) {
+		console.log(status + " " + label);
 		if(status == 0){
 			return '<span class="label label-warning">ไม่ผลิต</span>';
 		}else if(status == 1){
 			return '<span class="label label-success">ผลิต</span>';
-		}else if(status == 2){
+		}
+		else if((status == 2 && label == 'เบรลล์') || status == 3){
+			return '<span class="label label-info">กำลังผลิต</span>';
+		}
+		else{
 			return '<span class="label label-info">จองอ่าน</span>';
-		}else{
-			return '<span class="label label-danger"> - </span>';
 		}
 	}
 });

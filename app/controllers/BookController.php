@@ -61,7 +61,7 @@ class BookController extends Controller{
     $book['cd_number']     = count($bookEloquent->cd);
     $book['dvd_number']    = count($bookEloquent->dvd);
 
-    $book['bm_status']     = $this->getWordStatus($bookEloquent->bm_status) ;
+    $book['bm_status']     = ($bookEloquent->bm_status == 2) ? 'กำลังผลิต' : $this->getWordStatus($bookEloquent->bm_status);
     $book['bm_date']       = $this->formatDate($bookEloquent->bm_date);
     $book['bm_no']         = $bookEloquent->bm_no;
     $book['bm_note']       = $bookEloquent->bm_note ;
@@ -314,45 +314,6 @@ class BookController extends Controller{
           //return View::make('library.index',array('books' => $obj ));
     return array($obj,$count);
   }
-
-  public function updateMediaStatus($book_id, $media_type)
-  {
-    $status = $this->getLastProdStatus2($book_id, $media_type)['action_status'];
-    $book = Book::find($book_id);
-    $mediaStatus = null;
-    if($status == -1)
-        $mediaStatus = 0;
-    else if($status == 0)
-        $mediaStatus = 2;
-    else
-        $mediaStatus = 3;
-
-    if($mediaStatus == 3 && $this->countMedia($book, $media_type))
-        $mediaStatus = 1;
-
-    switch ($media_type) {
-        case 0:
-            $book->bm_status = $mediaStatus;
-            break;
-        case 1:
-            $book->setcs_status = $mediaStatus;
-            break;
-        case 2:
-            $book->setds_status = $mediaStatus;
-            break;
-        case 3:
-            $book->setcd_status = $mediaStatus;
-            break;
-        case 4:
-            $book->setdvd_status = $mediaStatus;
-            break;
-        default :
-            return 'media not match';
-    }
-    $book->save();
-    return $mediaStatus;
-  }
-
         // For Ajax search Call (INCOMPLETE)
   public function getDatatable()
   {
@@ -365,8 +326,8 @@ class BookController extends Controller{
 
       // Enum media status helper
   public function getWordStatus($status){
-    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต');
-    if($status == null)$status=3;
+    $enum = array('ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต', 'error');
+    if($status > 3 || $status < 0)$status=4;
     return $enum[(int)$status];
   }
 
@@ -397,8 +358,9 @@ class BookController extends Controller{
         )
       return "failed, null not permit";
 
+    $book = Book::find($bp->book_id);
     if($bp->save()) {
-      $this->updateMediaStatus($bp->book_id, $bp->media_type);
+      $book->updateMediaStatus($bp->media_type);
       return "success";
     }
     return "failed";
@@ -413,43 +375,10 @@ class BookController extends Controller{
 
   public function getLastProdStatus()
   {
-    $lastProd = BookProd::where('book_id', '=', Input::get('book_id'))
-                ->where('media_type', '=', Input::get('media_type'))->get();
-    if(!count($lastProd))
-        return array('action_status' => -1, 'finish_date' => 1);
-    $lastProd = $lastProd->last();
-    return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date);
-  }
-
-  private function getLastProdStatus2($book_id, $media_type)
-  {
-    $media_type = $this->getDefinedMediaNumber($media_type);
-    $lastProd = BookProd::where('book_id', '=', $book_id)
-                ->where('media_type', '=', $media_type)->get();
-                
-    if(!count($lastProd))
-        return array('action_status' => -1, 'finish_date' => 1);
-    $lastProd = $lastProd->last();
-    return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date);
-  }
-
-  public function getDefinedMediaNumber($media_type)
-  {
-    $media_type = strtolower($media_type);
-    switch ($media_type) {
-        case 'braille' | 0:
-            return 0;
-        case 'cassette' | 1:
-            return 1;
-        case 'daisy' | 2:
-            return 2;
-        case 'cd' | 3:
-            return 3;
-        case 'dvd' | 4:
-            return 4;
-        default:
-            return 5;
-    }
+    $book_id = Input::get('book_id');
+    $book = Book::find($book_id);
+    $media_type = Input::get('media_type');
+    return $book->getLastProdStatus($media_type);
   }
   
   public function postProdedit()
@@ -487,28 +416,21 @@ class BookController extends Controller{
     $bpId = Input::get("prod_id", null);
     $bp = BookProd::find($bpId);
     $book = Book::find($bp->book_id);
+    $media_type = $bp->media_type;
 
-    if($this->countMedia($book, $bp->media_type))
-        return $this->countMedia($book, $bp->media_type);
+    if($book->countMedia($media_type))
+        return $book->countMedia($media_type);
 
-    $this->updateMediaStatus($bp->book_id, $bp->media_type);
     $bp->delete();
-    return "success";
-  }
+    
+    $productionStatus = $book->updateMediaStatus($media_type);
 
-  public function countMedia($book, $media_type)
-  {
-    $media_type = (is_numeric($media_type)) ? $media_type : $this->getDefinedMediaNumber($media_type);
-    if($media_type == 0)
-        return count($book->braille()->get());
-    else if($media_type == 1)
-        return count($book->cassette()->get());
-    else if($media_type == 2)
-        return count($book->daisy()->get());
-    else if($media_type == 3)
-        return count($book->cd()->get());
+    $data['media_type'] = Book::getDefinedMediaWord($media_type);
+    if($media_type == 0 && $productionStatus == 2)
+      $data['status'] = 'กำลังผลิต';
     else
-        return count($book->dvd()->get());
+      $data['status'] = $this->getWordStatus($productionStatus);
+    return $data;
   }
 
   public function addLastStatusToProd($prod)

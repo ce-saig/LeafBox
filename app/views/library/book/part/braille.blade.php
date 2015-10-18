@@ -1,5 +1,5 @@
 <div role="tabpanel" class="tab-pane active" id="detail">
-  <a class = "btn btn-danger pull-right" href="{{$bid}}/braille/deleteAll" data-media="braille" data-bookid="{{$bid}}">ลบสื่อนี้ทั้งหมด</a>
+  <a class = "btn btn-danger pull-right del_media_btn_all" href="{{$bid}}/braille/deleteAll" data-media="braille" data-bookid="{{$bid}}">ลบสื่อนี้ทั้งหมด</a>
   <div class = "list-media">
     <table class="table table-hover">
       <thead>

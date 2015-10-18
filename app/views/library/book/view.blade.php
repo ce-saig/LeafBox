@@ -65,7 +65,7 @@
         <hr>
         <div class="col-xs-12"></div>
         <div class="col-xs-6 col-sm-2"><b>สถานะของเบรลล์</b></div>
-        <div class="col-xs-6 col-sm-2">{{$book['bm_status']}}</div>
+        <div class="col-xs-6 col-sm-2" id="braille-status">{{$book['bm_status']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
         <div class="col-xs-6 col-sm-2">{{$book['bm_date']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เบลล์ต้นฉบับ</b></div>
@@ -75,7 +75,7 @@
         <hr>
         <div class="col-xs-12"></div>
         <div class="col-xs-6 col-sm-2"><b>สถานะของคาสเส็ท</b></div>
-        <div class="col-xs-6 col-sm-2">{{$book['setcs_status']}}</div>
+        <div class="col-xs-6 col-sm-2" id="cassette-status">{{$book['setcs_status']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
         <div class="col-xs-6 col-sm-2">{{$book['setcs_date']}}</div>
         <div class="col-xs-6 col-sm-2"><b>คาสเซ็ทต้นฉบับ</b></div>
@@ -85,7 +85,7 @@
         <hr>
         <div class="col-xs-12"></div>
         <div class="col-xs-6 col-sm-2"><b>สถานะของเดซี่</b></div>
-        <div class="col-xs-6 col-sm-2">{{$book['setds_status']}}</div>
+        <div class="col-xs-6 col-sm-2" id="daisy-status">{{$book['setds_status']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
         <div class="col-xs-6 col-sm-2">{{$book['setds_date']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เดซี่ต้นฉบับ</b></div>
@@ -95,7 +95,7 @@
         <hr>
         <div class="col-xs-12"></div>
         <div class="col-xs-6 col-sm-2"><b>สถานะของซีดี</b></div>
-        <div class="col-xs-6 col-sm-2">{{$book['setcd_status']}}</div>
+        <div class="col-xs-6 col-sm-2" id="cd-status">{{$book['setcd_status']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
         <div class="col-xs-6 col-sm-2">{{$book['setcd_date']}}</div>
         <div class="col-xs-6 col-sm-2"><b>CDต้นฉบับ</b></div>
@@ -105,7 +105,7 @@
         <hr>
         <div class="col-xs-12"></div>
         <div class="col-xs-6 col-sm-2"><b>สถานะของดีวีดี</b></div>
-        <div class="col-xs-6 col-sm-2">{{$book['setdvd_status']}}</div>
+        <div class="col-xs-6 col-sm-2" id="dvd-status">{{$book['setdvd_status']}}</div>
         <div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
         <div class="col-xs-6 col-sm-2">{{$book['setdvd_date']}}</div>
         <div class="col-xs-6 col-sm-2"><b>DVDต้นฉบับ</b></div>
@@ -576,13 +576,14 @@ $('.del_media_btn_all').click(function(e) {
   media_type = $(this).attr('data-media');
   book_id = $(this).attr('data-bookid');
   console.log(media_type + book_id);
+  var link = $(this).attr('href');
   $.ajax({
     type: "POST",
     url: "{{url('anyborrower')}}",
     data: {media_type: media_type, book_id: book_id}
   }).done(function(data) {
     if(data == "false") {
-      var link = $(this).attr('href');
+      console.log(link);
       confirmation(link);
     }
     else if(data == "true")
@@ -752,16 +753,23 @@ function postProd(){
           url: "/book/{{ $book['id'] }}/prod/delete",
           data: {prod_id: $(prodObj).closest('tr').attr('data-prodId')}
         }).done(function(data) {
-          if(data == "success") {
+          console.log(data['status']);
+          if(data['status'] != "error") {
+            console.log(data['media_type']);
             var lastProdStatus = $(prodObj).closest('tr').children().eq(0).attr('data-action');
             if(lastProdStatus != "undefine")
               $(prodObj).parent().parent().parent().children().eq(--lastProdStatus).children().eq(4).append('<button onclick="prodDelete(this)" class="btn btn-danger">ลบ</button>');
             $(prodObj).closest('tr').remove();
+            updateProductionStatus(data);
           }
           else
             window.alert("ไม่สามารถลบสถานะการผลิตได้เนื่องจากยังมีสื่อคงเหลืออยู่");
         }); 
       }
+    }
+
+    function updateProductionStatus(data) {
+      $('#' + data['media_type'] + '-status').html(data['status']);
     }
   </script>
 

@@ -39,13 +39,22 @@ class Book extends Eloquent {
         }
     }
 
-    private function getLastProdStatus($media_type)
+    public static function getDefinedMediaWord($media_num)
+    {
+        $word = array('braille', 'cassette', 'daisy', 'cd', 'dvd', 'undefined');
+        if($media_num > 4 || $media_num < 0) {
+            $media_num = 5;
+        }
+        return $word[$media_num];
+    }
+
+    public function getLastProdStatus($media_type)
     {
         $media_type = $this->getDefinedMediaNumber($media_type);
         $lastProd = BookProd::where('book_id', '=', $this->id)
         ->where('media_type', '=', $media_type)->get();
 
-        if(!count($lastProd))
+        if(count($lastProd) == 0)
             return array('action_status' => -1, 'finish_date' => 1);
         $lastProd = $lastProd->last();
         return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date);
@@ -89,7 +98,7 @@ class Book extends Eloquent {
         return $mediaStatus;
     }
 
-    private function countMedia($media_type)
+    public function countMedia($media_type)
     {
         $media_type = (is_numeric($media_type)) ? $media_type : $this->getDefinedMediaNumber($media_type);
         if($media_type == 0)
