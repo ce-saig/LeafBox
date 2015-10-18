@@ -480,7 +480,7 @@
 
      for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
       if(jsonArr[i][3][daisyIndex].reserved == 1) {
-           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed'>y</td></tr><br>");
+           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
       }
       else {
            $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
