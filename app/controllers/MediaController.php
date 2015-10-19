@@ -412,9 +412,10 @@ class MediaController extends Controller{
   public function removeAllDvd($bookId){
 
     $dvds = DVD::where('book_id',$bookId)->get();
-    foreach ($dvds as $dvd) {
-      $dvd->detail()->delete();
-      $dvd->delete();
+    foreach ($dvds as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
     }
 
     $book = Book::find($bookId);
@@ -427,9 +428,10 @@ class MediaController extends Controller{
   public function removeAllCd($bookId){
 
     $cds = CD::where('book_id',$bookId)->get();
-    foreach ($cds as $cd) {
-      $cd->detail()->delete();
-      $cd->delete();
+    foreach ($cds as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
     }
 
     $book = Book::find($bookId);
@@ -442,9 +444,10 @@ class MediaController extends Controller{
   public function removeAllDaisy($bookId){
 
     $daisys = Daisy::where('book_id',$bookId)->get();
-    foreach ($daisys as $daisy) {
-      $daisy->detail()->delete();
-      $daisy->delete();
+    foreach ($daisys as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
     }
 
     $book = Book::find($bookId);
@@ -457,6 +460,7 @@ class MediaController extends Controller{
   public function removeAllCassette($bookId){
     $items = Cassette::where('book_id',$bookId)->get();
     foreach ($items as $item) {
+      $item->borrow()->delete();
       $item->detail()->delete();
       $item->delete();
     }
@@ -471,6 +475,7 @@ class MediaController extends Controller{
   public function removeAllBraille($bookId){
     $items = Braille::where('book_id',$bookId)->get();
     foreach ($items as $item) {
+      $item->borrow()->delete();
       $item->detail()->delete();
       $item->delete();
     }
@@ -484,6 +489,7 @@ class MediaController extends Controller{
 
   public function removeSelectedCassette($bookId,$cassetteId){
     $item = Cassette::find($cassetteId);
+    $item->borrow()->delete();
     $item->detail()->delete();
     $item->delete();
 
@@ -498,6 +504,7 @@ class MediaController extends Controller{
 
   public function removeSelectedCd($bookId,$cdId){
     $item = CD::find($cdId);
+    $item->borrow()->delete();
     $item->detail()->delete();
     $item->delete();
 
@@ -511,6 +518,7 @@ class MediaController extends Controller{
   }
   public function removeSelectedDvd($bookId,$dvdId){
     $item = DVD::find($dvdId);
+    $item->borrow()->delete();
     $item->detail()->delete();
     $item->delete();
 
@@ -524,6 +532,7 @@ class MediaController extends Controller{
   }
   public function removeSelectedBraille($bookId,$brailleId){
     $item = Braille::find($brailleId);
+    $item->borrow()->delete();
     $item->detail()->delete();
     $item->delete();
 
@@ -538,6 +547,7 @@ class MediaController extends Controller{
 
   public function removeSelectedDaisy($bookId,$daisyId){
     $item = Daisy::find($daisyId);
+    $item->borrow()->delete();
     $item->detail()->delete();
     $item->delete();
 
