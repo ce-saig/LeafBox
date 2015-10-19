@@ -14,16 +14,18 @@
 			<div class="text-center">
 				<div class="line1">
 					<div class="input col-md-10" >
-						<div class="col-md-2 form-label" style="text-align: left">สถานะ</div>
-						<div class="col-md-3">
+						<div class="col-md-1 form-label" style="text-align: left">สถานะ</div>
+						<div class="col-md-2">
 							<select class="form-control" id="select-all-status">
 								<option value="0">ปกติ</option>
 								<option value="1">ชำรุด</option>
 								<option value="2">รอซ่อม</option>
 							</select>
 						</div>
-						<div class="col-md-2 form-label">หมายเหตุ</div>
-						<div class="col-md-5"><input type="text" name="note[]" class="form-control" id="head-note" value=""></div>
+						<div class="col-md-2 form-label">วันที่แก้ไข</div>
+          				<div class="col-md-2"><input type="text" class="form-control datepicker" id="head-modified-date"></div>
+						<div class="col-md-1 form-label">หมายเหตุ</div>
+						<div class="col-md-4"><input type="text" name="note[]" class="form-control" id="head-note" value=""></div>
 					</div>
 					<div class="col-md-2">
 						<button type="button" class="btn btn-warning" id="edit-all-field">แก้ไขทั้งหมด</button>
@@ -55,7 +57,7 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" class="form-control datepicker" name="date[]" value="{{$value->date}}">
+								<input type="text" class="form-control datepicker modified-date" name="date[]" value="{{$value->date}}">
 							</td>
 							<td>
 								<input type="number" name="track_fr[]" class="form-control track-start" value="{{$value->track_fr}}">
@@ -92,6 +94,7 @@ $(".datepicker").datepicker({
 	$('#edit-all-field').click(function() {
 		$('.select-status').prop('value', $('#select-all-status').val());
 		$('.note').prop('value', $('#head-note').val());
+		$('.modified-date').prop('value', $('#head-modified-date').val());
 	});
 </script>
 @stop
