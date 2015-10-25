@@ -12,31 +12,88 @@
   </div>
   <div class="panel-body">
     <div class="col_select">
-      <label class="col-md-2">เลือกหัวข้อ : </label>
+      <label class="col-md-2">เลือกหัวข้อ: </label>
       <label class="checkbox-inline ">
-       <input type="checkbox" id="inlineCheckbox1" value="order_num"> เลขอันดับ
+        <input onclick="addfilter()" type="checkbox" id="order_num" value="order_num"> เลขอันดับ
       </label>
       <label class="checkbox-inline ">
-        <input type="checkbox" id="inlineCheckbox2" value="title"> ชื่อเรื่อง
+        <input onclick="addfilter()" type="checkbox" id="title" value="title"> ชื่อเรื่อง
       </label>
       <label class="checkbox-inline ">
-        <input type="checkbox" id="inlineCheckbox3" value="author"> ชื่อผู้แต่ง
+        <input onclick="addfilter()" type="checkbox" id="author" value="author"> ชื่อผู้แต่ง
       </label>
       <label class="checkbox-inline ">
-        <input type="checkbox" id="inlineCheckbox3" value="translator"> ชื่อผู้แปล
+        <input onclick="addfilter()" type="checkbox" id="translator" value="translator"> ชื่อผู้แปล
       </label>
       <label class="checkbox-inline ">
-        <input type="checkbox" id="inlineCheckbox3" value="status"> สถานะ
+        <input onclick="addfilter()" type="checkbox" id="status" value="status"> สถานะ
       </label>
     </div>
-    <div class="submit col-md-3 col-md-offset-3">
-      <button type="summit" class="btn btn-primary btn-sm">ตกลง</button>
+    <br>
+    <div class="filter_area">
     </div>
-    <div class="table">
+    <div class="submit col-md-2 col-md-offset-10">
+      <br><button type="summit" class="btn btn-primary btn-sm">ตกลง</button>
     </div>
  </div>
 </div>
 
+<script type="text/javascript">
+  var check = [0,0,0,0,0];
+  function addfilter () {
+    console.log(check);
+    if($('#order_num').is(':checked') == true) {
+      if(check[0] == 0) {
+        $('.filter_area').append('<div class="row" id="order_num_f"><div class="col-md-12"><div class="col-md-2"><label>เลขอันดับ:</label></div><div class="col-md-3"><select name = "filter_type" class="form-control" id = "filter_type" role="menu"><option value = "contain" >ประกอบด้วยตัวอักษร</option><option value = "equal" >อักษรตัวเดียวกัน</option></select></div><div class="col-md-5"><input type="text" class="form-control" id="order_num" placeholder = "เลขอันดับ"></div></div></div>');
+        check[0] = 1;
+      }
+    }
+    else {
+      $('#order_num_f').remove();
+      check[0] = 0;
+    }
+    if($('#title').is(':checked') == true) {
+      if(check[1] == 0) {
+        $('.filter_area').append('<div class="row" id="title_f"><div class="col-md-12"><div class="col-md-2"><label>ชื่อเรื่อง:</label></div><div class="col-md-3"><select name = "filter_type" class="form-control" id = "filter_type" role="menu"><option value = "contain" >ประกอบด้วยตัวอักษร</option><option value = "equal" >อักษรตัวเดียวกัน</option></select></div><div class="col-md-5"><input type="text" class="form-control" id="order_num" placeholder = "ชื่อเรื่อง"></div></div></div>');
+        check[1] = 1;
+      }
+    }
+    else {
+      $('#title_f').remove();
+      check[1] = 0;
+    }
+    if($('#author').is(':checked') == true) {
+      if(check[2] == 0) {
+        $('.filter_area').append('<div class="row" id="author_f"><div class="col-md-12"><div class="col-md-2"><label>ชื่อผู้แต่ง:</label></div><div class="col-md-3"><select name = "filter_type" class="form-control" id = "filter_type" role="menu"><option value = "contain" >ประกอบด้วยตัวอักษร</option><option value = "equal" >อักษรตัวเดียวกัน</option></select></div><div class="col-md-5"><input type="text" class="form-control" id="order_num" placeholder = "ชื่อผู้แต่ง"></div></div></div>');
+        check[2] = 1;
+      }
+    }
+    else {
+      $('#author_f').remove();
+      check[2] = 0;
+    }
+    if($('#translator').is(':checked') == true) {
+      if(check[3] == 0) {
+        $('.filter_area').append('<div class="row" id="translator_t"><div class="col-md-12"><div class="col-md-2"><label>ชื่อผู้แปล:</label></div><div class="col-md-3"><select name = "filter_type" class="form-control" id = "filter_type" role="menu"><option value = "contain" >ประกอบด้วยตัวอักษร</option><option value = "equal" >อักษรตัวเดียวกัน</option></select></div><div class="col-md-5"><input type="text" class="form-control" id="order_num" placeholder = "ชื่อผู้แปล"></div></div></div>');
+        check[3] = 1;
+      }
+    }
+    else {
+      $('#translator_t').remove();
+      check[3] = 0;
+    }
+    if($('#status').is(':checked') == true) {
+      if(check[4] == 0) {
+        $('.filter_area').append('<div class="row" id="status_f"><div class="col-md-12"><div class="col-md-2"><label>สถานะ:</label></div><div class="col-md-3"><select name = "filter_type" class="form-control" id = "filter_type" role="menu"><option value = "contain" >ประกอบด้วยตัวอักษร</option><option value = "equal" >อักษรตัวเดียวกัน</option></select></div><div class="col-md-5"><input type="text" class="form-control" id="order_num" placeholder = "สถานะ"></div></div></div>');
+        check[4] = 1;
+      }
+    }
+    else {
+      $('#status_f').remove();
+      check[4] = 0;
+    }
+  }
+</script>
 <!--<div class="panel panel-info">
   <div class="panel-heading">
     <h3 class="panel-title">Book</h3>
