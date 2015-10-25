@@ -12,7 +12,7 @@
   </div>
   <div class="panel-body">
     <div class="col_select">
-      <label class="col-md-2">เลือกหัวข้อ: </label>
+      <label class="col-md-2">เลือกตัวกรอง: </label>
       <label class="checkbox-inline ">
         <input onclick="addfilter()" type="checkbox" id="order_num" value="order_num"> เลขอันดับ
       </label>
@@ -31,6 +31,25 @@
     </div>
     <br>
     <div class="filter_area">
+    </div>
+    <br>
+    <div class="col_to_show">
+      <label class="col-md-2">หัวข้อที่จะแสดง: </label>
+      <label class="checkbox-inline ">
+        <input onclick="addfilter()" type="checkbox" id="order_num" value="order_num"> เลขอันดับ
+      </label>
+      <label class="checkbox-inline ">
+        <input onclick="addfilter()" type="checkbox" id="title" value="title"> ชื่อเรื่อง
+      </label>
+      <label class="checkbox-inline ">
+        <input onclick="addfilter()" type="checkbox" id="author" value="author"> ชื่อผู้แต่ง
+      </label>
+      <label class="checkbox-inline ">
+        <input onclick="addfilter()" type="checkbox" id="translator" value="translator"> ชื่อผู้แปล
+      </label>
+      <label class="checkbox-inline ">
+        <input onclick="addfilter()" type="checkbox" id="status" value="status"> สถานะ
+      </label>
     </div>
     <div class="submit col-md-2 col-md-offset-10">
       <br><button type="summit" class="btn btn-primary btn-sm">ตกลง</button>
