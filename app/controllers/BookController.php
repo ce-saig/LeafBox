@@ -5,6 +5,15 @@ class BookController extends Controller{
     return View::make('library.book.add');
   }
 
+  public function delete($bid)
+  {
+    $book = Book::find($bid);
+    $book->removeAllMedia();
+    $book->removeAllProd();
+    $book->delete();
+    return Redirect::to('/');
+  }
+
   public function postBook(){
     $Book = new Book;
         //$Book = Book::where('id','=','2')->count();

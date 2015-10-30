@@ -41,6 +41,21 @@ class CD extends Eloquent {
 			$range .= '*';
 		return $range;
     }
+
+    public static function removeAll($bookId){
+
+    $cds = CD::where('book_id',$bookId)->get();
+    foreach ($cds as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
+    }
+
+    $book = Book::find($bookId);
+    $book->setcd_date = date_create('0000-00-00 00:00:00');
+    $book->save();
+    $book->updateMediaStatus(3);
+  }
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
 }

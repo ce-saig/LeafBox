@@ -41,6 +41,21 @@ class Daisy extends Eloquent {
 			$range .= '*';
 		return $range;
     }
+
+    public static function removeAll($bookId){
+
+    $daisys = Daisy::where('book_id',$bookId)->get();
+    foreach ($daisys as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
+    }
+
+    $book = Book::find($bookId);
+    $book->setds_date = date_create('0000-00-00 00:00:00');
+    $book->save();
+    $book->updateMediaStatus(2);
+  }
     
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }

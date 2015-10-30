@@ -35,4 +35,18 @@ class Braille extends Eloquent {
 			$range .= '*';
 		return $range;
     }
+
+    public static function removeAll($bookId){
+    $items = Braille::where('book_id',$bookId)->get();
+    foreach ($items as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
+    }
+
+    $book = Book::find($bookId);
+    $book->bm_date = date_create('0000-00-00 00:00:00');
+    $book->save();
+    $book->updateMediaStatus(0);
+  }
 }
