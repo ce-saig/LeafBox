@@ -112,6 +112,23 @@ class Book extends Eloquent {
         else
             return 1;
     }
+
+    public function removeAllMedia()
+    {
+        Braille::removeAll($this->id);
+        Cassette::removeAll($this->id);
+        CD::removeAll($this->id);
+        Daisy::removeAll($this->id);
+        DVD::removeAll($this->id);
+    }
+
+    public function removeAllProd()
+    {
+        $prods = $this->prod()->get();
+        foreach ($prods as $key => $item) {
+            $item->delete();
+        }
+    }
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
 }

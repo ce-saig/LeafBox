@@ -41,6 +41,21 @@ class DVD extends Eloquent {
 			$range .= '*';
 		return $range;
     }
+
+    public static function removeAll($bookId){
+
+    $dvds = DVD::where('book_id',$bookId)->get();
+    foreach ($dvds as $item) {
+      $item->borrow()->delete();
+      $item->detail()->delete();
+      $item->delete();
+    }
+
+    $book = Book::find($bookId);
+    $book->setdvd_date = date_create('0000-00-00 00:00:00');
+    $book->save();
+    $book->updateMediaStatus(4);
+  }
     //Relation
     // public function owner()   { return $this->belongsTo('User', 'id'); }
     

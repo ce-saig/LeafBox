@@ -115,8 +115,11 @@
         <div class="col-xs-6 col-sm-2"><b>หนังสือสร้างเมื่อ</b></div>
         <div class="col-xs-6 col-sm-2">{{($book['created_at'] == "") ? '-' : $book['created_at']}}</div>
 
+        <div class="col-md-6">
+            <a href="{{ URL::to('/book/'.$book['id'].'/delete') }}" class="btn btn-danger btn-lg pull-left delete-book">ลบหนังสือ</a>
+          </div>
         <div id="isddfvi" class="row">
-          <div class="col-md-12 ">
+          <div class="col-md-6">
             <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-warning btn-lg pull-right">แก้ไข</a>
           </div>
         </div>
@@ -601,6 +604,14 @@ $('.del_media_btn_all').click(function(e) {
     else
       window.alert('ไม่มีสื่อ');
   });
+});
+
+$('.delete-book').click(function(e) {
+  e.preventDefault();
+  console.log("delete book");
+  if(confirm("การลบหนังสือจะทำให้ข้อมูลสื่อทั้งหมดของหนังสือถูกลบ คุณต้องการลบจริงหรือไม่ ?"))
+    console.log($(this).attr('href'));
+    window.location.href = $(this).attr('href');
 });
 
 function confirmation(link) {

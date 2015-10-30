@@ -20,6 +20,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('edit', 'BookController@getEdit');
     Route::post('edit', 'BookController@postEdit');
 
+    Route::get('delete', 'BookController@delete');
+
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('get_status', 'BookController@getLastProdStatus');
       Route::post('add', 'BookController@postProdAdd');
