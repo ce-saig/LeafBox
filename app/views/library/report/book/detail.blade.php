@@ -7,7 +7,7 @@
 @section('body')
 <h3>Book Detail</h3>
 @foreach ($data as $item)
-  <div class="well">
+ <div class="well">
   	<table class="table table-striped">
   		<tr>
   			<td>id:</td>
