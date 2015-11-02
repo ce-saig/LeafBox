@@ -127,19 +127,19 @@
         </div>
         <div class="col-md-10 col-md-offset-2">
           <label class="checkbox-inline ">
-            <input onclick="addfilter()" type="checkbox" id="order_num" value="order_num"> เลขอันดับ
+            <input name="col[]" type="checkbox" id="order_num" value="order_num"> เลขอันดับ
           </label>
          <label class="checkbox-inline ">
-          <input onclick="addfilter()" type="checkbox" id="title" value="title"> ชื่อเรื่อง
+          <input name="col[]" type="checkbox" id="title" value="title"> ชื่อเรื่อง
          </label>
          <label class="checkbox-inline ">
-           <input onclick="addfilter()" type="checkbox" id="author" value="author"> ชื่อผู้แต่ง
+           <input name="col[]" type="checkbox" id="author" value="author"> ชื่อผู้แต่ง
          </label>
          <label class="checkbox-inline ">
-          <input onclick="addfilter()" type="checkbox" id="translator" value="translator"> ชื่อผู้แปล
+          <input name="col[]" type="checkbox" id="translator" value="translator"> ชื่อผู้แปล
          </label>
          <label class="checkbox-inline ">
-          <input onclick="addfilter()" type="checkbox" id="status" value="status"> สถานะ
+          <input name="col[]" type="checkbox" id="status" value="status"> สถานะ
          </label>
        </div>
       </div>

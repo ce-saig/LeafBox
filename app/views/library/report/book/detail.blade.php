@@ -6,36 +6,43 @@
 
 @section('body')
 <h3>Book Detail</h3>
-@foreach ($data as $item)
- <div class="well">
-  	<table class="table table-striped">
-  		<tr>
-  			<td>id:</td>
-  			<td>{{$item["id"]}}</td>
-  		</tr>
-  		<tr>
-  			<td>ISBN:</td>
-  			<td>{{$item["isbn"]}}</td>
-  		</tr>
-  		<tr>
-  			<td>title:</td>
-  			<td>{{$item["title"]}}</td>
-  		</tr>
-  		<tr>
-  			<td>author:</td>
-  			<td>{{$item["author"]}}</td>
-  		</tr>
-  		<tr>
-  			<td>translater:</td>
-  			<td>{{$item["translate"]}}</td>
-  		</tr>
-  		<tr>
-  			<td>status:</td>
-  			<td></td>
-  		</tr>
-  	</table>
-  </div>
-@endforeach
+<div class="well">
+  <table class="table table-striped">
+    <tr>
+      @foreach($col as $item)
+        @if($item == "order_num")
+          <td>เลขอันดับ</td>
+        @elseif($item == "title")
+          <td>ชื่อเรื่อง</td>
+        @elseif($item == "author")
+          <td>ชื่อผู้แต่ง</td>
+        @elseif($item == "translator")
+          <td>ชื่อผู้แปละ</td>
+        @elseif($item == "status")
+          <td>สถานะ</td>
+        @endif
+      @endforeach
+    </tr>
+    @foreach ($data as $item)
+      <tr>
+        @foreach($col as $filter)
+          @if($filter == "order_num")
+            <td>1</td>
+          @elseif($filter == "title")
+            <td>2</td>
+          @elseif($filter == "author")
+            <td>3</td>
+          @elseif($filter == "translator")
+            <td>4</td>
+          @elseif($filter == "status")
+            <td>5</td>
+          @endif
+        @endforeach
+      </tr>
+    @endforeach
+  </table>
+</div>
+
 
 @stop
 @section('script')
