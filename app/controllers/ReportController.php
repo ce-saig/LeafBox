@@ -5,13 +5,66 @@ class ReportController extends BaseController {
   {
     return View::make('library.report.index');
   }
+/*
+  public function convertOperator($raw_oper)
+  {
+    if($raw_oper == 0) {
+      return "LIKE";
+    }
+    else if($raw_oper == 1) {
+      return "=";
+    }
+    else if($raw_oper == 2) {
+      return ">";
+    }
+    else if($raw_oper == 3) {
+      return "<";
+    }
+  }*/
 
+ /* public function valueForWhere($operator,$value)
+  {
+    if($operator == "LIKE") {
+      return "%".$value."%";
+    }
+    return $value;
+  }
+*/
   public function getBookDetail()
   {
-    $filter_title = Input::get("filter_title");
-    $title = Input::get("title");
-    $col_filter = Input::get("col");
-    $allBook = Book::where("title","LIKE","%$title%")->get();
+    $book_filter = Input::get("book-filter");
+    $media_filter = Input::get("media-filter");
+    $book = Book::where("id",">","0");
+
+    $fn_value=function($operator,$value){
+        if($operator == "LIKE") {
+          return "%".$value."%";
+        }
+        return $value;
+      };
+
+      $fn_operator=function($raw_oper){
+        if($raw_oper == 0) {
+          return "LIKE";
+        }
+        else if($raw_oper == 1) {
+          return "=";
+        }
+        else if($raw_oper == 2) {
+          return ">";
+        }
+        else if($raw_oper == 3) {
+          return "<";
+        }
+      };
+
+    foreach ($book_filter as $key) {
+      $text = Input::get($key);
+      $select = Input::get($key."-select");
+      $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
+    } 
+    $book = $book->get();
+    return $book;
     $arrayOfData["data"] = $allBook;
     $arrayOfData["col"] = $col_filter;
     return View::make("library.report.book.detail")->with($arrayOfData);

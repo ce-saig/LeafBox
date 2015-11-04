@@ -10,178 +10,179 @@
   <div class="panel-heading">
     <h3 class="panel-title">Report Filter (Book,Part)</h3>
   </div>
-  <div class="panel-body">
+  <form action="/report/book/detail" method="POST">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h4>ข้อมูลหนังสือ</h4>
+        </div>
+        <div class="col-md-12 checkbox">
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="title" class="book-checkbox"> ชื่อเรื่อง
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="author" class="book-checkbox"> ผู้แต่ง
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="translator" class="book-checkbox"> ผู้แปล
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="pub_year" class="book-checkbox"> ปีที่พิมพ์
+            </label>
+          </div> 
 
-    <div class="row">
-      <div class="col-md-12">
-        <h4>ข้อมูลหนังสือ</h4>
-      </div>
-      <div class="col-md-12 checkbox">
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="title" class="book-checkbox"> ชื่อเรื่อง
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="author" class="book-checkbox"> ผู้แต่ง
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="translator" class="book-checkbox"> ผู้แปล
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="pub-year" class="book-checkbox"> ปีที่พิมพ์
-          </label>
-        </div> 
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="braille-prod" class="book-checkbox prod-status"> สถานะการผลิตเบรลล์
+            </label>
+          </div>
 
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="braille-prod" class="book-checkbox prod-status"> สถานะการผลิตเบรลล์
-          </label>
-        </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="cassette-prod" class="book-checkbox prod-status"> สถานะการผลิตคาสเซ็ท
+            </label>
+          </div>
 
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="cassette-prod" class="book-checkbox prod-status"> สถานะการผลิตคาสเซ็ท
-          </label>
-        </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="daisy-prod" class="book-checkbox prod-status"> สถานะการผลิตเดซี่
+            </label>
+          </div>
 
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="daisy-prod" class="book-checkbox prod-status"> สถานะการผลิตเดซี่
-          </label>
-        </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="cd-prod" class="book-checkbox prod-status"> สถานะการผลิต CD
+            </label>
+          </div>
 
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="cd-prod" class="book-checkbox prod-status"> สถานะการผลิต CD
-          </label>
-        </div>
-
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="book-filter" value="dvd-prod" class="book-checkbox prod-status"> สถานะการผลิต DVD
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 well operator-book">
-          
-        </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <h4>ข้อมูลสื่อ</h4>
-      </div>
-      <div class="col-md-12 checkbox">
-        <div class="col-md-6">
-          <label>
-            <input type="checkbox" name="media-filter" value="braille" class="media-checkbox"> เบรลล์
-          </label>
-        </div>
-        <div class="col-md-6">
-          <label>
-            <input type="checkbox" name="media-filter" value="cassette" class="media-checkbox"> คาสเซ็ท
-          </label>
-        </div>
-        <div class="col-md-6">
-          <label>
-            <input type="checkbox" name="media-filter" value="daisy" class="media-checkbox"> เดซี่
-          </label>
-        </div>
-        <div class="col-md-6">
-          <label>
-            <input type="checkbox" name="media-filter" value="cd" class="media-checkbox"> CD
-          </label>
-        </div>
-        <div class="col-md-6">
-          <label>
-            <input type="checkbox" name="media-filter" value="dvd" class="media-checkbox"> DVD
-          </label>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="book-filter[]" value="dvd-prod" class="book-checkbox prod-status"> สถานะการผลิต DVD
+            </label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 well operator-media">
-          
-        </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <h4>ผลลัพธ์ที่จะแสดง</h4>
+      <div class="row">
+          <div class="col-md-12 well operator-book">
+            
+          </div>
       </div>
-      <div class="col-md-12 checkbox">
 
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="id" class="result-checkbox"> ทะเบียนหนังสือตาดี
-          </label>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>ข้อมูลสื่อ</h4>
         </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="title" class="result-checkbox"> เรื่อง
-          </label>
-        </div>
-
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="author" class="result-checkbox"> ผู้แต่ง
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="author" class="result-checkbox"> ผู้แปล
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="pub-year" class="result-checkbox"> ปีที่พิมพ์
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="braille-prod" class="result-checkbox"> สถานะการผลิตเบรลล์
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="cassette-prod" class="result-checkbox"> สถานะการผลิตคาสเซ็ท
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="daisy-prod" class="result-checkbox"> สถานะการผลิตเดซี่
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="cd-prod" class="result-checkbox"> สถานะการผลิต CD
-          </label>
-        </div>
-        <div class="col-md-4">
-          <label>
-            <input type="checkbox" name="result-column-filter" value="dvd-prod" class="result-checkbox"> สถานะการผลิต DVD
-          </label>
-        </div>
-
-        <div class="col-md-offset-10 col-md-2">
-          <button type="button" class="btn btn-success">Get report</button>
+        <div class="col-md-12 checkbox">
+          <div class="col-md-6">
+            <label>
+              <input type="checkbox" name="media-filter[]" value="braille" class="media-checkbox"> เบรลล์
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <input type="checkbox" name="media-filter[]" value="cassette" class="media-checkbox"> คาสเซ็ท
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <input type="checkbox" name="media-filter[]" value="daisy" class="media-checkbox"> เดซี่
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <input type="checkbox" name="media-filter[]" value="cd" class="media-checkbox"> CD
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <input type="checkbox" name="media-filter[]" value="dvd" class="media-checkbox"> DVD
+            </label>
+          </div>
         </div>
       </div>
-      <div class="operator-answer">
 
+      <div class="row">
+          <div class="col-md-12 well operator-media">
+            
+          </div>
       </div>
-    </div>
-  </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>ผลลัพธ์ที่จะแสดง</h4>
+        </div>
+        <div class="col-md-12 checkbox">
+
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="id" class="result-checkbox"> ทะเบียนหนังสือตาดี
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="title" class="result-checkbox"> เรื่อง
+            </label>
+          </div>
+
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="author" class="result-checkbox"> ผู้แต่ง
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="author" class="result-checkbox"> ผู้แปล
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="pub-year" class="result-checkbox"> ปีที่พิมพ์
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="braille-prod" class="result-checkbox"> สถานะการผลิตเบรลล์
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="cassette-prod" class="result-checkbox"> สถานะการผลิตคาสเซ็ท
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="daisy-prod" class="result-checkbox"> สถานะการผลิตเดซี่
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="cd-prod" class="result-checkbox"> สถานะการผลิต CD
+            </label>
+          </div>
+          <div class="col-md-4">
+            <label>
+              <input type="checkbox" name="result-column-filter[]" value="dvd-prod" class="result-checkbox"> สถานะการผลิต DVD
+            </label>
+          </div>
+
+          <div class="col-md-offset-10 col-md-2">
+            <button type="submit" class="btn btn-success">Get report</button>
+          </div>
+        </div>
+        <div class="operator-answer">
+
+        </div>
+      </div>
+    </div>    
+  </form>
 </div>
 @stop
 @section('script')
@@ -203,16 +204,15 @@
     var col_input = $("<div class=\"col-md-2\"></div>");
     var col_name = $("<div class=\"col-md-2\"></div>");
     var row = $("<div id = \""+id_val+"\"></div>"); //class=\"row\"
-    var select = $("<select class=\"form-control\"></select>");
+    var select = $("<select name=\""+id_val+"-select\" class=\"form-control\"></select>");
 
     // TODO: Implement For loop create option
     var option = [];
     option[0] = $("<option value=\"0\">contain</option>");
-    option[1] = $("<option value=\"1\">match</option>");
+    option[1] = $("<option value=\"1\">match(=)</option>");
     option[2] = $("<option value=\"2\">></option>");
     option[3] = $("<option value=\"3\"><</option>");
-    option[4] = $("<option value=\"4\">=</option>");
-    var input = $("<input class=\"form-control\" type=\"text\"></input>");
+    var input = $("<input name=\""+id_val+"\" class=\"form-control\" type=\"text\"></input>");
     col_name.html(id_val);
     col_operator.append(select.append(option));
     col_input.append(input);
