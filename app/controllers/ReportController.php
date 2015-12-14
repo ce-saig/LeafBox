@@ -34,6 +34,7 @@ class ReportController extends BaseController {
   {
     $book_filter = Input::get("book-filter");
     $media_filter = Input::get("media-filter");
+    return $book_filter;
     $book = Book::where("id",">","0");
 
     $fn_value=function($operator,$value){
@@ -64,7 +65,6 @@ class ReportController extends BaseController {
       $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
     } 
     $book = $book->get();
-    return $book;
     $arrayOfData["data"] = $allBook;
     $arrayOfData["col"] = $col_filter;
     return View::make("library.report.book.detail")->with($arrayOfData);
