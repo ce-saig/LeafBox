@@ -10,7 +10,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Report Filter (Book,Part)</h3>
   </div>
-  <form action="/report/book/detail" method="post">
+  <form action="{{ url('/report/book/detail') }}" method="post">
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
@@ -34,7 +34,7 @@
           </div>
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter[]" value="pub-year" class="book-checkbox"> ปีที่พิมพ์
+              <input type="checkbox" name="book-filter[]" value="pub_year" class="book-checkbox"> ปีที่พิมพ์
             </label>
           </div> 
 
@@ -81,27 +81,27 @@
           <div class="col-md-12 checkbox">
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="braille" class="media-checkbox"> เบรลล์
+                <input type="checkbox" name="media-filter[]" value="bm_status" class="media-checkbox"> เบรลล์
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="cassette" class="media-checkbox"> คาสเซ็ท
+                <input type="checkbox" name="media-filter[]" value="setcs_status" class="media-checkbox"> คาสเซ็ท
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="daisy" class="media-checkbox"> เดซี่
+                <input type="checkbox" name="media-filter[]" value="setds_status" class="media-checkbox"> เดซี่
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="cd" class="media-checkbox"> CD
+                <input type="checkbox" name="media-filter[]" value="setcd_status" class="media-checkbox"> CD
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="dvd" class="media-checkbox"> DVD
+                <input type="checkbox" name="media-filter[]" value="setdvd_status" class="media-checkbox"> DVD
               </label>
             </div>
           </div>
@@ -216,7 +216,7 @@
   }
 
   function media_filter (target_div,id_val,filter_type,element) {
-    options_array=["not produce","producing","produced"];
+    options_array=['ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต'];
     operation_add(target_div,id_val,options_array,false);
   }
 

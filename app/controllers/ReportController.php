@@ -32,6 +32,7 @@ class ReportController extends BaseController {
 */
   public function getBookDetail()
   {
+    if(count(Input::all()) == 0 ) return "You have to select some boxes.";
     $book_filter = Input::get("book-filter");
     $media_filter = Input::get("media-filter");
     $book = Book::where("id",">","0");
@@ -41,33 +42,40 @@ class ReportController extends BaseController {
           return "%".$value."%";
         }
         return $value;
-      };
+    };
 
-      $fn_operator=function($raw_oper){
-        if($raw_oper == 0) {
-          return "LIKE";
-        }
-        else if($raw_oper == 1) {
-          return "=";
-        }
-        else if($raw_oper == 2) {
-          return ">";
-        }
-        else if($raw_oper == 3) {
-          return "<";
-        }
-      };
+    $fn_operator=function($raw_oper){
+      if($raw_oper == 0) {
+        return "LIKE";
+      }
+      else if($raw_oper == 1) {
+        return "=";
+      }
+      else if($raw_oper == 2) {
+        return ">";
+      }
+      else if($raw_oper == 3) {
+        return "<";
+      }
+    };
 
-    foreach ($book_filter as $key) {
-      $text = Input::get($key."-text");
-      $select = Input::get($key."-option");
-      $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
-    } 
-    $book = $book->get();  
-    //return $book;
+    if(count($book_filter) != 0) {
+      foreach ($book_filter as $key) {
+        $text = Input::get($key."-text");
+        $select = Input::get($key."-option");
+        $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
+      } 
+    }
+    if(count($media_filter) != 0) {
+      foreach ($media_filter as $key) {
+        $status = Input::get($key."-option");
+        $book = $book->where($key, "=", $status);
+      }
+    }
+    $book = $book->get();
+    return $book;  
     $arrayOfData["data"] = $book;
     $arrayOfData["col"] = $book_filter;
-    print_r($arrayOfData);
     //return View::make("library.report.book.detail")->with($arrayOfData);
   }
 }
