@@ -34,9 +34,8 @@ class ReportController extends BaseController {
   {
     $book_filter = Input::get("book-filter");
     $media_filter = Input::get("media-filter");
-    return $book_filter;
     $book = Book::where("id",">","0");
-
+    //return Input::all();
     $fn_value=function($operator,$value){
         if($operator == "LIKE") {
           return "%".$value."%";
@@ -60,14 +59,16 @@ class ReportController extends BaseController {
       };
 
     foreach ($book_filter as $key) {
-      $text = Input::get($key);
-      $select = Input::get($key."-select");
+      $text = Input::get($key."-text");
+      $select = Input::get($key."-option");
       $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
     } 
-    $book = $book->get();
-    $arrayOfData["data"] = $allBook;
-    $arrayOfData["col"] = $col_filter;
-    return View::make("library.report.book.detail")->with($arrayOfData);
+    $book = $book->get();  
+    //return $book;
+    $arrayOfData["data"] = $book;
+    $arrayOfData["col"] = $book_filter;
+    print_r($arrayOfData);
+    //return View::make("library.report.book.detail")->with($arrayOfData);
   }
 }
 

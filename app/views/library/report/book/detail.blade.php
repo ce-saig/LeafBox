@@ -29,7 +29,7 @@
           @if($filter == "order_num")
             <td>1</td>
           @elseif($filter == "title")
-            <td>2</td>
+            <td>{{$item["title"]}}</td>
           @elseif($filter == "author")
             <td>3</td>
           @elseif($filter == "translator")
