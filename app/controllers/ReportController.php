@@ -64,11 +64,71 @@ class ReportController extends BaseController {
       $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
     } 
     $book = $book->get();  
-    //return $book;
     $arrayOfData["data"] = $book;
     $arrayOfData["col"] = $book_filter;
-    print_r($arrayOfData);
-    //return View::make("library.report.book.detail")->with($arrayOfData);
+    // CSV export
+    exportCSVTest($arrayOfData);
+    return View::make("library.report.book.detail")->with($arrayOfData);
   }
+
+public function exportCSV($obj) {
+
+  $columns = $obj["col"];
+  $obj_vals = $obj["data"];
+  $csv_arr = array();
+
+  $fp = fopen( storage_path().'/files/file.csv', 'w');
+  
+  // push column array.
+  array_push($csv_arr, $columns);
+  
+  // push object value;
+  foreach($obj_vals as $obj_val) {
+    $arr_row = array();
+    foreach($columns as $column){      
+      array_push($arr_row, $obj_val[$column]); 
+    }
+    array_push($csv_arr, $arr_row);
+  }
+
+  // create csv file 
+  foreach($csv_arr as $csv_row){
+    fputcsv($fp, $csv_row);
+  }
+
+  fclose($fp);
+  $headers = array('Content-Type' => 'text/csv');
+  return Response::download(storage_path().'/files/file.csv', 'file.csv', $headers);
 }
 
+}
+
+function exportCSVTest($obj) {
+
+  $columns = $obj["col"];
+  $obj_vals = $obj["data"];
+  $csv_arr = array();
+
+  $fp = fopen( storage_path().'/files/file.csv', 'w');
+  
+  // push column array.
+  array_push($csv_arr, $columns);
+  
+  // push object value;
+  foreach($obj_vals as $obj_val) {
+    $arr_row = array();
+    foreach($columns as $column){      
+      array_push($arr_row, $obj_val[$column]); 
+    }
+    array_push($csv_arr, $arr_row);
+  }
+
+  // create csv file 
+  foreach($csv_arr as $csv_row){
+    fputcsv($fp, $csv_row);
+  }
+
+  fclose($fp);
+  $headers = array('Content-Type' => 'text/csv');
+  return Response::download(storage_path().'/files/file.csv', 'file.csv', $headers);
+}

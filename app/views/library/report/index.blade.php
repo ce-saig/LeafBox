@@ -10,7 +10,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Report Filter (Book,Part)</h3>
   </div>
-  <form action="/report/book/detail" method="post">
+  <form action="{{ url('/report/book/detail') }}" method="post">
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
