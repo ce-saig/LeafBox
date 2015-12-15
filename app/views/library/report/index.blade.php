@@ -40,31 +40,31 @@
 
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter[]" value="braille-prod" class="book-checkbox prod-status"> สถานะการผลิตเบรลล์
+              <input type="checkbox" name="book-filter[]" value="bm_status" class="book-checkbox prod-status"> สถานะการผลิตเบรลล์
             </label>
           </div>
 
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter[]" value="cassette-prod" class="book-checkbox prod-status"> สถานะการผลิตคาสเซ็ท
+              <input type="checkbox" name="book-filter[]" value="setcs_status" class="book-checkbox prod-status"> สถานะการผลิตคาสเซ็ท
             </label>
           </div>
 
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter[]" value="daisy-prod" class="book-checkbox prod-status"> สถานะการผลิตเดซี่
+              <input type="checkbox" name="book-filter[]" value="setds_status" class="book-checkbox prod-status"> สถานะการผลิตเดซี่
             </label>
           </div>
 
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter[]" value="cd-prod" class="book-checkbox prod-status"> สถานะการผลิต CD
+              <input type="checkbox" name="book-filter[]" value="setcd_status" class="book-checkbox prod-status"> สถานะการผลิต CD
             </label>
           </div>
 
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter" value="dvd-prod" class="book-checkbox prod-status"> สถานะการผลิต DVD
+              <input type="checkbox" name="book-filter" value="setdvd_status" class="book-checkbox prod-status"> สถานะการผลิต DVD
             </label>
           </div>
         </div>
@@ -81,27 +81,27 @@
           <div class="col-md-12 checkbox">
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="bm_status" class="media-checkbox"> เบรลล์
+                <input type="checkbox" name="media-filter[]" value="braille-prod" class="media-checkbox"> เบรลล์
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="setcs_status" class="media-checkbox"> คาสเซ็ท
+                <input type="checkbox" name="media-filter[]" value="cassette-prod" class="media-checkbox"> คาสเซ็ท
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="setds_status" class="media-checkbox"> เดซี่
+                <input type="checkbox" name="media-filter[]" value="daisy-prod" class="media-checkbox"> เดซี่
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="setcd_status" class="media-checkbox"> CD
+                <input type="checkbox" name="media-filter[]" value="cd-prod" class="media-checkbox"> CD
               </label>
             </div>
             <div class="col-md-6">
               <label>
-                <input type="checkbox" name="media-filter[]" value="setdvd_status" class="media-checkbox"> DVD
+                <input type="checkbox" name="media-filter[]" value="dvd-prod" class="media-checkbox"> DVD
               </label>
             </div>
           </div>
@@ -181,7 +181,7 @@
 
   function book_filter (target_div,id_val,element) {
     if ($(element).hasClass("prod-status")){ // For Prod status filter
-      options_array=["normal","broken","repair"];
+      options_array=['ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต'];
       operation_add(target_div,id_val,options_array,false);
     }else{ // Normal filter
       options_array=["contain","match(=)",">","<"];
@@ -216,7 +216,7 @@
   }
 
   function media_filter (target_div,id_val,filter_type,element) {
-    options_array=['ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต'];
+    options_array=["normal","broken","repair"];
     operation_add(target_div,id_val,options_array,false);
   }
 
