@@ -35,8 +35,9 @@ class ReportController extends BaseController {
     if(count(Input::all()) == 0 ) return "You have to select some boxes.";
     $book_filter = Input::get("book-filter");
     $media_filter = Input::get("media-filter");
+    $col_filter = Input::get("result-column-filter");
     $book = Book::where("id",">","0");
-    //return Input::all();
+    return Input::all();
     $fn_value=function($operator,$value){
         if($operator == "LIKE") {
           return "%".$value."%";
@@ -124,9 +125,9 @@ class ReportController extends BaseController {
         }
       }
     }
-    return $prod_arr;  
+    return $prod_arr;
     $arrayOfData["data"] = $book;
-    $arrayOfData["col"] = $book_filter;
+    $arrayOfData["col"] = $col_filter;
     //return View::make("library.report.book.detail")->with($arrayOfData);
   }
 }
