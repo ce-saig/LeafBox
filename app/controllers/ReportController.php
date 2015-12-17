@@ -32,7 +32,6 @@ class ReportController extends BaseController {
 */
   public function getBookDetail()
   {
-    if(count(Input::all()) == 0 ) return "You have to select some boxes.";
     $book_filter = Input::get("book-filter");
     $media_filter = Input::get("media-filter");
     $col_filter = Input::get("result-column-filter");
@@ -145,11 +144,10 @@ class ReportController extends BaseController {
         $count_book++;
       }
     }
-    return $prod_arr;
-    $arrayOfData["data"] = $prod_arr;
+    $arrayOfData["book"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
-    return $arrayOfData;
-    //return View::make("library.report.book.detail")->with($arrayOfData);
+    Session::put('book', $arrayOfData);
+    return View::make("library.report.book.detail")->with($arrayOfData);
   }
 }
 
