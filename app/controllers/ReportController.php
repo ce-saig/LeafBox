@@ -37,7 +37,7 @@ class ReportController extends BaseController {
     $media_filter = Input::get("media-filter");
     $col_filter = Input::get("result-column-filter");
     $book = Book::where("id",">","0");
-    return Input::all();
+    //return Input::all();
     $fn_value=function($operator,$value){
         if($operator == "LIKE") {
           return "%".$value."%";
@@ -72,9 +72,12 @@ class ReportController extends BaseController {
     }
     $book = $book->get();
 
-    $prod_arr = [];
+    $prod_arr = [[]];
     if(count($media_filter) != 0) { 
+      $count_book = 0;
       foreach ($book as $key) {
+        $count_status = 0;
+        $prod_arr[$count_book] = $key;
         foreach ($media_filter as $m_filter) {
           $status = Input::get($m_filter."-option");
           if($m_filter == "braille-prod") {
@@ -82,7 +85,8 @@ class ReportController extends BaseController {
             foreach ($braille as $brail) {
               $braille_detail = Brailledetail::where("braille_id","=",$brail["id"])->where("status","=",$status)->get();
               foreach ($braille_detail as $br) {
-                array_push($prod_arr,$br);
+                $prod_arr[$count_book][$count_status] = $br;
+                $count_status++;
               }
             }
           }
@@ -91,7 +95,8 @@ class ReportController extends BaseController {
             foreach ($cassette as $cass) {
               $cassette_detail = Cassettedetail::where("cassette_id","=",$cass["id"])->where("status","=",$status)->get();
               foreach ($cassette_detail as $cs) {
-                array_push($prod_arr,$cs);
+                $prod_arr[$count_book][$count_status] = $cs;
+                $count_status++;
               }
             }
           }
@@ -100,7 +105,8 @@ class ReportController extends BaseController {
             foreach ($daisy as $dais) {
               $daisy_detail = Daisydetail::where("daisy_id","=",$dais["id"])->where("status","=",$status)->get();
               foreach ($daisy_detail as $ds) {
-                array_push($prod_arr,$ds);
+                $prod_arr[$count_book][$count_status] = $ds;
+                $count_status++;
               }
             }
           }
@@ -109,7 +115,8 @@ class ReportController extends BaseController {
             foreach ($cd as $cd_ea) {
               $cd_detail = Cddetail::where("cd_id","=",$cd_ea["id"])->where("status","=",$status)->get();
               foreach ($cd_detail as $cd_de) {
-                array_push($prod_arr,$cd_de);
+                $prod_arr[$count_book][$count_status] = $cd_de;
+                $count_status++;
               }
             }
           }
@@ -118,16 +125,30 @@ class ReportController extends BaseController {
             foreach ($dvd as $dvd_ea) {
               $dvd_detail = Dvddetail::where("dvd_id","=",$dvd_ea["id"])->where("status","=",$status)->get();
               foreach ($dvd_detail as $dvd_de) {
-                array_push($prod_arr,$dvd_de);
+                $prod_arr[$count_book][$count_status] = $dvd_de;
+                $count_status++;
               }
             }
           }
         }
+        if($count_status == 0) {
+          unset($prod_arr[$count_book]);
+          $count_book--;
+        }
+        $count_book++;
+      }
+    }
+    else {
+      $count_book = 0;
+      foreach ($book as $key) {
+        $prod_arr[$count_book] = $key;
+        $count_book++;
       }
     }
     return $prod_arr;
-    $arrayOfData["data"] = $book;
+    $arrayOfData["data"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
+    return $arrayOfData;
     //return View::make("library.report.book.detail")->with($arrayOfData);
   }
 }
