@@ -146,7 +146,8 @@ class ReportController extends BaseController {
     }
     $arrayOfData["data"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
-    Session::put('book', $arrayOfData);
+    Session::put('data', $arrayOfData);
+    //return Session::get('data');
     return View::make("library.report.book.detail")->with($arrayOfData);
   }
 

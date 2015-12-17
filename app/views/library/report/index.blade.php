@@ -10,7 +10,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Report Filter (Book,Part)</h3>
   </div>
-  <form action="{{ url('/report/book/detail') }}" method="post">
+  <form action="{{ url('/report/book/detail') }}" method="post" onsubmit="checkForCheckboxes(this);return false;">
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
@@ -64,7 +64,7 @@
 
           <div class="col-md-4">
             <label>
-              <input type="checkbox" name="book-filter" value="setdvd_status" class="book-checkbox prod-status" data-th="สถานะการผลิต DVD"> สถานะการผลิต DVD
+              <input type="checkbox" name="book-filter[]" value="setdvd_status" class="book-checkbox prod-status" data-th="สถานะการผลิต DVD"> สถานะการผลิต DVD
             </label>
           </div>
         </div>
@@ -249,5 +249,25 @@
     });
   });
 
+function checkForCheckboxes(form) 
+{
+  var isCheck = false;
+  for(var i = 0;i < form.book-filter.length;i++) {
+    console.log(book-filter[i].is(":checked"));
+    if(book-filter[i].is(":checked")) {
+      return true;
+    }
+  }
+  alert ('You didn\'t choose any of the checkboxes!');
+  return false;
+
+  for(var i = 0;i < form.media-filter.length;i++) {
+    if(media-filter[i].is(":checked")) {
+      return true;
+    }
+  }
+  alert ('You didn\'t choose any of the checkboxes!');
+  return false;
+}
 </script>
 @stop
