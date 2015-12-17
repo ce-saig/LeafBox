@@ -144,10 +144,50 @@ class ReportController extends BaseController {
         $count_book++;
       }
     }
-    $arrayOfData["book"] = $prod_arr;
+    $arrayOfData["data"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
     Session::put('book', $arrayOfData);
     return View::make("library.report.book.detail")->with($arrayOfData);
   }
-}
 
+  // export csv function 
+  // you must sending result from search obj to this method.
+  public function exportCSV($obj) {
+
+    $columns = $obj["col"];
+    $obj_vals = $obj["data"];
+    $csv_arr = array();
+
+    $fp = fopen( storage_path().'/files/file.csv', 'w');
+    
+    // push column array.
+    array_push($csv_arr, $columns);
+    
+    // push object value;
+    foreach($obj_vals as $obj_val) {
+      $arr_row = array();
+      foreach($columns as $column){      
+        array_push($arr_row, $obj_val[$column]); 
+      }
+      array_push($csv_arr, $arr_row);
+    }
+
+    // create csv file 
+    foreach($csv_arr as $csv_row){
+      fputcsv($fp, $csv_row);
+    }
+
+    fclose($fp);
+    // parameter
+    $headers = array('Content-Type' => 'text/csv');
+    $filepath = storage_path().'/files/file.csv';
+    
+    // delete file when user already downloaded.
+    App::finish(function($request, $response) use ($filepath)
+    {
+        unlink($filepath);
+    });
+    return Response::download(storage_path().'/files/file.csv', 'file.csv', $headers);
+  }
+
+}

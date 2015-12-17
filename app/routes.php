@@ -164,6 +164,8 @@ Route::group(array('before' => 'auth'), function() {
       Route::get('/','ReportController@getBorrowIndex');
       Route::get('/sth','ReportController@getBorrowSth'); // Some report - Must change the name
     });
+    // csv download routes
+    Route::get('/csv/download', 'ReportController@exportCSV');
   });
 });
 
