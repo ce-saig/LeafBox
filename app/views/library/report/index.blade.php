@@ -141,37 +141,37 @@
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="author" class="result-checkbox"> ผู้แปล
+                <input type="checkbox" name="result-column-filter[]" value="translate" class="result-checkbox"> ผู้แปล
               </label>
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="pub-year" class="result-checkbox"> ปีที่พิมพ์
+                <input type="checkbox" name="result-column-filter[]" value="pub_year" class="result-checkbox"> ปีที่พิมพ์
               </label>
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="braille-prod" class="result-checkbox"> สถานะการผลิตเบรลล์
+                <input type="checkbox" name="result-column-filter[]" value="bm_status" class="result-checkbox"> สถานะการผลิตเบรลล์
               </label>
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="cassette-prod" class="result-checkbox"> สถานะการผลิตคาสเซ็ท
+                <input type="checkbox" name="result-column-filter[]" value="setcs_status" class="result-checkbox"> สถานะการผลิตคาสเซ็ท
               </label>
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="daisy-prod" class="result-checkbox"> สถานะการผลิตเดซี่
+                <input type="checkbox" name="result-column-filter[]" value="setds_status" class="result-checkbox"> สถานะการผลิตเดซี่
               </label>
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="cd-prod" class="result-checkbox"> สถานะการผลิต CD
+                <input type="checkbox" name="result-column-filter[]" value="setcd_status" class="result-checkbox"> สถานะการผลิต CD
               </label>
             </div>
             <div class="col-md-4">
               <label>
-                <input type="checkbox" name="result-column-filter[]" value="dvd-prod" class="result-checkbox"> สถานะการผลิต DVD
+                <input type="checkbox" name="result-column-filter[]" value="setdvd_status" class="result-checkbox"> สถานะการผลิต DVD
               </label>
             </div>
           </div>
