@@ -16,56 +16,58 @@
         <div class="col-md-12">
           <h4>ข้อมูลหนังสือ</h4>
         </div>
-        <div class="col-md-12 checkbox">
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="title" class="book-checkbox" data-th="ชื่อเรื่อง"> ชื่อเรื่อง
-            </label>
-          </div>
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="author" class="book-checkbox" data-th="ผู้แต่ง"> ผู้แต่ง
-            </label>
-          </div>
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="translate" class="book-checkbox" data-th="ผู้แปล"> ผู้แปล
-            </label>
-          </div>
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="pub_year" class="book-checkbox" data-th="ปีที่พิมพ์"> ปีที่พิมพ์
-            </label>
-          </div> 
+        <div class="row">
+          <div class="col-md-12 checkbox">
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="title" class="book-checkbox" data-th="ชื่อเรื่อง"> ชื่อเรื่อง
+              </label>
+            </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="author" class="book-checkbox" data-th="ผู้แต่ง"> ผู้แต่ง
+              </label>
+            </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="translate" class="book-checkbox" data-th="ผู้แปล"> ผู้แปล
+              </label>
+            </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="pub_year" class="book-checkbox" data-th="ปีที่พิมพ์"> ปีที่พิมพ์
+              </label>
+            </div> 
 
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="bm_status" class="book-checkbox prod-status" data-th="สถานะการผลิตเบรลล์"> สถานะการผลิตเบรลล์
-            </label>
-          </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="bm_status" class="book-checkbox prod-status" data-th="สถานะการผลิตเบรลล์"> สถานะการผลิตเบรลล์
+              </label>
+            </div>
 
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="setcs_status" class="book-checkbox prod-status" data-th="สถานะการผลิตคาสเซ็ท"> สถานะการผลิตคาสเซ็ท
-            </label>
-          </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="setcs_status" class="book-checkbox prod-status" data-th="สถานะการผลิตคาสเซ็ท"> สถานะการผลิตคาสเซ็ท
+              </label>
+            </div>
 
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="setds_status" class="book-checkbox prod-status" data-th="สถานะการผลิตเดซี่"> สถานะการผลิตเดซี่
-            </label>
-          </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="setds_status" class="book-checkbox prod-status" data-th="สถานะการผลิตเดซี่"> สถานะการผลิตเดซี่
+              </label>
+            </div>
 
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="setcd_status" class="book-checkbox prod-status" data-th="สถานะการผลิต CD"> สถานะการผลิต CD
-            </label>
-          </div>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="setcd_status" class="book-checkbox prod-status" data-th="สถานะการผลิต CD"> สถานะการผลิต CD
+              </label>
+            </div>
 
-          <div class="col-md-4">
-            <label>
-              <input type="checkbox" name="book-filter[]" value="setdvd_status" class="book-checkbox prod-status" data-th="สถานะการผลิต DVD"> สถานะการผลิต DVD
-            </label>
+            <div class="col-md-4">
+              <label>
+                <input type="checkbox" name="book-filter[]" value="setdvd_status" class="book-checkbox prod-status" data-th="สถานะการผลิต DVD"> สถานะการผลิต DVD
+              </label>
+            </div>
           </div>
         </div>
 

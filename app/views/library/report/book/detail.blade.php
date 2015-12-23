@@ -11,9 +11,11 @@
 
   </table>
 </div>
-<div class="col-md-offset-10 col-md-2">
+<form action="{{ url('/report/csv/download') }}" method="get"> 
+  <div class="col-md-offset-10 col-md-2">
    <button type="submit" class="btn btn-success download">Download</button>
-</div>
+ </div>
+</form>
 @stop
 @section('script')
 @parent

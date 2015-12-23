@@ -153,8 +153,8 @@ class ReportController extends BaseController {
 
   // export csv function 
   // you must sending result from search obj to this method.
-  public function exportCSV($obj) {
-
+  public function exportCSV() {
+    $obj = Session::get('data');
     $columns = $obj["col"];
     $obj_vals = $obj["data"];
     $csv_arr = array();
