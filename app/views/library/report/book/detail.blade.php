@@ -35,7 +35,7 @@
       topic.html(toThaiTopic(col[i]));
       first_row.append(topic);
     }
-    first_row.append("<th>ตอนที่</th><th>ชนิดสื่อ</th><th>สถานะสื่อ</th>")
+    first_row.append("<th>media id</th><th>ตอนที่</th><th>ชนิดสื่อ</th><th>สถานะสื่อ</th>")
     $(target_div).append(first_row);
   }
 
@@ -63,7 +63,7 @@
         var row_in_media = row.clone();
         //console.log("media");
         //console.log(row_in_media);
-        var col_data = $("<td>"+data[item]["braille_prod"][br]["part"]+"</td><td>เบรลล์</td><td>"+toThaiMediaStatus(data[item]["braille_prod"][br]["status"])+"</td>");
+        var col_data = $("<td>"+data[item]["braille_prod"][br]["braille_id"]+"</td><td>"+data[item]["braille_prod"][br]["part"]+"</td><td>เบรลล์</td><td>"+toThaiMediaStatus(data[item]["braille_prod"][br]["status"])+"</td>");
         row_in_media.append(col_data);
         $(target_div).append(row_in_media);
         if(haveMedia != true) {
@@ -74,7 +74,7 @@
       //console.log("cassette = "+data[item]["cassette_prod"].length);
       for(var cs = 0;cs < data[item]["cassette_prod"].length;cs++) {
         var row_in_media = row.clone();;
-        var col_data = $("<td>"+data[item]["cassette_prod"][cs]["part"]+"</td><td>คาสเซ็ท</td><td>"+toThaiMediaStatus(data[item]["cassette_prod"][cs]["status"])+"</td>");
+        var col_data = $("<td>"+data[item]["cassette_prod"][cs]["cassette_id"]+"</td><td>"+data[item]["cassette_prod"][cs]["part"]+"</td><td>คาสเซ็ท</td><td>"+toThaiMediaStatus(data[item]["cassette_prod"][cs]["status"])+"</td>");
         row_in_media.append(col_data);
         $(target_div).append(row_in_media);
         if(haveMedia != true) {
@@ -85,7 +85,7 @@
       //console.log("daisy = "+data[item]["daisy_prod"].length);
       for(var ds = 0;ds < data[item]["daisy_prod"].length;ds++) {
         var row_in_media = row.clone();
-        var col_data = $("<td>"+data[item]["daisy_prod"][ds]["part"]+"</td><td>เดซี่</td><td>"+toThaiMediaStatus(data[item]["daisy_prod"][ds]["status"])+"</td>");
+        var col_data = $("<td>"+data[item]["daisy_prod"][ds]["daisy_id"]+"</td><td>"+data[item]["daisy_prod"][ds]["part"]+"</td><td>เดซี่</td><td>"+toThaiMediaStatus(data[item]["daisy_prod"][ds]["status"])+"</td>");
         row_in_media.append(col_data);
         $(target_div).append(row_in_media);
         if(haveMedia != true) {
@@ -96,7 +96,7 @@
       //console.log("cd = "+data[item]["cd_prod"].length);
       for(var cd = 0;cd < data[item]["cd_prod"].length;cd++) {
         var row_in_media = row.clone();
-        var col_data = $("<td>"+data[item]["cd_prod"][cd]["part"]+"</td><td>CD</td><td>"+toThaiMediaStatus(data[item]["cd_prod"][cd]["status"])+"</td>");
+        var col_data = $("<td>"+data[item]["cd_prod"][cd]["cd_id"]+"</td><td>"+data[item]["cd_prod"][cd]["part"]+"</td><td>CD</td><td>"+toThaiMediaStatus(data[item]["cd_prod"][cd]["status"])+"</td>");
         row_in_media.append(col_data);
         $(target_div).append(row_in_media);
         if(haveMedia != true) {
@@ -107,7 +107,7 @@
       //console.log("dvd = "+data[item]["dvd_prod"].length);
       for(var dvd = 0;dvd < data[item]["dvd_prod"].length;dvd++) {
         var row_in_media = row.clone();
-        var col_data = $("<td>"+data[item]["dvd_prod"][dvd]["part"]+"</td><td>DVD</td><td>"+toThaiMediaStatus(data[item]["dvd_prod"][dvd]["status"])+"</td>");
+        var col_data = $("<td>"+data[item]["dvd_prod"][dvd]["dvd_id"]+"</td><td>"+data[item]["dvd_prod"][dvd]["part"]+"</td><td>DVD</td><td>"+toThaiMediaStatus(data[item]["dvd_prod"][dvd]["status"])+"</td>");
         row_in_media.append(col_data);
         $(target_div).append(row_in_media);
         if(haveMedia != true) {
@@ -115,7 +115,7 @@
         }
       }
       if(haveMedia == false) {
-        row.append("<td>-</td><td>-</td><td>-</td>")
+        row.append("<td>-</td><td>-</td><td>-</td><td>-</td>")
         $(target_div).append(row);
       }
     }

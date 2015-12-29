@@ -213,7 +213,7 @@ class ReportController extends BaseController {
         $count_book++;
       }
     }
-    //return $prod_arr;
+    $prod_arr;
     $arrayOfData["data"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
     Session::put('data', $arrayOfData);
