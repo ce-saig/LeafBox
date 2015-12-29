@@ -177,6 +177,7 @@
               </label>
             </div>
           </div>
+          </div>
         </div>
         <div class="col-md-offset-10 col-md-2">
           <button type="submit" class="btn btn-success">สร้าง report</button>

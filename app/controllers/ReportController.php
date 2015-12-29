@@ -80,7 +80,7 @@ class ReportController extends BaseController {
         $daisy_prod = [];
         $cd_prod = [];
         $dvd_prod = [];
-        $prod_arr[$count_book] = $key;
+        $haveMedia = false;
         foreach ($media_filter as $m_filter) {
           $status = Input::get($m_filter."-option");
           if($m_filter == "braille-prod") {
@@ -89,6 +89,9 @@ class ReportController extends BaseController {
               $braille_detail = Brailledetail::where("braille_id","=",$brail["id"])->where("status","=",$status)->get();
               foreach ($braille_detail as $br) {
                 array_push($braille_prod, $br);
+                if($haveMedia == false) {
+                  $haveMedia = true;
+                }
               }
             }
           }
@@ -98,6 +101,9 @@ class ReportController extends BaseController {
               $cassette_detail = Cassettedetail::where("cassette_id","=",$cass["id"])->where("status","=",$status)->get();
               foreach ($cassette_detail as $cs) {
                 array_push($cassette_prod, $cs);
+                if($haveMedia == false) {
+                  $haveMedia = true;
+                }
               }
             }
           }
@@ -107,6 +113,9 @@ class ReportController extends BaseController {
               $daisy_detail = Daisydetail::where("daisy_id","=",$dais["id"])->where("status","=",$status)->get();
               foreach ($daisy_detail as $ds) {
                 array_push($daisy_prod, $ds);
+                if($haveMedia == false) {
+                  $haveMedia = true;
+                }
               }
             }
           }
@@ -116,6 +125,9 @@ class ReportController extends BaseController {
               $cd_detail = Cddetail::where("cd_id","=",$cd_ea["id"])->where("status","=",$status)->get();
               foreach ($cd_detail as $cd_de) {
                 array_push($cd_prod, $cd_de);
+                if($haveMedia == false) {
+                  $haveMedia = true;
+                }
               }
             }
           }
@@ -125,16 +137,22 @@ class ReportController extends BaseController {
               $dvd_detail = Dvddetail::where("dvd_id","=",$dvd_ea["id"])->where("status","=",$status)->get();
               foreach ($dvd_detail as $dvd_de) {
                 array_push($dvd_prod, $dvd_de);
+                if($haveMedia == false) {
+                  $haveMedia = true;
+                }
               }
             }
           }
         }
-        $prod_arr[$count_book]['braille_prod'] = $braille_prod;
-        $prod_arr[$count_book]['cassette_prod'] = $cassette_prod;
-        $prod_arr[$count_book]['daisy_prod'] = $daisy_prod;
-        $prod_arr[$count_book]['cd_prod'] = $cd_prod;
-        $prod_arr[$count_book]['dvd_prod'] = $dvd_prod;
-        $count_book++;
+        if($haveMedia == true) {
+          $prod_arr[$count_book] = $key;
+          $prod_arr[$count_book]['braille_prod'] = $braille_prod;
+          $prod_arr[$count_book]['cassette_prod'] = $cassette_prod;
+          $prod_arr[$count_book]['daisy_prod'] = $daisy_prod;
+          $prod_arr[$count_book]['cd_prod'] = $cd_prod;
+          $prod_arr[$count_book]['dvd_prod'] = $dvd_prod;
+          $count_book++;
+        }
       }
     }
     else {
@@ -195,7 +213,7 @@ class ReportController extends BaseController {
         $count_book++;
       }
     }
-    return $prod_arr;
+    //return $prod_arr;
     $arrayOfData["data"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
     Session::put('data', $arrayOfData);
