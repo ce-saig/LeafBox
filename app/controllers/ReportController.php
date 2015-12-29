@@ -228,19 +228,78 @@ class ReportController extends BaseController {
     $columns = $obj["col"];
     $obj_vals = $obj["data"];
     $csv_arr = array();
-
+  
     $fp = fopen( storage_path().'/files/file.csv', 'w');
     
     // push column array.
-    array_push($csv_arr, $columns);
+    $csv_column = array();
+    foreach ($columns as $col) {
+      array_push($csv_column, self::toThaiTopic($col));
+    }
+    array_push($csv_column, "media id", "ตอนที่", "ชนิดสื่อ", "สถานะสื่อ");
+    array_push($csv_arr, $csv_column);
+    //array_push($csv_arr, $columns);
     
     // push object value;
     foreach($obj_vals as $obj_val) {
       $arr_row = array();
-      foreach($columns as $column){      
-        array_push($arr_row, $obj_val[$column]); 
+      $haveMedia = false;
+
+      foreach($columns as $column){
+        if($column == "bm_status" || $column == "setcs_status" || $column == "setds_status" || $column == "setcd_status" || $column == "setdvd_status") {
+          array_push($arr_row, self::toThaiStatus($obj_val[$column])); 
+        } 
+        else {
+          array_push($arr_row, $obj_val[$column]); 
+        }    
       }
-      array_push($csv_arr, $arr_row);
+
+      if(count($obj_val["braille_prod"]) != 0) {
+        foreach ($obj_val["braille_prod"] as $braille) {
+          $braille_arr = $arr_row;
+          array_push($braille_arr, $braille["braille_id"], $braille["part"], "เบลล์", self::toThaiMediaStatus($braille["status"]));
+          array_push($csv_arr, $braille_arr);
+        }
+        $haveMedia = true;
+      }
+      if(count($obj_val["cassette_prod"]) != 0) {
+        foreach ($obj_val["cassette_prod"] as $cassette) {
+          $cassette_arr = $arr_row;
+          array_push($cassette_arr, $cassette["cassette_id"], $cassette["part"], "คลาสเซ็ท", self::toThaiMediaStatus($cassette["status"]));
+          array_push($csv_arr, $cassette_arr);
+        }
+        $haveMedia = true;
+      }
+      if(count($obj_val["daisy_prod"]) != 0) {
+        foreach ($obj_val["daisy_prod"] as $daisy) {
+          $daisy_arr = $arr_row;
+          array_push($daisy_arr, $daisy["daisy_id"], $daisy["part"], "เดซี", self::toThaiMediaStatus($daisy["status"]));
+          array_push($csv_arr, $daisy_arr);
+        }
+        $haveMedia = true;
+      }
+      if(count($obj_val["cd_prod"]) != 0) {
+        foreach ($obj_val["cd_prod"] as $cd) {
+          $cd_arr = $arr_row;
+          array_push($cd_arr, $cd["cd_id"], $cd["part"], "CD", self::toThaiMediaStatus($cd["status"]));
+          array_push($csv_arr, $cd_arr);
+        }
+        $haveMedia = true;
+      }
+      if(count($obj_val["dvd_prod"]) != 0) {
+        foreach ($obj_val["dvd_prod"] as $dvd) {
+          $dvd_arr = $arr_row;
+          array_push($dvd_arr, $dvd["dvd_id"], $dvd["part"], "DVD", self::toThaiMediaStatus($dvd["status"]));
+          array_push($csv_arr, $dvd_arr);
+        }
+        $haveMedia = true;
+      }
+
+      if($haveMedia == false) {
+        $arr_no_media = $arr_row;
+        array_push($arr_no_media, "", "", "", "");
+        array_push($csv_arr, $arr_no_media);
+      }
     }
 
     // create csv file 
@@ -263,6 +322,66 @@ class ReportController extends BaseController {
         unlink($filepath);
     });
     return Response::download(storage_path().'/files/file.csv', 'file.csv', $headers);
+  }
+
+  public function toThaiTopic($col) {
+    if($col == "title") {
+      return "ชื่อเรื่อง";
+    }
+    else if($col == "author") {
+      return "ชื่อผู้แต่ง";
+    }
+    else if($col == "translate") {
+      return "ชื่อผู้แปล";
+    }
+    else if($col == "pub_year") {
+      return "ปีที่พิมพ์";
+    }
+    else if($col == "bm_status") {
+      return "สถานะการผลิตเบรลล์";
+    }
+    else if($col == "setcs_status") {
+      return "สถานะการผลิตคาสเซ็ท";
+    }
+    else if($col == "setds_status") {
+      return "สถานะการผลิตเดซี่";
+    }
+    else if($col == "setcd_status") {
+      return "สถานะการผลิต CD";
+    }
+    else if($col == "setdvd_status") {
+      return "สถานะการผลิต DVD";
+    }
+    else {
+      return $col;
+    }
+  }
+
+  public function toThaiStatus($status) {
+    if($status == 0) {
+      return "ไม่ผลิต";
+    }
+    else if($status == 1) {
+      return "ผลิต";
+    }
+    else if($status == 2) {
+      return "จองอ่าน";
+    }
+    else if($status == 3) {
+      return "กำลังผลิต";
+    } 
+  }
+
+  public function toThaiMediaStatus($media) {
+    if($media == 0) {
+      return "ปกติ";
+    }
+    else if($media == 1) {
+      return "เสีย";
+    }
+    else if($media == 2) {
+      return "ซ่อม";
+    }
   }
 
 }
