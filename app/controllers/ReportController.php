@@ -63,7 +63,7 @@ class ReportController extends BaseController {
       foreach ($book_filter as $key) {
         $text = Input::get($key."-text");
         $select = Input::get($key."-option");
-        if($select != "bm_status" && $select != "setcs_status" && $select != "setds_status" && $select != "setcd_status" && $select != "setdvd_status")
+        if($key != "bm_status" && $key != "setcs_status" && $key != "setds_status" && $key != "setcd_status" && $key != "setdvd_status")
           $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
         else
           $book = $book->where($key, "=", $select);
