@@ -7,15 +7,18 @@
 @section('body')
 <h3>Book Detail</h3>
 <div class="well">
-  <table class="table table-bordered">
+  <table class="table ">
 
   </table>
 </div>
-<form action="{{ url('/report/csv/download') }}" method="get"> 
+<div class="row"> 
   <div class="col-md-offset-10 col-md-2">
-   <button type="submit" class="btn btn-success download">Download</button>
- </div>
-</form>
+    <a class="btn btn-success back" style="color: white;" href="{{ url('/report') }}">Back</a>
+    <a class="btn btn-success download" style="color: white;" href="{{ url('/report/csv/download') }}">Download</a>
+  </div>
+</div>
+
+
 @stop
 @section('script')
 @parent
@@ -24,8 +27,14 @@
     var data = {{json_encode($data)}};
     var col = {{json_encode($col)}}
     console.log(data);
-    addTableTopic('.table',col);
-    addTableData('.table',data,col);
+    if(data[0].length != 0) {
+      addTableTopic('.table',col);
+      addTableData('.table',data,col);
+    }
+    else {
+      $('.table').append('<div class="row alert alert-danger" role="alert" align="center">ไม่พบผลลัพธ์การค้นหา</div>');
+      $('.download').addClass("disabled");
+    }
   });
 
   function addTableTopic(target_div,col) {

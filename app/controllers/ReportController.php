@@ -312,7 +312,7 @@ class ReportController extends BaseController {
     $headers = array
     (
       'Content-Encoding: UTF-8',
-      'Content-Type' => 'text/csv',
+      'Content-Type' => 'text/csv'
       );
     $filepath = storage_path().'/files/file.csv';
     
