@@ -157,13 +157,15 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'book'), function(){
       Route::get('/','ReportController@getBookIndex');
       Route::get('/sth','ReportController@getBookSth'); // Some report - Must change the name
-      Route::get('/detail','ReportController@getBookDetail'); // Issue 134
+      Route::post('/detail','ReportController@getBookDetail'); // Issue 134
     });
 
     Route::group(array('prefix' => 'borrow'), function(){
       Route::get('/','ReportController@getBorrowIndex');
       Route::get('/sth','ReportController@getBorrowSth'); // Some report - Must change the name
     });
+    // csv download routes
+    Route::get('/csv/download', 'ReportController@exportCSV');
   });
 });
 

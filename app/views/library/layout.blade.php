@@ -47,6 +47,7 @@
           <li><a href="{{URL::to('/borrow')}}">ระบบยืม</a></li>
           <li><a href="{{URL::to('/return')}}">ระบบคืน</a></li>
           <li><a href="{{URL::to('/borrower')}}">ระบบจัดการผู้ยืม</a></li>
+          <li><a href="{{URL::to('/report')}}">Report</a></li>
           
           <!-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
