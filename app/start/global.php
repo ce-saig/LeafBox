@@ -79,3 +79,9 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+\Validator::extend('alpha_space', function($attribute, $value)
+{
+	return preg_match('/^[a-zA-Z0-9\s]+$/u', $value);
+});

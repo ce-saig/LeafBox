@@ -33,7 +33,7 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make(Input::all(), User::$rules);
+		$validator = Validator::make(Input::all(), User::$rules, User::$messages);
 		if ($validator->passes()) {
 			$user = new User;
 			$user->name = Input::get('name');
