@@ -51,7 +51,10 @@ class BookController extends Controller{
     $book['title_eng']      = $bookEloquent->title_eng;
     $book['author']         = $bookEloquent->author ;
     $book['translate']      = $bookEloquent->translate ;
-    $book['regis_date']     = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
+    if($bookEloquent->registered_date == NULL || $bookEloquent->registered_date == "0000-00-00 00:00:00")
+        $book['regis_date'] = "-";
+    else
+      $book['regis_date']   = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
     $book['publisher']      = $bookEloquent->publisher ;
     $book['pub_no']         = $bookEloquent->pub_no ;
     $book['pub_year']       = $bookEloquent->pub_year ;
@@ -90,8 +93,10 @@ class BookController extends Controller{
     $book['setdvd_date']   = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
     $book['setdvdm_no']       = $bookEloquent->setdvdm_no;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
-    $book['created_at']    = ($bookEloquent->setdvd_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->setdvd_date), 'd-m-Y');
-    $book['created_at']    = date_format(date_create($bookEloquent->created_at), 'd-m-Y');
+    if($bookEloquent->created_at == "-0001-11-30 00:00:00")
+        $book['created_at'] = "-";
+    else
+      $book['created_at']   = date_format(date_create($bookEloquent->created_at), 'd-m-Y');
 
     $number        = $bookEloquent->number;
     $all_media     = "(";
@@ -192,7 +197,11 @@ class BookController extends Controller{
     $book['title_eng']     = $bookEloquent->title_eng;
     $book['author']        = $bookEloquent->author ;
     $book['translate']     = $bookEloquent->translate ;
-    $book['regis_date']    = date_format(date_create($bookEloquent->registered_date), 'd/m/Y');
+    //$book['regis_date']    = date_format(date_create($bookEloquent->registered_date), 'd/m/Y');
+    if($bookEloquent->registered_date == NULL || $bookEloquent->registered_date == "0000-00-00 00:00:00")
+        $book['regis_date'] = null;
+    else
+      $book['regis_date']   = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
     $book['publisher']     = $bookEloquent->publisher ;
     $book['pub_no']        = $bookEloquent->pub_no ;
     $book['pub_year']      = $bookEloquent->pub_year ;
@@ -239,7 +248,10 @@ class BookController extends Controller{
     $book->author     = Input::get('author');
     $book->translate  = Input::get('translate');
     $dateTmp = date_create_from_format('d/m/Y', Input::get('regis_date'));
-    $book->registered_date  = date_format($dateTmp, 'Y-m-d H:i:s');
+    if(Input::get('regis_date') == null)
+      $book->registered_date  = "0000-00-00 00:00:00";
+    else
+      $book->registered_date  = date_format($dateTmp, 'Y-m-d H:i:s');
     $book->publisher  = Input::get('publisher');
     $book->pub_no     = Input::get('pub_no');
     $book->pub_year   = Input::get('pub_year');
