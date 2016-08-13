@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="" ng-app="leafBox">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -136,6 +136,8 @@
 <!-- jQuery -->
 @section('script')
 <script type="text/javascript"  src="{{ asset('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<script type="text/javascript"  src="{{ asset('js/angularjs/app.js') }}"></script>
 <!-- Bootstrap JavaScript -->
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- AJAX Databases -->
