@@ -13,3 +13,4 @@ app/config/database.php
 error.log
 access.log
 sftp-config.json
+deployment-config.json
