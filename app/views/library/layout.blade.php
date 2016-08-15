@@ -135,9 +135,14 @@
 </footer>
 <!-- jQuery -->
 @section('script')
-<script type="text/javascript"  src="{{ asset('js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-<script type="text/javascript"  src="{{ asset('js/angularjs/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
+<script src="{{ asset('js/angularjs/app.js') }}"></script>
+
+<script type="text/javascript"  src="{{ asset('js/angularjs/controllers/ProdController.js') }}"></script>
 <!-- Bootstrap JavaScript -->
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- AJAX Databases -->

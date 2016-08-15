@@ -379,7 +379,7 @@ class BookController extends Controller{
     if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
         (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
         )
-      return "failed, null not permit";
+      return "null";
 
     $book = Book::find($bp->book_id);
     if($bp->save()) {

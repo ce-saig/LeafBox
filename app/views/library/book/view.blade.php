@@ -116,8 +116,8 @@
         <div class="col-xs-6 col-sm-2">{{($book['created_at'] == "") ? '-' : $book['created_at']}}</div>
 
         <div class="col-md-6">
-            <a href="{{ URL::to('/book/'.$book['id'].'/delete') }}" class="btn btn-danger btn-lg pull-left delete-book">ลบหนังสือ</a>
-          </div>
+          <a href="{{ URL::to('/book/'.$book['id'].'/delete') }}" class="btn btn-danger btn-lg pull-left delete-book">ลบหนังสือ</a>
+        </div>
         <div id="isddfvi" class="row">
           <div class="col-md-6">
             <a href="{{ URL::to('/book/'.$book['id'].'/edit') }}" class="btn btn-warning btn-lg pull-right">แก้ไข</a>
@@ -271,7 +271,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="addProd">
+<div class="modal fade" id="addProd" ng-controller="ProdController as ProdCtrl">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -294,8 +294,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">ประเภทสื่อ</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="prod_media_type_text" disabled="disabled">
-              <select name="" id="prod_media_type" class="form-control" required="required" style="display: none">
+              <input type="text" class="form-control" id="prod_media_type_text" value="<%media[selected_media]%>" disabled="disabled">
+              <select name="" id="prod_media_type" ng-model="selected_media" class="form-control" required="required" style="display: none">
                 <option value="">เลือกสื่อ</option>
                 <option value="0">เบรลล์</option>
                 <option value="1">เทปคาสเซ็ท</option>
@@ -309,12 +309,7 @@
             <label class="col-sm-2 control-label">*สถานะ</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="prod_action_text" disabled="disabled">
-              <select name="" id="prod_action" class="form-control" required="required" style="display: none">
-                <option value="">เลือกสถานะ</option>
-                <option value="0"></option>
-                <option value="1"></option>
-                <option value="2"></option>
-                <option value="3">ส่งตรวจ</option>
+              <select name="" id="prod_action" class="form-control" required="required" ng-model="selected_status">
               </select>
             </div>
           </div>
@@ -330,7 +325,7 @@
               <input type="text" class="form-control datepicker" id="prod_act_date">
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" id="finish_date" ng-hide="selected_status == 5">
             <label class="col-sm-2 control-label">วันเสร็จ</label>
             <div class="col-sm-10">
               <input type="text" class="form-control datepicker" id="prod_finish_date">
@@ -376,6 +371,12 @@
   var original_part = null;
   var preventModal = false;
 
+  const REQUIRE_DATA = "กรุณาใส่ข้อมูลที่มี * ให้ถูกต้อง และครบถ้วน";
+  const REQUIRE_FINISH_DATE = "ไม่สามารถเพิ่มสถานะได้ เนื่องจากยังไม่มีการระบุวันเสร็จในสถานะล่าสุด";
+  const PROD_ALREADY_COMPLETE = "ไม่สามารถเพิ่มสถานะได้ เนื่องจากเสร็จสิ้นกระบวนการผลิตแล้ว";
+  const NO_PRODUCTION = "ยกเลิกสถานะล่าสุดเพื่อเพิ่มสถานะการผลิต";
+  const BRAILLE = 0;
+
   $(function()
   {
     $('myTab a:last').tab('show.bs.tab');
@@ -391,8 +392,6 @@ if (window.location.href.match('#')){
 }
 
 function tabSelect(tab){
-  //console.log(tab);
-  //console.log(tab.getAttribute('role').toLowerCase());
   tabClicked = tab.getAttribute('role').toLowerCase();
   console.log(tabClicked);
   document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked;
@@ -611,7 +610,7 @@ $('.delete-book').click(function(e) {
   console.log("delete book");
   if(confirm("การลบหนังสือจะทำให้ข้อมูลสื่อทั้งหมดของหนังสือถูกลบ คุณต้องการลบจริงหรือไม่ ?"))
     console.log($(this).attr('href'));
-    window.location.href = $(this).attr('href');
+  window.location.href = $(this).attr('href');
 });
 
 function confirmation(link) {
@@ -631,39 +630,80 @@ $(function() {
   });
 });
 
-function addProdModal() {
-  var media_type = $('#prod_media_type').val();
+function addProdModal(media_type) {
   $("#prod_media_type option[value='']").remove();
   enableProdText();
   hideProdNoti();
   $('#addProd').modal('show');
   var data = getLastProdStatus(media_type);
   data.success(function(data) {
-    changeProdAction(media_type);
-    $('#prod_action option[value=' + (++data['action_status']) + ']').attr('selected', 'true');
-    $('#prod_action_text').val($('#prod_action option[value=' + data['action_status'] + ']').text());
+    changeProdAction(media_type, data['action_status'] + 1);
+    $('#prod_action option[value=' + (data['action_status'] + 1) + ']').attr('selected', 'true');
+    $('#prod_action_text').val($('#prod_action option[value=' + (data['action_status'] + 1) + ']').text());
     if(data['finish_date'] == null) {
       disableProdText();
-      $('#prod-noti1').slideDown(300);
+      showProdNotification(REQUIRE_FINISH_DATE);
     }
-        if(data['finish_date'] && ((media_type && (data['action_status'] == 4)) || (media_type == 0 && data['action_status'] == 3))) { //if finish_date is filled and (if media_type != braille && action_status == last action status || media_type == braille && action_status == last action status of braille)
-          disableProdText();
-          $('#prod-noti3').slideDown(300);
-        }
-      });
+    if(data['action_status'] == 5) {
+      disableProdText();
+      showProdNotification(NO_PRODUCTION);
+    }
+    if(data['finish_date'] && ((media_type && (data['action_status'] + 1 == 4)))) { //if finish_date is filled and (if media_type != braille && action_status == last action status || media_type == braille && action_status == last action status of braille)
+      disableProdText();
+      showProdNotification(PROD_ALREADY_COMPLETE);
+    }
+  });
 }
 
-function changeProdAction(media_type) {
+function isProdNotificationShow() {
+  return $('#prod-noti1').is(':visible');
+}
+
+function showProdNotification(text) {
+  $('#prod-noti1').text(text);
+  $('#prod-noti1').slideDown(300);
+}
+
+function hideProdNotification() {
+  $('#prod-noti1').hide();
+}
+
+function changeProdAction(media_type, action_status) {
+  console.log(action_status);
   console.log(media_type);
+  $('#prod_action').html('');
   if(media_type == 0) {
-    $('#prod_action option[value="0"]').text('พิมพ์ต้นฉบับ');
-    $('#prod_action option[value="1"]').text('ตรวจตาดี');
-    $('#prod_action option[value="2"]').text('ตรวจบรู๊ฟเบรลล์');
-  }
-  else {
-    $('#prod_action option[value="0"]').text('อ่าน');
-    $('#prod_action option[value="1"]').text('ทำต้นฉบับ');
-    $('#prod_action option[value="2"]').text('ทำกล่อง');
+    $('#prod_action').append('<option value=0>รอการผลิต</option>');
+    if(action_status == 0) {
+      $('#prod_action').append('<option value=5>ไม่ทำการผลิต</option>');
+      $('#prod_action').css('display', 'inline');
+      $('#prod_action_text').css('display', 'none');
+    } else {
+      $('#prod_action').append('<option value=1>รอพิมพ์</option>');
+      $('#prod_action').append('<option value=2>กำลังพิมพ์</option>');
+      $('#prod_action').append('<option value=3>ผลิตเสร็จ</option>');
+      $('#prod_action').css('display', 'none');
+      $('#prod_action_text').css('display', 'inline');
+    }
+  } else if(media_type == 2) {
+    $('#prod_action').append('<option value=0>รออ่าน</option>');
+    if(action_status == 0) {
+      $('#prod_action').append('<option value=5>ไม่ผลิต</option>');
+      $('#prod_action').css('display', 'inline');
+      $('#prod_action_text').css('display', 'none');
+    } else {
+      $('#prod_action').append('<option value=1>กำลังอ่าน</option>');
+      $('#prod_action').append('<option value=2>รอกการผลิต</option>');
+      $('#prod_action').append('<option value=3>ผลิตเสร็จ</option>');
+      $('#prod_action').css('display', 'none');
+      $('#prod_action_text').css('display', 'inline');
+    }
+  } else if(action_status != 5) {
+    $('#prod_action').append('<option value=0>อ่าน</option>');
+    $('#prod_action').append('<option value=1>ทำต้นฉบับ</option>');
+    $('#prod_action').append('<option value=2>ทำกล่อง</option>');
+    $('#prod_action').css('display', 'none');
+    $('#prod_action_text').css('display', 'inline');
   }
 }
 
@@ -693,13 +733,13 @@ function hideProdNoti() {
   $('#prod-noti3').hide();
 }
 
-function addProd(media_type) {
-  changeProdAction(media_type);
+/*function addProd(media_type) {
+  //changeProdAction(media_type);
   $('#prod_media_type option[value="' + media_type + '"]').attr('selected', 'true');
-  $('#prod_media_type_text').val($('#prod_media_type option[value="' + media_type + '"]').text().trim());
+  //$('#prod_media_type_text').val($('#prod_media_type option[value="' + media_type + '"]').text().trim());
   $('#addProd').modal('show');
-  addProdModal();
-}
+  //addProdModal(media_type);
+}*/
 
 function postProd(){
   var media_type = $('#prod_media_type').val();
@@ -708,27 +748,21 @@ function postProd(){
   var act_date = $('#prod_act_date').val();
   var finish_date = $('#prod_finish_date').val();
 
-      // console.log(act_date);
-      // console.log(action);
-      // console.log(actioner);
-      // console.log(finish_date);
-      
-      $.post( "/book/{{ $book['id'] }}/prod/add", {book_id:{{ $book['id'] }},media_type:media_type,act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
-        // console.log(result);
+  $.post( "/book/{{ $book['id'] }}/prod/add", {book_id:{{ $book['id'] }},media_type:media_type,act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
+        console.log(result);
         if(result=="success"){
           $("#addProd").hide();
           $('#success').modal('show');
-        }else{ 
-          if(!$('#prod-noti1').is(':visible') && !$('#prod-noti3').is(':visible'))
-            $('#prod-noti2').slideDown(300);
+        }else if(result=="null" && !isProdNotificationShow()){ 
+          showProdNotification(REQUIRE_DATA);
         }
       });
-    }
-    function prodEditShowOnButton(prodObj) {
-      prodEditShow($(prodObj).parent());
-    }
+}
+function prodEditShowOnButton(prodObj) {
+  prodEditShow($(prodObj).parent());
+}
 
-    function prodEditShow(prodObj) {
+function prodEditShow(prodObj) {
       // Append hidden field for prodId
       $('#prod_edit_action option[value=' + $(prodObj).parent().children().eq(0).attr("data-action") + ']').attr('selected', 'selected');
       $('#prod_edit_action_text').val($(prodObj).parent().children().eq(0).text().trim());
@@ -750,11 +784,6 @@ function postProd(){
       var actioner = $('#prod_edit_actioner').val();
       var act_date = ($('#prod_edit_act_date').val().trim() == "ยังไม่ได้ระบุ" ? null : $('#prod_edit_act_date').val());
       var finish_date = ($('#prod_edit_finish_date').val().trim() == "ยังไม่ได้ระบุ" ? null : $('#prod_edit_finish_date').val());
-
-      // console.log(act_date);
-      // console.log(action);
-      // console.log(actioner);
-      // console.log(finish_date);
       
       $.post( "/book/{{ $book['id'] }}/prod/edit", {book_id:{{ $book['id'] }},prod_id: prodId, act_date:act_date, action:action,actioner:actioner,finish_date:finish_date}, function(result){
         // console.log(result);

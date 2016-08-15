@@ -173,3 +173,14 @@ Route::get('authentication','HomeController@showAuthen');
 Route::post('loginUser','HomeController@doLogin');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
+
+Route::get('/templates/{fileName}', function($fileName)
+{
+  $view_path = 'app/views/templates/' . $fileName;
+  return View::make('templates/' . $fileName);
+  if (View::exists($view_path)) {
+    return View::make($fileName);
+  }
+
+  App::abort(404);
+});

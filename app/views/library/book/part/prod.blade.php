@@ -1,4 +1,4 @@
-<div role="tabpanel" class="tab-pane" >
+<div role="tabpanel" class="tab-pane" ng-controller="ProdController as prodCtrl" >
   <div>
       @for ($i = 0; $i < 5; $i++)
     <div class="col-xs-12">
@@ -6,15 +6,15 @@
         <div class="panel-heading">
           <div class="panel-title">
             @if ($i==0)
-            เบรลล์ <a class="pull-right" onclick="addProd(0)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            เบรลล์ <a class="pull-right" ng-click="addProd(0)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==1)
-            คาสเซ็ท <a class="pull-right" onclick="addProd(1)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            คาสเซ็ท <a class="pull-right" ng-click="addProd(1)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==2)
-            เดซี่ <a class="pull-right" onclick="addProd(2)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            เดซี่ <a class="pull-right" ng-click="addProd(2)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==3)
-            CD <a class="pull-right" onclick="addProd(3)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            CD <a class="pull-right" ng-click="addProd(3)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @elseif ($i==4)
-            DVD <a class="pull-right" onclick="addProd(4)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            DVD <a class="pull-right" ng-click="addProd(4)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
             @endif
           </div>
         </div>
@@ -35,11 +35,27 @@
                 <td data-action="{{$data["action"]}}" onclick="prodEditShow(this)">
                   @if($i == 0)
                     @if ($data["action"]==0)
-                      พิมพ์ต้นฉบับ
+                      รอการผลิต
                     @elseif ($data["action"]==1)
-                      ตรวจตาดี
+                      รอพิมพ์
                     @elseif ($data["action"]==2)
-                      ตรวจบรู๊ฟเบรลล์
+                      กำลังพิมพ์
+                    @elseif ($data["action"]==3)
+                      ผลิตเสร็จ
+                    @elseif ($data["action"]==5)
+                      ไม่ทำการผลิต
+                    @endif
+                  @elseif($i == 2)
+                    @if ($data["action"]==0)
+                      รออ่าน
+                    @elseif ($data["action"]==1)
+                      กำลังอ่าน
+                    @elseif ($data["action"]==2)
+                      รอการผลิต
+                    @elseif ($data["action"]==3)
+                      ผลิตเสร็จ
+                    @elseif ($data["action"]==5)
+                      ไม่ผลิต
                     @endif
                   @else
                     @if ($data["action"]==0)
