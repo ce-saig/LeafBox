@@ -361,38 +361,34 @@ class BookController extends Controller{
     $bp->media_type=Input::get("media_type", null);
     $bp->action=Input::get("action", null);
     $bp->actioner=Input::get("actioner", null);
-
-    if(Input::get('act_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
-        $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->act_date=null;
-    }
-
-    if(Input::get('finish_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('finish_date',null));
-        $bp->finish_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->finish_date=null;
-    }
-
-    if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
-        (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
-        )
-      return "null";
-
+    $bp->act_date=date(Input::get('act_date',null));
+    $bp->finish_date=date(Input::get('finish_date',null));
     $book = Book::find($bp->book_id);
+
+    if($bp->action == 5) {
+      $activeProds = $book->prod()->where('media_type', '=', $bp->media_type)->where('status', '=', Status::ACTIVE)->get();
+      foreach ($activeProds as $key => $prod) {
+        $prod->status = Status::DELETE;
+        $prod->save();
+      }
+    }
     if($bp->save()) {
-      $book->updateMediaStatus($bp->media_type);
+      $book->updateAllMediaStatus();
       return "success";
     }
     return "failed";
+  }
+
+  public function getAllProd()
+  {
+      return Book::find(Input::get('book_id'))->prod()->where('status', '=', Status::ACTIVE)->get();
   }
 
   public function getProd($id)
   {
     $book = Book::find($id);
     $bp = $this->addLastStatusToProd($book->prod);
+    $bp['book_id'] = $book['id'];
     return $bp;
   }
 
@@ -436,17 +432,18 @@ class BookController extends Controller{
 
   public function deleteProd()
   {
-    $bpId = Input::get("prod_id", null);
-    $bp = BookProd::find($bpId);
-    $book = Book::find($bp->book_id);
-    $media_type = $bp->media_type;
+    //$bp = BookProd::find($bpId);
+    $book = Book::find(Input::get("book_id"));
+    $prod = $book->prod()->where('media_type', '=', Input::get('media_type'))->get()->last();
+    $media_type = $prod->media_type;
 
-    if($book->countMedia($media_type)) {
+    if($book->countMedia($media_type)) { //cannot delete prod status until delete involved media
       $data['status'] = 'cannot delete';
       return $data;
     }
 
-    $bp->delete();
+    $prod->status = Status::DELETE; //soft delete
+    $prod->save();
     
     $productionStatus = $book->updateMediaStatus($media_type);
 

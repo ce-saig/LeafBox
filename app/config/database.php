@@ -54,7 +54,7 @@ return array(
         */
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => 'db',
 			'database'  => 'leafbox',
 			'username'  => 'leafbox',
 			'password'  => '{ko-hv,^]',

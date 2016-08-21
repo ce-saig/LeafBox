@@ -8,7 +8,6 @@
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 	<!-- Main custom Bootstrap style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
-  <link rel="stylesheet" type="text/css" href=" {{ asset('css/font-awesome.css') }}">
 	<!-- date-picker style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/datepicker.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
@@ -136,13 +135,22 @@
 <!-- jQuery -->
 @section('script')
 <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+
+<!-- angular module -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
 <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
 <script src="{{ asset('js/angularjs/app.js') }}"></script>
 
+<!-- angular controller -->
+<script type="text/javascript"  src="{{ asset('js/angularjs/controllers/IndexController.js') }}"></script>
 <script type="text/javascript"  src="{{ asset('js/angularjs/controllers/ProdController.js') }}"></script>
+
+<!-- angular service -->
+<script type="text/javascript"  src="{{ asset('js/angularjs/services/BookService.js') }}"></script>
+
 <!-- Bootstrap JavaScript -->
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- AJAX Databases -->

@@ -394,6 +394,7 @@ if (window.location.href.match('#')){
 function tabSelect(tab){
   tabClicked = tab.getAttribute('role').toLowerCase();
   console.log(tabClicked);
+  console.log(document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked);
   document.location.href = document.location.href.substring(0, tabClicked.lastIndexOf('#') + 1)+'#'+tabClicked;
   window.scrollTo(0, 0);
   if(tabClicked == "braille"){
@@ -822,6 +823,10 @@ function prodEditShow(prodObj) {
     function updateProductionStatus(data) {
       $('#' + data['media_type'] + '-status').html(data['status']);
     }
+
+    angular.module('leafBox').run(function($rootScope) {
+    $rootScope.selected_book = {{ $book['id'] }};
+  });
   </script>
 
   @stop

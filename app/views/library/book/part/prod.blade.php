@@ -1,21 +1,10 @@
 <div role="tabpanel" class="tab-pane" ng-controller="ProdController as prodCtrl" >
   <div>
-      @for ($i = 0; $i < 5; $i++)
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-repeat="i in [0, 1, 2, 3, 4]">
       <div class="panel panel-info">
         <div class="panel-heading">
           <div class="panel-title">
-            @if ($i==0)
-            เบรลล์ <a class="pull-right" ng-click="addProd(0)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
-            @elseif ($i==1)
-            คาสเซ็ท <a class="pull-right" ng-click="addProd(1)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
-            @elseif ($i==2)
-            เดซี่ <a class="pull-right" ng-click="addProd(2)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
-            @elseif ($i==3)
-            CD <a class="pull-right" ng-click="addProd(3)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
-            @elseif ($i==4)
-            DVD <a class="pull-right" ng-click="addProd(4)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
-            @endif
+            <% media[i] %> <a class="pull-right" ng-click="addProdModal(i)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
           </div>
         </div>
         <div class="panel-body">
@@ -29,74 +18,24 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($prod as $data)
-              @if ($data["media_type"]==$i)
-              <tr data-prodId="{{$data["id"]}}" class="hover">
-                <td data-action="{{$data["action"]}}" onclick="prodEditShow(this)">
-                  @if($i == 0)
-                    @if ($data["action"]==0)
-                      รอการผลิต
-                    @elseif ($data["action"]==1)
-                      รอพิมพ์
-                    @elseif ($data["action"]==2)
-                      กำลังพิมพ์
-                    @elseif ($data["action"]==3)
-                      ผลิตเสร็จ
-                    @elseif ($data["action"]==5)
-                      ไม่ทำการผลิต
-                    @endif
-                  @elseif($i == 2)
-                    @if ($data["action"]==0)
-                      รออ่าน
-                    @elseif ($data["action"]==1)
-                      กำลังอ่าน
-                    @elseif ($data["action"]==2)
-                      รอการผลิต
-                    @elseif ($data["action"]==3)
-                      ผลิตเสร็จ
-                    @elseif ($data["action"]==5)
-                      ไม่ผลิต
-                    @endif
-                  @else
-                    @if ($data["action"]==0)
-                      อ่าน
-                    @elseif ($data["action"]==1)
-                      ทำต้นฉบับ
-                    @elseif ($data["action"]==2)
-                      ทำกล่อง
-                    @elseif ($data["action"]==3)
-                      ส่งตรวจ
-                    @endif
-                  @endif
+              <tr class="hover" ng-repeat="(index,prod) in prods.obj track by index" ng-if="prod.media_type == i">
+                <td onclick="prodEditShow(this)">
+                  <% status[i][prod.action] %>
                 </td>
-                <td data-actioner="{{$data["actioner"]}}" onclick="prodEditShow(this)">{{$data["actioner"]}}</td>
-                <td class="prodEdit-act_date" onclick="prodEditShow(this)">@if ($data["act_date"] == "0000-00-00 00:00:00")
-                  ยังไม่ได้ระบุ
-                @else
-                  {{date_format(date_create($data["act_date"]), 'd/m/Y')}}
-                @endif
+                <td onclick="prodEditShow(this)"><% prod.actioner %></td>
+                <td class="prodEdit-act_date" onclick="prodEditShow(this)"><% prod.act_date == "0000-00-00 00:00:00" ? 'ยังไม่ได้ระบุ' : DBDate(prod.act_date);  %>
                 </td>
-                <td class="prodEdit-act_date" data-finish-date="{{$data["finish_date"]}}" onclick="prodEditShow(this)">
-                  @if ($data["finish_date"] == "0000-00-00 00:00:00"||$data["finish_date"] == null)
-                    ยังไม่ได้ระบุ
-                  @else
-                    {{date_format(date_create($data["finish_date"]), 'd/m/Y')}}
-                  @endif
+                <td class="prodEdit-act_date" onclick="prodEditShow(this)"><% prod.finish_date == "0000-00-00 00:00:00" ? 'ยังไม่ได้ระบุ' : DBDate(prod.finish_date); %>
                 </td>
                 <td><button onclick="prodEditShowOnButton(this)" class="btn btn-success">แก้ไข</button>
-                @if($data["isLastStatus"])
-                  <button onclick="prodDelete(this)" class="btn btn-danger">ลบ</button>
-                @endif
+                <button ng-click="removeProd(index)" ng-if="prod.action == prods.index[i]" class="btn btn-danger">ลบ</button>
                 </td>
               </tr>
-              @endif
-              @endforeach
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  @endfor
   </div>
 </div>
 

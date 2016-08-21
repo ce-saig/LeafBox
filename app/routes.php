@@ -24,6 +24,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('get_status', 'BookController@getLastProdStatus');
+      Route::post('get_all_prod', 'BookController@getAllProd');
       Route::post('add', 'BookController@postProdAdd');
       Route::post('edit', 'BookController@postProdedit');
       Route::post('delete', 'BookController@deleteProd');

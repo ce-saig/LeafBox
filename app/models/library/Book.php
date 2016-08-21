@@ -51,8 +51,7 @@ class Book extends Eloquent {
     public function getLastProdStatus($media_type)
     {
         $media_type = $this->getDefinedMediaNumber($media_type);
-        $lastProd = BookProd::where('book_id', '=', $this->id)
-        ->where('media_type', '=', $media_type)->get();
+        $lastProd = $this->prod()->where('media_type', '=', $media_type)->where('status', '=', Status::ACTIVE)->get();
 
         if(count($lastProd) == 0)
             return array('action_status' => -1, 'finish_date' => 1);
@@ -98,6 +97,12 @@ class Book extends Eloquent {
         return $mediaStatus;
     }
 
+    public function updateAllMediaStatus()
+    {
+        for($i = 0; $i < 5; $i++)
+            $this->updateMediaStatus($i);
+    }
+
     public function countMedia($media_type)
     {
         $media_type = (is_numeric($media_type)) ? $media_type : $this->getDefinedMediaNumber($media_type);
@@ -109,8 +114,8 @@ class Book extends Eloquent {
             return count($this->daisy()->get());
         else if($media_type == 3)
             return count($this->cd()->get());
-        else
-            return 1;
+        else if($media_type == 4)
+            return count($this->dvd()->get());
     }
 
     public function removeAllMedia()
