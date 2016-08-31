@@ -18,11 +18,11 @@ class BookController extends Controller{
     $Book = new Book;
         //$Book = Book::where('id','=','2')->count();
     $Book->number = Input::get('number');
-    $Book->b_no = Input::get('b_no');
+   /* $Book->b_no = Input::get('b_no');
     $Book->c_no = Input::get('c_no');
     $Book->cd_no = Input::get('cd_no');
     $Book->d_no = Input::get('d_no');
-    $Book->dvd_no = Input::get('dvd_no');
+    $Book->dvd_no = Input::get('dvd_no');*/
     $Book->isbn = Input::get('isbn');
     $Book->title = Input::get('title');
     $Book->title_eng = Input::get('title_eng');
