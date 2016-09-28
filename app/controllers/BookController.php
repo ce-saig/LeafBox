@@ -356,13 +356,14 @@ class BookController extends Controller{
 
   public function postProdAdd()
   {
+    $data = Input::all();
     $bp = new BookProd;
-    $bp->book_id=Input::get("book_id", null);
-    $bp->media_type=Input::get("media_type", null);
-    $bp->action=Input::get("action", null);
-    $bp->actioner=Input::get("actioner", null);
-    $bp->act_date=date(Input::get('act_date',null));
-    $bp->finish_date=date(Input::get('finish_date',null));
+    $bp->book_id = $data["book_id"];
+    $bp->media_type = $data["media_type"];
+    $bp->action = $data["action"];
+    $bp->act_date = $data['act_date'];
+    $bp->finish_date = $data['finish_date'];
+    $bp->user()->associate(User::find($data['actioner']['id']));
     $book = Book::find($bp->book_id);
 
     if($bp->action == 5) {
@@ -373,6 +374,8 @@ class BookController extends Controller{
       }
     }
     if($bp->save()) {
+      $bp->user()->associate(User::find(Input::get('actioner')['id']));
+      $bp->save();
       $book->updateAllMediaStatus();
       return "success";
     }
@@ -381,7 +384,10 @@ class BookController extends Controller{
 
   public function getAllProd()
   {
-      return Book::find(Input::get('book_id'))->prod()->where('status', '=', Status::ACTIVE)->get();
+      $prods = Book::find(Input::get('book_id'))->prod()->where('status', '=', Status::ACTIVE)->get();
+      foreach ($prods as $key => $prod)
+        $prod->actioner = $prod->user()->get()->first();
+      return $prods;
   }
 
   public function getProd($id)
@@ -402,28 +408,12 @@ class BookController extends Controller{
   
   public function postProdedit()
   {
-    $bpId = Input::get("prod_id", null);
-    $bp = BookProd::find($bpId);
-    $bp->action = Input::get("action");
-    $bp->actioner = Input::get("actioner", null);
-    if(Input::get('act_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
-        $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->act_date=null;
-    }
-
-    if(Input::get('finish_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('finish_date',null));
-        $bp->finish_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->finish_date=null;
-    }
-
-    if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
-        (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
-        )
-      return "failed, null not permit";
+    $data = Input::all();
+    $bp = BookProd::find($data["prod_id"]);
+    $bp->act_date = $data['act_date'];
+    $bp->finish_date = $data['finish_date'];
+    $bp->user()->associate(User::find($data['actioner']['id']));
+    //TODO check data intregrity
 
     if($bp->save())
       return "success";
@@ -434,7 +424,7 @@ class BookController extends Controller{
   {
     //$bp = BookProd::find($bpId);
     $book = Book::find(Input::get("book_id"));
-    $prod = $book->prod()->where('media_type', '=', Input::get('media_type'))->get()->last();
+    $prod = $book->prod()->where('media_type', '=', Input::get('media_type'))->where('status', '=', Status::ACTIVE)->get()->last();
     $media_type = $prod->media_type;
 
     if($book->countMedia($media_type)) { //cannot delete prod status until delete involved media

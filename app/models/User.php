@@ -3,6 +3,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 class User extends Eloquent implements UserInterface, RemindableInterface  {
 	protected $table = 'users';
+	protected $hidden = array('password', 'remember_token', 'role', 'created_at', 'updated_at');
 	public static $rules = array(
     'name'=>'required|alpha_space|min:2',
     'email'=>'required|email|unique:users',

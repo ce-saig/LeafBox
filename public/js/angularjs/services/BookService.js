@@ -8,7 +8,7 @@ app.factory('BookService', function($rootScope, $resource){
 			url: ':book_id/prod/get_status',
 			params:  {book_id: $rootScope.selected_book}
 		},
-		createProdStatus: {
+		createProd: {
 			method: 'POST',
 			url: ':book_id/prod/add',
 			params:  {book_id: $rootScope.selected_book}
@@ -22,6 +22,11 @@ app.factory('BookService', function($rootScope, $resource){
 		removeProd: {
 			method: 'POST',
 			url: ':book_id/prod/delete',
+			params: {book_id: $rootScope.selected_book}
+		},
+		editProd: {
+			method: 'POST',
+			url: ':book_id/prod/edit',
 			params: {book_id: $rootScope.selected_book}
 		}
 	});

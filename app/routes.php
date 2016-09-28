@@ -127,9 +127,14 @@ Route::group(array('before' => 'auth'), function() {
   Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
   Route::post('return/member/borrowed', 'ReturnController@getUserMedia');
 
-  // User
-  Route::get('user/{id}','UsersController@show');
-  Route::post('user/{id}/destroy','UsersController@destroy');
+  // 
+  Route::group(array('prefix' => 'user/'), function()
+  {
+    Route::get('{id}','UsersController@show');
+    Route::post('{id}/destroy','UsersController@destroy');
+    Route::post('search', 'UsersController@searchUser');
+  });
+
 
   // borrower system
   Route::model('member', 'Member');

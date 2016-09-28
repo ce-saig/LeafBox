@@ -22,12 +22,12 @@
                 <td onclick="prodEditShow(this)">
                   <% status[i][prod.action] %>
                 </td>
-                <td onclick="prodEditShow(this)"><% prod.actioner %></td>
+                <td onclick="prodEditShow(this)"><% prod.actioner.name %></td>
                 <td class="prodEdit-act_date" onclick="prodEditShow(this)"><% prod.act_date == "0000-00-00 00:00:00" ? 'ยังไม่ได้ระบุ' : DBDate(prod.act_date);  %>
                 </td>
                 <td class="prodEdit-act_date" onclick="prodEditShow(this)"><% prod.finish_date == "0000-00-00 00:00:00" ? 'ยังไม่ได้ระบุ' : DBDate(prod.finish_date); %>
                 </td>
-                <td><button onclick="prodEditShowOnButton(this)" class="btn btn-success">แก้ไข</button>
+                <td><button ng-click="editProdModal(prods.obj[index])" class="btn btn-success">แก้ไข</button>
                 <button ng-click="removeProd(index)" ng-if="prod.action == prods.index[i]" class="btn btn-danger">ลบ</button>
                 </td>
               </tr>

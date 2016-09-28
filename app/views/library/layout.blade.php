@@ -14,6 +14,9 @@
 	<!-- font-awesome package-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+  <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/select.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/selectize.default.min.css') }}" />
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -141,15 +144,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+<script src="https://code.angularjs.org/1.5.5/angular-sanitize.js"></script>
 <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
 <script src="{{ asset('js/angularjs/app.js') }}"></script>
 
+<script src="{{ asset('js/angularjs/ext/ui-select/js/angular-sanitize.min.js') }}"></script>
+<script src="{{ asset('js/angularjs/ext/ui-select/js/select.min.js') }}"></script>
 <!-- angular controller -->
-<script type="text/javascript"  src="{{ asset('js/angularjs/controllers/IndexController.js') }}"></script>
-<script type="text/javascript"  src="{{ asset('js/angularjs/controllers/ProdController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/IndexController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/ProdController.js') }}"></script>
 
 <!-- angular service -->
-<script type="text/javascript"  src="{{ asset('js/angularjs/services/BookService.js') }}"></script>
+<script src="{{ asset('js/angularjs/services/BookService.js') }}"></script>
+<script src="{{ asset('js/angularjs/services/UserService.js') }}"></script>
 
 <!-- Bootstrap JavaScript -->
 <script type="text/javascript"  src="{{ asset('js/bootstrap.min.js') }}"></script>

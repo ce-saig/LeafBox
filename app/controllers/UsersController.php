@@ -126,4 +126,11 @@ class UsersController extends \BaseController {
 		}
 	}
 
+	public function searchUser()
+	{
+		$keyword = '%'.Input::get('keyword').'%';
+		return User::where('name', 'LIKE', $keyword)
+				->orWhere('username', 'LIKE', $keyword)
+				->orWhere('email', 'LIKE', $keyword)->take(50)->get();
+	}
 }
