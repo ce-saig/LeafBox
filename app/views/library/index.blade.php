@@ -194,10 +194,10 @@
 				<div class = "panel-heading">
 					หนังสือที่เพิ่มล่าสุด
 				</div>
-				<div class= "panel-body">
+				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
 					<ul class="list_group">
 					@foreach($books_all as $book)
-					   <a href = "{{ url('book/'.$book->id) }}">
+					   <a href="{{ url('book/'.$book->id) }}">
 						<li class="list-group-item">
 
 							 {{ $book->id }} . <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>

@@ -18,11 +18,11 @@ class BookController extends Controller{
     $Book = new Book;
         //$Book = Book::where('id','=','2')->count();
     $Book->number = Input::get('number');
-   /* $Book->b_no = Input::get('b_no');
+    $Book->b_no = Input::get('b_no');
     $Book->c_no = Input::get('c_no');
     $Book->cd_no = Input::get('cd_no');
     $Book->d_no = Input::get('d_no');
-    $Book->dvd_no = Input::get('dvd_no');*/
+    $Book->dvd_no = Input::get('dvd_no');
     $Book->isbn = Input::get('isbn');
     $Book->title = Input::get('title');
     $Book->title_eng = Input::get('title_eng');
@@ -52,7 +52,7 @@ class BookController extends Controller{
     $book['author']         = $bookEloquent->author ;
     $book['translate']      = $bookEloquent->translate ;
     if($bookEloquent->registered_date == NULL || $bookEloquent->registered_date == "0000-00-00 00:00:00")
-        $book['regis_date'] = "-";
+      $book['regis_date'] = "-";
     else
       $book['regis_date']   = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
     $book['publisher']      = $bookEloquent->publisher ;
@@ -94,7 +94,7 @@ class BookController extends Controller{
     $book['setdvdm_no']       = $bookEloquent->setdvdm_no;
     $book['setdvd_note']   = $bookEloquent->setdvd_note ;
     if($bookEloquent->created_at == "-0001-11-30 00:00:00")
-        $book['created_at'] = "-";
+      $book['created_at'] = "-";
     else
       $book['created_at']   = date_format(date_create($bookEloquent->created_at), 'd-m-Y');
 
@@ -103,77 +103,13 @@ class BookController extends Controller{
     $media_char    = array('B', 'C', 'CD', 'D', 'DVD');
     $media_no      = array($bookEloquent->b_no, $bookEloquent->c_no, $bookEloquent->cd_no, $bookEloquent->d_no, $bookEloquent->dvd_no);
     for($i = 0; $i < 5; $i++) {
-        if($media_no[$i] != null)
-            $all_media = $all_media.$media_char[$i].$media_no[$i].", ";
+      if($media_no[$i] != null)
+        $all_media = $all_media.$media_char[$i].$media_no[$i].", ";
     }
 
     $all_media = substr($all_media, 0, -2).")";
     $all_media = ($all_media == ")") ? "" : $all_media;
-
-          //braile
-    $braille = Braille::where('book_id','=',$book['id'])->get();
-    $successiveID  = true;
-    foreach ($braille as $key => $item) {
-      $borrow = Brailleborrow::where('braille_id', '=', $item->id)->get();
-      $borrow = $borrow->last();
-      $item->borrower = "ไม่มี";
-      $item->submedia_id = $item->getSubmediaRangeID();
-      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
-        $item->borrower = Member::find($borrow->member_id)->name;
-    }
-          //cassette
-    $cassette = Cassette::where('book_id','=',$book['id'])->get();
-    foreach ($cassette as $key => $item) {
-      $borrow = Cassetteborrow::where('cassette_id', '=', $item->id)->get();
-      $borrow = $borrow->last();
-      $item->borrower = "ไม่มี";
-      $item->submedia_id = $item->getSubmediaRangeID();
-      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
-        $item->borrower = Member::find($borrow->member_id)->name;
-    }
-          //daisy
-    $daisy = Daisy::where('book_id','=',$book['id'])->get();
-    foreach ($daisy as $key => $item) {
-      $borrow = Daisyborrow::where('daisy_id', '=', $item->id)->get();
-      $borrow = $borrow->last();
-      $item->borrower = "ไม่มี";
-      $item->submedia_id = $item->getSubmediaRangeID();
-      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
-        $item->borrower = Member::find($borrow->member_id)->name;
-    }
-          //cd
-    $cd = CD::where('book_id','=',$book['id'])->get();
-    foreach ($cd as $key => $item) {
-      $borrow = Cdborrow::where('cd_id', '=', $item->id)->get();
-      $borrow = $borrow->last();
-      $item->borrower = "ไม่มี";
-      $item->submedia_id = $item->getSubmediaRangeID();
-      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
-        $item->borrower = Member::find($borrow->member_id)->name;
-    }
-          //dvd
-    $dvd = DVD::where('book_id','=',$book['id'])->get();
-    foreach ($dvd as $key => $item) {
-      $borrow = Dvdborrow::where('dvd_id', '=', $item->id)->get();
-      $borrow = $borrow->last();
-      $item->borrower = "ไม่มี";
-      $item->submedia_id = $item->getSubmediaRangeID();
-      if(isset($borrow) && $borrow->actual_returned == "0000-00-00 00:00:00")
-        $item->borrower = Member::find($borrow->member_id)->name;
-    }
-
-    $prod = $this->addLastStatusToProd($bookEloquent->prod);
-
     $arrOfdata['book']=$book;
-
-    $arrOfdata['braille']=$braille;
-    $arrOfdata['cassette']=$cassette;
-    $arrOfdata['daisy']=$daisy;
-    $arrOfdata['cd']=$cd;
-    $arrOfdata['dvd']=$dvd;
-    $arrOfdata['bookEloquent'] = $bookEloquent;
-    $arrOfdata['prod'] = $prod;
-
     $arrOfdata['number'] = $number;
     $arrOfdata['all_media'] = $all_media;
 
@@ -199,7 +135,7 @@ class BookController extends Controller{
     $book['translate']     = $bookEloquent->translate ;
     //$book['regis_date']    = date_format(date_create($bookEloquent->registered_date), 'd/m/Y');
     if($bookEloquent->registered_date == NULL || $bookEloquent->registered_date == "0000-00-00 00:00:00")
-        $book['regis_date'] = null;
+      $book['regis_date'] = null;
     else
       $book['regis_date']   = date_format(date_create($bookEloquent->registered_date), 'd-m-Y');
     $book['publisher']     = $bookEloquent->publisher ;
@@ -354,99 +290,94 @@ class BookController extends Controller{
     return $enum[(int)$status];
   }
 
-  public function postProdAdd()
+  public function postProdAdd($bid)
   {
+    $data = Input::all();
     $bp = new BookProd;
-    $bp->book_id=Input::get("book_id", null);
-    $bp->media_type=Input::get("media_type", null);
-    $bp->action=Input::get("action", null);
-    $bp->actioner=Input::get("actioner", null);
+    $bp->book_id = $bid;
+    $bp->media_type = $data["media_type"];
+    $bp->action = $data["action"];
+    $bp->act_date = $data['act_date'];
+    $bp->finish_date = $data['finish_date'];
+    $bp->user()->associate(User::find($data['actioner']['id']));
+    $book = Book::find($bid);
 
-    if(Input::get('act_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
-        $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->act_date=null;
+    if($bp->action == 5) {
+      $activeProds = $book->prod()->where('media_type', '=', $data["media_type"])->where('status', '=', Status::ACTIVE)->get();
+      foreach ($activeProds as $prod) {
+        $prod->status = Status::DELETE;
+        $prod->save();
+      }
     }
-
-    if(Input::get('finish_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('finish_date',null));
-        $bp->finish_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->finish_date=null;
-    }
-
-    if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
-        (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
-        )
-      return "failed, null not permit";
-
-    $book = Book::find($bp->book_id);
     if($bp->save()) {
-      $book->updateMediaStatus($bp->media_type);
+      $bp->user()->associate(User::find(Input::get('actioner')['id']));
+      $bp->save();
+      $book->updateAllMediaStatus();
       return "success";
     }
     return "failed";
+  }
+
+  public function getAllProd($bid)
+  {
+    $book = Book::find($bid);
+    $prodCollection = array();
+    $prodCollection['braille'] = $book->prod()->where('media_type', '=', 0)->where('status', '=', Status::ACTIVE)->get();
+    $prodCollection['cassette'] = $book->prod()->where('media_type', '=', 1)->where('status', '=', Status::ACTIVE)->get();
+    $prodCollection['daisy'] = $book->prod()->where('media_type', '=', 2)->where('status', '=', Status::ACTIVE)->get();
+    $prodCollection['cd'] = $book->prod()->where('media_type', '=', 3)->where('status', '=', Status::ACTIVE)->get();
+    $prodCollection['dvd'] = $book->prod()->where('media_type', '=', 4)->where('status', '=', Status::ACTIVE)->get();
+
+    foreach ($prodCollection as $prods){
+      foreach ($prods as $prod)
+        $prod->actioner = $prod->user()->get()->first();
+    }
+    return $prodCollection;
   }
 
   public function getProd($id)
   {
     $book = Book::find($id);
     $bp = $this->addLastStatusToProd($book->prod);
+    $bp['book_id'] = $book['id'];
     return $bp;
   }
 
-  public function getLastProdStatus()
+  public function getLastProdStatus($bid)
   {
-    $book_id = Input::get('book_id');
-    $book = Book::find($book_id);
-    $media_type = Input::get('media_type');
-    return $book->getLastProdStatus($media_type);
+    $book = Book::find($bid);
+    return $book->getLastProdStatus(Input::get('media_type'));
   }
   
   public function postProdedit()
   {
-    $bpId = Input::get("prod_id", null);
-    $bp = BookProd::find($bpId);
-    $bp->action = Input::get("action");
-    $bp->actioner = Input::get("actioner", null);
-    if(Input::get('act_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('act_date',null));
-        $bp->act_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->act_date=null;
-    }
-
-    if(Input::get('finish_date',null)){
-        $dateTmp = date_create_from_format('d/m/Y', Input::get('finish_date',null));
-        $bp->finish_date=date_format($dateTmp, 'Y-m-d H:i:s');
-    }else{
-        $bp->finish_date=null;
-    }
-
-    if ($bp->media_type==""||$bp->act_date==""||$bp->action==""||$bp->actioner=="" ||
-        (Input::get('finish_date',null)&&($bp->act_date > $bp->finish_date)) // check is act and fin date is valid
-        )
-      return "failed, null not permit";
+    $data = Input::all();
+    $bp = BookProd::find($data["id"]);
+    $bp->act_date = $data['act_date'];
+    $bp->finish_date = $data['finish_date'];
+    $bp->user()->associate(User::find($data['actioner']['id']));
+    //TODO check data intregrity
 
     if($bp->save())
       return "success";
     return "failed";
   }
 
-  public function deleteProd()
+  public function deleteProd($bid)
   {
-    $bpId = Input::get("prod_id", null);
-    $bp = BookProd::find($bpId);
-    $book = Book::find($bp->book_id);
-    $media_type = $bp->media_type;
+    //$bp = BookProd::find($bpId);
+    $book = Book::find($bid);
+    $prod = $book->prod()->where('media_type', '=', Input::get('media_type'))->where('status', '=', Status::ACTIVE)->get()->last();
+    $media_type = $prod->media_type;
 
-    if($book->countMedia($media_type)) {
-      $data['status'] = 'cannot delete';
+    if($book->countMedia($media_type)) { //cannot delete prod status until delete involved media
+      $data['status'] = 'failed';
+      $data['status-description'] = 'remove all media before delete production status.';
       return $data;
     }
 
-    $bp->delete();
+    $prod->status = Status::DELETE; //soft delete
+    $prod->save();
     
     $productionStatus = $book->updateMediaStatus($media_type);
 
@@ -462,14 +393,14 @@ class BookController extends Controller{
   {
     $lastAction = array(-1, -1, -1, -1, -1);
     foreach ($prod as $key => $item) {
-        if($item->action > $lastAction[$item->media_type])
-            $lastAction[$item->media_type] = $item->action;
+      if($item->action > $lastAction[$item->media_type])
+        $lastAction[$item->media_type] = $item->action;
     }
     foreach ($prod as $key => $item) {
-        if($item->action == $lastAction[$item->media_type])
-            $item->isLastStatus = true;
-        else
-            $item->isLastStatus = false;
+      if($item->action == $lastAction[$item->media_type])
+        $item->isLastStatus = true;
+      else
+        $item->isLastStatus = false;
     }
     return $prod;
   }

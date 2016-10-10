@@ -22,7 +22,7 @@
             </div>
           </div>
 
-         <!--  <div class="row">
+          <div class="row">
             <div class="form-group">
               <label class="col-sm-4 control-label">เลขอันดับ braille (b no.)</label>
               <div class="col-sm-8">
@@ -65,7 +65,7 @@
                 <input type="text" class="form-control" name="dvd_no">
               </div>
             </div>
-          </div> -->
+          </div>
 
           <div class="row">
             <div class="form-group">

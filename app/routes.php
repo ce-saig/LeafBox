@@ -10,7 +10,7 @@ Route::group(array('before' => 'auth'), function() {
   Route::post('book/add','BookController@postBook');
 
   Route::get('logout','HomeController@doLogout');
-  Route::post('editMedia', 'MediaController@editMedia');
+  Route::post('edit_media', 'MediaController@editMedia');
   Route::post('anyborrower', 'MediaController@isAnyBorrower');
 
   Route::group(array('prefix' => 'book/{bid}'), function($bid){
@@ -19,11 +19,12 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::get('edit', 'BookController@getEdit');
     Route::post('edit', 'BookController@postEdit');
-
     Route::get('delete', 'BookController@delete');
+    Route::post('get_media', 'MediaController@getMedia');
 
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('get_status', 'BookController@getLastProdStatus');
+      Route::get('get_all_prod', 'BookController@getAllProd');
       Route::post('add', 'BookController@postProdAdd');
       Route::post('edit', 'BookController@postProdedit');
       Route::post('delete', 'BookController@deleteProd');
@@ -126,9 +127,14 @@ Route::group(array('before' => 'auth'), function() {
   Route::post('return/delete/{mediaID}', 'ReturnController@deleteSelectedMedia');
   Route::post('return/member/borrowed', 'ReturnController@getUserMedia');
 
-  // User
-  Route::get('user/{id}','UsersController@show');
-  Route::post('user/{id}/destroy','UsersController@destroy');
+  // 
+  Route::group(array('prefix' => 'user/'), function()
+  {
+    Route::get('{id}','UsersController@show');
+    Route::post('{id}/destroy','UsersController@destroy');
+    Route::post('search', 'UsersController@searchUser');
+  });
+
 
   // borrower system
   Route::model('member', 'Member');
@@ -173,3 +179,5 @@ Route::get('authentication','HomeController@showAuthen');
 Route::post('loginUser','HomeController@doLogin');
 Route::get('registration','UsersController@create');
 Route::post('user/store','UsersController@store');
+
+Route::get('/templates', 'TemplateController@getTemplate');
