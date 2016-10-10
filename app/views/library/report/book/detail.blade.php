@@ -11,7 +11,7 @@
 
   </table>
 </div>
-<div class="row">
+<div class="row"> 
   <div class="col-md-offset-10 col-md-2">
     <a class="btn btn-success back" style="color: white;" href="{{ url('/report') }}">Back</a>
     <a class="btn btn-success download" style="color: white;" href="{{ url('/report/csv/download') }}">Download</a>
@@ -26,6 +26,7 @@
   $(document).ready(function(){
     var data = {{json_encode($data)}};
     var col = {{json_encode($col)}}
+    console.log(data);
     if(data[0].length != 0) {
       addTableTopic('.table',col);
       addTableData('.table',data,col);
@@ -111,7 +112,7 @@
           haveMedia = true;
         }
       }
-
+      
       //console.log("dvd = "+data[item]["dvd_prod"].length);
       for(var dvd = 0;dvd < data[item]["dvd_prod"].length;dvd++) {
         var row_in_media = row.clone();
@@ -174,7 +175,7 @@
     }
     else if(status == 3) {
       return "กำลังผลิต";
-    }
+    } 
   }
 
   function toThaiMediaStatus(media) {

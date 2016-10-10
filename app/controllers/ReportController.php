@@ -1,19 +1,42 @@
 <?php
-ini_set('memory_limit', '1024M');
 
 class ReportController extends BaseController {
   public function getIndex()
   {
     return View::make('library.report.index');
   }
+/*
+  public function convertOperator($raw_oper)
+  {
+    if($raw_oper == 0) {
+      return "LIKE";
+    }
+    else if($raw_oper == 1) {
+      return "=";
+    }
+    else if($raw_oper == 2) {
+      return ">";
+    }
+    else if($raw_oper == 3) {
+      return "<";
+    }
+  }*/
 
+ /* public function valueForWhere($operator,$value)
+  {
+    if($operator == "LIKE") {
+      return "%".$value."%";
+    }
+    return $value;
+  }
+*/
   public function getBookDetail()
   {
     $book_filter = Input::get("book-filter");
     $media_filter = Input::get("media-filter");
     $col_filter = Input::get("result-column-filter");
     $book = Book::where("id",">","0");
-    // return Input::all();
+    //return Input::all();
     $fn_value=function($operator,$value){
         if($operator == "LIKE") {
           return "%".$value."%";
@@ -44,12 +67,12 @@ class ReportController extends BaseController {
           $book = $book->where($key, $fn_operator($select), $fn_value($fn_operator($select),$text));
         else
           $book = $book->where($key, "=", $select);
-      }
+      } 
     }
     $book = $book->get();
 
     $prod_arr = [[]];
-    if(count($media_filter) != 0) {
+    if(count($media_filter) != 0) { 
       $count_book = 0;
       foreach ($book as $key) {
         $braille_prod = [];
@@ -150,7 +173,7 @@ class ReportController extends BaseController {
             array_push($braille_prod, $br);
           }
         }
-
+        
         $cassette = Cassette::where("book_id","=",$key["id"])->get();
         foreach ($cassette as $cass) {
           $cassette_detail = Cassettedetail::where("cassette_id","=",$cass["id"])->get();
@@ -166,7 +189,7 @@ class ReportController extends BaseController {
             array_push($daisy_prod, $ds);
           }
         }
-
+        
         $cd = CD::where("book_id","=",$key["id"])->get();
         foreach ($cd as $cd_ea) {
           $cd_detail = Cddetail::where("cd_id","=",$cd_ea["id"])->get();
@@ -190,23 +213,24 @@ class ReportController extends BaseController {
         $count_book++;
       }
     }
+    $prod_arr;
     $arrayOfData["data"] = $prod_arr;
     $arrayOfData["col"] = $col_filter;
     Session::put('data', $arrayOfData);
-    // return Session::get('data');
+    //return Session::get('data');
     return View::make("library.report.book.detail")->with($arrayOfData);
   }
 
-  // export csv function
+  // export csv function 
   // you must sending result from search obj to this method.
   public function exportCSV() {
     $obj = Session::get('data');
     $columns = $obj["col"];
     $obj_vals = $obj["data"];
     $csv_arr = array();
-
+  
     $fp = fopen( storage_path().'/files/file.csv', 'w');
-
+    
     // push column array.
     $csv_column = array();
     foreach ($columns as $col) {
@@ -215,7 +239,7 @@ class ReportController extends BaseController {
     array_push($csv_column, "media id", "ตอนที่", "ชนิดสื่อ", "สถานะสื่อ");
     array_push($csv_arr, $csv_column);
     //array_push($csv_arr, $columns);
-
+    
     // push object value;
     foreach($obj_vals as $obj_val) {
       $arr_row = array();
@@ -223,11 +247,11 @@ class ReportController extends BaseController {
 
       foreach($columns as $column){
         if($column == "bm_status" || $column == "setcs_status" || $column == "setds_status" || $column == "setcd_status" || $column == "setdvd_status") {
-          array_push($arr_row, self::toThaiStatus($obj_val[$column]));
-        }
+          array_push($arr_row, self::toThaiStatus($obj_val[$column])); 
+        } 
         else {
-          array_push($arr_row, $obj_val[$column]);
-        }
+          array_push($arr_row, $obj_val[$column]); 
+        }    
       }
 
       if(count($obj_val["braille_prod"]) != 0) {
@@ -278,7 +302,7 @@ class ReportController extends BaseController {
       }
     }
 
-    // create csv file
+    // create csv file 
     foreach($csv_arr as $csv_row){
       fputcsv($fp, $csv_row);
     }
@@ -291,7 +315,7 @@ class ReportController extends BaseController {
       'Content-Type' => 'text/csv'
       );
     $filepath = storage_path().'/files/file.csv';
-
+    
     // delete file when user already downloaded.
     App::finish(function($request, $response) use ($filepath)
     {
@@ -345,7 +369,7 @@ class ReportController extends BaseController {
     }
     else if($status == 3) {
       return "กำลังผลิต";
-    }
+    } 
   }
 
   public function toThaiMediaStatus($media) {
