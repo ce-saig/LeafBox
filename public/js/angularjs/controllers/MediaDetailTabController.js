@@ -34,7 +34,7 @@ app.controller('MediaDetailTabController', function($rootScope, $scope, $uibModa
 	$scope.addMediaModal = function(lastProductionStatus) {
 		var modalInstance = $uibModal.open({
 			animation: true,
-			templateUrl: '/templates?path=modal/add-media',
+			templateUrl: '/templates?path=modal/add-edit-media',
 			controller: 'MediaModalController',
 			size: '',
 			resolve: {
