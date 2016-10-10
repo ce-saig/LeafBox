@@ -12,5 +12,6 @@ class Brailleborrow extends Eloquent {
     public $timestamps = false;
 
     public function braille()   { return $this->belongsTo('Braille', 'braille_id'); }
+    public function borrower()	{ return $this->belongsTo('Member', 'member_id'); }
 
 }

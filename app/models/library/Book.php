@@ -24,18 +24,18 @@ class Book extends Eloquent {
     {
         $media_type = strtolower($media_type);
         switch ($media_type) {
-            case 'braille' | 0:
-            return 0;
-            case 'cassette' | 1:
-            return 1;
-            case 'daisy' | 2:
-            return 2;
-            case 'cd' | 3:
-            return 3;
-            case 'dvd' | 4:
-            return 4;
+            case 'braille':
+                return 0;
+            case 'cassette':
+                return 1;
+            case 'daisy':
+                return 2;
+            case 'cd':
+                return 3;
+            case 'dvd':
+                return 4;
             default:
-            return 5;
+                return 5;
         }
     }
 
@@ -51,13 +51,12 @@ class Book extends Eloquent {
     public function getLastProdStatus($media_type)
     {
         $media_type = $this->getDefinedMediaNumber($media_type);
-        $lastProd = BookProd::where('book_id', '=', $this->id)
-        ->where('media_type', '=', $media_type)->get();
+        $lastProd = $this->prod()->where('media_type', '=', $media_type)->where('status', '=', Status::ACTIVE)->get();
 
         if(count($lastProd) == 0)
-            return array('action_status' => -1, 'finish_date' => 1);
+            return array('action_status' => -1, 'finish_date' => 1, 'media_type' => $media_type);
         $lastProd = $lastProd->last();
-        return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date);
+        return array('action_status' => $lastProd->action, 'finish_date' => $lastProd->finish_date, 'media_type' => $media_type);
     }
 
     public function updateMediaStatus($media_type)
@@ -77,25 +76,31 @@ class Book extends Eloquent {
 
         switch ($media_type) {
             case 0:
-            $this->bm_status = $mediaStatus;
-            break;
+                $this->bm_status = $mediaStatus;
+                break;
             case 1:
-            $this->setcs_status = $mediaStatus;
-            break;
+                $this->setcs_status = $mediaStatus;
+                break;
             case 2:
-            $this->setds_status = $mediaStatus;
-            break;
+                $this->setds_status = $mediaStatus;
+                break;
             case 3:
-            $this->setcd_status = $mediaStatus;
-            break;
+                $this->setcd_status = $mediaStatus;
+                break;
             case 4:
-            $this->setdvd_status = $mediaStatus;
-            break;
+                $this->setdvd_status = $mediaStatus;
+                break;
             default :
-            return 'media not match';
+                return 'media not match';
         }
         $this->save();
         return $mediaStatus;
+    }
+
+    public function updateAllMediaStatus()
+    {
+        for($i = 0; $i < 5; $i++)
+            $this->updateMediaStatus($i);
     }
 
     public function countMedia($media_type)
@@ -109,8 +114,8 @@ class Book extends Eloquent {
             return count($this->daisy()->get());
         else if($media_type == 3)
             return count($this->cd()->get());
-        else
-            return 1;
+        else if($media_type == 4)
+            return count($this->dvd()->get());
     }
 
     public function removeAllMedia()
