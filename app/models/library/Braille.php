@@ -4,11 +4,11 @@
 class Braille extends Eloquent {
 
     protected $table = 'braille';
-    public $timestamps = false;
 
     public function book()   { return $this->belongsTo('Book','book_id');}
     public function detail() { return $this->hasMany('Brailledetail','braille_id'); }
     public function borrow()   { return $this->hasMany('Brailleborrow','braille_id'); }
+    public function examiner() { return $this->belongsTo('User', 'examiner_id'); }
 
     public function getFirstSubmediaID() {
     	$brailleDetail = Brailledetail::where('braille_id', '=', $this->id)->get();
