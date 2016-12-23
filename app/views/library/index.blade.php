@@ -200,7 +200,7 @@
 					   <a href="{{ url('book/'.$book->id) }}">
 						<li class="list-group-item">
 
-							 {{ $book->id }} . <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
+							 {{ $book->id }}({{$book->original_no}}) . <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
 
 						</li>
 					  </a>

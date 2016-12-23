@@ -17,12 +17,24 @@ class BookController extends Controller{
   public function postBook(){
     $Book = new Book;
         //$Book = Book::where('id','=','2')->count();
+    $Book->original_no = Input::get('original_no');
     $Book->number = Input::get('number');
     $Book->b_no = Input::get('b_no');
     $Book->c_no = Input::get('c_no');
     $Book->cd_no = Input::get('cd_no');
     $Book->d_no = Input::get('d_no');
     $Book->dvd_no = Input::get('dvd_no');
+    $Book->original_no = Input::get('original_no');
+    $Book->b_original_no = Input::get('b_original_no');
+    $Book->c_original_no = Input::get('c_original_no');
+    $Book->cd_original_no = Input::get('cd_original_no');
+    $Book->d_original_no = Input::get('d_original_no');
+    $Book->dvd_original_no = Input::get('dvd_original_no');
+    $Book->b_number = Input::get('b_number');
+    $Book->cs_number = Input::get('cs_number');
+    $Book->cd_number = Input::get('cd_number');
+    $Book->ds_number = Input::get('ds_number');
+    $Book->dvd_number = Input::get('dvd_number');
     $Book->isbn = Input::get('isbn');
     $Book->title = Input::get('title');
     $Book->title_eng = Input::get('title_eng');
@@ -35,9 +47,9 @@ class BookController extends Controller{
     $Book->pub_no = Input::get('pub_no');
     $Book->pub_year = Input::get('pub_year');
     $Book->publisher = Input::get('publisher');
-    $Book->created_at = (date("Y") + 543).date("-m-d H:i:s");
+    $Book->created_at = (date("Y")+543).date("-m-d H:i:s");
     $Book->save();
-    return Redirect::to('book/add');
+    return Redirect::to('/');
   }
 
   public function getBook($bid){
@@ -65,13 +77,20 @@ class BookController extends Controller{
 
     $book['isbn']          = $bookEloquent->isbn ;
     $book['id']            = $bookEloquent->id;
+    $book['original_no']   = $bookEloquent->original_no;
     $book['grade']         = $bookEloquent->grade ;
-
+/*
     $book['b_number']      = count($bookEloquent->braille);
     $book['cs_number']     = count($bookEloquent->cassette);
     $book['ds_number']     = count($bookEloquent->daisy);
     $book['cd_number']     = count($bookEloquent->cd);
     $book['dvd_number']    = count($bookEloquent->dvd);
+*/
+    $book['b_number']      = $bookEloquent->b_number;
+    $book['cs_number']     = $bookEloquent->cs_number;
+    $book['ds_number']     = $bookEloquent->ds_number;
+    $book['cd_number']     = $bookEloquent->cd_number;
+    $book['dvd_number']    = $bookEloquent->dvd_number;
 
     $book['bm_status']     = ($bookEloquent->bm_status == 2) ? 'กำลังผลิต' : $this->getWordStatus($bookEloquent->bm_status);
     $book['bm_date']       = $this->formatDate($bookEloquent->bm_date);
@@ -102,15 +121,22 @@ class BookController extends Controller{
     $all_media     = "(";
     $media_char    = array('B', 'C', 'CD', 'D', 'DVD');
     $media_no      = array($bookEloquent->b_no, $bookEloquent->c_no, $bookEloquent->cd_no, $bookEloquent->d_no, $bookEloquent->dvd_no);
+
     for($i = 0; $i < 5; $i++) {
       if($media_no[$i] != null)
-        $all_media = $all_media.$media_char[$i].$media_no[$i].", ";
+        $all_media = $all_media.$media_char[$i].$media_no[$i].", ";       
     }
 
     $all_media = substr($all_media, 0, -2).")";
     $all_media = ($all_media == ")") ? "" : $all_media;
     $arrOfdata['book']=$book;
     $arrOfdata['number'] = $number;
+    $arrOfdata['original_no'] = $bookEloquent->original_no;
+    $arrOfdata['b_original_no'] = $bookEloquent->b_original_no;
+    $arrOfdata['c_original_no'] = $bookEloquent->c_original_no;
+    $arrOfdata['cd_original_no'] = $bookEloquent->cd_original_no;
+    $arrOfdata['d_original_no'] = $bookEloquent->d_original_no;
+    $arrOfdata['dvd_original_no'] = $bookEloquent->dvd_original_no;
     $arrOfdata['all_media'] = $all_media;
 
     return View::make('library.book.view')->with($arrOfdata);
@@ -146,6 +172,7 @@ class BookController extends Controller{
     $book['grade']         = $bookEloquent->grade ;
     $book['isbn']          = $bookEloquent->isbn ;
     $book['id']            = $bookEloquent->id; //TODO : Add validator to check id before change it
+    $book['original_no']          = $bookEloquent->original_no;
     $book['abstract']      = $bookEloquent->abstract ;
     $book['bm_status']     = ($bookEloquent->bm_status == 2) ? "กำลังผลิต" : $this->getWordStatus($bookEloquent->bm_status);
     $book['bm_date']       = ($bookEloquent->bm_date == "0000-00-00 00:00:00") ? "ยังไม่ได้ระบุ" : date_format(date_create($bookEloquent->bm_date), 'd/m/Y');
@@ -171,83 +198,55 @@ class BookController extends Controller{
     return View::make('library.book.edit')->with($arrOfdata);
   }
 
-  public function postEdit($bid){
+  public function getEditBook($bid){
+    $bookEloquent = Book::find($bid);
+    return $bookEloquent;
+  }
+
+  public function postEditBook($bid){
     $book = Book::find($bid);
-    $book->number     = Input::get('number');
-    $book->b_no       = Input::get('b_no');
-    $book->c_no       = Input::get('c_no');
-    $book->cd_no      = Input::get('cd_no');
+    $book->title      = Input::get('title'); 
+    $book->title_eng  = Input::get('title_eng'); 
+    $book->number     = Input::get('number'); 
+    $book->b_no       = Input::get('b_no'); 
+    $book->c_no       = Input::get('c_no'); 
+    $book->cd_no      = Input::get('cd_no'); 
     $book->d_no       = Input::get('d_no');
-    $book->dvd_no     = Input::get('dvd_no');
-    $book->title      = Input::get('title');
-    $book->title_eng  = Input::get('title_eng');
+    $book->dvd_no     = Input::get('dvd_no');  
     $book->author     = Input::get('author');
     $book->translate  = Input::get('translate');
-    $dateTmp = date_create_from_format('d/m/Y', Input::get('regis_date'));
-    if(Input::get('regis_date') == null)
-      $book->registered_date  = "0000-00-00 00:00:00";
-    else
-      $book->registered_date  = date_format($dateTmp, 'Y-m-d H:i:s');
     $book->publisher  = Input::get('publisher');
     $book->pub_no     = Input::get('pub_no');
     $book->pub_year   = Input::get('pub_year');
     $book->produce_no = Input::get('produce_no');
-    $book->book_type  = Input::get('btype');
+    $book->book_type  = Input::get('book_type');
     $book->abstract   = Input::get('abstract');
     $book->isbn       = Input::get('isbn');
-      //$book['id']         = Input::get('id'); //TODO : make ID Validator
-    $book->grade      = Input::get('grade');
-
+    $book->bm_no      = Input::get('bm_no');
+    $book->setcm_no   = Input::get('setcm_no');
+    $book->setdm_no   = Input::get('setdm_no');
+    $book->setcdm_no  = Input::get('setcdm_no');
+    $book->setdvdm_no = Input::get('setdvdm_no');
     $book->bm_note    = Input::get('bm_note');
-    $book->bm_no    = Input::get('bm_no');
-    if(Input::get('bm_date')) {
-      $dateTmp = date_create_from_format('d/m/Y', Input::get('bm_date'));
-      $book->bm_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-    }
-    else
-      $book->bm_date  = "0000-00-00 00:00:00";
-
-    $book->setcs_note    = Input::get('cs_note');
-    $book->setcm_no     = Input::get('setcm_no');
-    if(Input::get('cs_date')) {
-      $dateTmp = date_create_from_format('d/m/Y', Input::get('cs_date'));
-      $book->setcs_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-    }
-    else
-      $book->setcs_date  = "0000-00-00 00:00:00";
-
-    $book->setds_note    = Input::get('ds_note');
-    $book->setdm_no     = Input::get('setdm_no');
-    if(Input::get('ds_date')) {
-      $dateTmp = date_create_from_format('d/m/Y', Input::get('ds_date'));
-      $book->setds_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-    }
-    else
-      $book->setds_date  = "0000-00-00 00:00:00";
-
-    $book->setcd_note    = Input::get('cd_note');
-    $book->setcdm_no     = Input::get('setcdm_no');
-    if(Input::get('cd_date')) {
-      $dateTmp = date_create_from_format('d/m/Y', Input::get('cd_date'));
-      $book->setcd_date  = date_format($dateTmp, 'Y-m-d H:i:s');
-    }
-    else
-      $book->setcd_date  = "0000-00-00 00:00:00";
-
-    $book->setdvd_note   = Input::get('dvd_note');
-    $book->setdvdm_no     = Input::get('setdvdm_no');
-    if(Input::get('dvd_date')) {
-      $dateTmp = date_create_from_format('d/m/Y', Input::get('dvd_date'));
-      $book->setdvd_date = date_format($dateTmp, 'Y-m-d H:i:s');
-    }
-    else
-      $book->setdvd_date = "0000-00-00 00:00:00";
-      // TODO : add Validator here
-
-    $book->updated_at = (date("Y") + 543).date("-m-d H:i:s");
+    $book->setcs_note = Input::get('setcs_note');
+    $book->setds_note = Input::get('setds_note');
+    $book->setcd_note = Input::get('setcd_note');
+    $book->setdvd_note= Input::get('setdvd_note');
+    $book->bm_date    = Input::get('bm_date');
+    $book->setcs_date = Input::get('setcs_date');
+    $book->setds_date = Input::get('setds_date');
+    $book->setcd_date = Input::get('setcd_date');
+    $book->setdvd_date= Input::get('setdvd_date');
+    $book->original_no= Input::get('original_no');
+    $book->b_original_no= Input::get('b_original_no');
+    $book->c_original_no= Input::get('c_original_no');
+    $book->d_original_no= Input::get('d_original_no');
+    $book->cd_original_no= Input::get('cd_original_no');
+    $book->dvd_original_no= Input::get('dvd_original_no');
+    $book->regis_date = Input::get('regis_date');
+    $book->updated_at = (date("Y")+543).date("-m-d H:i:s");
 
     $book->save();
-    return Redirect::to("/book/$bid");
   }
 
     // Search getter

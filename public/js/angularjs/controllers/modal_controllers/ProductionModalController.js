@@ -115,11 +115,11 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 			BookProductionService.getLastProductionStatus({'media_type': tunnel.media_type}
 				, function(response) {
 					var next_status = parseInt(response.data.action_status) + 1;
-					if(next_status == 4) {
+					if(next_status == 5) {
 						$scope.showNotification('กระบวนการผลิตเสร็จสิ้นแล้ว');
 						$scope.formdata.status_number = null;
 					}
-					else if(next_status == 6) {
+					else if(next_status == 7) {
 						$scope.showNotification('กรุณายกเลิกสถานะล่าสุดเพื่อเริ่มสถานะการผลิตใหม่');
 						$scope.formdata.status_number = null;
 					}
@@ -130,10 +130,10 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 							status_number: next_status,
 							status_label: BookProductionService.getProductionStatusLabel(tunnel.media_type, next_status)
 						}];
-						if(next_status != 4) {
+						if(next_status != 5) {
 							$scope.status_options.push({
-								status_number: 5,
-								status_label: BookProductionService.getProductionStatusLabel(tunnel.media_type, 5)
+								status_number: 6,
+								status_label: BookProductionService.getProductionStatusLabel(tunnel.media_type, 6)
 							});
 						}
 					}

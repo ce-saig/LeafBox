@@ -181,3 +181,14 @@ a {
 .add-media-prod {
   font-size: 16px;
 }
+
+.inputsize{
+  margin-top: 5px;
+  margin-left: -30px;
+  height: 35px;
+  width: 150px;
+}
+
+.labelisize{
+  margin-top: 13px;
+}

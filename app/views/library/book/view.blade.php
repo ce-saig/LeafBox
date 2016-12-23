@@ -7,8 +7,13 @@
 @section('body')
 <div>
   <div class="well">
-    <div>
-      <h2>{{$number}}:{{$book['title']}} {{ $all_media }}</h2>
+    <div class="col-md-12">
+      <div class="pull-left">
+        <h2>{{$number}}:{{$book['title']}} {{ $all_media }}</h2>
+      </div>
+      <div class="pull-right">
+        <h4>รหัสเดิม: {{$original_no}}-B{{$b_original_no}}-C{{$c_original_no}}-D{{$d_original_no}}-CD{{$cd_original_no}}-DVD{{$dvd_original_no}}</h4>
+      </div>
     </div>
     <div>
       <uib-tabset active="activeJustified" justified="true">

@@ -1,6 +1,6 @@
 var app = angular.module('leafBox');
 
-app.controller('ProductionStatusController', function($rootScope, $scope, $uibModal, $log, $window, $window, $routeParams, DateTimeService, BookProductionService, MediaService) {
+app.controller('ProductionStatusController', function($rootScope, $scope, $uibModal, $log, $window, $routeParams, DateTimeService, BookProductionService, MediaService) {
 
 	$scope.addProd = function(media_type, prod) {
 		media_type = MediaService.convertToMediaLabel(media_type, 'en');

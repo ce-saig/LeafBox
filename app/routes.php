@@ -18,7 +18,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('/', 'BookController@getBook');
 
     Route::get('edit', 'BookController@getEdit');
-    Route::post('edit', 'BookController@postEdit');
+    Route::get('edit_book', 'BookController@getEditBook');
+    Route::post('edit_book', 'BookController@postEditBook');
     Route::get('delete', 'BookController@delete');
     Route::post('get_media', 'MediaController@getMedia');
 

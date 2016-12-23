@@ -2,14 +2,14 @@
 <div class="col-xs-6 col-sm-4">{{($book['title'] == "") ? '-' : $book['title']}}</div>
 <div class="col-xs-6 col-sm-2"><b>ชื่อเรื่อง (อังกฤษ)</b></div>
 <div class="col-xs-6 col-sm-4">{{($book['title_eng'] == "") ? '-' : $book['title_eng']}}</div>
-<div class="col-xs-6 col-sm-2"><b>เลขทะเบียนหนังสือตาดี</b></div>
+<div class="col-xs-6 col-sm-2"><b>เลขทะเบียนหนังสือ</b></div>
 <div class="col-xs-6 col-sm-4">I{{$book['id']}}</div>
 <div class="col-xs-6 col-sm-2"><b>ผู้แต่ง</b></div>
 <div class="col-xs-6 col-sm-4">{{($book['author'] == "") ? '-' : $book['author']}}</div>
 <div class="col-xs-6 col-sm-2"><b>ผู้แปล</b></div>
 <div class="col-xs-6 col-sm-4">{{($book['translate'] == "") ? '-' : $book['translate']}}</div>
 <div class="col-xs-6 col-sm-2"><b>วันลงทะเบียน</b></div>
-<div class="col-xs-6 col-sm-4">{{($book['regis_date'] == "") ? '-' : $book['regis_date']}}</div>
+<div class="col-xs-6 col-sm-4">{{($book['regis_date'] == "" || $book['regis_date'] == null) ? '-' : $book['regis_date']}}</div>
 <div class="col-xs-6 col-sm-2"><b>สำนักพิมพ์</b></div>
 <div class="col-xs-6 col-sm-4">{{($book['publisher'] == "") ? '-' : $book['publisher']}}</div>
 <div class="col-xs-6 col-sm-2"><b>พิมพ์ครั้งที่</b></div>
