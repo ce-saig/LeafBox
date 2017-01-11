@@ -136,16 +136,21 @@
 <script src="{{ asset('js/angularjs/ext/ui-select/js/angular-sanitize.min.js') }}"></script>
 <script src="{{ asset('js/angularjs/ext/ui-select/js/select.min.js') }}"></script>
 
+<script src="{{ asset('js/angularjs/components/bookedit.component.js') }}"></script>
 <script src="{{ asset('js/angularjs/components/mediatab.component.js') }}"></script>
 <script src="{{ asset('js/angularjs/components/production-status.component.js') }}"></script>
 
 <!-- angular controller -->
+<script src="{{ asset('js/angularjs/controllers/BookViewController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/BookEditController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ProductionStatusController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/MediaDetailEditController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailTabController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/modal_controllers/MediaModalController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/modal_controllers/ProductionModalController.js') }}"></script>
 
 <!-- angular service -->
+<script src="{{ asset('js/angularjs/services/BookService.js') }}"></script>
 <script src="{{ asset('js/angularjs/services/MediaService.js') }}"></script>
 <script src="{{ asset('js/angularjs/services/UserService.js') }}"></script>
 <script src="{{ asset('js/angularjs/services/DateTimeService.js') }}"></script>

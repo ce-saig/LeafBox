@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Itim');
 * {
   margin: 0;
 }
@@ -6,6 +6,7 @@ html, body {
   height: 100%;
   background-color: #ecf0f1;
   margin-bottom: 100px;
+  font-family: 'Itim', cursive;
 }
 .wrapper {
   min-height: 100%;
@@ -168,16 +169,53 @@ a {
 
 .paginate-control-left {
   position: absolute;
-  left: 0px;
+  left: -20px;
   top: 50%;
 }
 
 .paginate-control-right {
   position: absolute;
-  right: 0px;
+  right: -20px;
   top: 50%;
 }
 
 .add-media-prod {
   font-size: 16px;
+}
+
+.inputsize{
+  margin-top: 5px;
+}
+
+.labelisize{
+  font-size: 16px;
+  margin-top: 13px;
+}
+
+.labelisize1{
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.mediatable{
+  text-align: center;
+  width: 100px;
+}
+
+/* edit btn */
+.btn {
+  font-size:20px;
+}
+
+/* edit head panel big for font */
+
+
+/* edit head nav big for font */
+.nav>li {
+  font-size:1.2em;
+}
+
+/* edit title panel big for font */
+.panel-title {
+    font-size: 1.3em;
 }

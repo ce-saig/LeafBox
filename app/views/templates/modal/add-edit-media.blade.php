@@ -8,6 +8,10 @@
   </div>
 
   <fieldset class="form-horizontal" ng-disabled="disabledForm">
+   <div class="form-group ">
+      <label class="control-label col-md-3">เช็ตไอดีเดิม</label>
+      <div class="col-md-6"><input type="text" class="form-control" ng-model="formdata.original_no"></div>
+    </div>
     <div class="form-group" ng-show="getMediaNumber() == MediaService.BRAILLE">
       <label class="control-label col-md-3">จำนวนหน้า</label>
       <div class="col-md-6"><input type="number" class="form-control" min=1 ng-model="formdata.pages"></div>

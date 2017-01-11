@@ -74,7 +74,7 @@
             <div class = "row">
               <div class = "col-md-4" ><h4>ข้อมูลผู้ยืม</h4></div>&nbsp;
               <div class = "col-md-4">
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal" style="margin-bottom: 5px;">
                   เลือกผู้ยืม
                 </button>
               </div>
@@ -100,7 +100,7 @@
           <div class="col-md-12">
             <a href="/return/submit" id="submit-media"><button type="button" class="btn btn-success pull-right">คืน</button></a>
             <!-- TODO add jquery for refresh here -->
-            <a href="/return/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+            <a href="/return/clear"><button type="button" class="btn btn-danger pull-right del_btn" style="margin-right:5px;">ล้าง</button></a>
           </div>
         </div>
       </div>

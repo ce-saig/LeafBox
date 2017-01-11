@@ -9,7 +9,8 @@
             </thead>
             <tbody>
               <tr class = "hover table-body" ng-repeat="item in mediaCollection">
-                <td style="text-align: center" ng-click="editMediaModal(item)"><% item.id %></td>
+                <td style="text-align: center" ng-click="editMediaModal(item)"><% item.id %><span ng-show="item.master == 1">*</span></td>
+                <td style="text-align: center" ng-click="editMediaModal(item)"><% item.original_no %></td>
                 <td style="text-align: center" ng-click="editMediaModal(item)" ng-show="isShowTableData('pages')"><% item.pages %></td>
                 <td style="text-align: center" ng-click="editMediaModal(item)" ng-show="isShowTableData('numpart')"><% item.numpart + ' ' + item.submedia_id %></td>
                 <td style="text-align: center" ng-click="editMediaModal(item)" ng-show="isShowTableData('length')"><% item.length %></td>
@@ -20,7 +21,7 @@
             </tbody>
           </table>
         </div>
-        <div class="pull-left"><button  class="pull-right btn btn-primary" ng-click="verifyAddingMedia()">เพิ่ม <% getMediaLabel() %></button></div>
-        <div class="pull-right"><a class = "btn btn-danger pull-right" ng-click="deleteAllMedia()">ลบ<% getMediaLabel() %>ทั้งหมด</a></div>
+        <div class="pull-left"><a class = "btn btn-danger" ng-click="deleteAllMedia()">ลบ<% getMediaLabel() %>ทั้งหมด</a></div>
+        <div class="pull-right"><button  class="pull-right btn btn-primary" ng-click="verifyAddingMedia()">เพิ่ม <% getMediaLabel() %></button></div>
   </div>
 </div>

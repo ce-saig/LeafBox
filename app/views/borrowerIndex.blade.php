@@ -9,8 +9,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel">
 				<div class="panel-body">
-					<div class="col-md-2" id="search-member-label"><p>ค้นหาสมาชิก</div>
-					<div class="col-md-10"><input type="text" class="form-control" id="find-member" placeholder="ค้นหา"></div>
+					<div class="col-md-3" id="search-member-label " style="font-size:1.5em; padding-left:5%;">ค้นหาสมาชิก</div>
+					<div class="col-md-9"><input type="text" class="form-control" id="find-member" placeholder="ค้นหา"></div>
 				</div>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 						<br>
 						<table class="table table-striped table-hover">
 							<thead>
-								<tr class="info">
+								<tr class="info" style="font-size: 1.3em;">
 									<th class="text-center col-sm-3">รหัสสมาชิก</th>
 									<th class="col-sm-4"><div class="text-center">ชื่อ - สกุล</div></th>
 									<th class="text-center col-sm-2">เพศ</th>

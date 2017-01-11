@@ -18,9 +18,16 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('/', 'BookController@getBook');
 
     Route::get('edit', 'BookController@getEdit');
-    Route::post('edit', 'BookController@postEdit');
+    Route::get('edit_book', 'BookController@getEditBook');
+    Route::post('edit_book', 'BookController@postEditBook');
     Route::get('delete', 'BookController@delete');
     Route::post('get_media', 'MediaController@getMedia');
+    Route::get('get_master_media', 'MediaController@getMasterMedia');
+    Route::post('get_media_by_type', 'MediaController@getMediaByType');
+    Route::post('change_master', 'MediaController@changeMaster');
+    Route::get('count_media', 'MediaController@countMedia');
+    Route::post('{mid}', 'MediaController@getMediaDetailBorrow');
+    Route::post('{mid}/edit', 'MediaController@postMediaDetailBorrow');
 
     Route::group(array('prefix' => 'prod/'), function(){
       Route::post('get_status', 'BookController@getLastProdStatus');

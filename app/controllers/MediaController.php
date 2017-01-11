@@ -1,6 +1,156 @@
 <?php
 class MediaController extends Controller{
 
+  /* Aek */
+
+  public function getMasterMedia($bid){
+    $data['braille'] = Braille::where('book_id', '=',$bid)->where('master','=', 1)->get();
+    $data['cassette'] = Cassette::where('book_id', '=',$bid)->where('master','=', 1)->get();
+    $data['daisy'] = Daisy::where('book_id', '=',$bid)->where('master','=', 1)->get();
+    $data['cd'] = CD::where('book_id', '=',$bid)->where('master','=', 1)->get();
+    $data['dvd'] = DVD::where('book_id', '=',$bid)->where('master','=', 1)->get();
+    $data['product_b'] = BookProd::where('book_id', '=',$bid)->where('media_type','=', 0)->orderBy('id', 'DESC')->first();
+    $data['product_c'] = BookProd::where('book_id', '=',$bid)->where('media_type','=', 1)->orderBy('id', 'DESC')->first();
+    $data['product_d'] = BookProd::where('book_id', '=',$bid)->where('media_type','=', 2)->orderBy('id', 'DESC')->first();
+    $data['product_cd'] = BookProd::where('book_id', '=',$bid)->where('media_type','=', 3)->orderBy('id', 'DESC')->first();
+    $data['product_dvd'] = BookProd::where('book_id', '=',$bid)->where('media_type','=', 4)->orderBy('id', 'DESC')->first();    
+    return $data;
+  }
+
+  public function getMediaByType($bid){
+    switch (Input::get('media_type')) {
+      case 'braille':
+        return Braille::where('book_id', '=',$bid)->get();
+      case 'cassette':
+        return Cassette::where('book_id', '=',$bid)->get();
+      case 'cd':
+        return CD::where('book_id', '=',$bid)->get();
+      case 'daisy':
+        return Daisy::where('book_id', '=',$bid)->get();
+      case 'dvd':
+        return DVD::where('book_id', '=',$bid)->get();
+    }
+  }
+
+  public function countMedia($bid){
+    $data['braille'] = Braille::where('book_id', '=',$bid)->count();
+    $data['cassette'] = Cassette::where('book_id', '=',$bid)->count();
+    $data['cd'] = CD::where('book_id', '=',$bid)->count();
+    $data['daisy'] = Daisy::where('book_id', '=',$bid)->count();
+    $data['dvd'] = DVD::where('book_id', '=',$bid)->count();
+    return $data;
+  }
+
+  public function changeMaster($bid){
+      $book = Book::find($bid);
+      switch (Input::get('media_type')) {
+        case 'braille':
+          $old = Braille::find(Input::get('old_id'));
+          $new = Braille::find(Input::get('new_id'));
+          $book->b_master = $new->id;
+          break;
+        case 'cassette':
+          $old = Cassette::find(Input::get('old_id'));
+          $new = Cassette::find(Input::get('new_id'));
+          $book->c_master = $new->id;
+          break;
+        case 'cd':
+          $old = CD::find(Input::get('old_id'));
+          $new = CD::find(Input::get('new_id'));
+          $book->cd_master = $new->id;
+          break;
+        case 'daisy':
+          $old = Daisy::find(Input::get('old_id'));
+          $new = Daisy::find(Input::get('new_id'));
+          $book->d_master = $new->id;
+          break;
+        case 'dvd':
+          $old = DVD::find(Input::get('old_id'));
+          $new = DVD::find(Input::get('new_id'));
+          $book->dvd_master = $new->id;
+          break;
+      } 
+    
+      if(Input::get('old_id') != 0){
+        $old->master = 0;
+        $old->save();
+      }
+      $new->master = 1;
+      $new->save();
+      $book->save();
+  }
+
+  public function getMediaDetailBorrow($bid,$mid){
+    switch (Input::get('media_type')) {
+      case 'braille':
+        $data['media']  = Braille::where('id', '=', $mid)->get();
+        $data['borrow'] = Brailleborrow::where('braille_id','=', $mid)->get();
+        $data['detail'] = Brailledetail::where('braille_id','=', $mid)->get();
+        break;
+      case 'cassette':
+        $data['media']  = Cassette::where('id', '=', $mid)->get();
+        $data['borrow'] = Cassetteborrow::where('cassette_id','=', $mid)->get();
+        $data['detail'] = Cassettedetail::where('cassette_id','=', $mid)->get();
+        break;
+      case 'cd':
+        $data['media']  = CD::where('id', '=', $mid)->get();
+        $data['borrow'] = Cdborrow::where('cd_id','=', $mid)->get();
+        $data['detail'] = Cddetail::where('cd_id','=', $mid)->get();      
+        break;
+      case 'daisy':
+        $data['media']  = Daisy::where('id', '=', $mid)->get();
+        $data['borrow'] = Daisyborrow::where('daisy_id','=', $mid)->get();
+        $data['detail'] = Daisydetail::where('daisy_id','=', $mid)->get();
+        break;
+      case 'dvd':
+        $data['media']  = DVD::where('id', '=', $mid)->get();
+        $data['borrow'] = Dvdborrow::where('dvd_id','=', $mid)->get();
+        $data['detail'] = Dvddetail::where('dvd_id','=', $mid)->get();
+        break;
+    } 
+    $data['book'] = Book::find($bid);
+    return $data;
+  }
+
+ public function postMediaDetailBorrow($bid,$mid){
+    switch (Input::get('media_type')) {
+      case 'braille':
+        $data['media']  = Braille::find($mid);
+        $data['detail'] = Brailledetail::where('braille_id','=', $mid)->get();
+        break;
+      case 'cassette':
+        $data['media']  = Cassette::find($mid);
+        $data['detail'] = Cassettedetail::where('cassette_id','=', $mid)->get();
+        break;
+      case 'cd':
+        $data['media']  = CD::find($mid);
+        $data['detail'] = Cddetail::where('cd_id','=', $mid)->get();      
+        break;
+      case 'daisy':
+        $data['media']  = Daisy::find($mid);
+        $data['detail'] = Daisydetail::where('daisy_id','=', $mid)->get();
+        break;
+      case 'dvd':
+        $data['media']  = DVD::find($mid);
+        $data['detail'] = Dvddetail::where('dvd_id','=', $mid)->get();
+        break;
+    } 
+
+    $media  = Input::get('media');
+    $detail = Input::get('detail');
+
+    $data['media']->reserved = $media['reserved'];
+    $data['media']->save();
+
+    for($i=0;$i<count($data['detail']);$i++){
+      $data['detail'][$i]->status  = $detail[$i]['status'];
+      $data['detail'][$i]->date    = $detail[$i]['date'];
+      $data['detail'][$i]->note    = $detail[$i]['note'];
+      $data['detail'][$i]->save();
+    }
+  }
+
+
   /* Initial */
 
   public function getMedia($bid)
@@ -15,7 +165,7 @@ class MediaController extends Controller{
       case 'cassette':
         $media = $book->cassette()->get();
         break;
-      case 'cd':
+      case 'CD':
         $media = $book->cd()->get();
         break;
       case 'daisy':
@@ -60,8 +210,12 @@ class MediaController extends Controller{
     $braille->produced_date = (date('Y') + 543).date('-m-d H:i:s');
     //$braille->status = 0; // 0 normal,1 broken,2 wait for repeir
     $braille->pages = Input::get('pages');
+    $braille->original_no = Input::get('original_no');
     $braille->numpart = $amount;
     $braille->examiner()->associate(User::find(Input::get('examiner')['id']));
+    if(Braille::where('book_id', '=',$bookId)->count() == 0){
+      $braille->master = 1;
+    }
     $braille->save();
 
     for($i=1; $i<=$amount; $i++){
@@ -91,8 +245,12 @@ class MediaController extends Controller{
     $cassette = new Cassette();
     $cassette->produced_date = (date('Y') + 543).date('-m-d H:i:s');
     $cassette->numpart = $amount;
+    $cassette->original_no = Input::get('original_no');
     $cassette->length = Input::get('length');
     $cassette->book()->associate(Book::find($bookId));
+    if(Cassette::where('book_id', '=',$bookId)->count() == 0){
+      $cassette->master = 1;
+    }
     $cassette->save();
 
     for($i=1; $i<=$amount; $i++){
@@ -124,6 +282,10 @@ class MediaController extends Controller{
     $daisy->numpart = $amount;
     $daisy->length = Input::get('length');
     $daisy->book()->associate(Book::find($bookId));
+    $daisy->original_no = Input::get('original_no');
+    if(Daisy::where('book_id', '=',$bookId)->count() == 0){
+      $daisy->master = 1;
+    }
     $daisy->save();
 
     for($i=1; $i<=$amount; $i++){
@@ -142,19 +304,16 @@ class MediaController extends Controller{
   public function addCD($bookId){
     $book = Book::find($bookId);
 
-    $amount = count(CD::where('book_id', $bookId)->get());
-    if(!$amount)
-      $book->setcd_date = (date('Y') + 543).date('-m-d H:i:s');
-
-    $book->setcd_status = 'ผลิต';
-    $book->save();
-
     $amount = Input::get('numpart');
     $cd = new CD();
     $cd->produced_date = (date('Y') + 543).date('-m-d H:i:s');
     $cd->book()->associate(Book::find($bookId));
     $cd->numpart = $amount;
     $cd->length = Input::get('length');
+    $cd->original_no = Input::get('original_no');
+    if(CD::where('book_id', '=',$bookId)->count() == 0){
+      $cd->master = 1;
+    }
     $cd->save();
 
     for($i=1; $i<=$amount; $i++){
@@ -184,6 +343,10 @@ class MediaController extends Controller{
     $dvd->book()->associate(Book::find($bookId));
     $dvd->numpart = $amount;
     $dvd->length = Input::get('length');
+    $dvd->original_no = Input::get('original_no');
+    if(DVD::where('book_id', '=',$bookId)->count() == 0){
+      $dvd->master = 1;
+    }
     $dvd->save();
 
     for($i=1; $i<=$amount; $i++){
@@ -269,6 +432,7 @@ class MediaController extends Controller{
         $media = DVD::find($input['id']);
       $media->length = $input['length'];
     }
+    $media->original_no = $input['original_no'];
     $media->save();
     $submediaRangeID = $this->editAmountMediaPart($input['media_type'], $input['id'], $input['numpart']);
 

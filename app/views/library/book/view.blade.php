@@ -1,14 +1,20 @@
 @extends('library.layout')
 
 @section('head')
-<title>Leafbox :: {{$number}} - {{$book['title']}}</title>
+<title>Leafbox :: {{$book['id']}} - {{$book['title']}}</title>
 @stop
 
 @section('body')
 <div>
   <div class="well">
-    <div>
-      <h2>{{$number}}:{{$book['title']}} {{ $all_media }}</h2>
+    <div class="col-md-12" ng-controller="BookViewController">
+      <div class="container text-center" style="margin-bottom: 15px; width:auto">
+          <span style="font-size: 32px"><%book.id%><span ng-hide="book.original_no==''">(<%book.original_no%>)</span> <%book.title%><br></span>
+          <span style="font-size: 20px">
+            <span ng-hide="text=='()'"><%text%></span> 
+            <span ng-hide="text_ori=='()'"> :: <%text_ori%></span>
+          </span>
+      </div>
     </div>
     <div>
       <uib-tabset active="activeJustified" justified="true">

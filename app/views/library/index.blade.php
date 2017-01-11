@@ -23,7 +23,7 @@
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>
 		<div class = "col-md-2 col-xs-8 pull-right" >
-			<button  post-path="{{ url('/search/book') }}" class="btn btn-success btn-lg search_submit" >ค้นหา</button>
+			<button  post-path="{{ url('/search/book') }}" class="btn btn-success btn-lg search_submit" style="margin-top:-5px" >ค้นหา</button>
 			<span id="search-info" card-link-path="{{ url('book/') }}" ></span>
 		</div>
 
@@ -139,7 +139,7 @@
 
 	<div class="row">
 		<div class = "panel panel-default">
-				<div class = "panel-heading">
+				<div class = "panel-heading" style="font-size:1.5em">
 					จัดการ
 				</div>
 				<div class= "panel-body">
@@ -191,7 +191,7 @@
 	<div class = "row">
 		<div class = "col-md-offset-2 col-md-8">
 			<div class = "panel panel-default">
-				<div class = "panel-heading">
+				<div class = "panel-heading" style="font-size:1.5em">
 					หนังสือที่เพิ่มล่าสุด
 				</div>
 				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
@@ -200,7 +200,10 @@
 					   <a href="{{ url('book/'.$book->id) }}">
 						<li class="list-group-item">
 
-							 {{ $book->id }} . <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
+							 {{ $book->id }} 
+							 @if($book->original_no!=null)({{$book->original_no}})@endif
+							  . <b>{{ $book->title }} - {{ $book->author }} 
+							 @if($book->pub_year > 0)({{ $book->pub_year }})@endif </b>
 
 						</li>
 					  </a>

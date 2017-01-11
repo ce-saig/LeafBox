@@ -53,6 +53,10 @@ app.controller('MediaModalController', function($rootScope, $scope, $uibModalIns
 		return BookProductionService.canAddMedia(tunnel.mediaType, tunnel.lastProductionStatus.action_status);
 	}
 
+	$scope.updateView = function() {
+        $rootScope.$emit("initView", {});
+    }
+
 	$scope.sendData = function() {
 		if($scope.validateForm()) {
 			$scope.hideNotification();
@@ -82,6 +86,7 @@ app.controller('MediaModalController', function($rootScope, $scope, $uibModalIns
 					$scope.showNotification('เกิดข้อผิดพลาดบางประการ');
 				});
 			}
+			$scope.updateView();
 		} else
 		$scope.showNotification('สถานะการผลิตยังไม่สมบูรณ์หรือกรอกข้อมูลไม่ครบถ้วน');
 	}
@@ -134,11 +139,11 @@ app.controller('MediaModalController', function($rootScope, $scope, $uibModalIns
 			$scope.label.numpart_suff = 'ตลับ';
 			break;
 			case MediaService.DAISY:
-			$scope.label.numpart = 'จำนวนชิ้น';
+			$scope.label.numpart = 'จำนวนแทร็ก';
 			$scope.label.numpart_suff = 'ชิ้น';
 			break;
 			default:
-			$scope.label.numpart = 'จำนวนแผ่น';
+			$scope.label.numpart = 'จำนวนแทร็ก';
 			$scope.label.numpart_suff = 'แผ่น';
 		}
 	}

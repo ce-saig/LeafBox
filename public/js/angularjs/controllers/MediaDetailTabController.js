@@ -102,23 +102,23 @@ app.controller('MediaDetailTabController', function($rootScope, $scope, $uibModa
 	var init = function() {
 		switch($scope.mediaType) {
 			case 'braille':
-			$scope.tableHead = ['เบรลล์เซ็ทไอดี', 'จำนวนหน้า', 'จำนวนตอน', 'ผู้ตรวจสอบ', 'ผู้ยืม'];
+			$scope.tableHead = ['เบรลล์เซ็ทไอดี', 'เบรลล์เซ็ทไอดีเดิม', 'จำนวนหน้า', 'จำนวนตอน', 'ผู้ตรวจสอบ', 'ผู้ยืม'];
 			$scope.tableData = {pages: true, numpart: true, length: false, examiner: true};
 			break;
 			case 'cassette':
-			$scope.tableHead = ['คาสเซ็ทเซ็ทไอดี', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['คาสเซ็ทเซ็ทไอดี', 'คาสเซ็ทเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 			break;
 			case 'cd':
-			$scope.tableHead = ['ซีดีเซ็ทไอดี', 'จำนวนชิ้นย่อย (แผ่น)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['ซีดีเซ็ทไอดี', 'ซีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (แผ่น)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 			break;
 			case 'daisy':
-			$scope.tableHead = ['เดซีเซ็ทไอดี', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['เดซีเซ็ทไอดี', 'เดซี่เซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 			break;
 			default:
-			$scope.tableHead = ['ดีวีดีเซ็ทไอดี', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['ดีวีดีเซ็ทไอดี','ดีวีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 		}
 	}
