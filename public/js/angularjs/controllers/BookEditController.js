@@ -1,6 +1,6 @@
 var app = angular.module('leafBox');
 
-app.controller('BookEditController', function($rootScope, $scope, $filter, $uibModal, $log, $window, $routeParams, DateTimeService, BookService, BookProductionService) {
+app.controller('BookEditController', function($rootScope, $scope, $filter, $uibModal, $log, $window, $routeParams, $http, DateTimeService, BookService, BookProductionService) {
 	$scope.book;
 	$scope.date = {};
 	$scope.master_text;

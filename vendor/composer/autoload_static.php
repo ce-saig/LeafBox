@@ -43,6 +43,10 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
         array (
             'Monolog\\' => 8,
         ),
+        'I' => 
+        array (
+            'Ifsnop\\' => 7,
+        ),
         'C' => 
         array (
             'Carbon\\' => 7,
@@ -121,6 +125,10 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Ifsnop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop',
         ),
         'Carbon\\' => 
         array (
@@ -281,6 +289,18 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
         'File_ASN1_Element' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
         'File_X509' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/File/X509.php',
         'HomeController' => __DIR__ . '/../..' . '/app/controllers/HomeController.php',
+        'Ifsnop\\Mysqldump\\CompressBzip2' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\CompressGzip' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\CompressManagerFactory' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\CompressMethod' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\CompressNone' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\Mysqldump' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\TypeAdapter' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\TypeAdapterDblib' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\TypeAdapterFactory' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\TypeAdapterMysql' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\TypeAdapterPgsql' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
+        'Ifsnop\\Mysqldump\\TypeAdapterSqlite' => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
         'Illuminate\\Auth\\AuthManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/AuthManager.php',
         'Illuminate\\Auth\\AuthServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/AuthServiceProvider.php',

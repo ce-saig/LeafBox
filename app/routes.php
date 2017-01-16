@@ -163,6 +163,11 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('getNonReturn', 'BorrowerSystemController@getNonReturnList');
   });
 
+  // Backup
+  Route::group(array('prefix' => 'backup'), function($bid){
+    Route::get('/', 'BackupController@index');
+  });  
+
   // Report Gen
   Route::group(array('prefix' => 'report'), function($bid){
     Route::get('/','ReportController@getIndex');

@@ -25,7 +25,7 @@
     </style>
   </head>
   <body>
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default" ng-controller="BackupController">
      <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
          <span class="icon-bar"></span>
@@ -42,7 +42,8 @@
           <li><a href="{{URL::to('/borrow')}}">ระบบยืม</a></li>
           <li><a href="{{URL::to('/return')}}">ระบบคืน</a></li>
           <li><a href="{{URL::to('/borrower')}}">ระบบจัดการผู้ยืม</a></li>
-          <li><a href="{{URL::to('/report')}}">Report</a></li>
+          <li><a href="{{URL::to('/report')}}">รายงาน</a></li>
+          <li><a href="{{URL::to('/backup')}}">ระบบสำรองข้อมูล</a></li>
           
        </ul>
        <ul class="nav navbar-nav navbar-right">
@@ -141,6 +142,7 @@
 <script src="{{ asset('js/angularjs/components/production-status.component.js') }}"></script>
 
 <!-- angular controller -->
+<script src="{{ asset('js/angularjs/controllers/BackupController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/BookViewController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/BookEditController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ProductionStatusController.js') }}"></script>
