@@ -2,6 +2,10 @@
 	// EXAMPLE:	IMPORT_TABLES("localhost","user","pass","db_name", "my_baseeee.sql"); //TABLES WILL BE OVERWRITTEN
 				// P.S. IMPORTANT NOTE for people who try to change/replace some strings  in SQL FILE before importing, MUST READ:  https://goo.gl/2fZDQL
 	// https://github.com/tazotodua/useful-php-scripts 
+	$host = 'localhost';
+	$username = "root";
+	$password = "";
+	$dbname = "leafbox";
 
 	function CLEAR_TABLES($host,$user,$pass,$dbname){
 		$mysqli = new mysqli($host, $user, $pass, $dbname);
@@ -37,12 +41,12 @@
 		echo "Restore Complete (".$sql_file_OR_content.")";
 	}   //see also export.php 
 	
-	CLEAR_TABLES('localhost', 'root', '', 'hello');
+	CLEAR_TABLES($host, $username, $password, $dbname);
 	$postdata = file_get_contents("php://input");
 	$request = json_decode($postdata);
 	$file = $request->file;
 	$file = dirname(__FILE__) . '/backup_files/' . $file;
-	IMPORT_TABLES('localhost', 'root', '', 'hello', $file);
+	IMPORT_TABLES($host, $username, $password, $dbname, $file);
 
 	$used = $request->used;
 	if($used != null){
