@@ -209,7 +209,7 @@
 
   function book_filter (target_div,id_val,element,val) {
     if ($(element).hasClass("prod-status")){ // For Prod status filter
-      options_array=['ไม่ผลิต','ผลิต','จองอ่าน','กำลังผลิต'];
+      options_array=['ยังไม่ผลิต','รอการผลิต','รอพิมพ์','กำลังพิมพ์','ผลิตเสร็จ'];
       operation_add(target_div,id_val,options_array,false,val);
     }else{ // Normal filter
       options_array=["contain","match(=)",">","<"];
@@ -244,7 +244,7 @@
   }
 
   function media_filter (target_div,id_val,filter_type,val) {
-    options_array=["ปกติ","เสีย","ซ่อม"];
+    options_array=["ปกติ","ชำรุด","ซ่อม","หาย"];
     operation_add(target_div,id_val,options_array,false,val);
   }
 

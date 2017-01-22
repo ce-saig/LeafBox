@@ -44,6 +44,7 @@ app.factory('BookProductionService', function($rootScope, $http, MediaService){
 	}];
 
 	return {
+		status : status,
 		convertToMediaLabel: function(num) {
 			return media[num];
 		},

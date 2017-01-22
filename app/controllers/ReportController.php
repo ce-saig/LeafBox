@@ -5,6 +5,12 @@ class ReportController extends BaseController {
   {
     return View::make('library.report.index');
   }
+
+  public function newReport()
+  {
+    return View::make('library.report.newReport');
+  }
+
 /*
   public function convertOperator($raw_oper)
   {
@@ -30,6 +36,113 @@ class ReportController extends BaseController {
     return $value;
   }
 */
+
+  public function getBooks()
+  {
+    $book_filter  = Input::get("book");
+    $prod_filter  = Input::get("prod");
+    $id_mode      = Input::get("id_mode");
+    $book_id_init = Input::get("book_id_init");
+    $search_books = array();
+    $prods = array();
+    $count = 0;
+
+    // id checked
+    if($book_filter['enabled'][0] == true){
+      if($id_mode != "-"){
+        $book_by_id = Book::where('id', $id_mode, $book_filter['model'][0])->get();
+      }else{
+        $book_by_id = Book::whereBetween('id', array($book_id_init, $book_filter['model'][0]))->get();
+      }
+      array_push($search_books, $book_by_id);  
+      $count++;
+    }
+
+    // title checked
+    for($i=1; $i<count($book_filter['enabled']); $i++){
+      if($book_filter['enabled'][$i] == true){
+        $books = Book::where($book_filter['field'][$i], "LIKE", '%'.$book_filter['model'][$i].'%')->get(); 
+        array_push($search_books, $books);
+        $count++;
+      }
+    }
+    // prod status checked
+    for($i=0; $i<count($prod_filter['enabled']); $i++){
+      if($prod_filter['enabled'][$i] == true){
+        $prods = BookProd::where('media_type', "=", $i)->where('action', "=", $prod_filter['model'][$i])->get(); 
+        $temp = array();
+        for($j=0; $j<count($prods); $j++){
+          $books = Book::where("id", "=", $prods[$j]->book_id)->get(); 
+          array_push($temp, $books);  
+        }
+        array_push($search_books, $temp);
+        $count++;
+      }
+    }
+    $data['books'] = $search_books;
+    $data['prods'] = $prods;
+    $data['count'] = $count;
+    return $data;
+  }
+
+  public function getMedias()
+  {
+    $media_filter  = Input::get("media");
+    $books         = Input::get("books");
+    $media = array();
+    for($i=0;$i<count($books);$i++){
+      if($media_filter['enabled'][0] == true){
+        $b_media = Braille::where("book_id", "=", $books[$i]['id'])->get();
+        $media['braille'] = $b_media;
+      }
+      if($media_filter['enabled'][1] == true){
+        $c_media = Cassette::where("book_id", "=", $books[$i]['id'])->get();
+        $media['cassette'] = $c_media;
+      }
+      if($media_filter['enabled'][2] == true){
+        $d_media = Daisy::where("book_id", "=", $books[$i]['id'])->get();
+        $media['daisy'] = $d_media;
+      }
+      if($media_filter['enabled'][3] == true){
+        $cd_media = CD::where("book_id", "=", $books[$i]['id'])->get();
+        $media['cd'] = $cd_media;
+      }
+      if($media_filter['enabled'][4] == true){
+        $dvd_media = DVD::where("book_id", "=", $books[$i]['id'])->get();
+        $media['dvd'] = $dvd_media;
+      }
+    }
+
+    if($media_filter['enabled'][0] == true){
+      for($i=0;$i<count($media['braille']);$i++){
+        $media['braille_detail'][$i] = Brailledetail::where("braille_id", "=", $media['braille'][$i]->id)->get();
+      }
+    }
+    if($media_filter['enabled'][1] == true){
+      for($i=0;$i<count($media['cassette']);$i++){
+        $media['cassette_detail'][$i] = Cassettedetail::where("cassette_id", "=", $media['cassette'][$i]->id)->get();
+      }
+    }
+    if($media_filter['enabled'][2] == true){
+      for($i=0;$i<count($media['daisy']);$i++){
+        $media['daisy_detail'][$i] = Daisydetail::where("daisy_id", "=", $media['daisy'][$i]->id)->get();
+      }
+    }
+    if($media_filter['enabled'][3] == true){
+      for($i=0;$i<count($media['cd']);$i++){
+        $media['cd_detail'][$i] = Cddetail::where("cd_id", "=", $media['cd'][$i]->id)->get();
+      }
+    }
+    if($media_filter['enabled'][4] == true){
+      for($i=0;$i<count($media['dvd']);$i++){
+        $media['dvd_detail'][$i] = Dvddetail::where("dvd_id", "=", $media['dvd'][$i]->id)->get();
+      }
+    }
+
+    return $media;
+  }  
+
+
   public function getBookDetail()
   {
     $book_filter = Input::get("book-filter");
@@ -377,7 +490,7 @@ class ReportController extends BaseController {
       return "ปกติ";
     }
     else if($media == 1) {
-      return "เสีย";
+      return "ชำรุด";
     }
     else if($media == 2) {
       return "ซ่อม";

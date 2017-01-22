@@ -1,10 +1,8 @@
-@extends('library.layout')
-
-@section('head')
+<?php $__env->startSection('head'); ?>
 <title>Leafbox :: Report - Book - Detail</title>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('body')
+<?php $__env->startSection('body'); ?>
 <h3>Book Detail</h3>
 <div class="well">
   <table class="table ">
@@ -13,19 +11,20 @@
 </div>
 <div class="row"> 
   <div class="col-md-offset-10 col-md-2">
-    <a class="btn btn-success back" style="color: white;" href="{{ url('/report') }}">Back</a>
-    <a class="btn btn-success download" style="color: white;" href="{{ url('/report/csv/download') }}">Download</a>
+    <a class="btn btn-success back" style="color: white;" href="<?php echo url('/report'); ?>">Back</a>
+    <a class="btn btn-success download" style="color: white;" href="<?php echo url('/report/csv/download'); ?>">Download</a>
   </div>
 </div>
 
 
-@stop
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
 @parent
 <script>
   $(document).ready(function(){
-    var data = {{json_encode($data)}};
-    var col = {{json_encode($col)}}
+    var data = <?php echo json_encode($data); ?>;
+    var col = <?php echo json_encode($col); ?>
+
     console.log(data);
     if(data[0].length != 0) {
       addTableTopic('.table',col);
@@ -190,4 +189,6 @@
     }
   }
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('library.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
