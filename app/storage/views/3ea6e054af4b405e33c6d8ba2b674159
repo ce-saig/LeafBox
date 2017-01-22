@@ -19,7 +19,7 @@
 	  	<div class = "container">
 		  <div class="col-lg-3" style="margin-top: 10px;" ng-repeat="book in books.label">
 		    <div class="input-group">
-		      <span class="input-group-addon">
+		      <span class="input-group-addon" ng-style="books.style[$index]">
 		        <input type="checkbox" ng-model="books.enabled[$index]" ng-click="AutoSelect($index)"> 
 		      </span>
 			  <input class="form-control" placeholder="<%book%>" ng-model="item.book_id_init" ng-if="$index == 0" ng-show="item.id_mode == id_modes[3]" ng-disabled="!books.enabled[$index]">
@@ -40,10 +40,10 @@
 		<div class = "container">
 		  <div class="col-lg-4" style="margin-top: 10px" ng-repeat="prod in prods.label">  
 		    <div class="input-group">
-		      <span class="input-group-addon" style="font-size: 16px">
-		        <input type="checkbox" ng-model="prods.enabled[$index]"> สถานะการผลิต<%prod%>
+		      <span class="input-group-addon" style="font-size: 16px" ng-style="prods.style[$index]">
+		        <input type="checkbox" ng-model="prods.enabled[$index]" ng-click="AutoSelect($index)"> สถานะการผลิต<%prod%>
 		      </span>
-		      <select class="form-control" ng-options = "idx as item for (idx, item) in BookProductionService.status[$index]" ng-model="prods.model[$index]" ng-show="prods.enabled[$index]" style="height: 32px">
+		      <select class="form-control" ng-options = "idx as item for (idx, item) in BookProductionService.status[$index]" ng-model="prods.model[$index]" ng-disabled="!prods.enabled[$index]" style="height: 32px">
     		  </select>
 		    </div><!-- /input-group -->
 		  </div><!-- /.col-lg-3 -->
@@ -57,8 +57,8 @@
 		<div class = "container">
 		  <div class="col-lg-3" style="margin-top: 10px" ng-repeat="prod in prods.label">  
 		    <div class="input-group">
-		      <span class="input-group-addon" style="font-size: 16px">
-		        <input type="checkbox" ng-model="medias.enabled[$index]"> <%prod%>
+		      <span class="input-group-addon" style="font-size: 16px" ng-style="medias.style[$index]">
+		        <input type="checkbox" ng-model="medias.enabled[$index]" ng-click="ChangeColor($index)"> <%prod%>
 		      </span>
 		      <select class="form-control" ng-options = "item for item in medias.label" ng-model="medias.status[$index]" ng-show="medias.enabled[$index]" style="height: 32px">
     		  </select>
@@ -72,7 +72,7 @@
   			<span style="font-size: 20px">เลือกคอลัมน์ที่ต้องการแสดง</span>
   		</div>
 		<div class = "container" style="margin-top: 10px">
-		    <div class="input-group well col-md-12">
+		    <div class="input-group well col-md-12 column_show">
 		      <div class="col-md-2" ng-repeat="column in columns.label">
 		    	<span style="font-size: 16px">
 		        	<input type="checkbox" ng-model="columns.enabled[$index]"> <%column%>

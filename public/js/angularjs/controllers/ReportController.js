@@ -8,11 +8,28 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.item = {};
 	$scope.report = {};
 
-	$scope.AutoSelect = function($index){
-		if($scope.books.enabled[$index] == true){
-			$scope.columns.enabled[$index] = true;
+	$scope.AutoSelect = function(index){
+		if($scope.books.enabled[index] == true){
+			$scope.columns.enabled[index] = true;
+			$scope.books.style[index] = {'background-color': '#00cc44'};
 		}else{
-			$scope.columns.enabled[$index] = false;
+			$scope.columns.enabled[index] = false;
+			$scope.books.style[index] = {'background-color': '#cccccc'};
+		}
+		if($scope.prods.enabled[index] == true){
+			$scope.columns.enabled[index+7] = true;
+			$scope.prods.style[index] = {'background-color': '#00cc44'};
+		}else{
+			$scope.columns.enabled[index+7] = false;
+			$scope.prods.style[index] = {'background-color': '#cccccc'};
+		}
+	}
+
+	$scope.ChangeColor = function(index){
+		if($scope.medias.enabled[index] == true){
+			$scope.medias.style[index] = {'background-color': '#00cc44'};
+		}else{
+			$scope.medias.style[index] = {'background-color': '#cccccc'};
 		}
 	}
 
@@ -73,6 +90,21 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		console.log($scope.prods.model[0]);
 	}
 
+	var SetStyle = function(){
+		$scope.books.style = [];
+		$scope.prods.style = [];
+		$scope.medias.style = [];
+		for(i=0;i<$scope.books.enabled.length;i++){
+			$scope.books.style[i] = {'color': '#333333','background-color': '#cccccc'};
+		}
+		for(i=0;i<$scope.prods.enabled.length;i++){
+			$scope.prods.style[i] = {'color': '#333333','background-color': '#cccccc'};
+		}
+		for(i=0;i<$scope.medias.enabled.length;i++){
+			$scope.medias.style[i] = {'color': '#333333','background-color': '#cccccc'};
+		}
+	}
+
 	var init = function(){
 		$scope.BookProductionService = BookProductionService;
 		$scope.books.label = ["เลขไอดี", "ชื่อหนังสือ", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ"];
@@ -85,9 +117,10 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.medias.label = ["ปกติ", "ชำรุด", "รอซ่อม", "หาย"];
 		$scope.medias.model = [];
 		$scope.medias.enabled = [false, false, false, false, false];
-		$scope.columns.label = ["เลขไอดี", "ชื่อเรื่อง", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ"];
-		$scope.columns.enabled = [false, false, false, false, false, false, false];
+		$scope.columns.label = ["เลขไอดี", "ชื่อเรื่อง", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ", "สถานะผลิตเบรลล์", "สถานะผลิตคาสเซ็ท", "สถานะผลิตเดซี่", "สถานะผลิตซีดี", "สถานะผลิตดีวีดี"];
+		$scope.columns.enabled = [false, false, false, false, false, false, false, false, false, false, false, false];
 		$scope.id_modes = ["=",">","<","-"];
+		SetStyle();
 	}
 
 	init();
