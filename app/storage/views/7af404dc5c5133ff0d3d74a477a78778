@@ -1,10 +1,8 @@
-@extends('library.layout')
-
-@section('head')
+<?php $__env->startSection('head'); ?>
 	<title>Leafbox :: Home</title>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('body')
+<?php $__env->startSection('body'); ?>
 <div class = "row">
 	<div class = "col-md-12 search-bar panel search-panel" >
 
@@ -23,8 +21,8 @@
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>
 		<div class = "col-md-2 col-xs-8 pull-right" >
-			<button  post-path="{{ url('/search/book') }}" class="btn btn-success btn-lg search_submit" style="margin-top:-5px" >ค้นหา</button>
-			<span id="search-info" card-link-path="{{ url('book/') }}" ></span>
+			<button  post-path="<?php echo url('/search/book'); ?>" class="btn btn-success btn-lg search_submit" style="margin-top:-5px" >ค้นหา</button>
+			<span id="search-info" card-link-path="<?php echo url('book/'); ?>" ></span>
 		</div>
 
 	</div>
@@ -39,88 +37,88 @@
 		 	<button class="paginate-control-right btn btn-success search_next"><i class="fa fa-angle-right"></i></button>
 		</div>
 		<br/>
-		{{--  @forelse ($books as $book)
-		<a href = "{{url('book/'.$book->id) }}">
+		<?php /*  <?php $__empty_1 = true; foreach($books as $book): $__empty_1 = false; ?>
+		<a href = "<?php echo url('book/'.$book->id); ?>">
 		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
 			<div class = "panel-heading">
-				{{ $book->id }}. <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
+				<?php echo $book->id; ?>. <b><?php echo $book->title; ?> - <?php echo $book->author; ?> (<?php echo $book->pub_year; ?>) </b>
 			</div>
-			<div class = "panel-body"> --}}
-			{{-- NUTSU :: It shouldn't show all details of media,so which column should show here ? --}}
+			<div class = "panel-body"> */ ?>
+			<?php /* NUTSU :: It shouldn't show all details of media,so which column should show here ? */ ?>
 
-			 {{-- <div class = "col-md-12">
+			 <?php /* <div class = "col-md-12">
 				<div class = "label-status" >
 
 					<div class = "col-md-2" >
 							<span>เบลล์</span>
 
-					@if($book->bm_status == 0)
+					<?php if($book->bm_status == 0): ?>
 						<span class="label label-danger">ไม่ทำการผลิต</span>
-					@elseif($book->bm_status == 1)
+					<?php elseif($book->bm_status == 1): ?>
 						<span class="label label-success">ผลิตเสร็จ</span>
-					@elseif ($book->bm_status == 2)
+					<?php elseif($book->bm_status == 2): ?>
 						<span class="label label-warning">รอการผลิต</span>
-					@elseif ($book->bm_status == 3)
+					<?php elseif($book->bm_status == 3): ?>
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif
+					<?php endif; ?>
 					</div>
 
 
 					<div class = "col-md-3" >
 							เทปคาสเซ็ท
 
-					@if($book->setcs_status == 0)
+					<?php if($book->setcs_status == 0): ?>
 						<span class="label label-danger">ไม่ทำการผลิต</span>
-					@elseif($book->setcs_status == 1)
+					<?php elseif($book->setcs_status == 1): ?>
 						<span class="label label-success">ผลิตเสร็จ</span>
-					@elseif ($book->setcs_status == 2)
+					<?php elseif($book->setcs_status == 2): ?>
 						<span class="label label-warning">รอการผลิต</span>
-					@elseif ($book->setcs_status == 3)
+					<?php elseif($book->setcs_status == 3): ?>
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif
+					<?php endif; ?>
 						</div>
 
 					<div class = "col-md-2" >
 							<span>DVD</span>
 
-					@if($book->detdvd_status == 0)
+					<?php if($book->detdvd_status == 0): ?>
 						<span class="label label-danger">ไม่ทำการผลิต</span>
-					@elseif($book->detdvd_status == 1)
+					<?php elseif($book->detdvd_status == 1): ?>
 						<span class="label label-success">ผลิตเสร็จ</span>
-					@elseif ($book->detdvd_status == 2)
+					<?php elseif($book->detdvd_status == 2): ?>
 						<span class="label label-warning">รอการผลิต</span>
-					@elseif ($book->detdvd_status == 3)
+					<?php elseif($book->detdvd_status == 3): ?>
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif
+					<?php endif; ?>
 					</div>
 
 					<div class = "col-md-2" >
 							<span>CD</span>
 
-					@if($book->setcd_status == 0)
+					<?php if($book->setcd_status == 0): ?>
 						<span class="label label-danger">ไม่ทำการผลิต</span>
-					@elseif($book->setcd_status == 1)
+					<?php elseif($book->setcd_status == 1): ?>
 						<span class="label label-success">ผลิตเสร็จ</span>
-					@elseif ($book->setcd_status == 2)
+					<?php elseif($book->setcd_status == 2): ?>
 						<span class="label label-warning">รอการผลิต</span>
-					@elseif ($book->setcd_status == 3)
+					<?php elseif($book->setcd_status == 3): ?>
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif
+					<?php endif; ?>
 					</div>
 
 
 					<div class = "col-md-3" >
 							<span>Daisy</span>
 
-					@if($book->setds_status == 0)
+					<?php if($book->setds_status == 0): ?>
 						<span class="label label-danger">ไม่ทำการผลิต</span>
-					@elseif($book->setds_status == 1)
+					<?php elseif($book->setds_status == 1): ?>
 						<span class="label label-success">ผลิตเสร็จ</span>
-					@elseif ($book->setds_status == 2)
+					<?php elseif($book->setds_status == 2): ?>
 						<span class="label label-warning">รอการผลิต</span>
-					@elseif ($book->setds_status == 3)
+					<?php elseif($book->setds_status == 3): ?>
 						<span class="label label-info">กำลังอ่าน</span>
-					@endif
+					<?php endif; ?>
 					</div>
 
 				</div>
@@ -128,12 +126,12 @@
 			</div>
 		</div>
 	   </a>
-		@empty
+		<?php endforeach; if ($__empty_1): ?>
 			<div class="alert alert-warning alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			  <strong>คำเตือน!</strong> ไม่พบสื่อที่คุณกำลังหา
 			</div>
-	 	@endforelse --}}
+	 	<?php endif; ?> */ ?>
 	</div>
 	</div>
 
@@ -146,9 +144,9 @@
 					<div class="col-md-10 col-md-offset-1">
 
 						<div class = "col-md-3 icon">
-						  <a href="{{URL::to('/book/add')}}">
+						  <a href="<?php echo URL::to('/book/add'); ?>">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Book.png') }}">
+								<img class = "img-responsive" src="<?php echo asset('/img/Book.png'); ?>">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4>เพิ่มหนังสือ</h4>
@@ -156,9 +154,9 @@
 						  </a>
 						</div>
 						<div class = "col-md-3 icon text-center">
-						  <a href="{{URL::to('/borrow')}}">
+						  <a href="<?php echo URL::to('/borrow'); ?>">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Clipboard.png') }}">
+								<img class = "img-responsive" src="<?php echo asset('/img/Clipboard.png'); ?>">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4>ยืมหนังสือ</h4>
@@ -166,9 +164,9 @@
 						  </a>
 						</div>
 						<div class = "col-md-3 icon text-center">
-						  <a href="{{URL::to('/return')}}">
+						  <a href="<?php echo URL::to('/return'); ?>">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Pocket.png') }}">
+								<img class = "img-responsive" src="<?php echo asset('/img/Pocket.png'); ?>">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4> คืนหนังสือ </h4>
@@ -177,7 +175,7 @@
 						</div>
 						<div class = "col-md-3 icon text-center">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Retina-Ready.png') }}">
+								<img class = "img-responsive" src="<?php echo asset('/img/Retina-Ready.png'); ?>">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4> จัดการผู้ใช้ </h4>
@@ -196,18 +194,18 @@
 				</div>
 				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
 					<ul class="list_group">
-					@foreach($books_all as $book)
-					   <a href="{{ url('book/'.$book->id) }}">
+					<?php foreach($books_all as $book): ?>
+					   <a href="<?php echo url('book/'.$book->id); ?>">
 						<li class="list-group-item">
 
-							 {{ $book->id }} 
-							 @if($book->original_no!=null)({{$book->original_no}})@endif
-							  . <b>{{ $book->title }} - {{ $book->author }} 
-							 @if($book->pub_year > 0)({{ $book->pub_year }})@endif </b>
+							 <?php echo $book->id; ?> 
+							 <?php if($book->original_no!=null): ?>(<?php echo $book->original_no; ?>)<?php endif; ?>
+							  . <b><?php echo $book->title; ?> - <?php echo $book->author; ?> 
+							 <?php if($book->pub_year > 0): ?>(<?php echo $book->pub_year; ?>)<?php endif; ?> </b>
 
 						</li>
 					  </a>
-					@endforeach
+					<?php endforeach; ?>
 					</ul>
 				</div>
 			</div>
@@ -216,4 +214,6 @@
 	</div>
 </div>
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('library.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

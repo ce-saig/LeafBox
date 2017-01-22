@@ -218,6 +218,7 @@ a {
 /* edit title panel big for font */
 .panel-title {
     font-size: 1.3em;
+<<<<<<< HEAD
 }
 
 @media (min-width: 768px) {
@@ -225,4 +226,6 @@ a {
     width: 90%;
    max-width:1200px;
   }
+=======
+>>>>>>> 07f94b260c8547691e11a32c85e2b4afe6dcd9ad
 }
