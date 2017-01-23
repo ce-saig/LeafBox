@@ -14,7 +14,7 @@
   </div>
   <div class="panel-body">
   	
-  	<div class="container">
+  	<div class="container col-md-12">
   		<div class="col-md-12">
   			<span style="font-size: 22px">รายงานจากข้อมูลหนังสือ</span>
   		</div>
@@ -33,7 +33,7 @@
 		  </div><!-- /.col-lg-3 -->
 	</div>
 
-  	<div class="container" style="margin-top: 20px">
+  	<div class="container col-md-12" style="margin-top: 20px">
   		<div class="col-md-12">
   			<span style="font-size: 22px">รายงานจากข้อมูลสถานะการผลิตสื่อ</span>
   		</div>
@@ -48,7 +48,7 @@
 		  </div><!-- /.col-lg-3 -->
   	</div> <!-- End Media container -->
 
-  	<div class="container" style="margin-top: 20px">
+  	<div class="container col-md-12" style="margin-top: 20px">
   		<div class="col-md-12">
   			<span style="font-size: 22px">ข้อมูลสื่อย่อย</span>
   		</div>
@@ -63,11 +63,11 @@
 		  </div><!-- /.col-lg-3 -->
   	</div> <!-- End Media container -->
 
-  	<div class="container" style="margin-top: 20px">
+  	<div class="container col-md-12" style="margin-top: 20px">
   		<div class="col-md-12">
   			<span style="font-size: 22px">เลือกคอลัมน์ที่ต้องการแสดง</span>
   		</div>
-  		<div class = "container" style="margin-top: 10px">
+  		<div class = "container col-md-12" style="margin-top: 10px">
   		    <div class="input-group well col-md-12 column_show">
   		      <div class="col-md-2" ng-repeat="column in columns.label">
   		    	<span style="font-size: 16px">
@@ -78,7 +78,7 @@
   		</div>
     </div> <!-- End Media container -->  	
 
-  	<div class="container" style="margin-top: 20px">
+  	<div class="container col-md-12" style="margin-top: 20px">
   		<div class="btn btn-success col-md-3 pull-right" data-toggle="modal" data-target=".report_modal" ng-click="CreateReport()" ng-disabled="!can_create">สร้างรายงาน</div>
   	</div> <!-- End Media container -->  
   </div>
