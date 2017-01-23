@@ -7,29 +7,44 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.columns = {};
 	$scope.item = {};
 	$scope.report = {};
+	$scope.can_create = false;
+	$scope.book_table = true;
 
 	$scope.AutoSelect = function(index){
 		if($scope.books.enabled[index] == true){
 			$scope.columns.enabled[index] = true;
-			$scope.books.style[index] = {'background-color': '#00cc44'};
+			$scope.books.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
 		}else{
 			$scope.columns.enabled[index] = false;
-			$scope.books.style[index] = {'background-color': '#cccccc'};
+			$scope.books.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
 		}
 		if($scope.prods.enabled[index] == true){
 			$scope.columns.enabled[index+7] = true;
-			$scope.prods.style[index] = {'background-color': '#00cc44'};
+			$scope.prods.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
 		}else{
 			$scope.columns.enabled[index+7] = false;
-			$scope.prods.style[index] = {'background-color': '#cccccc'};
+			$scope.prods.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
 		}
+		Permission();
 	}
 
 	$scope.ChangeColor = function(index){
 		if($scope.medias.enabled[index] == true){
-			$scope.medias.style[index] = {'background-color': '#00cc44'};
+			$scope.medias.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
 		}else{
-			$scope.medias.style[index] = {'background-color': '#cccccc'};
+			$scope.medias.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+		}
+	}
+
+	var Permission = function(){
+		$scope.can_create = false;
+		for(i=0;i<$scope.books.enabled.length;i++){
+			if($scope.books.enabled[i] == true)
+				$scope.can_create = true;
+		}
+		for(i=0;i<$scope.prods.enabled.length;i++){
+			if($scope.prods.enabled[i] == true)
+				$scope.can_create = true;
 		}
 	}
 
@@ -76,18 +91,114 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      			}
 	      		}
 	      	}else{
-	      		data = response;
+	      		data = response[0];
 	      	}   
 	      	$scope.report.book = data;
       		$http.post("/report/create_report_media",{media : $scope.medias, books : data}).success(function(response){
       			$scope.report.media = response;
-      			console.log($scope.report);
+      			CreateTable();
     		});	
+      		$http.post("/report/create_report_prod",{books : data}).success(function(response){
+      			$scope.report.prod = response;
+      			$scope.notmedia = false;
+      			for(i=0;$scope.medias.enabled.length;i++){
+      				if($scope.medias.enabled[i]){
+      					$scope.notmedia = true;;
+      				}
+      			}
+    		});		
+	      	console.log($scope.report);
     	});		
 	}
 
+	$scope.FindBook = function(media_id, type){
+		var data = [];
+		switch(type){
+		case 'braille':
+			for(i=0;i<$scope.report.media.braille.length;i++){
+				if(media_id == $scope.report.media.braille[i].id){
+					for(j=0;j<$scope.report.book.length;j++){
+						if($scope.report.media.braille[i].book_id == $scope.report.book[j].id){
+							data['media'] = $scope.report.media.braille[i];
+							data['book'] = $scope.report.book[j];
+							return data;
+						}
+					}
+				}
+			}
+			break;
+		case 'cassette':
+			for(i=0;i<$scope.report.media.cassette.length;i++){
+				if(media_id == $scope.report.media.cassette[i].id){
+					for(j=0;j<$scope.report.book.length;j++){
+						if($scope.report.media.cassette[i].book_id == $scope.report.book[j].id){
+							data['media'] = $scope.report.media.cassette[i];
+							data['book'] = $scope.report.book[j];
+							return data;
+						}
+					}
+				}
+			}
+			break;
+		case 'daisy':
+			for(i=0;i<$scope.report.media.daisy.length;i++){
+				if(media_id == $scope.report.media.daisy[i].id){
+					for(j=0;j<$scope.report.book.length;j++){
+						if($scope.report.media.daisy[i].book_id == $scope.report.book[j].id){
+							data['media'] = $scope.report.media.daisy[i];
+							data['book'] = $scope.report.book[j];
+							return data;
+						}
+					}
+				}
+			}
+			break;		
+		case 'dvd':
+			for(i=0;i<$scope.report.media.dvd.length;i++){
+				if(media_id == $scope.report.media.dvd[i].id){
+					for(j=0;j<$scope.report.book.length;j++){
+						if($scope.report.media.dvd[i].book_id == $scope.report.book[j].id){
+							data['media'] = $scope.report.media.dvd[i];
+							data['book'] = $scope.report.book[j];
+							return data;
+						}
+					}
+				}
+			}
+			break;
+		case 'cd':
+			for(i=0;i<$scope.report.media.cd.length;i++){
+				if(media_id == $scope.report.media.cd[i].id){
+					for(j=0;j<$scope.report.book.length;j++){
+						if($scope.report.media.cd[i].book_id == $scope.report.book[j].id){
+							data['media'] = $scope.report.media.cd[i];
+							data['book'] = $scope.report.book[j];
+							return data;
+						}
+					}
+				}
+			}
+			break;	
+		}	
+	}
+
+	$scope.DetailStatus = function(status){
+		label = ['ปกติ', 'ชำรุด', 'รอซ่อม', 'หาย'];
+		return label[status]; 
+	}
+
+	var CreateTable = function(){
+		$scope.table = {};
+		$scope.table.header = [];
+		for(i=0;i<$scope.columns.enabled.length;i++){
+			if($scope.columns.enabled[i] == true){
+				$scope.table.header.push($scope.columns.label[i]);
+			}
+		}
+	}
+
 	$scope.check = function(index){
-		console.log($scope.prods.model[0]);
+	//	console.log($scope.prods.model[0]);
 	}
 
 	var SetStyle = function(){
@@ -95,13 +206,13 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.prods.style = [];
 		$scope.medias.style = [];
 		for(i=0;i<$scope.books.enabled.length;i++){
-			$scope.books.style[i] = {'color': '#333333','background-color': '#cccccc'};
+			$scope.books.style[i] = {'color': 'grey','background-color': '#e6e6e6'};
 		}
 		for(i=0;i<$scope.prods.enabled.length;i++){
-			$scope.prods.style[i] = {'color': '#333333','background-color': '#cccccc'};
+			$scope.prods.style[i] = {'color': 'grey','background-color': '#e6e6e6'};
 		}
 		for(i=0;i<$scope.medias.enabled.length;i++){
-			$scope.medias.style[i] = {'color': '#333333','background-color': '#cccccc'};
+			$scope.medias.style[i] = {'color': 'grey','background-color': '#e6e6e6'};
 		}
 	}
 
@@ -112,14 +223,16 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.books.model = [];
 		$scope.books.enabled = [false, false, false, false, false, false, false];
 		$scope.prods.label = ["เบรลล์", "คาสเซ็ท", "เดซี่", "ซีดี", "ดีวีดี"];
+		$scope.prods.field = ["bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
 		$scope.prods.model = [];
 		$scope.prods.enabled = [false, false, false, false, false];
 		$scope.medias.label = ["ปกติ", "ชำรุด", "รอซ่อม", "หาย"];
 		$scope.medias.model = [];
 		$scope.medias.enabled = [false, false, false, false, false];
 		$scope.columns.label = ["เลขไอดี", "ชื่อเรื่อง", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ", "สถานะผลิตเบรลล์", "สถานะผลิตคาสเซ็ท", "สถานะผลิตเดซี่", "สถานะผลิตซีดี", "สถานะผลิตดีวีดี"];
-		$scope.columns.enabled = [false, false, false, false, false, false, false, false, false, false, false, false];
-		$scope.id_modes = ["=",">","<","-"];
+		$scope.columns.enabled = [true, true, true, true, true, true, true, false, false, false, false, false];
+		$scope.id_modes = ["=",">","<","-"];	
+		$scope.media_label = ['ชื่อหนังสือ', 'ชนิดสื่อ', 'ไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ'];
 		SetStyle();
 	}
 

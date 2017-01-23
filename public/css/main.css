@@ -226,3 +226,8 @@ a {
    max-width:1200px;
   }
 }
+
+.sel_hover:hover{
+  color: white;
+  background-color: #4d4d4d;
+}

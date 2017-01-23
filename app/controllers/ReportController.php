@@ -69,13 +69,8 @@ class ReportController extends BaseController {
     // prod status checked
     for($i=0; $i<count($prod_filter['enabled']); $i++){
       if($prod_filter['enabled'][$i] == true){
-        $prods = BookProd::where('media_type', "=", $i)->where('action', "=", $prod_filter['model'][$i])->get(); 
-        $temp = array();
-        for($j=0; $j<count($prods); $j++){
-          $books = Book::where("id", "=", $prods[$j]->book_id)->get(); 
-          array_push($temp, $books);  
-        }
-        array_push($search_books, $temp);
+        $books = Book::where($prod_filter['field'][$i], "=", $prod_filter['model'][$i])->get();
+        array_push($search_books, $books);
         $count++;
       }
     }
@@ -90,6 +85,12 @@ class ReportController extends BaseController {
     $media_filter  = Input::get("media");
     $books         = Input::get("books");
     $media = array();
+    $media['braille_detail'] = array();
+    $media['cassette_detail'] = array();
+    $media['daisy_detail'] = array();
+    $media['cd_detail'] = array();
+    $media['dvd_detail'] = array();
+
     for($i=0;$i<count($books);$i++){
       if($media_filter['enabled'][0] == true){
         $b_media = Braille::where("book_id", "=", $books[$i]['id'])->get();
@@ -115,32 +116,63 @@ class ReportController extends BaseController {
 
     if($media_filter['enabled'][0] == true){
       for($i=0;$i<count($media['braille']);$i++){
-        $media['braille_detail'][$i] = Brailledetail::where("braille_id", "=", $media['braille'][$i]->id)->get();
+        $b_detail = Brailledetail::where("braille_id", "=", $media['braille'][$i]->id)->where('status', '=', $media_filter['model'][0])->get();
+        for($j=0;$j<count($b_detail);$j++){
+          array_push($media['braille_detail'], $b_detail[$j]);
+        }
       }
     }
     if($media_filter['enabled'][1] == true){
       for($i=0;$i<count($media['cassette']);$i++){
-        $media['cassette_detail'][$i] = Cassettedetail::where("cassette_id", "=", $media['cassette'][$i]->id)->get();
+        $c_detail = Cassettedetail::where("cassette_id", "=", $media['cassette'][$i]->id)->where('status', '=', $media_filter['model'][1])->get();
+        for($j=0;$j<count($c_detail);$j++){
+          array_push($media['cassette_detail'], $c_detail[$j]);
+        }
       }
     }
     if($media_filter['enabled'][2] == true){
       for($i=0;$i<count($media['daisy']);$i++){
-        $media['daisy_detail'][$i] = Daisydetail::where("daisy_id", "=", $media['daisy'][$i]->id)->get();
+        $d_detail = Daisydetail::where("daisy_id", "=", $media['daisy'][$i]->id)->where('status', '=', $media_filter['model'][2])->get();
+        for($j=0;$j<count($d_detail);$j++){
+          array_push($media['daisy_detail'], $d_detail[$j]);
+        }
       }
     }
     if($media_filter['enabled'][3] == true){
       for($i=0;$i<count($media['cd']);$i++){
-        $media['cd_detail'][$i] = Cddetail::where("cd_id", "=", $media['cd'][$i]->id)->get();
+        $cd_detail = Cddetail::where("cd_id", "=", $media['cd'][$i]->id)->where('status', '=', $media_filter['model'][3])->get();
+        for($j=0;$j<count($cd_detail);$j++){
+          array_push($media['cd_detail'], $cd_detail[$j]);
+        }
       }
     }
     if($media_filter['enabled'][4] == true){
       for($i=0;$i<count($media['dvd']);$i++){
-        $media['dvd_detail'][$i] = Dvddetail::where("dvd_id", "=", $media['dvd'][$i]->id)->get();
+        $dvd_detail = Dvddetail::where("dvd_id", "=", $media['dvd'][$i]->id)->where('status', '=', $media_filter['model'][4])->get();
+        for($j=0;$j<count($dvd_detail);$j++){
+          array_push($media['dvd_detail'], $dvd_detail[$j]);
+        }
       }
     }
 
     return $media;
-  }  
+  } 
+
+  public function getProds()
+  {
+    $books  = Input::get("books");
+    $prod  = array();
+    $prods = array();
+    for($i=0;$i<count($books);$i++){
+      for($j=0;$j<5;$j++){
+        $prod[$j] = BookProd::where('book_id', '=', $books[$i]['id'])->where('media_type', '=', $j)->where('status', "=", "ACTIVE")->orderBy('action', 'desc')->first();
+      }
+      array_push($prods, $prod);
+    }
+
+    return $prods;
+  }
+
 
 
   public function getBookDetail()

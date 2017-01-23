@@ -288,6 +288,14 @@ class BookController extends Controller{
     $bp->user()->associate(User::find($data['actioner']['id']));
     $book = Book::find($bid);
 
+    switch($data["media_type"]){
+      case "0": $book->bm_status = $data["action"]; $book->save(); break;
+      case "1": $book->setcs_status = $data["action"]; $book->save(); break;
+      case "2": $book->setds_status = $data["action"]; $book->save(); break;
+      case "3": $book->setcd_status = $data["action"]; $book->save(); break;
+      case "4": $book->setdvd_status = $data["action"]; $book->save(); break;
+    }
+
     if($bp->action == 5) {
       $activeProds = $book->prod()->where('media_type', '=', $data["media_type"])->where('status', '=', Status::ACTIVE)->get();
       foreach ($activeProds as $prod) {

@@ -12,14 +12,14 @@
   </div>
   <div class="panel-body">
    	<div class="container col-md-12 text-center">
-		<table class="table table-striped" style="font-size: 20px">
+		<table class="table" style="font-size: 20px">
 		  <tr>
 		    <th class="text-center">เลือก</th>
 		    <th class="text-center">วันที่</th>
 		    <th class="text-center">เวลา</th> 
 		    <th class="text-center">ชื่อไฟล์</th>
 		  </tr>
-		  <tr ng-repeat="file in files" style="font-size: 16px;" ng-style="select[$index].style">
+		  <tr ng-repeat="file in files" style="font-size: 16px;" ng-style="select[$index].style" class="sel_hover">
 		  	<td style="font-size: 18px">
 		  		<span ng-class="select[$index].class" ng-click="Selecting($index)"></span>
 		  		<span ng-show="select[$index].value == 1" class="glyphicon glyphicon-trash" data-toggle="modal" data-target=".confirm_modal"></span>
