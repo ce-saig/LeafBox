@@ -5,8 +5,8 @@
 @stop
 
 @section('body')
-
-<div class="panel panel-primary" ng-controller="ReportController" style="color:black">
+<div ng-controller="ReportController">
+<div class="panel panel-primary" style="color:black">
   <div class="panel-heading">
     <div class="panel-title">
     	<span style="color:white;font-size: 24px">รายงาน</span>
@@ -82,6 +82,7 @@
   		<div class="btn btn-success col-md-3 pull-right" data-toggle="modal" data-target=".report_modal" ng-click="CreateReport()" ng-disabled="!can_create">สร้างรายงาน</div>
   	</div> <!-- End Media container -->  
   </div>
+</div>
   <!-- modal -->
   <div class="modal fade report_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
@@ -89,7 +90,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h3 class="modal-title" ng-show="book_table">ตารางข้อมูลหนังสือ 
-            <span class="glyphicon glyphicon-chevron-right" ng-click="book_table = !book_table" ng-show="notmedia"></span>
+            <span class="glyphicon glyphicon-chevron-right" ng-click="book_table = !book_table" ng-hide="hide_table"></span>
           </h3>
           <h3 class="modal-title" ng-show="!book_table">
             <span class="glyphicon glyphicon-chevron-left" ng-click="book_table = !book_table"></span> ตารางข้อมูลสื่อ            
@@ -138,7 +139,7 @@
                 <td>เบรลล์</td>
                 <td><%b_detail.braille_id%></td>
                 <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.braille_id, 'b')['media'].numpart%></td>
+                <td><%b_detail.part%> / <%FindBook(b_detail.braille_id, 'braille')['media'].numpart%></td>
                 <td><%DetailStatus(b_detail.status)%></td>     
               </tr>
               <tr ng-repeat="(i,b_detail) in report.media.cassette_detail">
@@ -146,7 +147,7 @@
                 <td>คาสเช็ท</td>
                 <td><%b_detail.cassette_id%></td>
                 <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.cassette_id, 'c')['media'].numpart%></td>
+                <td><%b_detail.part%> / <%FindBook(b_detail.cassette_id, 'cassette')['media'].numpart%></td>
                 <td><%DetailStatus(b_detail.status)%></td>     
               </tr>
               <tr ng-repeat="(i,b_detail) in report.media.daisy_detail">
@@ -154,7 +155,7 @@
                 <td>เดซี่</td>
                 <td><%b_detail.daisy_id%></td>
                 <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.daisy_id, 'd')['media'].numpart%></td>
+                <td><%b_detail.part%> / <%FindBook(b_detail.daisy_id, 'daisy')['media'].numpart%></td>
                 <td><%DetailStatus(b_detail.status)%></td>     
               </tr>
               <tr ng-repeat="(i,b_detail) in report.media.cd_detail">

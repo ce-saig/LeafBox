@@ -94,18 +94,16 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      		data = response[0];
 	      	}   
 	      	$scope.report.book = data;
+			$scope.hide_table = false;
       		$http.post("/report/create_report_media",{media : $scope.medias, books : data}).success(function(response){
       			$scope.report.media = response;
+      			if(response.braille == null && response.cassette == null && response.daisy == null && response.cd == null && response.dvd == null){
+      				$scope.hide_table = true;
+      			}
       			CreateTable();
     		});	
       		$http.post("/report/create_report_prod",{books : data}).success(function(response){
       			$scope.report.prod = response;
-      			$scope.notmedia = false;
-      			for(i=0;$scope.medias.enabled.length;i++){
-      				if($scope.medias.enabled[i]){
-      					$scope.notmedia = true;;
-      				}
-      			}
     		});		
 	      	console.log($scope.report);
     	});		
