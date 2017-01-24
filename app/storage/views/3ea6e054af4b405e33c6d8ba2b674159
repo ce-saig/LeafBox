@@ -55,7 +55,7 @@
 		      <span class="input-group-addon" style="font-size: 16px" ng-style="medias.style[$index]">
 		        <input type="checkbox" ng-model="medias.enabled[$index]" ng-click="ChangeColor($index)"> <%prod%>
 		      </span>
-		      <select class="form-control" ng-options = "idx as item for (idx, item) in medias.label" ng-model="medias.model[$index]" ng-show="medias.enabled[$index]" style="height: 32px">
+		      <select class="form-control" ng-options = "idx as item for (idx, item) in medias.label" ng-model="medias.model[$index]" ng-show="medias.enabled[$index]" ng-init="medias.model[$index] = '0'" style="height: 32px">
     		  </select>
 		    </div><!-- /input-group -->
 		  </div><!-- /.col-lg-3 -->
@@ -96,7 +96,7 @@
 
         </div>
         <div class="modal-body">  
-          <table class="table table-striped" ng-show="book_table">
+          <table class="table table-striped" ng-show="book_table && !loading">
             <tr style="font-size: 18px;color: #4d4d4d">
               <th ng-repeat="th in table.header"><%th%></th>
             </tr>
@@ -128,55 +128,58 @@
             </tr>
           </table>
 
-          <table class="table table-striped" ng-show="!book_table">
+          <table class="table table-striped" ng-show="!book_table && !loading">
             <tr style="font-size: 18px;color: #4d4d4d">
               <th ng-repeat="th in media_label"><%th%></th>
             </tr>
-              <tr ng-repeat="(i,b_detail) in report.media.braille_detail">
-                <td><%FindBook(b_detail.braille_id, 'braille')['book'].title%></td>
+              <tr ng-repeat="(i,detail) in report.media.braille_detail">
+                <td><%detail.media.book.title%></td>
                 <td>เบรลล์</td>
-                <td><%b_detail.braille_id%></td>
-                <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.braille_id, 'braille')['media'].numpart%></td>
-                <td><%DetailStatus(b_detail.status)%></td>     
+                <td><%detail.braille_id%></td>
+                <td><%detail.id%></td>
+                <td><%detail.part%> / <%detail.media.numpart%></td>
+                <td><%DetailStatus(detail.status)%></td>     
               </tr>
-              <tr ng-repeat="(i,b_detail) in report.media.cassette_detail">
-                <td><%FindBook(b_detail.cassette_id, 'cassette')['book'].title%></td>
+              <tr ng-repeat="(i,detail) in report.media.cassette_detail">
+                <td><%detail.media.book.title%></td>
                 <td>คาสเช็ท</td>
-                <td><%b_detail.cassette_id%></td>
-                <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.cassette_id, 'cassette')['media'].numpart%></td>
-                <td><%DetailStatus(b_detail.status)%></td>     
+                <td><%detail.cassette_id%></td>
+                <td><%detail.id%></td>
+                <td><%detail.part%> / <%detail.media.numpart%></td>
+                <td><%DetailStatus(detail.status)%></td>     
               </tr>
-              <tr ng-repeat="(i,b_detail) in report.media.daisy_detail">
-                <td><%FindBook(b_detail.daisy_id, 'daisy')['book'].title%></td>
+              <tr ng-repeat="(i,detail) in report.media.daisy_detail">
+                <td><%detail.media.book.title%></td>
                 <td>เดซี่</td>
-                <td><%b_detail.daisy_id%></td>
-                <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.daisy_id, 'daisy')['media'].numpart%></td>
-                <td><%DetailStatus(b_detail.status)%></td>     
+                <td><%detail.daisy_id%></td>
+                <td><%detail.id%></td>
+                <td><%detail.part%> / <%detail.media.numpart%></td>
+                <td><%DetailStatus(detail.status)%></td>     
               </tr>
-              <tr ng-repeat="(i,b_detail) in report.media.cd_detail">
-                <td><%FindBook(b_detail.cd_id, 'cd')['book'].title%></td>
+              <tr ng-repeat="(i,detail) in report.media.cd_detail">
+                <td><%detail.media.book.title%></td>
                 <td>ซีดี</td>
-                <td><%b_detail.cd_id%></td>
-                <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.cd_id, 'cd')['media'].numpart%></td>
-                <td><%DetailStatus(b_detail.status)%></td>     
+                <td><%detail.cd_id%></td>
+                <td><%detail.id%></td>
+                <td><%detail.part%> / <%detail.media.numpart%></td>
+                <td><%DetailStatus(detail.status)%></td>     
               </tr>
-              <tr ng-repeat="(i,b_detail) in report.media.dvd_detail">
-                <td><%FindBook(b_detail.dvd_id, 'dvd')['book'].title%></td>
+              <tr ng-repeat="(i,detail) in report.media.dvd_detail">
+                <td><%detail.media.book.title%></td>
                 <td>ดีวีดี</td>
-                <td><%b_detail.dvd_id%></td>
-                <td><%b_detail.id%></td>
-                <td><%b_detail.part%> / <%FindBook(b_detail.dvd_id, 'dvd')['media'].numpart%></td>
-                <td><%DetailStatus(b_detail.status)%></td>     
+                <td><%detail.dvd_id%></td>
+                <td><%detail.id%></td>
+                <td><%detail.part%> / <%detail.media.numpart%></td>
+                <td><%DetailStatus(detail.status)%></td>     
               </tr>
           </table>
+          <div class="col-md-12 alert alert-warning text-center" ng-show="loading">
+            <span style="font-size: 36px">Loading...</span>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" ng-click="ExportCSV()">Download CSV</button>
         </div>
       </div>
     </div>

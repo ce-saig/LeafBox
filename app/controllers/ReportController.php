@@ -95,22 +95,37 @@ class ReportController extends BaseController {
       if($media_filter['enabled'][0] == true){
         $b_media = Braille::where("book_id", "=", $books[$i]['id'])->get();
         $media['braille'] = $b_media;
+        for($j=0;$j<count($media['braille']);$j++){
+          $media['braille'][$j]->book = $books[$i];
+        }
       }
       if($media_filter['enabled'][1] == true){
         $c_media = Cassette::where("book_id", "=", $books[$i]['id'])->get();
         $media['cassette'] = $c_media;
+        for($j=0;$j<count($media['cassette']);$j++){
+          $media['cassette'][$j]->book = $books[$i];
+        }      
       }
       if($media_filter['enabled'][2] == true){
         $d_media = Daisy::where("book_id", "=", $books[$i]['id'])->get();
         $media['daisy'] = $d_media;
+        for($j=0;$j<count($media['daisy']);$j++){
+          $media['daisy'][$j]->book = $books[$i];
+        }      
       }
       if($media_filter['enabled'][3] == true){
         $cd_media = CD::where("book_id", "=", $books[$i]['id'])->get();
         $media['cd'] = $cd_media;
+        for($j=0;$j<count($media['cd']);$j++){
+          $media['cd'][$j]->book = $books[$i];
+        }      
       }
       if($media_filter['enabled'][4] == true){
         $dvd_media = DVD::where("book_id", "=", $books[$i]['id'])->get();
         $media['dvd'] = $dvd_media;
+        for($j=0;$j<count($media['dvd']);$j++){
+          $media['dvd'][$j]->book = $books[$i];
+        }        
       }
     }
 
@@ -118,6 +133,7 @@ class ReportController extends BaseController {
       for($i=0;$i<count($media['braille']);$i++){
         $b_detail = Brailledetail::where("braille_id", "=", $media['braille'][$i]->id)->where('status', '=', $media_filter['model'][0])->get();
         for($j=0;$j<count($b_detail);$j++){
+          $b_detail[$j]->media  = $media['braille'][$i];
           array_push($media['braille_detail'], $b_detail[$j]);
         }
       }
@@ -126,6 +142,7 @@ class ReportController extends BaseController {
       for($i=0;$i<count($media['cassette']);$i++){
         $c_detail = Cassettedetail::where("cassette_id", "=", $media['cassette'][$i]->id)->where('status', '=', $media_filter['model'][1])->get();
         for($j=0;$j<count($c_detail);$j++){
+          $c_detail[$j]->media  = $media['cassette'][$i];
           array_push($media['cassette_detail'], $c_detail[$j]);
         }
       }
@@ -134,6 +151,7 @@ class ReportController extends BaseController {
       for($i=0;$i<count($media['daisy']);$i++){
         $d_detail = Daisydetail::where("daisy_id", "=", $media['daisy'][$i]->id)->where('status', '=', $media_filter['model'][2])->get();
         for($j=0;$j<count($d_detail);$j++){
+          $d_detail[$j]->media  = $media['daisy'][$i];
           array_push($media['daisy_detail'], $d_detail[$j]);
         }
       }
@@ -142,6 +160,7 @@ class ReportController extends BaseController {
       for($i=0;$i<count($media['cd']);$i++){
         $cd_detail = Cddetail::where("cd_id", "=", $media['cd'][$i]->id)->where('status', '=', $media_filter['model'][3])->get();
         for($j=0;$j<count($cd_detail);$j++){
+          $cd_detail[$j]->media  = $media['cd'][$i];
           array_push($media['cd_detail'], $cd_detail[$j]);
         }
       }
@@ -150,6 +169,7 @@ class ReportController extends BaseController {
       for($i=0;$i<count($media['dvd']);$i++){
         $dvd_detail = Dvddetail::where("dvd_id", "=", $media['dvd'][$i]->id)->where('status', '=', $media_filter['model'][4])->get();
         for($j=0;$j<count($dvd_detail);$j++){
+          $dvd_detail[$j]->media  = $media['dvd'][$i];
           array_push($media['dvd_detail'], $dvd_detail[$j]);
         }
       }
@@ -171,6 +191,32 @@ class ReportController extends BaseController {
     }
 
     return $prods;
+  }
+
+  public function exportCSV(){
+    header('Content-Encoding: UTF-8');
+    header('Content-type: text/csv; charset=UTF-8');
+    header("Content-Disposition: attachment; filename=app/storage/csv/contacts.csv");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    header('Content-Transfer-Encoding: binary');
+    echo "\xEF\xBB\xBF";
+
+    $list = array
+    (
+    "สวัสดี,Griffin,Oslo,Norway",
+    "Glenn,Quagmire,Oslo,Norway",
+    );
+
+    $file = fopen("app/storage/csv/contacts.csv","w");
+
+    foreach ($list as $line)
+      {
+        fputcsv($file,explode(',',$line));
+      }
+
+    fclose($file);
+    return "Complete";
   }
 
 
@@ -368,7 +414,8 @@ class ReportController extends BaseController {
 
   // export csv function 
   // you must sending result from search obj to this method.
-  public function exportCSV() {
+/*  
+public function exportCSV() {
     $obj = Session::get('data');
     $columns = $obj["col"];
     $obj_vals = $obj["data"];
@@ -528,5 +575,5 @@ class ReportController extends BaseController {
       return "ซ่อม";
     }
   }
-
+  */
 }

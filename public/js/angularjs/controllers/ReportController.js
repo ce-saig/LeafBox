@@ -9,6 +9,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.report = {};
 	$scope.can_create = false;
 	$scope.book_table = true;
+	$scope.loading = false;
 
 	$scope.AutoSelect = function(index){
 		if($scope.books.enabled[index] == true){
@@ -21,10 +22,13 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		if($scope.prods.enabled[index] == true){
 			$scope.columns.enabled[index+7] = true;
 			$scope.prods.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+			$scope.prods.model[index] = '0';
 		}else{
 			$scope.columns.enabled[index+7] = false;
 			$scope.prods.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+			$scope.prods.model[index] = '';
 		}
+		
 		Permission();
 	}
 
@@ -49,6 +53,9 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	}
 
 	$scope.CreateReport = function(){
+		$scope.loading = true;
+		var thread_media = false;
+		var thread_prod = false;
 		$http.post("/report/create_report_book",{book : $scope.books, prod : $scope.prods,id_mode : $scope.item.id_mode, book_id_init: $scope.item.book_id_init}).success(function(response){
 			$scope.report.prod = response.prods;
 			var enabled_count = response.count;
@@ -101,83 +108,20 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
       				$scope.hide_table = true;
       			}
       			CreateTable();
+      			thread_media = true;
+      			if(thread_prod == true){
+      				$scope.loading = false;
+      			}
     		});	
       		$http.post("/report/create_report_prod",{books : data}).success(function(response){
       			$scope.report.prod = response;
+      			thread_prod = true;
+				if(thread_media == true){
+      				$scope.loading = false;
+      			}
     		});		
 	      	console.log($scope.report);
     	});		
-	}
-
-	$scope.FindBook = function(media_id, type){
-		var data = [];
-		switch(type){
-		case 'braille':
-			for(i=0;i<$scope.report.media.braille.length;i++){
-				if(media_id == $scope.report.media.braille[i].id){
-					for(j=0;j<$scope.report.book.length;j++){
-						if($scope.report.media.braille[i].book_id == $scope.report.book[j].id){
-							data['media'] = $scope.report.media.braille[i];
-							data['book'] = $scope.report.book[j];
-							return data;
-						}
-					}
-				}
-			}
-			break;
-		case 'cassette':
-			for(i=0;i<$scope.report.media.cassette.length;i++){
-				if(media_id == $scope.report.media.cassette[i].id){
-					for(j=0;j<$scope.report.book.length;j++){
-						if($scope.report.media.cassette[i].book_id == $scope.report.book[j].id){
-							data['media'] = $scope.report.media.cassette[i];
-							data['book'] = $scope.report.book[j];
-							return data;
-						}
-					}
-				}
-			}
-			break;
-		case 'daisy':
-			for(i=0;i<$scope.report.media.daisy.length;i++){
-				if(media_id == $scope.report.media.daisy[i].id){
-					for(j=0;j<$scope.report.book.length;j++){
-						if($scope.report.media.daisy[i].book_id == $scope.report.book[j].id){
-							data['media'] = $scope.report.media.daisy[i];
-							data['book'] = $scope.report.book[j];
-							return data;
-						}
-					}
-				}
-			}
-			break;		
-		case 'dvd':
-			for(i=0;i<$scope.report.media.dvd.length;i++){
-				if(media_id == $scope.report.media.dvd[i].id){
-					for(j=0;j<$scope.report.book.length;j++){
-						if($scope.report.media.dvd[i].book_id == $scope.report.book[j].id){
-							data['media'] = $scope.report.media.dvd[i];
-							data['book'] = $scope.report.book[j];
-							return data;
-						}
-					}
-				}
-			}
-			break;
-		case 'cd':
-			for(i=0;i<$scope.report.media.cd.length;i++){
-				if(media_id == $scope.report.media.cd[i].id){
-					for(j=0;j<$scope.report.book.length;j++){
-						if($scope.report.media.cd[i].book_id == $scope.report.book[j].id){
-							data['media'] = $scope.report.media.cd[i];
-							data['book'] = $scope.report.book[j];
-							return data;
-						}
-					}
-				}
-			}
-			break;	
-		}	
 	}
 
 	$scope.DetailStatus = function(status){
@@ -193,6 +137,13 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 				$scope.table.header.push($scope.columns.label[i]);
 			}
 		}
+	}
+
+	$scope.ExportCSV = function(){
+		$http.post("/report/export_csv").success(function(response){
+      		console.log(response);		
+    	});
+		
 	}
 
 	$scope.check = function(index){
