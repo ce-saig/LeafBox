@@ -10,23 +10,28 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.can_create = false;
 	$scope.book_table = true;
 	$scope.loading = false;
+	$scope.hidedownload = true;
 
-	$scope.AutoSelect = function(index){
-		if($scope.books.enabled[index] == true){
-			$scope.columns.enabled[index] = true;
-			$scope.books.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
-		}else{
-			$scope.columns.enabled[index] = false;
-			$scope.books.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+	$scope.AutoSelect = function(index, type){
+		if(type=='BOOK'){
+			if($scope.books.enabled[index] == true){
+				$scope.columns.enabled[index] = true;
+				$scope.books.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+			}else{
+				$scope.columns.enabled[index] = false;
+				$scope.books.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+			}
 		}
-		if($scope.prods.enabled[index] == true){
-			$scope.columns.enabled[index+7] = true;
-			$scope.prods.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
-			$scope.prods.model[index] = '0';
-		}else{
-			$scope.columns.enabled[index+7] = false;
-			$scope.prods.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
-			$scope.prods.model[index] = '';
+		if(type='PROD'){
+			if($scope.prods.enabled[index] == true){
+				$scope.columns.enabled[index+7] = true;
+				$scope.prods.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+				$scope.prods.model[index] = '0';
+			}else{
+				$scope.columns.enabled[index+7] = false;
+				$scope.prods.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+				$scope.prods.model[index] = '';
+			}
 		}
 		
 		Permission();
@@ -140,14 +145,17 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	}
 
 	$scope.ExportCSV = function(){
-		$http.post("/report/export_csv",{'media':$scope.report.media}).success(function(response){
-      		console.log(response);		
+		$scope.hidedownload = true;
+		var havemedia = false;
+		for(i=0;i<$scope.medias.enabled.length;i++){
+			if($scope.medias.enabled[i] == true){
+				havemedia = true;
+			}
+		}
+		$http.post("/report/export_csv",{'column':$scope.columns, 'book':$scope.report.book,'media':$scope.report.media, 'media_input':$scope.medias,'havemedia': havemedia, 'media_label':$scope.media_label,'prod_status':$scope.BookProductionService.status}).success(function(response){
+      		console.log(response);	
+      		$scope.hidedownload = false;
     	});
-		
-	}
-
-	$scope.check = function(index){
-	//	console.log($scope.prods.model[0]);
 	}
 
 	var SetStyle = function(){
@@ -179,6 +187,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.medias.model = [];
 		$scope.medias.enabled = [false, false, false, false, false];
 		$scope.columns.label = ["เลขไอดี", "ชื่อเรื่อง", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ", "สถานะผลิตเบรลล์", "สถานะผลิตคาสเซ็ท", "สถานะผลิตเดซี่", "สถานะผลิตซีดี", "สถานะผลิตดีวีดี"];
+		$scope.columns.field = ["id", "title", "author", "translate", "pub_year", "publisher", "book_type", "bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
 		$scope.columns.enabled = [true, true, true, true, true, true, true, false, false, false, false, false];
 		$scope.id_modes = ["=",">","<","-"];	
 		$scope.media_label = ['ชื่อหนังสือ', 'ชนิดสื่อ', 'ไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ'];

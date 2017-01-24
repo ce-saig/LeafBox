@@ -19,14 +19,14 @@
 		  <div class="col-lg-3" style="margin-top: 10px;" ng-repeat="book in books.label">
 		    <div class="input-group">
 		      <span class="input-group-addon" ng-style="books.style[$index]">
-		        <input type="checkbox" ng-model="books.enabled[$index]" ng-click="AutoSelect($index)"> 
+		        <input type="checkbox" ng-model="books.enabled[$index]" ng-click="AutoSelect($index, 'BOOK')"> 
 		      </span>
 			  <input class="form-control" placeholder="<%book%>" ng-model="item.book_id_init" ng-if="$index == 0" ng-show="item.id_mode == id_modes[3]" ng-disabled="!books.enabled[$index]">
 			  <span class="input-group-btn"  ng-if="$index == 0">
 			      <select class="form-control" ng-options = "item for item in id_modes" ng-model="item.id_mode" ng-disabled="!books.enabled[$index]" style="width: 60px;font-size: 16px" ng-init="item.id_mode = id_modes[0]">
 		    	  </select>
 			  </span>
-		      <input type="text" class="form-control" placeholder="<%book%>" ng-model="books.model[$index]" ng-disabled="!books.enabled[$index]" ng-click="check()" style="font-size: 16px">
+		      <input type="text" class="form-control" placeholder="<%book%>" ng-model="books.model[$index]" ng-disabled="!books.enabled[$index]"  style="font-size: 16px">
 		    </div><!-- /input-group -->
 		  </div><!-- /.col-lg-3 -->
 	</div>
@@ -38,7 +38,7 @@
 		  <div class="col-lg-4" style="margin-top: 10px" ng-repeat="prod in prods.label">  
 		    <div class="input-group">
 		      <span class="input-group-addon" style="font-size: 16px" ng-style="prods.style[$index]">
-		        <input type="checkbox" ng-model="prods.enabled[$index]" ng-click="AutoSelect($index)"> สถานะของ<%prod%>
+		        <input type="checkbox" ng-model="prods.enabled[$index]" ng-click="AutoSelect($index, 'PROD')"> สถานะของ<%prod%>
 		      </span>
 		      <select class="form-control" ng-options = "idx as item for (idx, item) in BookProductionService.status[$index]" ng-model="prods.model[$index]" ng-disabled="!prods.enabled[$index]" style="height: 32px">
     		  </select>
@@ -179,7 +179,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" ng-click="ExportCSV()">Download CSV</button>
+          <button type="button" class="btn btn-primary" ng-click="ExportCSV()" ng-hide="!hidedownload">Create CSV</button>
+          <a class="btn btn-success" href="/php/csv/output.csv" download="report.csv" ng-hide="hidedownload">Download CSV</a>
         </div>
       </div>
     </div>

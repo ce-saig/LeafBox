@@ -194,24 +194,91 @@ class ReportController extends BaseController {
   }
 
   public function exportCSV(){
+    $column  = Input::get("column");
+    $book  = Input::get("book");
     $media  = Input::get("media");
+    $media_input  = Input::get("media_input");
+    $prod_status  = Input::get("prod_status");
+    $havemedia = Input::get("havemedia");
+    $media_label = Input::get("media_label");
+    $header = "";
+    $body = "";
+    $bodys = array();
+
+    for($j=0;$j<count($column['enabled']);$j++){
+      if($column['enabled'][$j] == true){
+        $header = $header . $column['label'][$j] . ',';
+      }
+    }
+    substr($header, 0, count($header)-1); 
+
+    for($i=0;$i<count($book);$i++){
+      for($j=0;$j<count($column['enabled']);$j++){
+        if($column['enabled'][$j] == true){
+          switch($column['field'][$j]) {
+            case 'bm_status':
+              $body = $body . $prod_status[0][$book[$i][$column['field'][$j]]] . ',';
+              break;
+            case 'setcs_status':
+              $body = $body . $prod_status[1][$book[$i][$column['field'][$j]]] . ',';
+              break;
+            case 'setds_status':
+              $body = $body . $prod_status[2][$book[$i][$column['field'][$j]]] . ',';
+              break;
+            case 'setcd_status':
+              $body = $body . $prod_status[3][$book[$i][$column['field'][$j]]] . ',';
+              break;
+            case 'setdvd_status':
+              $body = $body . $prod_status[4][$book[$i][$column['field'][$j]]] . ',';
+              break;            
+            default:
+              $body = $body . $book[$i][$column['field'][$j]] . ',';
+              break;
+          }
+        }
+      }
+      substr($header, 0, count($body)-1);
+      array_push($bodys, $body);
+      $body = "";  
+    } 
+
     $list = array
     (
-      "สวัสดีนะ,Griffin,Oslo,Norway",
-      "Glenn,Quagmire,Oslo,Norway",
+      $header    
     );
+    foreach ($bodys as $b){
+      array_push($list, $b);
+    }
 
-    $file = fopen("app/storage/csv/output.csv","w");
+    $file = fopen("public/php/csv/output.csv","w");
     fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
     foreach ($list as $line)
       {
         fputcsv($file,explode(',',$line));
       }
+    
+    fputcsv($file,explode(','," "));
 
-    fclose($file);      
+    if($havemedia == true){
+      $header = "";
+      $body = "";
+      $bodys = array();
+      for($i=0;$i<count($media_label);$i++){
+        $header = $header . $media_label[$i] . ',';
+      }
+      fputcsv($file,explode(',',$header));
+      if($media_input['enabled'][0] == true){
+        foreach($media['braille_detail'] as $key => $m){
+          $body = $m['media']['book']['title'].',เบรลล์,'.$m['braille_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']];
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+
+    }
+    fclose($file);
+    return "file at ../public/php/csv/output.csv";
   }
-
-
 
   public function getBookDetail()
   {
