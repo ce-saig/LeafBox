@@ -43,6 +43,10 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
         array (
             'Monolog\\' => 8,
         ),
+        'L' => 
+        array (
+            'League\\Csv\\' => 11,
+        ),
         'I' => 
         array (
             'Ifsnop\\' => 7,
@@ -125,6 +129,10 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
         ),
         'Ifsnop\\' => 
         array (
@@ -228,6 +236,7 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
     public static $classMap = array (
         'AddColumnStatusNoteToBraille' => __DIR__ . '/../..' . '/app/database/migrations/2015_07_22_002245_addColumnStatusNoteToBraille.php',
         'AddRoleToUser' => __DIR__ . '/../..' . '/app/database/migrations/2015_07_04_210227_add_role_to_user.php',
+        'BackupController' => __DIR__ . '/../..' . '/app/controllers/BackupController.php',
         'BaseController' => __DIR__ . '/../..' . '/app/controllers/BaseController.php',
         'Book' => __DIR__ . '/../..' . '/app/models/library/Book.php',
         'BookController' => __DIR__ . '/../..' . '/app/controllers/BookController.php',
@@ -677,6 +686,19 @@ class ComposerStaticInit964d1e60770aa9014c8b8e7dc6f29c9a
         'Jeremeamia\\SuperClosure\\SerializableClosure' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/SerializableClosure.php',
         'Jeremeamia\\SuperClosure\\Visitor\\ClosureFinderVisitor' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/ClosureFinderVisitor.php',
         'Jeremeamia\\SuperClosure\\Visitor\\MagicConstantVisitor' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/MagicConstantVisitor.php',
+        'League\\Csv\\AbstractCsv' => __DIR__ . '/..' . '/league/csv/src/AbstractCsv.php',
+        'League\\Csv\\Config\\Controls' => __DIR__ . '/..' . '/league/csv/src/Config/Controls.php',
+        'League\\Csv\\Config\\Output' => __DIR__ . '/..' . '/league/csv/src/Config/Output.php',
+        'League\\Csv\\Exception\\InvalidRowException' => __DIR__ . '/..' . '/league/csv/src/Exception/InvalidRowException.php',
+        'League\\Csv\\Modifier\\MapIterator' => __DIR__ . '/..' . '/league/csv/src/Modifier/MapIterator.php',
+        'League\\Csv\\Modifier\\QueryFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/QueryFilter.php',
+        'League\\Csv\\Modifier\\RowFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/RowFilter.php',
+        'League\\Csv\\Modifier\\StreamFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/StreamFilter.php',
+        'League\\Csv\\Plugin\\ColumnConsistencyValidator' => __DIR__ . '/..' . '/league/csv/src/Plugin/ColumnConsistencyValidator.php',
+        'League\\Csv\\Plugin\\ForbiddenNullValuesValidator' => __DIR__ . '/..' . '/league/csv/src/Plugin/ForbiddenNullValuesValidator.php',
+        'League\\Csv\\Plugin\\SkipNullValuesFormatter' => __DIR__ . '/..' . '/league/csv/src/Plugin/SkipNullValuesFormatter.php',
+        'League\\Csv\\Reader' => __DIR__ . '/..' . '/league/csv/src/Reader.php',
+        'League\\Csv\\Writer' => __DIR__ . '/..' . '/league/csv/src/Writer.php',
         'LibraryController' => __DIR__ . '/../..' . '/app/controllers/LibraryController.php',
         'Math_BigInteger' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Math/BigInteger.php',
         'Media' => __DIR__ . '/../..' . '/app/enum/Media.php',

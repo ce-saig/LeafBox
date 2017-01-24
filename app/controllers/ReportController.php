@@ -194,29 +194,21 @@ class ReportController extends BaseController {
   }
 
   public function exportCSV(){
-    header('Content-Encoding: UTF-8');
-    header('Content-type: text/csv; charset=UTF-8');
-    header("Content-Disposition: attachment; filename=app/storage/csv/contacts.csv");
-    header("Pragma: no-cache");
-    header("Expires: 0");
-    header('Content-Transfer-Encoding: binary');
-    echo "\xEF\xBB\xBF";
-
+    $media  = Input::get("media");
     $list = array
     (
-    "สวัสดี,Griffin,Oslo,Norway",
-    "Glenn,Quagmire,Oslo,Norway",
+      "สวัสดีนะ,Griffin,Oslo,Norway",
+      "Glenn,Quagmire,Oslo,Norway",
     );
 
-    $file = fopen("app/storage/csv/contacts.csv","w");
-
+    $file = fopen("app/storage/csv/output.csv","w");
+    fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
     foreach ($list as $line)
       {
         fputcsv($file,explode(',',$line));
       }
 
-    fclose($file);
-    return "Complete";
+    fclose($file);      
   }
 
 

@@ -1,9 +1,9 @@
 <?php  
     include_once(dirname(__FILE__) . '/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php');
     $host = 'localhost';
-	$username = "root";
-	$password = "";
-	$dbname = "leafbox";
+	  $username = "root";
+	  $password = "";
+	  $dbname = "leafbox";
 
     function SQLDUMP_BACKUP($host,$user,$pass,$dbname){
       $dump = new Ifsnop\Mysqldump\Mysqldump('mysql:host='.$host.';dbname='.$dbname, $user, $pass);

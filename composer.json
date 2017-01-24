@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"ifsnop/mysqldump-php": "2.*"
+		"ifsnop/mysqldump-php": "2.*",
+		"league/csv": "^8.1"
 	},
 	"require-dev": {
 		"way/generators": "~2.0"

@@ -140,7 +140,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	}
 
 	$scope.ExportCSV = function(){
-		$http.post("/report/export_csv").success(function(response){
+		$http.post("/report/export_csv",{'media':$scope.report.media}).success(function(response){
       		console.log(response);		
     	});
 		
