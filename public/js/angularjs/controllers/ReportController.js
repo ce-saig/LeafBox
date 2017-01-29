@@ -7,10 +7,14 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.columns = {};
 	$scope.item = {};
 	$scope.report = {};
+	$scope.table = {};
+	$scope.modal_style = [];
+	$scope.showtable = 0;
 	$scope.can_create = false;
 	$scope.book_table = true;
 	$scope.loading = false;
 	$scope.hidedownload = true;
+	$scope.filter_enabled = [false,false,false,false];
 
 	$scope.AutoSelect = function(index, type){
 		if(type=='BOOK'){
@@ -34,7 +38,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 			}
 		}
 		
-		Permission();
+		TableEnabled();
 	}
 
 	$scope.ChangeColor = function(index){
@@ -45,15 +49,51 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		}
 	}
 
-	var Permission = function(){
+	$scope.ChangeTable = function(index){
+		if($scope.filter_enabled[2] == false)
+			$scope.modal_style = [{'color':'#cccccc'},{'color':'#cccccc'},{'color':'#cccccc'}];
+		else
+			$scope.modal_style = [{'color':'black'},{'color':'black'},{'color':'black'}];
+		if(index==0){
+			$scope.showtable = index;
+			$scope.modal_style[0] = {'color':'#009933'};
+		}else if($scope.filter_enabled[2] == true){
+			$scope.showtable = index;
+			switch($scope.showtable){
+				case 1 : 
+					$scope.modal_style[0] = {'color':'black'};
+					$scope.modal_style[1] = {'color':'#009933'};
+					$scope.modal_style[2] = {'color':'black'};
+					break;
+				case 2 :
+					$scope.modal_style[0] = {'color':'black'};
+					$scope.modal_style[1] = {'color':'black'};
+					$scope.modal_style[2] = {'color':'#009933'};
+					break;
+			}
+		}else{
+			$scope.modal_style[0] = {'color':'#009933'};
+		}
+	}
+
+	var TableEnabled = function(){
 		$scope.can_create = false;
+		$scope.filter_enabled = [false,false,false,false];
 		for(i=0;i<$scope.books.enabled.length;i++){
 			if($scope.books.enabled[i] == true)
-				$scope.can_create = true;
+				$scope.filter_enabled[0] = true;
 		}
 		for(i=0;i<$scope.prods.enabled.length;i++){
 			if($scope.prods.enabled[i] == true)
-				$scope.can_create = true;
+				$scope.filter_enabled[1] = true;
+		}
+		for(i=0;i<$scope.medias.enabled.length;i++){
+			if($scope.medias.enabled[i] == true)
+				$scope.filter_enabled[2] = true;
+		}
+		for(i=0;i<$scope.columns.enabled.length;i++){
+			if($scope.columns.enabled[i] == true)
+				$scope.filter_enabled[3] = true;
 		}
 	}
 
@@ -61,6 +101,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.loading = true;
 		var thread_media = false;
 		var thread_prod = false;
+		TableEnabled();
 		$http.post("/report/create_report_book",{book : $scope.books, prod : $scope.prods,id_mode : $scope.item.id_mode, book_id_init: $scope.item.book_id_init}).success(function(response){
 			$scope.report.prod = response.prods;
 			var enabled_count = response.count;
@@ -106,12 +147,8 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      		data = response[0];
 	      	}   
 	      	$scope.report.book = data;
-			$scope.hide_table = false;
       		$http.post("/report/create_report_media",{media : $scope.medias, books : data}).success(function(response){
       			$scope.report.media = response;
-      			if(response.braille == null && response.cassette == null && response.daisy == null && response.cd == null && response.dvd == null){
-      				$scope.hide_table = true;
-      			}
       			CreateTable();
       			thread_media = true;
       			if(thread_prod == true){
@@ -124,7 +161,8 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 				if(thread_media == true){
       				$scope.loading = false;
       			}
-    		});		
+    		});			
+			$scope.ChangeTable(0);
 	      	console.log($scope.report);
     	});		
 	}
@@ -135,7 +173,6 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	}
 
 	var CreateTable = function(){
-		$scope.table = {};
 		$scope.table.header = [];
 		for(i=0;i<$scope.columns.enabled.length;i++){
 			if($scope.columns.enabled[i] == true){
@@ -190,7 +227,8 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.columns.field = ["id", "title", "author", "translate", "pub_year", "publisher", "book_type", "bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
 		$scope.columns.enabled = [true, true, true, true, true, true, true, false, false, false, false, false];
 		$scope.id_modes = ["=",">","<","-"];	
-		$scope.media_label = ['ชื่อหนังสือ', 'ชนิดสื่อ', 'ไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ'];
+		$scope.borrow_label = ["ชื่อหนังสือ", "ชนิดสื่อ", "เช็ทไอดีสื่อ", "จำนวนตอนทั้งหมด", "ผู้ยืม", "เมื่อ"];
+		$scope.media_label	= ['เช็ทไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ', 'ชื่อหนังสือ', 'ชนิดสื่อ'];
 		SetStyle();
 	}
 

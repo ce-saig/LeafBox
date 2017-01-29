@@ -68,41 +68,42 @@
   			<span style="font-size: 22px">เลือกคอลัมน์ที่ต้องการแสดง</span>
   		</div>
   		<div class = "container col-md-12" style="margin-top: 10px">
-  		    <div class="input-group well col-md-12 column_show">
-  		      <div class="col-md-2" ng-repeat="column in columns.label">
-  		    	<span style="font-size: 16px">
-  		        	<input type="checkbox" ng-model="columns.enabled[$index]"> <%column%>
-  		      	</span>
-  		      </div>
-  		    </div><!-- /input-group -->
+		    <div class="input-group well col-md-12 column_show">
+          <div class="col-md-2" ng-repeat="column in columns.label">
+		    	<span style="font-size: 16px">
+		        	<input type="checkbox" ng-model="columns.enabled[$index]"> <%column%>
+		      	</span>
+		      </div>
+		    </div><!-- /input-group -->
   		</div>
     </div> <!-- End Media container -->  	
 
   	<div class="container col-md-12" style="margin-top: 20px">
-  		<div class="btn btn-success col-md-3 pull-right" data-toggle="modal" data-target=".report_modal" ng-click="CreateReport()" ng-disabled="!can_create">สร้างรายงาน</div>
+  		<div class="btn btn-success col-md-3 pull-right" data-toggle="modal" data-target=".report_modal" ng-click="CreateReport()" ng-disabled="filter_enabled[0] == false && filter_enabled[1] == false">สร้างรายงาน</div>
   	</div> <!-- End Media container -->  
   </div>
 </div>
-  <!-- modal -->
+  
+  <!-- ________________________Report Modal_______________________________-->
   <div class="modal fade report_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title" ng-show="book_table">ตารางข้อมูลหนังสือ 
-            <span class="glyphicon glyphicon-chevron-right" ng-click="book_table = !book_table" ng-hide="hide_table"></span>
+          <h3 class="modal-title text-center">
+            <label ng-style="modal_style[0]" ng-click="ChangeTable(0)"> ตารางข้อมูลหนังสือ </label>   
+            <span><strong>/</strong></span>
+            <label ng-style="modal_style[1]" ng-click="ChangeTable(1)"> ตารางข้อมูลสื่อ </label>            
+            <span><strong>/</strong></span>        
+            <label ng-style="modal_style[2]" ng-click="ChangeTable(2)"> ตารางข้อมูลสื่อย่อย </label>
           </h3>
-          <h3 class="modal-title" ng-show="!book_table">
-            <span class="glyphicon glyphicon-chevron-left" ng-click="book_table = !book_table"></span> ตารางข้อมูลสื่อ            
-          </h3>
-
         </div>
-        <div class="modal-body">  
-          <table class="table table-striped" ng-show="book_table && !loading">
+        <div class="modal-body text-center">  
+          <table class="table table-striped" ng-show="showtable==0 && !loading">
             <tr style="font-size: 18px;color: #4d4d4d">
-              <th ng-repeat="th in table.header"><%th%></th>
+              <th ng-repeat="th in table.header" class="text-left"><%th%></th>
             </tr>
-            <tr ng-repeat="book in report.book">
+            <tr ng-repeat="book in report.book" class="text-left">
               <td ng-show="columns.enabled[0]">
                 <%book.id%> <span ng-show="book.original_no!=''">(<%book.original_no%>)</span>
               </td>
@@ -130,51 +131,104 @@
             </tr>
           </table>
 
-          <table class="table table-striped" ng-show="!book_table && !loading">
+          <table class="table table-striped" ng-show="showtable==1 && filter_enabled[2] && !loading">
             <tr style="font-size: 18px;color: #4d4d4d">
-              <th ng-repeat="th in media_label"><%th%></th>
+              <th ng-repeat="th in borrow_label" class="text-center"><%th%></th>
             </tr>
-              <tr ng-repeat="(i,detail) in report.media.braille_detail">
-                <td><%detail.media.book.title%></td>
-                <td>เบรลล์</td>
-                <td><%detail.braille_id%></td>
-                <td><%detail.id%></td>
-                <td><%detail.part%> / <%detail.media.numpart%></td>
-                <td><%DetailStatus(detail.status)%></td>     
-              </tr>
-              <tr ng-repeat="(i,detail) in report.media.cassette_detail">
-                <td><%detail.media.book.title%></td>
-                <td>คาสเช็ท</td>
-                <td><%detail.cassette_id%></td>
-                <td><%detail.id%></td>
-                <td><%detail.part%> / <%detail.media.numpart%></td>
-                <td><%DetailStatus(detail.status)%></td>     
-              </tr>
-              <tr ng-repeat="(i,detail) in report.media.daisy_detail">
-                <td><%detail.media.book.title%></td>
-                <td>เดซี่</td>
-                <td><%detail.daisy_id%></td>
-                <td><%detail.id%></td>
-                <td><%detail.part%> / <%detail.media.numpart%></td>
-                <td><%DetailStatus(detail.status)%></td>     
-              </tr>
-              <tr ng-repeat="(i,detail) in report.media.cd_detail">
-                <td><%detail.media.book.title%></td>
-                <td>ซีดี</td>
-                <td><%detail.cd_id%></td>
-                <td><%detail.id%></td>
-                <td><%detail.part%> / <%detail.media.numpart%></td>
-                <td><%DetailStatus(detail.status)%></td>     
-              </tr>
-              <tr ng-repeat="(i,detail) in report.media.dvd_detail">
-                <td><%detail.media.book.title%></td>
-                <td>ดีวีดี</td>
-                <td><%detail.dvd_id%></td>
-                <td><%detail.id%></td>
-                <td><%detail.part%> / <%detail.media.numpart%></td>
-                <td><%DetailStatus(detail.status)%></td>     
-              </tr>
+            <tr ng-repeat="(i,media) in report.media.braille">
+              <td><%media.book.title%></td>
+              <td>เบรลล์</td>
+              <td><%media.id%></td>
+              <td><%media.numpart%></td> 
+              <td>
+                <span ng-show="media.borrow!=null"><%media.borrower.name%></span>
+                <span ng-show="media.borrow==null">ไม่มี</span>
+              </td>  
+              <td>
+                <span ng-show="media.borrow!=null"><%media.borrow.date_borrowed%></span>
+                <span ng-show="media.borrow==null">ไม่มี</span>
+              </td>
+            </tr>
+            <tr ng-repeat="(i,media) in report.media.cassette">
+              <td><%media.book.title%></td>
+              <td>คาสเช็ท</td>
+              <td><%media.id%></td>
+              <td><%media.numpart%></td>  
+              <td><%(media.borrow!=null)?media.borrower.name:'ไม่มี'%></td> 
+              <td><%(media.borrow!=null)?media.borrow.date_borrowed:'ไม่มี'%></td>     
+            </tr>
+            <tr ng-repeat="(i,media) in report.media.daisy">
+              <td><%media.book.title%></td>
+              <td>เดซี่</td>
+              <td><%media.id%></td>
+              <td><%media.numpart%></td>  
+              <td><%(media.borrow!=null)?media.borrower.name:'ไม่มี'%></td> 
+              <td><%(media.borrow!=null)?media.borrow.date_borrowed:'ไม่มี'%></td>      
+            </tr>
+            <tr ng-repeat="(i,media) in report.media.cd">
+              <td><%media.book.title%></td>
+              <td>ซีดี</td>
+              <td><%media.id%></td>
+              <td><%media.numpart%></td>   
+              <td><%(media.borrow!=null)?media.borrower.name:'ไม่มี'%></td> 
+              <td><%(media.borrow!=null)?media.borrow.date_borrowed:'ไม่มี'%></td>       
+            </tr>
+            <tr ng-repeat="(i,media) in report.media.dvd">
+              <td><%media.book.title%></td>
+              <td>ดีวีดี</td>
+              <td><%media.id%></td>
+              <td><%media.numpart%></td>  
+              <td><%(media.borrow!=null)?media.borrower.name:'ไม่มี'%></td> 
+              <td><%(media.borrow!=null)?media.borrow.date_borrowed:'ไม่มี'%></td>       
+            </tr>
           </table>
+
+          <table class="table table-striped" ng-show="showtable==2 && filter_enabled[2] && !loading">
+            <tr style="font-size: 18px;color: #4d4d4d">
+              <th ng-repeat="th in media_label" class="text-center"><%th%></th>
+            </tr>
+            <tr ng-repeat="(i,detail) in report.media.braille_detail">
+              <td><%detail.braille_id%></td>
+              <td><%detail.id%></td>
+              <td><%detail.part%> / <%detail.media.numpart%></td>
+              <td><%DetailStatus(detail.status)%></td>  
+              <td><%detail.media.book.title%></td>
+              <td>เบรลล์</td>  
+            </tr>
+            <tr ng-repeat="(i,detail) in report.media.cassette_detail">
+              <td><%detail.cassette_id%></td>
+              <td><%detail.id%></td>
+              <td><%detail.part%> / <%detail.media.numpart%></td>
+              <td><%DetailStatus(detail.status)%></td> 
+              <td><%detail.media.book.title%></td>
+              <td>คาสเช็ท</td>    
+            </tr>
+            <tr ng-repeat="(i,detail) in report.media.daisy_detail">
+              <td><%detail.daisy_id%></td>
+              <td><%detail.id%></td>
+              <td><%detail.part%> / <%detail.media.numpart%></td>
+              <td><%DetailStatus(detail.status)%></td>  
+              <td><%detail.media.book.title%></td>
+              <td>เดซี่</td>   
+            </tr>
+            <tr ng-repeat="(i,detail) in report.media.cd_detail">
+              <td><%detail.cd_id%></td>
+              <td><%detail.id%></td>
+              <td><%detail.part%> / <%detail.media.numpart%></td>
+              <td><%DetailStatus(detail.status)%></td> 
+              <td><%detail.media.book.title%></td>
+              <td>ซีดี</td>    
+            </tr>
+            <tr ng-repeat="(i,detail) in report.media.dvd_detail">
+              <td><%detail.dvd_id%></td>
+              <td><%detail.id%></td>
+              <td><%detail.part%> / <%detail.media.numpart%></td>
+              <td><%DetailStatus(detail.status)%></td>  
+              <td><%detail.media.book.title%></td>
+              <td>ดีวีดี</td>   
+            </tr>
+          </table>
+
           <div class="col-md-12 alert alert-warning text-center" ng-show="loading">
             <span style="font-size: 36px">Loading...</span>
           </div>
