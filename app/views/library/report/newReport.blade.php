@@ -89,7 +89,7 @@
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hidedownload=true"><span aria-hidden="true">&times;</span></button>
           <h3 class="modal-title text-center">
             <label ng-style="modal_style[0]" ng-click="ChangeTable(0)"> ตารางข้อมูลหนังสือ </label>   
             <span><strong>/</strong></span>
@@ -234,9 +234,20 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" ng-click="ExportCSV()" ng-hide="!hidedownload">Create CSV</button>
-          <a class="btn btn-success" href="/php/csv/output.csv" download="report.csv" ng-hide="hidedownload">Download CSV</a>
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="hidedownload=true">Close</button>
+          <div ng-hide="!hidedownload" class="col-md-8 pull-right" style="font-size: 16px;margin-top: -10px">
+            <div class="col-md-3 col-md-offset-6">
+              <div class="text-left"><input type="checkbox" ng-model="table_download[0]"> ตารางข้อมูลหนังสือ</div>
+              <div class="text-left"><input type="checkbox" ng-model="table_download[1]"> ตารางข้อมูลสื่อ</div>
+              <div class="text-left"><input type="checkbox" ng-model="table_download[2]"> ตารางข้อมูลสื่อย่อย</div>
+            </div>
+            <button type="button" class="btn btn-primary pull-right" ng-click="ExportCSV()" style="margin-top: 10px">Create CSV</button>
+          </div>
+          <div ng-hide="hidedownload" class="col-md-8 pull-right" style="font-size: 16px;margin-top: -10px">
+            <a class="btn btn-success" href="/php/csv/output.csv" download="report.csv" style="margin-top: 10px">Download
+            <%(table_download[0]&&table_download[1]&&table_download[2])?'All Tables':'Some Tables'%>
+            </a>
+          </div>
         </div>
       </div>
     </div>

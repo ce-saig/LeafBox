@@ -199,6 +199,8 @@ class ReportController extends BaseController {
     $prod_status  = Input::get("prod_status");
     $havemedia = Input::get("havemedia");
     $media_label = Input::get("media_label");
+    $borrow_label = Input::get("borrow_label");
+    $table_download = Input::get("table_download");
     $header = "";
     $body = "";
     $bodys = array();
@@ -240,24 +242,85 @@ class ReportController extends BaseController {
       $body = "";  
     } 
 
-    $list = array
-    (
-      $header    
-    );
-    foreach ($bodys as $b){
-      array_push($list, $b);
-    }
-
     $file = fopen("public/php/csv/output.csv","w");
     fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
-    foreach ($list as $line)
-      {
-        fputcsv($file,explode(',',$line));
-      }
-    
-    fputcsv($file,explode(','," "));
 
-    if($havemedia == true){
+    if($table_download[0]==true){
+      $list = array($header    );
+      foreach ($bodys as $b){
+        array_push($list, $b);
+      }
+
+      foreach ($list as $line)
+        {
+          fputcsv($file,explode(',',$line));
+        }
+      
+      fputcsv($file,explode(','," "));
+    }
+
+    if($havemedia == true && $table_download[1] == true){
+      $header = "";
+      $body = "";
+      $bodys = array();
+      for($i=0;$i<count($borrow_label);$i++){
+        $header = $header . $borrow_label[$i] . ',';
+      }
+      fputcsv($file,explode(',',$header));
+      if($media_input['enabled'][0] == true){
+        foreach($media['braille'] as $key => $m){
+          $body = $m['book']['title'].',เบรลล์,'.$m['id'].','.$m['numpart'];
+          if($m['borrow'] != null && $m['borrower'] != null){
+            $body = $body.','.$m['borrower']['name'].','.$m['borrow']['date_borrowed'];
+          }
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][1] == true){
+        foreach($media['cassette'] as $key => $m){
+          $body = $m['book']['title'].',คาสเซ็ท,'.$m['id'].','.$m['numpart'];
+          if($m['borrow'] != null && $m['borrower'] != null){
+            $body = $body.','.$m['borrower']['name'].','.$m['borrow']['date_borrowed'];
+          }
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][2] == true){
+        foreach($media['daisy'] as $key => $m){
+          $body = $m['book']['title'].',เดซี่,'.$m['id'].','.$m['numpart'];
+          if($m['borrow'] != null && $m['borrower'] != null){
+            $body = $body.','.$m['borrower']['name'].','.$m['borrow']['date_borrowed'];
+          }
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][3] == true){
+        foreach($media['cd'] as $key => $m){
+          $body = $m['book']['title'].',ซีดี,'.$m['id'].','.$m['numpart'];
+          if($m['borrow'] != null && $m['borrower'] != null){
+            $body = $body.','.$m['borrower']['name'].','.$m['borrow']['date_borrowed'];
+          }
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][4] == true){
+        foreach($media['dvd'] as $key => $m){
+          $body = $m['book']['title'].',ดีวีดี,'.$m['id'].','.$m['numpart'];
+          if($m['borrow'] != null && $m['borrower'] != null){
+            $body = $body.','.$m['borrower']['name'].','.$m['borrow']['date_borrowed'];
+          }
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      fputcsv($file,explode(','," "));
+    }
+
+    if($havemedia == true && $table_download[2] == true){
       $header = "";
       $body = "";
       $bodys = array();
@@ -267,13 +330,42 @@ class ReportController extends BaseController {
       fputcsv($file,explode(',',$header));
       if($media_input['enabled'][0] == true){
         foreach($media['braille_detail'] as $key => $m){
-          $body = $m['media']['book']['title'].',เบรลล์,'.$m['braille_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']];
+          $body = $m['braille_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']].','.$m['media']['book']['title'].',เบรลล์,';
           fputcsv($file,explode(',',$body));
           $body = "";
         }
       }
-
+      if($media_input['enabled'][1] == true){
+        foreach($media['cassette_detail'] as $key => $m){
+          $body = $m['cassette_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']].','.$m['media']['book']['title'].',เบรลล์,';
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][2] == true){
+        foreach($media['daisy_detail'] as $key => $m){
+          $body = $m['daisy_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']].','.$m['media']['book']['title'].',เบรลล์,';
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][3] == true){
+        foreach($media['cd_detail'] as $key => $m){
+          $body = $m['cd_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']].','.$m['media']['book']['title'].',เบรลล์,';
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      if($media_input['enabled'][4] == true){
+        foreach($media['dvd_detail'] as $key => $m){
+          $body = $m['dvd_id'].','.$m['id'].','.$m['part'].' จาก '.$m['media']['numpart'].','.$media_input['label'][$m['status']].','.$m['media']['book']['title'].',เบรลล์,';
+          fputcsv($file,explode(',',$body));
+          $body = "";
+        }
+      }
+      fputcsv($file,explode(','," "));
     }
+
     fclose($file);
     return "file at ../public/php/csv/output.csv";
   }

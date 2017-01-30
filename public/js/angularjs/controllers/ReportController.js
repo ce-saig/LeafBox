@@ -101,6 +101,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.loading = true;
 		var thread_media = false;
 		var thread_prod = false;
+		$scope.table_download = [true,true,true];
 		TableEnabled();
 		$http.post("/report/create_report_book",{book : $scope.books, prod : $scope.prods,id_mode : $scope.item.id_mode, book_id_init: $scope.item.book_id_init}).success(function(response){
 			$scope.report.prod = response.prods;
@@ -189,7 +190,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 				havemedia = true;
 			}
 		}
-		$http.post("/report/export_csv",{'column':$scope.columns, 'book':$scope.report.book,'media':$scope.report.media, 'media_input':$scope.medias,'havemedia': havemedia, 'media_label':$scope.media_label,'prod_status':$scope.BookProductionService.status}).success(function(response){
+		$http.post("/report/export_csv",{'column':$scope.columns, 'book':$scope.report.book,'media':$scope.report.media, 'media_input':$scope.medias,'havemedia': havemedia, 'media_label':$scope.media_label, 'borrow_label':$scope.borrow_label,'prod_status':$scope.BookProductionService.status, 'table_download':$scope.table_download}).success(function(response){
       		console.log(response);	
       		$scope.hidedownload = false;
     	});
