@@ -4,6 +4,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.books = {};
 	$scope.prods = {};
 	$scope.medias = {};
+	$scope.borrowers = {};
 	$scope.columns = {};
 	$scope.item = {};
 	$scope.report = {};
@@ -41,11 +42,19 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		TableEnabled();
 	}
 
-	$scope.ChangeColor = function(index){
-		if($scope.medias.enabled[index] == true){
-			$scope.medias.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+	$scope.ChangeColor = function(index, type){
+		if(type == "MEDIA"){
+			if($scope.medias.enabled[index] == true){
+				$scope.medias.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+			}else{
+				$scope.medias.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+			}
 		}else{
-			$scope.medias.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+			if($scope.borrowers.enabled[index] == true){
+				$scope.borrowers.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+			}else{
+				$scope.borrowers.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+			}
 		}
 	}
 
@@ -148,7 +157,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      		data = response[0];
 	      	}   
 	      	$scope.report.book = data;
-      		$http.post("/report/create_report_media",{media : $scope.medias, books : data}).success(function(response){
+      		$http.post("/report/create_report_media",{media : $scope.medias, books : data, borrowers : $scope.borrowers}).success(function(response){
       			$scope.report.media = response;
       			CreateTable();
       			thread_media = true;
@@ -200,6 +209,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.books.style = [];
 		$scope.prods.style = [];
 		$scope.medias.style = [];
+		$scope.borrowers.style = [];
 		for(i=0;i<$scope.books.enabled.length;i++){
 			$scope.books.style[i] = {'color': 'grey','background-color': '#e6e6e6'};
 		}
@@ -209,27 +219,34 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		for(i=0;i<$scope.medias.enabled.length;i++){
 			$scope.medias.style[i] = {'color': 'grey','background-color': '#e6e6e6'};
 		}
+		for(i=0;i<$scope.borrowers.enabled.length;i++){
+			$scope.borrowers.style[i] = {'color': 'grey','background-color': '#e6e6e6'};
+		}
 	}
 
 	var init = function(){
 		$scope.BookProductionService = BookProductionService;
-		$scope.books.label = ["เลขไอดี", "ชื่อหนังสือ", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ"];
-		$scope.books.field = ["id", "title", "author", "translate", "pub_year", "publisher", "book_type"];
-		$scope.books.model = [];
-		$scope.books.enabled = [false, false, false, false, false, false, false];
-		$scope.prods.label = ["เบรลล์", "คาสเซ็ท", "เดซี่", "ซีดี", "ดีวีดี"];
-		$scope.prods.field = ["bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
-		$scope.prods.model = [];
-		$scope.prods.enabled = [false, false, false, false, false];
-		$scope.medias.label = ["ปกติ", "ชำรุด", "รอซ่อม", "หาย"];
-		$scope.medias.model = [];
-		$scope.medias.enabled = [false, false, false, false, false];
-		$scope.columns.label = ["เลขไอดี", "ชื่อเรื่อง", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ", "สถานะผลิตเบรลล์", "สถานะผลิตคาสเซ็ท", "สถานะผลิตเดซี่", "สถานะผลิตซีดี", "สถานะผลิตดีวีดี"];
-		$scope.columns.field = ["id", "title", "author", "translate", "pub_year", "publisher", "book_type", "bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
-		$scope.columns.enabled = [true, true, true, true, true, true, true, false, false, false, false, false];
-		$scope.id_modes = ["=",">","<","-"];	
-		$scope.borrow_label = ["ชื่อหนังสือ", "ชนิดสื่อ", "เช็ทไอดีสื่อ", "จำนวนตอนทั้งหมด", "ผู้ยืม", "เมื่อ"];
-		$scope.media_label	= ['เช็ทไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ', 'ชื่อหนังสือ', 'ชนิดสื่อ'];
+		$scope.books.label 		= ["เลขไอดี", "ชื่อหนังสือ", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ"];
+		$scope.books.field 		= ["id", "title", "author", "translate", "pub_year", "publisher", "book_type"];
+		$scope.books.model 		= [];
+		$scope.books.enabled 	= [false, false, false, false, false, false, false];
+		$scope.prods.label 		= ["เบรลล์", "คาสเซ็ท", "เดซี่", "ซีดี", "ดีวีดี"];
+		$scope.prods.field 		= ["bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
+		$scope.prods.model 		= [];
+		$scope.prods.enabled 	= [false, false, false, false, false];
+		$scope.medias.label 	= ["ปกติ", "ชำรุด", "รอซ่อม", "หาย"];
+		$scope.medias.model 	= [];
+		$scope.medias.enabled 	= [false, false, false, false, false];
+		$scope.borrowers.label 	= ["ไอดีผู้ยืม", "ชื่อ", "เพศ"];
+		$scope.borrowers.gender = ["ชาย", "หญิง"];
+		$scope.borrowers.model 	= [];
+		$scope.borrowers.enabled = [false, false, false];
+		$scope.columns.label 	= ["เลขไอดี", "ชื่อเรื่อง", "ผู้แต่ง", "ผู้แปล", "ปีที่พิมพ์", "สำนักพิมพ์", "ประเภทหนังสือ", "สถานะผลิตเบรลล์", "สถานะผลิตคาสเซ็ท", "สถานะผลิตเดซี่", "สถานะผลิตซีดี", "สถานะผลิตดีวีดี"];
+		$scope.columns.field 	= ["id", "title", "author", "translate", "pub_year", "publisher", "book_type", "bm_status", "setcs_status", "setds_status", "setcd_status", "setdvd_status"];
+		$scope.columns.enabled 	= [true, true, true, true, true, true, true, false, false, false, false, false];
+		$scope.id_modes 		= ["=",">","<","-"];	
+		$scope.borrow_label 	= ["ชื่อหนังสือ", "ชนิดสื่อ", "เช็ทไอดีสื่อ", "จำนวนตอนทั้งหมด", "ผู้ยืม", "เมื่อ"];
+		$scope.media_label		= ['เช็ทไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ', 'ชื่อหนังสือ', 'ชนิดสื่อ'];
 		SetStyle();
 	}
 

@@ -71,6 +71,7 @@ class ReportController extends BaseController {
     $media['dvd_detail']      = array();
 
     $init_j = 0;
+    // Media from Book
     foreach($books as $book){
       if($media_filter['enabled'][0] == true){
         $b_media = Braille::where("book_id", "=", $book['id'])->get();
@@ -124,6 +125,7 @@ class ReportController extends BaseController {
       }
     }
 
+    // Media Detail from Media
     if($media_filter['enabled'][0] == true){
       foreach($media['braille'] as $m){
         $b_detail = Brailledetail::where("braille_id", "=", $m->id)->where('status', '=', $media_filter['model'][0])->get();
