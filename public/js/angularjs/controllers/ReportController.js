@@ -100,9 +100,13 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 			if($scope.medias.enabled[i] == true)
 				$scope.filter_enabled[2] = true;
 		}
+		for(i=0;i<$scope.borrowers.enabled.length;i++){
+			if($scope.borrowers.enabled[i] == true)
+				$scope.filter_enabled[3] = true;
+		}
 		for(i=0;i<$scope.columns.enabled.length;i++){
 			if($scope.columns.enabled[i] == true)
-				$scope.filter_enabled[3] = true;
+				$scope.filter_enabled[4] = true;
 		}
 	}
 
@@ -158,6 +162,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      	}   
 	      	$scope.report.book = data;
       		$http.post("/report/create_report_media",{media : $scope.medias, books : data, borrowers : $scope.borrowers}).success(function(response){
+      			console.log(response);
       			$scope.report.media = response;
       			CreateTable();
       			thread_media = true;

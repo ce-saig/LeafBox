@@ -58,6 +58,7 @@ class ReportController extends BaseController {
   {
     $media_filter  = Input::get("media");
     $books         = Input::get("books");
+    $borrowers     = Input::get("borrowers");
     $media         = array();
     $media['braille']   = array();
     $media['cassette']  = array();
@@ -124,6 +125,32 @@ class ReportController extends BaseController {
         }
       }
     }
+/*
+    // Media form Borrower
+    $media_borrower = array();
+    $mb = array();
+    if($borrowers['enabled'][0] == true){
+      if($borrowers['id_mode'] != "-"){
+        $mb[0] = Brailleborrow::where('braille_id', $id_mode, $borrowers['model'][0])->get();
+        $mb[1] = Cassetteborrow::where('cassette_id', $id_mode, $borrowers['model'][0])->get();
+        $mb[2] = Daisyborrow::where('daisy_id', $id_mode, $borrowers['model'][0])->get();
+        $mb[3] = Cdborrow::where('cd_id', $id_mode, $borrowers['model'][0])->get();
+        $mb[4] = Dvdborrow::where('dvd_id', $id_mode, $borrowers['model'][0])->get();
+      }else{
+        $mb[0] = Brailleborrow::whereBetween('braille_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();
+        $mb[1] = Cassetteborrow::whereBetween('cassette_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();
+        $mb[2] = Daisyborrow::whereBetween('daisy_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();  
+        $mb[3] = Cdborrow::whereBetween('cd_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();
+        $mb[4] = Dvdborrow::whereBetween('dvd_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();  
+      }
+      foreach($mb as $m){
+        for($i=0;$i<count($m);$i++){
+          array_push($media_borrower, $m);
+        }            
+      }      
+    }
+    return $media_borrower;
+*/
 
     // Media Detail from Media
     if($media_filter['enabled'][0] == true){
