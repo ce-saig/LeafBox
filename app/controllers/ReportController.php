@@ -75,7 +75,11 @@ class ReportController extends BaseController {
     // Media from Book
     foreach($books as $book){
       if($media_filter['enabled'][0] == true){
-        $b_media = Braille::where("book_id", "=", $book['id'])->get();
+        if($media_filter['haveborrower'] == 2){
+          $b_media = Braille::where("book_id", "=", $book['id'])->get();
+        }else{
+          $b_media = Braille::where("book_id", "=", $book['id'])->where("reserved", "=", $media_filter['haveborrower'])->get();
+        }
         foreach($b_media as $m){
           $m->borrow = Brailleborrow::where("braille_id", "=", $m->id)->orderBy('date_borrowed', 'desc')->first();
           if($m->borrow!=null)
@@ -85,7 +89,11 @@ class ReportController extends BaseController {
         }
       }
       if($media_filter['enabled'][1] == true){
-        $c_media = Cassette::where("book_id", "=", $book['id'])->get();
+        if($media_filter['haveborrower'] == 2){
+          $c_media = Cassette::where("book_id", "=", $book['id'])->get();
+        }else{
+          $c_media = Cassette::where("book_id", "=", $book['id'])->where("reserved", "=", $media_filter['haveborrower'])->get();
+        }
         foreach($c_media as $m){
           $m->borrow = Cassetteborrow::where("cassette_id", "=", $m->id)->orderBy('date_borrowed', 'desc')->first();
           if($m->borrow!=null)
@@ -95,7 +103,11 @@ class ReportController extends BaseController {
         }
       }
       if($media_filter['enabled'][2] == true){
-        $d_media = Daisy::where("book_id", "=", $book['id'])->get();
+        if($media_filter['haveborrower'] == 2){
+          $d_media = Daisy::where("book_id", "=", $book['id'])->get();
+        }else{
+          $d_media = Daisy::where("book_id", "=", $book['id'])->where("reserved", "=", $media_filter['haveborrower'])->get();
+        }
         foreach($d_media as $m){
           $m->borrow = Daisyborrow::where("daisy_id", "=", $m->id)->orderBy('date_borrowed', 'desc')->first();
           if($m->borrow!=null)
@@ -105,7 +117,11 @@ class ReportController extends BaseController {
         }
       }
       if($media_filter['enabled'][3] == true){
-        $cd_media = CD::where("book_id", "=", $book['id'])->get();
+        if($media_filter['haveborrower'] == 2){
+          $cd_media = CD::where("book_id", "=", $book['id'])->get();
+        }else{
+          $cd_media = CD::where("book_id", "=", $book['id'])->where("reserved", "=", $media_filter['haveborrower'])->get();
+        }
         foreach($cd_media as $m){
           $m->borrow = Cdborrow::where("cd_id", "=", $m->id)->orderBy('date_borrowed', 'desc')->first();
           if($m->borrow!=null)
@@ -115,7 +131,11 @@ class ReportController extends BaseController {
         }
       }
       if($media_filter['enabled'][4] == true){
-        $dvd_media = DVD::where("book_id", "=", $book['id'])->get();
+        if($media_filter['haveborrower'] == 2){
+          $dvd_media = DVD::where("book_id", "=", $book['id'])->get();
+        }else{
+          $dvd_media = DVD::where("book_id", "=", $book['id'])->where("reserved", "=", $media_filter['haveborrower'])->get();
+        }
         foreach($dvd_media as $m){
           $m->borrow = Dvdborrow::where("dvd_id", "=", $m->id)->orderBy('date_borrowed', 'desc')->first();
           if($m->borrow!=null)
@@ -124,33 +144,7 @@ class ReportController extends BaseController {
           array_push($media['dvd'], $m);
         }
       }
-    }
-/*
-    // Media form Borrower
-    $media_borrower = array();
-    $mb = array();
-    if($borrowers['enabled'][0] == true){
-      if($borrowers['id_mode'] != "-"){
-        $mb[0] = Brailleborrow::where('braille_id', $id_mode, $borrowers['model'][0])->get();
-        $mb[1] = Cassetteborrow::where('cassette_id', $id_mode, $borrowers['model'][0])->get();
-        $mb[2] = Daisyborrow::where('daisy_id', $id_mode, $borrowers['model'][0])->get();
-        $mb[3] = Cdborrow::where('cd_id', $id_mode, $borrowers['model'][0])->get();
-        $mb[4] = Dvdborrow::where('dvd_id', $id_mode, $borrowers['model'][0])->get();
-      }else{
-        $mb[0] = Brailleborrow::whereBetween('braille_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();
-        $mb[1] = Cassetteborrow::whereBetween('cassette_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();
-        $mb[2] = Daisyborrow::whereBetween('daisy_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();  
-        $mb[3] = Cdborrow::whereBetween('cd_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();
-        $mb[4] = Dvdborrow::whereBetween('dvd_id', array($borrowers['init_id'], $borrowers['model'][0]))->get();  
-      }
-      foreach($mb as $m){
-        for($i=0;$i<count($m);$i++){
-          array_push($media_borrower, $m);
-        }            
-      }      
-    }
-    return $media_borrower;
-*/
+    }  
 
     // Media Detail from Media
     if($media_filter['enabled'][0] == true){
@@ -161,7 +155,6 @@ class ReportController extends BaseController {
           array_push($media['braille_detail'], $b_detail[$j]);
         }
       }
-      
     }
     if($media_filter['enabled'][1] == true){
       foreach($media['cassette'] as $m){

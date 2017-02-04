@@ -43,6 +43,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	}
 
 	$scope.ChangeColor = function(index, type){
+		$scope.havemedia = false;
 		if(type == "MEDIA"){
 			if($scope.medias.enabled[index] == true){
 				$scope.medias.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
@@ -54,6 +55,11 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 				$scope.borrowers.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
 			}else{
 				$scope.borrowers.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+			}
+		}
+		for(i=0;i<$scope.medias.enabled.length;i++){
+			if($scope.medias.enabled[i] == true){
+				$scope.havemedia = true;
 			}
 		}
 	}
@@ -169,7 +175,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
       			if(thread_prod == true){
       				$scope.loading = false;
       			}
-    		});	
+    		});
       		$http.post("/report/create_report_prod",{books : data}).success(function(response){
       			$scope.report.prod = response;
       			thread_prod = true;
@@ -198,13 +204,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 
 	$scope.ExportCSV = function(){
 		$scope.hidedownload = true;
-		var havemedia = false;
-		for(i=0;i<$scope.medias.enabled.length;i++){
-			if($scope.medias.enabled[i] == true){
-				havemedia = true;
-			}
-		}
-		$http.post("/report/export_csv",{'column':$scope.columns, 'book':$scope.report.book,'media':$scope.report.media, 'media_input':$scope.medias,'havemedia': havemedia, 'media_label':$scope.media_label, 'borrow_label':$scope.borrow_label,'prod_status':$scope.BookProductionService.status, 'table_download':$scope.table_download}).success(function(response){
+		$http.post("/report/export_csv",{'column':$scope.columns, 'book':$scope.report.book,'media':$scope.report.media, 'media_input':$scope.medias,'havemedia': $scope.havemedia, 'media_label':$scope.media_label, 'borrow_label':$scope.borrow_label,'prod_status':$scope.BookProductionService.status, 'table_download':$scope.table_download}).success(function(response){
       		console.log(response);	
       		$scope.hidedownload = false;
     	});
@@ -240,6 +240,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.prods.model 		= [];
 		$scope.prods.enabled 	= [false, false, false, false, false];
 		$scope.medias.label 	= ["ปกติ", "ชำรุด", "รอซ่อม", "หาย"];
+		$scope.medias.borrower 	= ["ไม่ถูกยืม", "ถูกยืม", "ทั้งหมด"];
 		$scope.medias.model 	= [];
 		$scope.medias.enabled 	= [false, false, false, false, false];
 		$scope.borrowers.label 	= ["ไอดีผู้ยืม", "ชื่อ", "เพศ"];
@@ -252,6 +253,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.id_modes 		= ["=",">","<","-"];	
 		$scope.borrow_label 	= ["ชื่อหนังสือ", "ชนิดสื่อ", "เช็ทไอดีสื่อ", "จำนวนตอนทั้งหมด", "ผู้ยืม", "เมื่อ"];
 		$scope.media_label		= ['เช็ทไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ', 'ชื่อหนังสือ', 'ชนิดสื่อ'];
+		$scope.medias.haveborrower = 2;
 		SetStyle();
 	}
 

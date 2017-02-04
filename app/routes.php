@@ -175,7 +175,6 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('/create_report_book','ReportController@getBooks');
     Route::post('/create_report_media','ReportController@getMedias');
     Route::post('/create_report_prod','ReportController@getProds');
-    Route::post('/create_report_prod','ReportController@getProds');
     Route::post('/export_csv','ReportController@exportCSV');
 
     Route::group(array('prefix' => 'borrow'), function(){

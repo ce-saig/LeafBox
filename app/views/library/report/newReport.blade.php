@@ -62,6 +62,15 @@
     		  </select>  
 		    </div><!-- /input-group -->
 		  </div><!-- /.col-lg-3 -->
+      <div class="col-lg-3" style="margin-top: 10px" ng-show="havemedia">  
+        <div class="input-group">
+          <span class="input-group-addon" style="font-size: 17px;color:white;background-color: #4d4d4d">
+            ข้อมูลผู้ยืม
+          </span>
+          <select class="form-control" ng-options = "idx as item for (idx, item) in medias.borrower" ng-model="medias.haveborrower" ng-init="medias.haveborrower = '2'" style="height: 32px">
+          </select>  
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-3 -->
   	</div> <!-- End Media container -->
 
     <div class="container col-md-12" style="margin-top: 20px" ng-hide="true">
@@ -74,7 +83,7 @@
             <input type="checkbox" ng-model="borrowers.enabled[$index]" ng-click="ChangeColor($index,'Borrower')"> <%borrower%>
           </span>
           <input type="number" class="form-control" ng-model="borrowers.init_id" ng-disabled="!borrowers.enabled[$index]" style="font-size: 16px" min="0" ng-if="$first" ng-show="borrowers.id_mode=='3'">             
-          <span class="input-group-btn" style="height: 37px;width: 20%" ng-if="$first">
+          <span class="input-group-btn" style="height: 37px;width: 60px" ng-if="$first">
             <select class="form-control" ng-options = "idx as item for (idx, item) in id_modes" ng-model="borrowers.id_mode" ng-disabled="!borrowers.enabled[$index]" ng-init="borrowers.id_mode = '0'"> 
             </select>
           </span>           
