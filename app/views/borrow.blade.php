@@ -348,7 +348,7 @@
       $.ajax({
         type: "GET",
         url: "{{ url('borrow/book') }}/" + id,
-      }).done(function(data) {
+      }).success(function(data) {
         if(data['status']){
           var input_data = data['media'];
           var tr_table = $('<tr id="media-row_' + id + '"></tr>');
@@ -366,10 +366,10 @@
             type = "เดซี่";
           }
           else if(input_data['type'] == "CD") {
-            type = "CD";
+            type = "ซีดี";
           }
           else if(input_data['type'] == "DVD") {
-            type = "DVD";
+            type = "ดีวีดี";
           }
           tr_table.append('<td>'+type+'</td>');
           tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
@@ -490,7 +490,7 @@
 
      for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
       if(jsonArr[i][4][dvdIndex].reserved == 0) {
-          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><td class='isBorrowed' hidden>n</td><br>");        
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");

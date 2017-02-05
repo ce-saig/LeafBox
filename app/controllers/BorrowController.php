@@ -40,23 +40,25 @@ class BorrowController extends BaseController {
     $mediaTypeID= null;
     //preg_replace("/[0-9]/", "", $mediaType);
     $id = preg_replace("/[^0-9]/", "", $id);
+    $mediaType = preg_replace("/[^A-Z]/", "", $mediaType);
 
-    if(strpos($mediaType, "DVD")!==false){
-      $item = DVD::find((int)$id);
-      $mediaType="DVD";
-    }else if(strpos($mediaType, "CD")!==false){
+    if($mediaType == "B"){
+      $item = Braille::find((int)$id);
+      $mediaType="Braille";
+    }else if($mediaType == "CD"){
       $item = CD::find((int)$id);
       $mediaType="CD";
-    }else if(strpos($mediaType, "D")!==false){
+    }else if($mediaType == "D"){
       $item = Daisy::find((int)$id);
       $mediaType="Daisy";
-    }else if(strpos($mediaType, "C")!==false){
+    }else if($mediaType == "C"){
       $item = Cassette::find((int)$id);
       $mediaType="Cassette";
     }else{ //braile
-      $item = Braille::find((int)$id);
-      $mediaType="Braille";
+      $item = DVD::find((int)$id);
+      $mediaType="DVD";
     }
+
 
     // $media = findBy MediaID
     $selectedList = Session::get('borrow', array());
