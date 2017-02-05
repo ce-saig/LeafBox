@@ -54,7 +54,7 @@ app.factory('BookProductionService', function($rootScope, $http, MediaService){
 			return status[media_type][statusNum];
 		},
 		canAddMedia(mediaNum, statusNum) {
-			return (parseInt(statusNum) == 3) ? true : false;
+			return (parseInt(statusNum) == 4) ? true : false;
 		},
 		getLastProductionStatus(data, success, error) {
 			$http({

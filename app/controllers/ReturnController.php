@@ -292,7 +292,7 @@ class ReturnController extends BaseController {
     // change sting of type to class
     $class_name = ucfirst($mediatype)."borrow";
     // create class from string
-    $borrows = $class_name::where('member_id', '=', $member_id)->get();
+    $borrows = $class_name::where('member_id', '=', $member_id)->where('actual_returned','=','0000-00-00 00:00:00')->get();
     // get session
     $returnList = Session::get('list', array());
     
@@ -324,7 +324,8 @@ class ReturnController extends BaseController {
       $list['no']      = count($returnList)+1;
       $list['title']   = $book['title'];
       // if Cd 
-      if($mediatype == 'cd')$media_type = 'Cd';
+      if($mediatype == 'cd')$media_type = 'CD';
+      if($mediatype == 'dvd')$media_type = 'DVD';
       $list['id']      = $media_type . $media->id;
       $list['item']    = $media;
       $list['type']    = $mediatype;

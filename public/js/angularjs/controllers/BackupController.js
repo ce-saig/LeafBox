@@ -39,14 +39,12 @@ app.controller('BackupController', function($scope,$http,$window) {
 
 	$scope.DeleteFile = function(){
 		$http.post("/php/Delete.php",{file:$scope.files[$scope.temp_sel].file}).success(function(data){
-      		console.log(data);
     		$scope.Init();
     	});
 	}
 
 	$scope.Backup = function(){
 		$http.get("/php/Backup.php").success(function(data){
-      		console.log(data);
     		$scope.Init();
     	});
 	}
@@ -54,7 +52,6 @@ app.controller('BackupController', function($scope,$http,$window) {
 	$scope.Restore = function(){
 		$scope.loading = true;
 		$http.post("/php/Restore.php",{file:$scope.files[$scope.temp_sel].file, used: $scope.used_file}).success(function(data){
-      		console.log(data);
       		$scope.Init();
       		$scope.loading =false;
     	});
@@ -62,7 +59,6 @@ app.controller('BackupController', function($scope,$http,$window) {
 
 	$scope.Init = function(){
 		$http.get("/php/Files.php").success(function(data){
-      		console.log(data);
       		$scope.files = [];
       		$scope.used_file == null;
       		var today = new Date();

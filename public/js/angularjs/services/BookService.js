@@ -3,7 +3,6 @@ var app = angular.module('leafBox');
 app.factory('BookService', function($rootScope, $resource, $http){
 	var rootUrl = '/book/' + $rootScope.selected_book_id;
 	var mediaUrl = '/book/' + $rootScope.selected_book_id + '/' + $rootScope.selected_media_id;
-	console.log(mediaUrl);
 	return{
 		getBookByID(success, error) {
 			$http({
