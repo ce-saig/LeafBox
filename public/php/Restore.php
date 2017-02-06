@@ -3,8 +3,8 @@
 				// P.S. IMPORTANT NOTE for people who try to change/replace some strings  in SQL FILE before importing, MUST READ:  https://goo.gl/2fZDQL
 	// https://github.com/tazotodua/useful-php-scripts 
 	$host = 'localhost';
-	$username = "root";
-	$password = "";
+	$username = "leafbox";
+	$password = "{ko-hv,^]";
 	$dbname = "leafbox";
 
 	function CLEAR_TABLES($host,$user,$pass,$dbname){
