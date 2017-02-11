@@ -264,7 +264,7 @@ class ReportController extends BaseController {
       $body = "";  
     } 
 
-    $file = fopen("public/php/csv/output.csv","w");
+    $file = fopen("php/csv/output.csv","w");
     fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
 
     if($table_download[0]==true){

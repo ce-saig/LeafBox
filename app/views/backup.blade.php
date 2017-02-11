@@ -24,7 +24,6 @@
 		  <tr ng-repeat="file in files" style="font-size: 16px;" ng-style="select[$index].style" class="sel_hover">
 		  	<td style="font-size: 18px">
 		  		<span ng-class="select[$index].class" ng-click="Selecting($index)"></span>
-		  		<span ng-show="select[$index].value == 1" class="glyphicon glyphicon-trash" data-toggle="modal" data-target=".confirm_modal"></span>
 		  	</td>
 		    <td><%file.date%></td>
 		    <td><%file.time%></td> 
@@ -37,7 +36,13 @@
   	</div>
   	<div class="col-md-12" ng-hide = "loading">
    		<div class="btn btn-success pull-left" ng-click="Backup()">สำรองฐานข้อมูล</div>
-   		<div class="btn btn-warning pull-right" ng-click="Restore()" ng-disabled="canRestore">คืนค่าฐานข้อมูล </div>
+   		<div class="pull-right">
+			<div class="btn btn-danger" data-toggle="modal" data-target=".confirm_modal" ng-disabled="canRestore">
+				ลบไฟล์
+			</div>
+   			<div class="btn btn-warning" ng-click="Restore()" ng-disabled="canRestore">คืนค่าฐานข้อมูล </div>  
+   		</div>
+   		
   	</div> 	
   	<div class="alert alert-warning col-md-12 text-center" ng-show = "loading">
    		<span style="font-size: 30px">Processing...</span>
