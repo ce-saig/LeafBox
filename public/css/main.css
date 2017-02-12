@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Itim');
+@import url('https://fonts.googleapis.com/css?family=Trirong');
 * {
   margin: 0;
 }
@@ -6,7 +6,7 @@ html, body {
   height: 100%;
   background-color: #ecf0f1;
   margin-bottom: 100px;
-  font-family: 'Itim', cursive;
+  font-family: 'Trirong', serif;
 }
 .wrapper {
   min-height: 100%;
