@@ -241,18 +241,10 @@ class BookController extends Controller{
     $type = Input::get('search_type');
     $input = Input::get('search_value');
     $offset = Input::get('data_offset');
-    if($type == "title"){
-      $query = Book::where("title","LIKE","%".$input."%");
-    }else if($type == "author"){
-      $query = Book::where("author","LIKE","%".$input."%");
-    }else if($type == "translate"){
-      $query = Book::where("translate","LIKE","%".$input."%");
-    }else if($type == "isbn"){
-      $query = Book::where("isbn","=","LIKE","%".$input."%");
-    }else if($type == "id"){
-      $query = Book::where("id","=",$input);
+    if($type == "id" || $type == "original_no" || $type == "isbn" || $type == "pub_year"){
+      $query = Book::where($type,"=",$input);
     }else{
-      return "ERROR :: Wrong Format !!";
+      $query = Book::where($type,"LIKE","%".$input."%");
     }
     $obj = $query->take(6)->offset($offset)->get();
     $count = $query->count();

@@ -11,9 +11,13 @@
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" id = "search_type" role="menu">
 			    <option value = "title" >ชื่อ</option>
+			    <option value = "book_type" >ประเภทหนังสือ</option>
 			    <option value = "author" >ชื่อผู้แต่ง</option>
 			    <option value = "translate" >ชื่อผู้แปล</option>
+			    <option value = "publisher" >สำนักพิมพ์</option>
+			    <option value = "pub_year" >ปีที่พิมพ์</option>
 			    <option value = "isbn" >ISBN</option>
+			    <option value = "original_id" >ORIGINAL ID</option>
 			    <option value = "id" >ID</option>
 			 </select>
 		</div>
