@@ -122,7 +122,7 @@
     </select>
   </div>
   <div class="col-md-2">
-    <button class="btn btn-warning" ng-click="ChangeMaster()">เปลี่ยนต้นฉบับ</button>
+    <button class="btn btn-warning btn-sm" ng-click="ChangeMaster()">เปลี่ยนต้นฉบับ</button>
   </div>
 </div>
 
@@ -183,7 +183,7 @@
 <hr>
   <div class="container text-center" style="margin-top: 20px; width: auto;">
     <button type="submit" class="btn btn-lg btn-danger pull-left" id="cancel-form">ยกเลิก</button>
-    <input class="btn btn-lg btn-success pull-right" value="บันทึก" ng-click="EditBook()">
+    <input class="btn btn-success pull-right" value="บันทึก" ng-click="EditBook()">
   </div>
 
 <script type="text/javascript">

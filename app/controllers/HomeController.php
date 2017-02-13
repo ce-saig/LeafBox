@@ -4,7 +4,7 @@ class HomeController extends Controller {
 
 	public function index() {
 		$books = Book::where("id",">=",1)->get();
-		$books_all = DB::table('book')->orderBy('created_at', 'desc')->take(100)->get();
+		$books_all = DB::table('book')->orderBy('created_at', 'desc')->take(30)->get();
 		//$books_all = Book::all();
 		return View::make('library.index',array('books' => $books , 'books_all' => $books_all ));
 	}
