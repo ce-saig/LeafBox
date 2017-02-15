@@ -220,14 +220,14 @@ class BookController extends Controller{
     $book->setds_note = Input::get('setds_note');
     $book->setcd_note = Input::get('setcd_note');
     $book->setdvd_note= Input::get('setdvd_note');
-//    $book->bm_date    = Input::get('bm_date');
-//    $book->setcs_date = Input::get('setcs_date');
-//    $book->setds_date = Input::get('setds_date');
-//    $book->setcd_date = Input::get('setcd_date');
-//    $book->setdvd_date= Input::get('setdvd_date');
+    $book->bm_date    = Input::get('prod_date');
+    $book->setcs_date = Input::get('prod_date');
+    $book->setds_date = Input::get('prod_date');
+    $book->setcd_date = Input::get('prod_date');
+    $book->setdvd_date= Input::get('prod_date');
     $book->original_no= Input::get('original_no');
     $book->regis_date = Input::get('regis_date');
-    $book->updated_at = (date("Y")+543).date("-m-d H:i:s");
+    $book->updated_at = (date("Y")).date("-m-d H:i:s");
     $book->save();
     if(Input::get('prod_id') != 0){
       $prod = BookProd::find(Input::get('prod_id'));
@@ -277,15 +277,26 @@ class BookController extends Controller{
     $bp->action = $data["action"];
     $bp->act_date = $data['act_date'];
     $bp->finish_date = $data['finish_date'];
+    $bp->created_at  = date("Y-m-d H:i:s");
     $bp->user()->associate(User::find($data['actioner']['id']));
     $book = Book::find($bid);
 
     switch($data["media_type"]){
-      case "0": $book->bm_status = $data["action"]; $book->save(); break;
-      case "1": $book->setcs_status = $data["action"]; $book->save(); break;
-      case "2": $book->setds_status = $data["action"]; $book->save(); break;
-      case "3": $book->setcd_status = $data["action"]; $book->save(); break;
-      case "4": $book->setdvd_status = $data["action"]; $book->save(); break;
+      case "0": $book->bm_status = $data["action"]; 
+                $book->bm_date   = date("Y-m-d H:i:s"); 
+                $book->save(); break;
+      case "1": $book->setcs_status = $data["action"]; 
+                $book->setcs_date   = date("Y-m-d H:i:s");
+                $book->save(); break;
+      case "2": $book->setds_status = $data["action"]; 
+                $book->setds_date   = date("Y-m-d H:i:s");
+                $book->save(); break;
+      case "3": $book->setcd_status = $data["action"]; 
+                $book->setcd_date   = date("Y-m-d H:i:s");
+                $book->save(); break;
+      case "4": $book->setdvd_status = $data["action"]; 
+                $book->setdvd_date   = date("Y-m-d H:i:s");
+                $book->save(); break;
     }
 
     if($bp->action == 5) {

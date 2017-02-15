@@ -196,18 +196,11 @@ class MediaController extends Controller{
   }
 
   public function addBraille($bookId){
-    $braille = new Braille();
     $book = Book::find($bookId);
-    $amount = $book->braille()->count();
-    if(!$amount)
-      $book->bm_date = (date('Y') + 543).date('-m-d H:i:s');
-
-    $book->bm_status = 'ผลิต';
-    $book->save();
-
+    $braille = new Braille();
     $amount = Input::get('numpart');
     $braille->book()->associate($book);
-    $braille->produced_date = (date('Y') + 543).date('-m-d H:i:s');
+    $braille->produced_date = (date('Y')).date('-m-d H:i:s');
     //$braille->status = 0; // 0 normal,1 broken,2 wait for repeir
     $braille->pages = Input::get('pages');
     $braille->original_no = Input::get('original_no');
@@ -221,7 +214,8 @@ class MediaController extends Controller{
     for($i=1; $i<=$amount; $i++){
       $brailledetail = new Brailledetail();
       $brailledetail->part = $i;
-      $brailledetail->date = (date('Y') + 543).date('-m-d H:i:s');
+      $brailledetail->date = (date('Y')).date('-m-d H:i:s');
+      $brailledetail->created_at = (date('Y')).date('-m-d H:i:s');
       $brailledetail->braille()->associate($braille);
       $brailledetail->save();
     }
@@ -233,17 +227,9 @@ class MediaController extends Controller{
 
   public function addCassette($bookId){
     $book = Book::find($bookId);
-
-    $amount = count(Cassette::where('book_id', $bookId)->get());
-    if(!$amount)
-      $book->setcs_date = (date('Y') + 543).date('-m-d H:i:s');
-
-    $book->setcs_status = 'ผลิต';
-    $book->save();
-
     $amount = Input::get('numpart');
     $cassette = new Cassette();
-    $cassette->produced_date = (date('Y') + 543).date('-m-d H:i:s');
+    $cassette->produced_date = (date('Y')).date('-m-d H:i:s');
     $cassette->numpart = $amount;
     $cassette->original_no = Input::get('original_no');
     $cassette->length = Input::get('length');
@@ -257,7 +243,8 @@ class MediaController extends Controller{
       $cassetteDetail = new Cassettedetail();
       $cassetteDetail->part = $i;
       $cassetteDetail->status = 0;
-      $cassetteDetail->date = (date('Y') + 543).date('-m-d H:i:s');
+      $cassetteDetail->date = (date('Y')).date('-m-d H:i:s');
+      $cassetteDetail->created_at = (date('Y')).date('-m-d H:i:s');
       $cassetteDetail->cassette()->associate($cassette);
       $cassetteDetail->save();
     }
@@ -268,17 +255,18 @@ class MediaController extends Controller{
 
   public function addDaisy($bookId){
     $book = Book::find($bookId);
-
+/*
     $amount = count(Daisy::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->setds_date = (date('Y') + 543).date('-m-d H:i:s');
+      $book->setds_date = (date('Y')).date('-m-d H:i:s');
 
     $book->setds_status = 'ผลิต';
     $book->save();
-
+*/
     $amount = Input::get('numpart');
     $daisy = new Daisy();
-    $daisy->produced_date = (date('Y') + 543).date('-m-d H:i:s');
+    $daisy->produced_date = (date('Y')).date('-m-d H:i:s');
+    $brailledetail->created_at = (date('Y')).date('-m-d H:i:s');
     $daisy->numpart = $amount;
     $daisy->length = Input::get('length');
     $daisy->book()->associate(Book::find($bookId));
@@ -292,7 +280,8 @@ class MediaController extends Controller{
       $daisydetail = new Daisydetail();
       $daisydetail->part = $i;
       $daisydetail->status = 0;
-      $daisydetail->date = (date('Y') + 543).date('-m-d H:i:s');
+      $daisydetail->date = (date('Y')).date('-m-d H:i:s');
+      $daisydetail->created_at = (date('Y')).date('-m-d H:i:s');
       $daisydetail->daisy()->associate($daisy);
       $daisydetail->save();
     }
@@ -306,7 +295,7 @@ class MediaController extends Controller{
 
     $amount = Input::get('numpart');
     $cd = new CD();
-    $cd->produced_date = (date('Y') + 543).date('-m-d H:i:s');
+    $cd->produced_date = (date('Y')).date('-m-d H:i:s');
     $cd->book()->associate(Book::find($bookId));
     $cd->numpart = $amount;
     $cd->length = Input::get('length');
@@ -320,7 +309,8 @@ class MediaController extends Controller{
       $cddetail = new Cddetail();
       $cddetail->part = $i;
       $cddetail->status = 0;
-      $cddetail->date = (date('Y') + 543).date('-m-d H:i:s');
+      $cddetail->date = (date('Y')).date('-m-d H:i:s');
+      $cddetail->created_at = (date('Y')).date('-m-d H:i:s');
       $cddetail->cd()->associate($cd);
       $cddetail->save();
     }
@@ -334,12 +324,12 @@ class MediaController extends Controller{
 
     $amount = count(DVD::where('book_id', $bookId)->get());
     if(!$amount)
-      $book->setdvd_date = (date('Y') + 543).date('-m-d H:i:s');
+      $book->setdvd_date = (date('Y')).date('-m-d H:i:s');
     $book->save();
 
     $amount = Input::get('numpart');
     $dvd = new DVD();
-    $dvd->produced_date = (date('Y') + 543).date('-m-d H:i:s');
+    $dvd->produced_date = (date('Y')).date('-m-d H:i:s');
     $dvd->book()->associate(Book::find($bookId));
     $dvd->numpart = $amount;
     $dvd->length = Input::get('length');
@@ -353,7 +343,8 @@ class MediaController extends Controller{
       $dvddetail = new Dvddetail();
       $dvddetail->part = $i;
       $dvddetail->status = 0;
-      $dvddetail->date = (date('Y') + 543).date('-m-d H:i:s');
+      $dvddetail->date = (date('Y')).date('-m-d H:i:s');
+      $dvddetail->created_at = (date('Y')).date('-m-d H:i:s');
       $dvddetail->dvd()->associate($dvd);
       $dvddetail->save();
     }
@@ -458,7 +449,7 @@ class MediaController extends Controller{
         $detail = new $detailClassName[$media_type]();
         $detail->part = $i;
         $detail->status = 0;
-        $detail->date = (date('Y') + 543).date('-m-d H:i:s');
+        $detail->date = (date('Y')).date('-m-d H:i:s');
         if($media_type == 'braille')
           $detail->braille()->associate($media);
         else if($media_type == 'cassette')
@@ -499,7 +490,7 @@ class MediaController extends Controller{
         $details->date = date_format($dateTmp, 'Y-m-d H:i:s');
       }
       else
-        $details->date = (date('Y') + 543).date('-m-d H:i:s');
+        $details->date = (date('Y')).date('-m-d H:i:s');
 
       $i++;
       $details->save();
@@ -522,7 +513,7 @@ class MediaController extends Controller{
         $details->date = date_format($dateTmp, 'Y-m-d H:i:s');
       }
       else
-        $details->date = (date('Y') + 543).date('-m-d H:i:s');
+        $details->date = (date('Y')).date('-m-d H:i:s');
 
       $i++;
       $details->save();
@@ -547,7 +538,7 @@ class MediaController extends Controller{
         $details->date = date_format($dateTmp, 'Y-m-d H:i:s');
       }
       else
-        $details->date = (date('Y') + 543).date('-m-d H:i:s');
+        $details->date = (date('Y')).date('-m-d H:i:s');
 
       $i++;
       $details->save();
@@ -571,7 +562,7 @@ class MediaController extends Controller{
         $details->date = date_format($dateTmp, 'Y-m-d H:i:s');
       }
       else
-        $details->date = (date('Y') + 543).date('-m-d H:i:s');
+        $details->date = (date('Y')).date('-m-d H:i:s');
 
       $i++;
       $details->save();
@@ -594,7 +585,7 @@ class MediaController extends Controller{
         $details->date = date_format($dateTmp, 'Y-m-d H:i:s');
       }
       else
-        $details->date = (date('Y') + 543).date('-m-d H:i:s');
+        $details->date = (date('Y')).date('-m-d H:i:s');
 
       $i++;
       $details->save();

@@ -149,7 +149,7 @@ class BorrowController extends BaseController {
 
     //date_borrowed
 
-    $dateBorrow = (date("Y") + 543).date("-m-d H:i:s");
+    $dateBorrow = (date("Y")).date("-m-d H:i:s");
     //date_returned
     //TODO What return date should kept? today+borrow time/specific return date
     $dateTmp = date_create_from_format('d/m/Y', Session::get('retdate', date("d/m/Y",strtotime(' +15 day'))));

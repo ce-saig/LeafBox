@@ -144,7 +144,7 @@ class ReturnController extends BaseController {
   public function postSubmitReturn()
   {
     $returnList = Session::get('list', array());
-    $dateReturned = (date("Y") + 543).date("-m-d H:i:s");
+    $dateReturned = (date("Y")).date("-m-d H:i:s");
     foreach ($returnList as $item) {
       // id form is "cd5" it's need to split to two parameter.
       $media_id = preg_replace("/[^0-9]/", "", $item['id']);
