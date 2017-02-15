@@ -152,7 +152,7 @@
 						<div class = "col-md-3 icon">
 						  <a href="{{URL::to('/book/add')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Book.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/book-with-add-button.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4>เพิ่มหนังสือ</h4>
@@ -172,7 +172,7 @@
 						<div class = "col-md-3 icon text-center">
 						  <a href="{{URL::to('/return')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Pocket.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/book-r.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4> คืนหนังสือ </h4>
@@ -181,7 +181,7 @@
 						</div>
 						<div class = "col-md-3 icon text-center">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Retina-Ready.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/lecture.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4> จัดการผู้ใช้ </h4>
