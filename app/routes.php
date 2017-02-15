@@ -115,9 +115,9 @@ Route::group(array('before' => 'auth'), function() {
   Route::get('borrow', 'BorrowController@index');
   Route::get('borrow/book/{mediaId}', 'BorrowController@postSelectBook');
   Route::get('borrow/search', 'BorrowController@getSearch');
-  Route::get('borrow/submit', 'BorrowController@postSubmitSelectedList');
   Route::get('borrow/clear', 'BorrowController@getClear');
 
+  Route::post('borrow/submit', 'BorrowController@postSubmitSelectedList');
   Route::post('borrow/retdate', 'BorrowController@postRetDate');
   Route::post('borrow/delete/{mediaID}', 'BorrowController@deleteSelectedMedia');
 

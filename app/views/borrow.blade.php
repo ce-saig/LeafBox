@@ -93,11 +93,11 @@
             <div class="col-md-12">
               <h4>สรุป</h4>
               <div class ="well">
-                <div class="form-inline">
+                <div class="form-inline" ng-controller = "BorrowController">
                   <div class="form-group input-group">
-                    <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y')); }}</div>
+                    <div class="input-group-addon">วันยืม : {{ date('Y-m-d') }}</div>
                     <div class="input-group-addon">วันคืน : </div>
-                    <input type="text" class="form-control" name="" id="datepicker"/>
+                    <div><input type="text" class="form-control" id="datepicker" uib-datepicker-popup="yyyy-MM-dd" ng-model="return_date" uib-datepicker-popup is-open="return_date_popup.opened" datepicker-options="dateOptions" ng-click="return_date_popup.opened = true"></div>
                   </div>
                 </div>
               </div>
@@ -228,13 +228,6 @@
 
   updateMediaAmount();
 
-  $(function() {
-  $("#datepicker").datepicker({
-            //  language:'th-th',
-              format: 'dd/mm/yyyy'
-            });
-  });
-
   $('#submit-media').click(function(event) {
     event.preventDefault();
     if(!selectedMember || amountOfMedia == 0 || !$('#datepicker').val()) {
@@ -251,9 +244,11 @@
     }
     else {
       $.ajax({
-        type: "GET",
+        type: "POST",
         url: "{{ url('borrow/submit') }}",
+        data: {retdate: $('#datepicker').val()},
       }).done(function(data) {
+        console.log(data);
         if(data == "completed") {
           clearData();
           $('#form_completed').modal('show');

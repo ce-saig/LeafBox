@@ -1,6 +1,7 @@
 var app = angular.module('leafBox');
 
 app.controller('BackupController', function($scope,$http,$window) {
+	$scope.hello = "hello";
 	$scope.temp_sel = "NONE";
 	$scope.canRestore = true;
 	$scope.loading = false;

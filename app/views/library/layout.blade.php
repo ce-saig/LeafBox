@@ -145,6 +145,7 @@
 <script src="{{ asset('js/angularjs/controllers/BackupController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/BookViewController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/BookEditController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/BorrowController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ProductionStatusController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ReportController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailEditController.js') }}"></script>

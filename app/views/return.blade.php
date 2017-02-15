@@ -94,7 +94,7 @@
           <div class="col-md-12">
             <h4>สรุป</h4>
             <div class ="well">
-              <div class="form-inline form-group input-group input-group-addon">วันคืน : {{ date('d-m-').(date('Y')); }}</div>
+              <div class="form-inline form-group input-group input-group-addon">วันคืน : {{ date('Y-m-d') }}</div>
             </div>
           </div>
           <div class="col-md-12">
