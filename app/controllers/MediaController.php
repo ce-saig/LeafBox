@@ -27,7 +27,7 @@ class MediaController extends Controller{
         return CD::where('book_id', '=',$bid)->get();
       case 'daisy':
         return Daisy::where('book_id', '=',$bid)->get();
-      case 'dvd':
+      default:
         return DVD::where('book_id', '=',$bid)->get();
     }
   }

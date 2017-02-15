@@ -33,6 +33,7 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 
 			$scope.BookService.getMediaByType({media_type:$scope.type},function(response){
 				$scope.media_list = response.data; 
+				console.log(response.data);
 				for(i=0;i<$scope.media_list.length;i++){
 					$scope.media_list[i].text = $scope.media_list[i].id;
 					if($scope.media_list[i].original_no != null){
