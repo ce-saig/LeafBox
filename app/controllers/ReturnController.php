@@ -178,7 +178,7 @@ class ReturnController extends BaseController {
       $temp_media->reserved = 0;
       $temp_media->save();
 
-      $borrowed_rec->actual_returned = $dateReturned;
+      $borrowed_rec->actual_returned = date('Y-m-d H:i:s');
       $borrowed_rec->save();
     }
 
