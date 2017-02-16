@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Trirong');
+@font-face {
+    font-family: Trirong;
+    src: url(Trirong.ttf);
+}
 * {
   margin: 0;
 }

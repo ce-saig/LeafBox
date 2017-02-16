@@ -10,7 +10,7 @@
     <div class = "col-md-12">
      <div class="panel panel-primary">
       <div class="panel-heading">
-        <h4 class="panel-title" >ระบบยืมหนังสือ</h4>
+      <span style="color:white;font-size: 24px">ระบบยืมหนังสือ</span>
       </div>
       <div class="panel-body">
 

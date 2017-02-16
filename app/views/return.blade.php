@@ -6,7 +6,7 @@
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">ระบบคืนหนังสือ</h3>
+      <span style="color:white;font-size: 24px">ระบบคืนหนังสือ</span>
     </div>
     <div class="panel-body">
       <div class="row">

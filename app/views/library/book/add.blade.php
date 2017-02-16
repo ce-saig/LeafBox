@@ -6,11 +6,11 @@
 
 @section('body')
 <div class="panel panel-primary">
-  <div class="panel-heading" class="panel-title">
-    <h4 style="color: white">เพิ่มหนังสือใหม่</h4>
+  <div class="panel-heading panel-title">
+    <span style="color:white;font-size: 24px">เพิ่มหนังสือใหม่</span>
   </div>
   <div class="panel-body">
-    <div class="container" style="width: auto;">
+    <div class="container" style="width: auto; font-size:13px">
     <form role="form" action="{{ url('book/add') }}" method="post" style="font-size:1.1em">
           <div class="row col-md-6" style="margin-top: 15px">
             <div class="form-group">
