@@ -17,7 +17,7 @@
                 <div class="input-group-addon">ระบุรหัสของสื่อ</div>
                 <input type="text" class="form-control" id="mid">
               </div>
-              <button type="submit" class="btn btn-info" id="add_btn">ค้น</button>
+              <button type="submit" class="btn btn-info btn-sm" id="add_btn">ค้นหาหนังสือ</button>
             </div>
             <br>
             <table class="table table-striped table-hover">
