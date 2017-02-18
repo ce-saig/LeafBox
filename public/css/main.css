@@ -1,8 +1,5 @@
-@font-face {
-    font-family: Trirong;
-    src: url(Trirong.ttf);
-}
-* {
+
+*{
   margin: 0;
 }
 html, body {

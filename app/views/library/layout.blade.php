@@ -5,12 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
-	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 	<!-- Main custom Bootstrap style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
 	<!-- date-picker style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/datepicker.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
+
 	<!-- font-awesome package-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -20,7 +21,10 @@
 	@yield('head')
 
 	<style type="text/css">
-
+ @font-face {
+          font-family: Trirong;
+          src: url(fonts/Trirong.ttf);
+        }
 
     </style>
   </head>
