@@ -8,7 +8,7 @@
 <div class="row">
 
   <div class="col-md-6 col-md-offset-3">
-    <div class="alert alert-info">
+    <div class="alert alert-info" style="text-align: center;">
       กรุณาทำการเข้าสู่ระบบก่อนหากท่านมีบัญชีอยู่แล้ว ในกรณีที่ไม่มีสามารถสมัครได้ด้านล่าง
     </div>
   </div>
