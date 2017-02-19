@@ -142,7 +142,7 @@
 	</div>
 
 	<div class="row">
-		<div class = "panel panel-default">
+		<div class = "panel panel-danger">
 				<div class = "panel-heading" style="font-size:1.5em">
 					จัดการ
 				</div>
@@ -180,12 +180,14 @@
 						  </a>
 						</div>
 						<div class = "col-md-3 icon text-center">
+						 <a href="{{URL::to('/borrower')}}">
 							<div class = "col-md-10 col-md-offset-1">
 								<img class = "img-responsive" src="{{ asset('/img/lecture.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
-								<h4> จัดการผู้ใช้ </h4>
+								<h4> จัดการผู้ยืม </h4>
 							</div>
+						</a>
 						</div>
 					</div>
 				</div>
@@ -194,14 +196,14 @@
 
 	<div class = "row">
 		<div class = "col-md-offset-2 col-md-8">
-			<div class = "panel panel-default">
+			<div class = "panel panel-primary">
 				<div class = "panel-heading" style="font-size:1.5em">
 					หนังสือที่เพิ่มล่าสุด
 				</div>
 				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
 					<ul class="list_group">
 					@foreach($books_all as $book)
-					<a href="{{ url('book/'.$book->id) }}">
+					<a href="{{ url('book/'.$book->id) }}" style="text-decoration: none">
 						<li class="list-group-item li_lastbook">
 
 							 {{ $book->id }} 

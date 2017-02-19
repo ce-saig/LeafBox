@@ -16,11 +16,11 @@
   	
   	<div class="container col-md-12">
   		<div class="col-md-12">
-  			<span style="font-size: 22px">เลือกหนังสือจากรายละเอียดหนังสือ</span>
+  			<span style="font-size: 20px">เลือกหนังสือจากรายละเอียดหนังสือ</span>
   		</div>
 		  <div class="col-lg-3" style="margin-top: 10px;" ng-repeat="book in books.label">
 		    <div class="input-group">
-		      <span class="input-group-addon" ng-style="books.style[$index]">
+		      <span class="input-group-addon" ng-style="books.style[$index]" style="height: 37px;">
 		        <input type="checkbox" ng-model="books.enabled[$index]" ng-click="AutoSelect($index, 'BOOK')"> 
 		      </span>
 			    <input class="form-control text-center" placeholder="<%book%>" ng-model="item.book_id_init" ng-if="$first" ng-show="item.id_mode == id_modes[3]" ng-disabled="!books.enabled[$index]" type="number" min="0">
@@ -36,7 +36,7 @@
 
   	<div class="container col-md-12" style="margin-top: 20px">
       <div class="col-md-12">
-        <span style="font-size: 22px">เลือกหนังสือจากสถานะการผลิต</span>
+        <span style="font-size: 20px">เลือกหนังสือจากสถานะการผลิต</span>
       </div>
 		  <div class="col-lg-4" style="margin-top: 10px;height: 38px;" ng-repeat="prod in prods.label">  
 		    <div class="input-group">
@@ -51,7 +51,7 @@
 
   	<div class="container col-md-12" style="margin-top: 20px">
   		<div class="col-md-12">
-  			<span style="font-size: 22px">แสดงข้อมูลสื่อ</span>
+  			<span style="font-size: 20px">แสดงข้อมูลสื่อ</span>
   		</div>
 		  <div class="col-lg-3" style="margin-top: 10px;height: 38px" ng-repeat="prod in prods.label">  
 		    <div class="input-group">
@@ -64,7 +64,7 @@
 		  </div><!-- /.col-lg-3 -->
       <div class="col-lg-3" style="margin-top: 10px; height: 38px" ng-show="havemedia">  
         <div class="input-group">
-          <span class="input-group-addon" style="font-size: 16px;color:white;background-color: #4d4d4d;height: 37px;width: 120px">
+          <span class="input-group-addon" style="font-size: 16px;color:white;background-color: #34495e ;height: 37px;width: 120px">
             ข้อมูลผู้ยืม
           </span>
           <select class="form-control" ng-options = "idx as item for (idx, item) in medias.borrower" ng-model="medias.haveborrower" ng-init="medias.haveborrower = '2'" style="width: 150px">
@@ -75,7 +75,7 @@
 
     <div class="container col-md-12" style="margin-top: 20px" ng-hide="true">
       <div class="col-md-12">
-        <span style="font-size: 22px">ข้อมูลผู้ยืม</span>
+        <span style="font-size: 20px">ข้อมูลผู้ยืม</span>
       </div>
       <div class="col-lg-3" style="margin-top: 10px" ng-repeat="borrower in borrowers.label">  
         <div class="input-group">
@@ -266,7 +266,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="hidedownload=true">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="hidedownload=true">Close</button>
           <div ng-hide="!hidedownload" class="col-md-8 pull-right" style="font-size: 16px;margin-top: -10px">
             <div class="col-md-3 col-md-offset-6">
               <div class="text-left"><input type="checkbox" ng-model="table_download[0]"> ตารางข้อมูลหนังสือ</div>

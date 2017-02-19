@@ -10,12 +10,10 @@
 			<div class="panel">
 				<div class="panel-body">
 					<div class="col-md-3" id="search-member-label " style="font-size:1.5em; padding-left:5%;">ค้นหาสมาชิก</div>
-					<div class="col-md-9"><input type="text" class="form-control" id="find-member" placeholder="ค้นหา"></div>
+					<div class="col-md-7"><input type="text" class="form-control" id="find-member" placeholder="ค้นหา"></div>
+					<div class="col-md-2"><a href="{{ url('borrower/create') }}" class="btn btn-primary btn-sm">เพิ่มสมาชิก</a></div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-2 pull-right">
-			<a href="{{ url('borrower/create') }}" class="btn btn-primary">เพิ่มสมาชิก</a>
 		</div>
 	</div>
 	<div class="row">
@@ -27,7 +25,7 @@
 						<br>
 						<table class="table table-striped table-hover">
 							<thead>
-								<tr class="info" style="font-size: 1.3em;">
+								<tr style="font-size: 1.3em; color:white;background-color: #007acc">
 									<th class="text-center col-sm-3">รหัสสมาชิก</th>
 									<th class="col-sm-4"><div class="text-center">ชื่อ - สกุล</div></th>
 									<th class="text-center col-sm-2">เพศ</th>
@@ -41,8 +39,8 @@
 									<td class="text-center">{{$member->id}}</td>
 									<td>{{$member->name}}</td>
 									<td class="text-center">{{$member->gender == 'ญ' ? 'หญิง':'ชาย'}}</td>
-									<td><button class="btn btn-success member-detail" id="{{ $member->id }}">รายละเอียด</button></td>
-									<td><button class="btn btn-danger del-member" id="{{ $member->id }}">ลบ</button></td>
+									<td><button class="btn btn-success btn-sm member-detail" id="{{ $member->id }}">รายละเอียด</button></td>
+									<td><button class="btn btn-danger btn-sm del-member" id="{{ $member->id }}">ลบ</button></td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -128,13 +126,13 @@
 				</ul>
 				<div class="container col-md-12" >
 					<table class="table table-striped table-hover" id="history-result">
-						<thead id="table-head-history">
+						<thead id="table-head-history" style="color:black">
 						</thead>
 						<tbody id="table-result-history" style="font-size: 12px">
 						</tbody>
 					</table>
 					<table class="table table-striped table-hover" id="non-return-result" hidden>
-						<thead id="table-head-non-return">
+						<thead id="table-head-non-return" style="color:black">
 						</thead>
 						<tbody id="table-result-non-return" style="font-size: 12px">
 						</tbody>

@@ -15,14 +15,14 @@
       <div class="panel-body">
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
             <div class="col-md-12">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal" style="margin-bottom:5px;">
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchModal" style="margin-bottom:5px;">
                 ค้นหาหนังสือ
               </button>
               <table class="table table-striped table-hover">
                 <thead>
-                  <tr class="info">
+                  <tr class="warning">
                     <th>#</th>
                     <th>ชื่อหนังสือ</th>
                     <th>ID ของสื่อ</th>
@@ -68,10 +68,10 @@
 
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="col-md-12">
               <div class = "row">
-                <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
+                <div class = "col-md-4" ><h4>ข้อมูลผู้ยืม</h4></div>
                 <div class = "col-md-3">
                   <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal" style="margin-bottom: 5px">
                     เลือกผู้ยืม

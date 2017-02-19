@@ -15,7 +15,7 @@
   <div class="panel-body">
    	<div class="container col-md-12 text-center">
 		<table class="table" style="font-size: 20px">
-		  <tr>
+		  <tr style="background-color: #e6e6e6 ;">
 		    <th class="text-center">เลือก</th>
 		    <th class="text-center">วันที่</th>
 		    <th class="text-center">เวลา</th> 

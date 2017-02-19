@@ -3,7 +3,7 @@
 <title>ระบบคืนหนังสือ</title>
 @stop
 @section('body')
-<div class="container">
+<div class="container col-md-12">
   <div class="panel panel-primary">
     <div class="panel-heading">
       <span style="color:white;font-size: 24px">ระบบคืนหนังสือ</span>
@@ -22,7 +22,7 @@
             <br>
             <table class="table table-striped table-hover">
               <thead>
-                <tr class="info">
+                <tr class="success">
                   <th>#</th>
                   <th>ชื่อหนังสือ</th>
                   <th>ID ของสื่อ</th>
@@ -73,7 +73,7 @@
           <div class="col-md-12">
             <div class = "row">
               <div class = "col-md-5" ><h4>ข้อมูลผู้ยืม</h4></div>&nbsp;
-              <div class = "col-md-4">
+              <div class = "col-md-5">
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal" style="margin-bottom: 5px;">
                   เลือกผู้ยืม
                 </button>

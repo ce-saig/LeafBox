@@ -21,7 +21,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		if(type=='BOOK'){
 			if($scope.books.enabled[index] == true){
 				$scope.columns.enabled[index] = true;
-				$scope.books.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+				$scope.books.style[index] = {'color': 'white', 'background-color': '#34495e'};
 			}else{
 				$scope.columns.enabled[index] = false;
 				$scope.books.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
@@ -30,7 +30,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		if(type='PROD'){
 			if($scope.prods.enabled[index] == true){
 				$scope.columns.enabled[index+7] = true;
-				$scope.prods.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+				$scope.prods.style[index] = {'color': 'white', 'background-color': '#34495e'};
 				$scope.prods.model[index] = '0';
 			}else{
 				$scope.columns.enabled[index+7] = false;
@@ -46,7 +46,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.havemedia = false;
 		if(type == "MEDIA"){
 			if($scope.medias.enabled[index] == true){
-				$scope.medias.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+				$scope.medias.style[index] = {'color': 'white', 'background-color': '#34495e'};
 				$scope.medias.model[index] = '0';
 			}else{
 				$scope.medias.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
@@ -54,7 +54,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 			}
 		}else{
 			if($scope.borrowers.enabled[index] == true){
-				$scope.borrowers.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+				$scope.borrowers.style[index] = {'color': 'white', 'background-color': '#34495e'};
 			}else{
 				$scope.borrowers.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
 			}
