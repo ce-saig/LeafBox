@@ -41,11 +41,11 @@ app.controller('BookViewController', function($rootScope, $scope, $uibModal, $lo
 				$scope.text_ori += ', DVD'+$scope.master_list.dvd[0].original_no;
 			}
 		}
-		if(d_first == false && $scope.text.substring(1,2) == ','){
-			$scope.text = $scope.text.substring(0,2)+$scope.text.substring(3,$scope.text.length);
+		if(d_first == false){
+			$scope.text = $scope.text.substring(0,1)+$scope.text.substring(3,$scope.text.length);
 		}
-		if(d_first_ori == false && $scope.text_ori.substring(1,2) == ','){
-			$scope.text_ori = $scope.text_ori.substring(0,2)+$scope.text_ori.substring(3,$scope.text_ori.length);
+		if(d_first_ori == false){
+			$scope.text_ori = $scope.text_ori.substring(0,1)+$scope.text_ori.substring(3,$scope.text_ori.length);
 		}
 		$scope.text += ")";
 		$scope.text_ori += ")";

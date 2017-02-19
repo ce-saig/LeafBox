@@ -201,8 +201,8 @@
 				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
 					<ul class="list_group">
 					@foreach($books_all as $book)
-					   <a href="{{ url('book/'.$book->id) }}">
-						<li class="list-group-item">
+					<a href="{{ url('book/'.$book->id) }}">
+						<li class="list-group-item li_lastbook">
 
 							 {{ $book->id }} 
 							 @if($book->original_no!=null)({{$book->original_no}})@endif
@@ -210,7 +210,7 @@
 							 @if($book->pub_year > 0)({{ $book->pub_year }})@endif </b>
 
 						</li>
-					  </a>
+					</a>
 					@endforeach
 					</ul>
 				</div>

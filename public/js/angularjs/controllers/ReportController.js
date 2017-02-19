@@ -47,8 +47,10 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		if(type == "MEDIA"){
 			if($scope.medias.enabled[index] == true){
 				$scope.medias.style[index] = {'color': 'white', 'background-color': '#4d4d4d'};
+				$scope.medias.model[index] = '0';
 			}else{
 				$scope.medias.style[index] = {'color': 'grey', 'background-color': '#e6e6e6'};
+				$scope.medias.model[index] = '';
 			}
 		}else{
 			if($scope.borrowers.enabled[index] == true){
