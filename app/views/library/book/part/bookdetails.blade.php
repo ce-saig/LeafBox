@@ -1,4 +1,4 @@
-<div class="container" style="width:auto" ng-controller="BookViewController">
+<div class="container" style="width:auto;margin-top: 20px" ng-controller="BookViewController">
 	<div class="col-xs-6 col-sm-2"><b>ชื่อเรื่อง</b></div>
 	<div class="col-xs-6 col-sm-4">{{($book['title'] == "") ? '-' : $book['title']}}</div>
 	<div class="col-xs-6 col-sm-2"><b>ชื่อเรื่อง (อังกฤษ)</b></div>

@@ -9,7 +9,7 @@
   <div class="well">
     <div class="col-md-12" ng-controller="BookViewController">
       <div class="container text-center" style="margin-bottom: 15px; width:auto">
-          <span style="font-size: 32px"><%book.id%><span ng-hide="book.original_no==''">(<%book.original_no%>)</span> <%book.title%><br></span>
+          <span style="font-size: 32px"><%book.id%><span ng-hide="book.original_no==''||book.original_no==null">(<%book.original_no%>)</span> <%book.title%><br></span>
           <span style="font-size: 20px">
             <span ng-hide="text=='()'"><%text%></span> 
             <span ng-hide="text_ori=='()'"> :: <%text_ori%></span>

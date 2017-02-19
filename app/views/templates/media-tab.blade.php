@@ -3,7 +3,7 @@
         <div class="list-media">
           <table class="table table-hover">
             <thead>
-              <tr>
+              <tr style="font-weight: bold;font-size: 16px">
                 <th style="text-align: center" ng-repeat="name in tableHead"><% name %></th>
               </tr>
             </thead>
