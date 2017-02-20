@@ -9,69 +9,69 @@
 <div class="panel panel-primary" style="color:black">
   <div class="panel-heading">
     <div class="panel-title">
-    	<span style="color:white;font-size: 24px">รายงาน</span>
+      <span style="color:white;font-size: 24px">รายงาน</span>
     </div>
   </div>
   <div class="panel-body">
-  	
-  	<div class="container col-md-12">
-  		<div class="col-md-12">
-  			<span style="font-size: 20px">เลือกหนังสือจากรายละเอียดหนังสือ</span>
-  		</div>
-		  <div class="col-lg-3" style="margin-top: 10px;" ng-repeat="book in books.label">
-		    <div class="input-group">
-		      <span class="input-group-addon" ng-style="books.style[$index]" style="height: 37px;">
-		        <input type="checkbox" ng-model="books.enabled[$index]" ng-click="AutoSelect($index, 'BOOK')"> 
-		      </span>
-			    <input class="form-control text-center" placeholder="<%book%>" ng-model="item.book_id_init" ng-if="$first" ng-show="item.id_mode == id_modes[3]" ng-disabled="!books.enabled[$index]" type="number" min="0">
-			    <span class="input-group-btn"  ng-if="$index == 0">
-			      <select class="form-control" ng-options = "item for item in id_modes" ng-model="item.id_mode" ng-disabled="!books.enabled[$index]" style="width: 60px;font-size: 16px" ng-init="item.id_mode = id_modes[0]">
-		    	  </select>
-			    </span>
-		      <input type="text" class="form-control text-center" placeholder="<%book%>" ng-model="books.model[$index]" ng-disabled="!books.enabled[$index]" ng-if="!$first" style="font-size: 16px">
+    
+    <div class="container col-md-12">
+      <div class="col-md-12">
+        <span style="font-size: 20px">เลือกหนังสือจากรายละเอียดหนังสือ</span>
+      </div>
+      <div class="col-lg-3 col-sm-6 col-xs-6" style="margin-top: 10px;" ng-repeat="book in books.label">
+        <div class="input-group">
+          <span class="input-group-addon" ng-style="books.style[$index]" style="height: 37px;">
+            <input type="checkbox" ng-model="books.enabled[$index]" ng-click="AutoSelect($index, 'BOOK')"> 
+          </span>
+          <input class="form-control text-center" placeholder="<%book%>" ng-model="item.book_id_init" ng-if="$first" ng-show="item.id_mode == id_modes[3]" ng-disabled="!books.enabled[$index]" type="number" min="0">
+          <span class="input-group-btn"  ng-if="$index == 0">
+            <select class="form-control" ng-options = "item for item in id_modes" ng-model="item.id_mode" ng-disabled="!books.enabled[$index]" style="width: 60px;font-size: 16px" ng-init="item.id_mode = id_modes[0]">
+            </select>
+          </span>
+          <input type="text" class="form-control text-center" placeholder="<%book%>" ng-model="books.model[$index]" ng-disabled="!books.enabled[$index]" ng-if="!$first" style="font-size: 16px">
           <input type="number" class="form-control text-center" placeholder="<%book%>" ng-model="books.model[$index]" ng-disabled="!books.enabled[$index]" ng-if="$first" style="font-size: 16px" min="0">
-		    </div><!-- /input-group -->
-		  </div><!-- /.col-lg-3 -->
-	</div>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-3 -->
+  </div>
 
-  	<div class="container col-md-12" style="margin-top: 20px">
+    <div class="container col-md-12" style="margin-top: 20px">
       <div class="col-md-12">
         <span style="font-size: 20px">เลือกหนังสือจากสถานะการผลิต</span>
       </div>
-		  <div class="col-lg-4" style="margin-top: 10px;height: 38px;" ng-repeat="prod in prods.label">  
-		    <div class="input-group">
-		      <span class="input-group-addon" style="font-size: 16px;height: 37px;width: 200px" ng-style="prods.style[$index]">
-		        <input type="checkbox" ng-model="prods.enabled[$index]" ng-click="AutoSelect($index, 'PROD')"> สถานะของ<%prod%>
-		      </span>
-		      <select class="form-control" ng-options = "idx as item for (idx, item) in BookProductionService.status[$index]" ng-model="prods.model[$index]" ng-disabled="!prods.enabled[$index]" style="width: 200px">
-    		  </select>
-		    </div><!-- /input-group -->
-		  </div><!-- /.col-lg-3 -->
-  	</div> <!-- End Media container -->
-
-  	<div class="container col-md-12" style="margin-top: 20px">
-  		<div class="col-md-12">
-  			<span style="font-size: 20px">แสดงข้อมูลสื่อ</span>
-  		</div>
-		  <div class="col-lg-3" style="margin-top: 10px;height: 38px" ng-repeat="prod in prods.label">  
-		    <div class="input-group">
-		      <span class="input-group-addon" style="font-size: 16px;height: 37px;width: 120px" ng-style="medias.style[$index]">
-		        <input type="checkbox" ng-model="medias.enabled[$index]" ng-click="ChangeColor($index,'MEDIA')"> <%prod%>
-		      </span>
-		      <select class="form-control" ng-options = "idx as item for (idx, item) in medias.label" ng-model="medias.model[$index]" ng-disabled="!medias.enabled[$index]" style="width: 150px;">
-    		  </select>  
-		    </div><!-- /input-group -->
-		  </div><!-- /.col-lg-3 -->
-      <div class="col-lg-3" style="margin-top: 10px; height: 38px" ng-show="havemedia">  
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" style="margin-top: 10px;height: 38px;" ng-repeat="prod in prods.label">  
         <div class="input-group">
-          <span class="input-group-addon" style="font-size: 16px;color:white;background-color: #34495e ;height: 37px;width: 120px">
-            ข้อมูลผู้ยืม
+          <span class="input-group-addon" style="font-size: 16px;height: 37px;width: 60%" ng-style="prods.style[$index]">
+            <input type="checkbox" ng-model="prods.enabled[$index]" ng-click="AutoSelect($index, 'PROD')"> สถานะของ<%prod%>
           </span>
-          <select class="form-control" ng-options = "idx as item for (idx, item) in medias.borrower" ng-model="medias.haveborrower" ng-init="medias.haveborrower = '2'" style="width: 150px">
+          <select class="form-control" ng-options = "idx as item for (idx, item) in BookProductionService.status[$index]" ng-model="prods.model[$index]" ng-disabled="!prods.enabled[$index]" style="width: 120%">
+          </select>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-3 -->
+    </div> <!-- End Media container -->
+
+    <div class="container col-md-12" style="margin-top: 20px">
+      <div class="col-md-12">
+        <span style="font-size: 20px">แสดงข้อมูลสื่อ</span>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" style="margin-top: 10px;height: 38px" ng-repeat="prod in prods.label">  
+        <div class="input-group">
+          <span class="input-group-addon" style="font-size: 16px;height: 37px;width: 60%" ng-style="medias.style[$index]">
+            <input type="checkbox" ng-model="medias.enabled[$index]" ng-click="ChangeColor($index,'MEDIA')"> <%prod%>
+          </span>
+          <select class="form-control" ng-options = "idx as item for (idx, item) in medias.label" ng-model="medias.model[$index]" ng-disabled="!medias.enabled[$index]" style="width: 150%">
           </select>  
         </div><!-- /input-group -->
       </div><!-- /.col-lg-3 -->
-  	</div> <!-- End Media container -->
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" style="margin-top: 10px; height: 38px" ng-show="havemedia">  
+        <div class="input-group">
+          <span class="input-group-addon" style="font-size: 16px;color:white;background-color: #34495e ;height: 37px;">
+            ข้อมูลผู้ยืม
+          </span>
+          <select class="form-control" ng-options = "idx as item for (idx, item) in medias.borrower" ng-model="medias.haveborrower" ng-init="medias.haveborrower = '2'">
+          </select>  
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-3 -->
+    </div> <!-- End Media container -->
 
     <div class="container col-md-12" style="margin-top: 20px" ng-hide="true">
       <div class="col-md-12">
@@ -95,24 +95,24 @@
       </div><!-- /.col-lg-3 -->
     </div> <!-- End Media container -->
 
-  	<div class="container col-md-12" style="margin-top: 20px">
-  		<div class="col-md-12">
-  			<span style="font-size: 22px">เลือกคอลัมน์ที่ต้องการแสดง</span>
-  		</div>
-  		<div class = "container col-md-12" style="margin-top: 10px">
-		    <div class="input-group well col-md-12 column_show">
-          <div class="col-md-2" ng-repeat="column in columns.label">
-		    	<span style="font-size: 16px">
-		        	<input type="checkbox" ng-model="columns.enabled[$index]"> <%column%>
-		      	</span>
-		      </div>
-		    </div><!-- /input-group -->
-  		</div>
-    </div> <!-- End Media container -->  	
+    <div class="container col-md-12" style="margin-top: 20px">
+      <div class="col-md-12">
+        <span style="font-size: 22px">เลือกคอลัมน์ที่ต้องการแสดง</span>
+      </div>
+      <div class = "container col-md-12" style="margin-top: 10px">
+        <div class="input-group well col-md-12 column_show">
+          <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6" ng-repeat="column in columns.label">
+          <span style="font-size: 16px">
+              <input type="checkbox" ng-model="columns.enabled[$index]"> <%column%>
+            </span>
+          </div>
+        </div><!-- /input-group -->
+      </div>
+    </div> <!-- End Media container -->   
 
-  	<div class="container col-md-12" style="margin-top: 20px">
-  		<div class="btn btn-success col-md-3 pull-right" data-toggle="modal" data-target=".report_modal" ng-click="CreateReport()" ng-disabled="filter_enabled[0] == false && filter_enabled[1] == false">สร้างรายงาน</div>
-  	</div> <!-- End Media container -->  
+    <div class="container col-md-12" style="margin-top: 20px">
+      <div class="btn btn-success col-md-3 pull-right" data-toggle="modal" data-target=".report_modal" ng-click="CreateReport()" ng-disabled="filter_enabled[0] == false && filter_enabled[1] == false">สร้างรายงาน</div>
+    </div> <!-- End Media container -->  
   </div>
 </div>
   
