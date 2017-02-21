@@ -34,12 +34,11 @@
         </div>
       </div>
       <br><br>
-      <hr>
 
       <form role="form">
         <div class="col-md-12">
           <table class="table text-center">
-            <tr style="font-size: 16px">
+            <tr style="font-size: 16px" ng-class="tr_head">
               <th ng-repeat = "th in tableheader" ng-if="$index < 2" class="text-center"><% th %></th>  
               <th ng-repeat = "th in tableheader" ng-if="$index > 1" class="text-left"><% th %></th>            
             </tr>

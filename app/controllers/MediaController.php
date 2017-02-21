@@ -165,14 +165,14 @@ class MediaController extends Controller{
       case 'cassette':
         $media = $book->cassette()->get();
         break;
-      case 'CD':
-        $media = $book->cd()->get();
+      case 'dvd':
+        $media = $book->dvd()->get();
         break;
       case 'daisy':
         $media = $book->daisy()->get();
         break;
       default:
-        $media = $book->dvd()->get();
+        $media = $book->cd()->get();
         break;
     }
 
@@ -201,6 +201,7 @@ class MediaController extends Controller{
     $amount = Input::get('numpart');
     $braille->book()->associate($book);
     $braille->produced_date = (date('Y')).date('-m-d H:i:s');
+    $braille->created_at = (date('Y')).date('-m-d H:i:s');
     //$braille->status = 0; // 0 normal,1 broken,2 wait for repeir
     $braille->pages = Input::get('pages');
     $braille->original_no = Input::get('original_no');
@@ -230,6 +231,7 @@ class MediaController extends Controller{
     $amount = Input::get('numpart');
     $cassette = new Cassette();
     $cassette->produced_date = (date('Y')).date('-m-d H:i:s');
+    $cassette->created_at = (date('Y')).date('-m-d H:i:s');
     $cassette->numpart = $amount;
     $cassette->original_no = Input::get('original_no');
     $cassette->length = Input::get('length');
@@ -266,7 +268,7 @@ class MediaController extends Controller{
     $amount = Input::get('numpart');
     $daisy = new Daisy();
     $daisy->produced_date = (date('Y')).date('-m-d H:i:s');
-    $brailledetail->created_at = (date('Y')).date('-m-d H:i:s');
+    $daisy->created_at = (date('Y')).date('-m-d H:i:s');
     $daisy->numpart = $amount;
     $daisy->length = Input::get('length');
     $daisy->book()->associate(Book::find($bookId));
@@ -296,6 +298,7 @@ class MediaController extends Controller{
     $amount = Input::get('numpart');
     $cd = new CD();
     $cd->produced_date = (date('Y')).date('-m-d H:i:s');
+    $cd->created_at = (date('Y')).date('-m-d H:i:s');
     $cd->book()->associate(Book::find($bookId));
     $cd->numpart = $amount;
     $cd->length = Input::get('length');
@@ -330,6 +333,7 @@ class MediaController extends Controller{
     $amount = Input::get('numpart');
     $dvd = new DVD();
     $dvd->produced_date = (date('Y')).date('-m-d H:i:s');
+    $dvd->created_at = (date('Y')).date('-m-d H:i:s');
     $dvd->book()->associate(Book::find($bookId));
     $dvd->numpart = $amount;
     $dvd->length = Input::get('length');

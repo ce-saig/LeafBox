@@ -88,6 +88,10 @@ app.controller('MediaDetailEditController', function($rootScope, $scope, $filter
 				$scope.panelclass = "panel panel-danger";
 				break;
 		}
+		if($scope.media.reserved == 0)
+			$scope.tr_head = "success";
+		else
+			$scope.tr_head = "danger";
 	}
 
 	$scope.InitMediaType = function(mediaType){

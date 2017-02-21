@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title"><% operationName + getMediaLabel() %></h4>
+  <h4 class="modal-title"><u><% operationName %><% getMediaLabel() %></u></h4>
 </div>
 <div class="modal-body">
   <div class="alert alert-danger slide" ng-show="notification.show">
@@ -10,21 +10,21 @@
   <fieldset class="form-horizontal" ng-disabled="disabledForm">
    <div class="form-group ">
       <label class="control-label col-md-3">เช็ตไอดีเดิม</label>
-      <div class="col-md-6"><input type="text" class="form-control" ng-model="formdata.original_no"></div>
+      <div class="col-md-6"><input type="text" class="form-control text-center" ng-model="formdata.original_no"></div>
     </div>
     <div class="form-group" ng-show="getMediaNumber() == MediaService.BRAILLE">
       <label class="control-label col-md-3">จำนวนหน้า</label>
-      <div class="col-md-6"><input type="number" class="form-control" min=1 ng-model="formdata.pages"></div>
+      <div class="col-md-6"><input type="number" class="form-control text-center" min=1 ng-model="formdata.pages"></div>
       <label class="control-label">หน้า</label>
     </div>
     <div class="form-group">
       <label class="control-label col-md-3"><% label.numpart %></label>
-      <div class="col-md-6"><input type="number" class="form-control" min=1 ng-model="formdata.numpart"></div>
+      <div class="col-md-6"><input type="number" class="form-control text-center" min=1 ng-model="formdata.numpart"></div>
       <label class="control-label"><% label.numpart_suff %></label>
     </div>
     <div class="form-group" ng-show="getMediaNumber() != MediaService.BRAILLE">
       <label class="control-label col-md-3">ความยาว</label>
-      <div class="col-md-6"><input type="number" class="form-control" min=1 ng-model="formdata.length"></div>
+      <div class="col-md-6"><input type="number" class="form-control text-center" min=1 ng-model="formdata.length"></div>
       <label class="control-label">นาที</label>
     </div>
     <div class="form-group" ng-show="getMediaNumber() == MediaService.BRAILLE">

@@ -22,7 +22,7 @@
 	<div class="col-xs-6 col-sm-2"><b>ประเภทหนังสือ</b></div>
 	<div class="col-xs-6 col-sm-4">{{($book['booktype'] == "") ? '-' : $book['booktype']}}</div>
 	<div class="col-xs-6 col-sm-2"><b>เนื้อเรื่องย่อ</b></div>
-	<div class="col-xs-6 col-sm-4">{{($book['abstract'] == "") ? '-' : $book['abstract']}}</div>
+	<div class="col-xs-6 col-sm-4">{{($book['abstract'] == "") ? '-' : (strlen($book['abstract']) < 400) ? $book['abstract'] : substr($book['abstract'], 0, 400) . "..."}}</div>
 	<div class="col-xs-6 col-sm-2"><b>ISBN</b></div>
 	<div class="col-xs-6 col-sm-4">{{($book['isbn'] == "") ? '-' : $book['isbn']}}</div>
 	<div class="col-xs-6 col-sm-2"><b>ระดับ</b></div>
