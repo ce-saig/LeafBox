@@ -22,10 +22,10 @@ html, body {
   color: #ecf0f1;
   padding-top: 10px;
 }
-
 .footer-img {
-  text-align: center;
+  text-align: right;
 }
+
 
 .panel-hover:hover {
 	border-style: solid;
