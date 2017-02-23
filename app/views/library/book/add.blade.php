@@ -142,7 +142,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">พ.ศ.</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="number"  min="2000" max="{{date('Y') + 543}}" class="form-control" placeholder="เช่น {{date('Y') + 543}}" name="pub_year">
+                <input type="number"  min="2000" max="{{date('Y')}}" class="form-control" placeholder="เช่น {{date('Y')}}" name="pub_year">
               </div>
             </div>
           </div>

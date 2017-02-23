@@ -17,7 +17,7 @@ html, body {
 }
 
 .footer {
-  height: 135px;
+  height: 145px;
   background-color: #34495e;
   color: #ecf0f1;
   padding-top: 10px;
@@ -54,6 +54,10 @@ html, body {
 
 a {
 	color : black;
+}
+
+p{
+  margin:0 0 0em;
 }
 
 .icon {

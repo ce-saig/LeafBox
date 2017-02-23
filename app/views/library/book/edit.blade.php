@@ -8,7 +8,7 @@
     <h4 style="color: white">แก้ไขรายละเอียด [{{$book['title']}}]</h4>
   </div>
   <div class="panel-body">
-    <form role="form">
+    <form>
         <book-edit></book-edit>
     </form>
   </div>

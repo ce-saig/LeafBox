@@ -116,15 +116,21 @@
 
 <footer>
 <div class="footer">
-  <div class= "col-md-2 footer-img" style="text-align: right;">
+  <div class= "col-md-2 footer-img">
     <img class = "img-logo" src="{{ asset('/img/logo.png') }}" >
   </div>
-  <div class = "col-md-10 ">
+  <div class = "col-md-5 ">
     <h4 style="color:white;">ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</h4>
-		<p> จัดทำโดย </p>
-    <p> <span style="color:white; font-size: 1.5em;">ติดต่อได้ที่ </span>78/2 หมู่ 1 ต. บางตลาด ซ. ติวานนท์-ปากเกร็ด 1 ถ. ติวานนท์ อ. ปากเกร็ด จ. นนทบุรี 11120
-โทรศัพท์ : 02-9625818-9, แฟกซ์ : 02-5836518
+    <p>78/2 หมู่ 1 ต. บางตลาด ซ. ติวานนท์-ปากเกร็ด 1 ถ. ติวานนท์ อ. ปากเกร็ด จ. นนทบุรี 11120</p>
+    <p>โทรศัพท์ : 02-9625818-9, แฟกซ์ : 02-5836518
 อีเมล : Chanidapa_pp@hotmail.com</p>
+  </div>
+   
+  <div class="col-md-5" style="text-align: left;">
+    <h4 style="color:white; font-size:1.5em">มูลนิธิช่วยคนตาบอดแห่งประเทศไทย ในพระบรมราชินูปถัมภ์</h4>
+    <p>420 ถนนราชวิถี แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพมหานคร 10400</p>
+    <p>โทรศัพท์ 0-2354-8365-68 , 0-2354-8370-71 โทรสาร 0-2354-8369</p>
+    <p>อีเมล service@blind.or.th</p>
   </div>
 </div>
 </footer>

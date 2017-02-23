@@ -1,90 +1,75 @@
 <!-- Number -->
-<div class="container" style="width: auto">
-  <div class="form-group" ng-repeat = "no in numbers.string" style="margin-top: 15px">
-    <div class="col-xs-6 col-md-3 col-lg-2">
+<div class="form-group col-md-12">
+  <div class="col-md-4 col-lg-4" ng-repeat = "no in numbers.string" >
+    <div class="col-md-6 col-lg-6">
       <label class="control-label labelisize"><%no%></label>
     </div>
-    <div class="col-xs-6 col-md-3 col-lg-2">
-      <div class="col-lg-12">
-        <input class="form-control inputsize" ng-model="numbers.var[$index]" type="number" min="0">
-      </div>
+    <div class="col-md-6 col-lg-6">
+      <input class="form-control inputsize" ng-model="numbers.var[$index]" type="number" min="0">
     </div>
   </div>
 </div>
 <hr>
 
 <!-- Book info -->
-<div class="container" style="width: auto">
-  <!--Auto ID-->
-  <div class="container" style="width: auto">
-    <div class="form-group" style="margin-top: 15px">
-      <div class="col-xs-4 col-lg-2 col-lg-2">
-          <label for="input" class="control-label labelisize">เลขไอดี</label>
-        </div>
-        <div class="col-xs-8 col-lg-4 col-lg-4">
-          <div class="col-lg-10">
-              <input name="title" class="form-control inputsize" ng-model="book.id" type="text" disabled>
-          </div>
-        </div>
+<!--Auto ID-->
+<div class="form-group" >
+  <div class="col-lg-4 col-md-4">
+    <div class="col-md-6 col-lg-6">
+      <label for="input" class="control-label labelisize">เลขไอดี</label>
     </div>
-  <!-- Other Info-->
-  <div class="form-group" ng-repeat = "detail in details.string" style="margin-top: 15px">
-    <div class="col-xs-4 col-lg-2 col-lg-2">
-        <label for="input" class="control-label labelisize"><%detail%></label>
-      </div>
-      <div class="col-xs-8 col-lg-4 col-lg-4">
-        <div class="col-lg-10">
-            <input name="title" class="form-control inputsize" ng-model="details.var[$index]" type="text">
-        </div>
-      </div>
+    <div class="col-md-6 col-lg-6">
+      <input name="title" class="form-control inputsize" ng-model="book.id" type="text" disabled>
+    </div>
   </div>
 </div>
+<!-- Other Info-->
+<div class="form-group" >
+  <div class="col-md-4" ng-repeat = "detail in details.string">
+    <div class="col-md-6">
+      <label for="input" class="control-label labelisize"><%detail%></label>
+    </div>
+    <div class="col-md-6">
+      <input name="title" class="form-control inputsize" ng-model="details.var[$index]" type="text">
+    </div>
+  </div>
 </div>
 <hr>
 
 <!-- Publish -->
-<div class="container" style="width: auto">
-    <div class="form-group" style="margin-top: 15px">
-      <div class="col-xs-4 col-lg-2 col-lg-2">
+    <div class="form-group col-md-4" >
+      <div class="col-xs-4 col-lg-6 col-lg-6">
         <label for="input" class="control-label labelisize">วันลงทะเบียน</label>
       </div>
-      <div class="col-xs-8 col-lg-4 col-lg-4">
-        <div class="col-lg-10">
-          <input name="regis_date" class="form-control inputsize" ng-model="book.regis_date" uib-datepicker-popup is-open="regis_date_popup.opened" datepicker-options="dateOptions" ng-click="regis_date_popup.opened = true">
-        </div>
+      <div class="col-xs-8 col-lg-6 col-lg-6">
+        <input name="regis_date" class="form-control inputsize" ng-model="book.regis_date" uib-datepicker-popup is-open="regis_date_popup.opened" datepicker-options="dateOptions" ng-click="regis_date_popup.opened = true">
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-xs-4 col-lg-2 col-lg-2">
+    <div class="form-group col-md-4">
+      <div class="col-xs-4 col-lg-6 col-lg-6">
         <label for="input" class="control-label labelisize">สำนักพิมพ์</label>
       </div>
-      <div class="col-xs-8 col-lg-4 col-lg-4">
-        <div class="col-lg-10">
-          <input name="publisher" class="form-control inputsize" ng-model="book.publisher" type="text">
-        </div>
+      <div class="col-xs-8 col-lg-6 col-lg-6">
+        <input name="publisher" class="form-control inputsize" ng-model="book.publisher" type="text">
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-xs-4 col-lg-2 col-lg-2">
+    <div class="form-group col-md-4">
+      <div class="col-xs-4 col-lg-6 col-lg-6">
         <label for="input" class="control-label labelisize">พิมพ์ครั้งที่</label>
       </div>
-      <div class="col-xs-8 col-lg-4 col-lg-4">
-        <div class="col-lg-10">
-          <input name="pub_no" class="form-control inputsize" ng-model="book.pub_no" type="number" min="0">
-        </div>
+      <div class="col-xs-8 col-lg-6 col-lg-6">
+        <input name="pub_no" class="form-control inputsize" ng-model="book.pub_no" type="number" min="0">
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-xs-4 col-lg-2 col-lg-2">
+    <div class="form-group col-md-4">
+      <div class="col-xs-4 col-lg-6 col-lg-6">
         <label for="input" class="control-label labelisize">ปีที่พิมพ์</label>
       </div>
-      <div class="col-xs-8 col-lg-4 col-lg-4">
-        <div class="col-lg-10">
+      <div class="col-xs-8 col-lg-6 col-lg-6">
           <input name="pub_year" class="form-control inputsize" ng-model="book.pub_year" type="text">
-        </div>
       </div>
     </div>
 
@@ -92,17 +77,13 @@
       <div class="col-xs-12 col-lg-12">
         <label for="input" class="control-label labelisize">เนื้อเรื่องย่อ</label>
       </div>
-      <div class="col-xs-12 col-lg312">
-        <div class="col-lg-10">
+      <div class="col-xs-12 col-lg-12">
           <textarea name="abstract" cols="50" rows="10" class="form-control" ng-model="book.abstract"></textarea>
-          <br>
-        </div>
       </div>
     </div>
-</div>
 <hr>
 <!-- Select Master -->
-<div class="container" style="width: auto">
+<div class="container">
   <div class="col-md-1 text-right">
     <label class="control-label labelisize1"> ประเภท </label>
   </div>
