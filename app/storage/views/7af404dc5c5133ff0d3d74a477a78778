@@ -1,0 +1,219 @@
+<?php $__env->startSection('head'); ?>
+	<title>Leafbox :: Home</title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body'); ?>
+<div class = "row">
+	<div class = "col-md-12 search-bar panel search-panel" >
+
+		<div class = "col-md-2">
+			<select name = "search_type" class="form-control" id = "search_type" role="menu">
+			    <option value = "title" >ชื่อ</option>
+			    <option value = "author" >ชื่อผู้แต่ง</option>
+			    <option value = "translate" >ชื่อผู้แปล</option>
+			    <option value = "isbn" >ISBN</option>
+			    <option value = "id" >ID</option>
+			 </select>
+		</div>
+
+		<!-- Search Result -->
+		<div class = "col-md-8">
+			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
+		</div>
+		<div class = "col-md-2 col-xs-8 pull-right" >
+			<button  post-path="<?php echo url('/search/book'); ?>" class="btn btn-success btn-lg search_submit" style="margin-top:-5px" >ค้นหา</button>
+			<span id="search-info" card-link-path="<?php echo url('book/'); ?>" ></span>
+		</div>
+
+	</div>
+	<hr>
+	<br>
+	<div  class= "col-md-12" id = "showBook">
+
+		<div class = "search_result">
+		</div>
+		<div class="search_control">
+			<button class="paginate-control-left btn btn-success search_previous"><i class="fa fa-angle-left"></i></button>
+		 	<button class="paginate-control-right btn btn-success search_next"><i class="fa fa-angle-right"></i></button>
+		</div>
+		<br/>
+		<?php /*  <?php $__empty_1 = true; foreach($books as $book): $__empty_1 = false; ?>
+		<a href = "<?php echo url('book/'.$book->id); ?>">
+		<div class =  "panel-hover panel panel-default" style="margin-bottom:20px;">
+			<div class = "panel-heading">
+				<?php echo $book->id; ?>. <b><?php echo $book->title; ?> - <?php echo $book->author; ?> (<?php echo $book->pub_year; ?>) </b>
+			</div>
+			<div class = "panel-body"> */ ?>
+			<?php /* NUTSU :: It shouldn't show all details of media,so which column should show here ? */ ?>
+
+			 <?php /* <div class = "col-md-12">
+				<div class = "label-status" >
+
+					<div class = "col-md-2" >
+							<span>เบลล์</span>
+
+					<?php if($book->bm_status == 0): ?>
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					<?php elseif($book->bm_status == 1): ?>
+						<span class="label label-success">ผลิตเสร็จ</span>
+					<?php elseif($book->bm_status == 2): ?>
+						<span class="label label-warning">รอการผลิต</span>
+					<?php elseif($book->bm_status == 3): ?>
+						<span class="label label-info">กำลังอ่าน</span>
+					<?php endif; ?>
+					</div>
+
+
+					<div class = "col-md-3" >
+							เทปคาสเซ็ท
+
+					<?php if($book->setcs_status == 0): ?>
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					<?php elseif($book->setcs_status == 1): ?>
+						<span class="label label-success">ผลิตเสร็จ</span>
+					<?php elseif($book->setcs_status == 2): ?>
+						<span class="label label-warning">รอการผลิต</span>
+					<?php elseif($book->setcs_status == 3): ?>
+						<span class="label label-info">กำลังอ่าน</span>
+					<?php endif; ?>
+						</div>
+
+					<div class = "col-md-2" >
+							<span>DVD</span>
+
+					<?php if($book->detdvd_status == 0): ?>
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					<?php elseif($book->detdvd_status == 1): ?>
+						<span class="label label-success">ผลิตเสร็จ</span>
+					<?php elseif($book->detdvd_status == 2): ?>
+						<span class="label label-warning">รอการผลิต</span>
+					<?php elseif($book->detdvd_status == 3): ?>
+						<span class="label label-info">กำลังอ่าน</span>
+					<?php endif; ?>
+					</div>
+
+					<div class = "col-md-2" >
+							<span>CD</span>
+
+					<?php if($book->setcd_status == 0): ?>
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					<?php elseif($book->setcd_status == 1): ?>
+						<span class="label label-success">ผลิตเสร็จ</span>
+					<?php elseif($book->setcd_status == 2): ?>
+						<span class="label label-warning">รอการผลิต</span>
+					<?php elseif($book->setcd_status == 3): ?>
+						<span class="label label-info">กำลังอ่าน</span>
+					<?php endif; ?>
+					</div>
+
+
+					<div class = "col-md-3" >
+							<span>Daisy</span>
+
+					<?php if($book->setds_status == 0): ?>
+						<span class="label label-danger">ไม่ทำการผลิต</span>
+					<?php elseif($book->setds_status == 1): ?>
+						<span class="label label-success">ผลิตเสร็จ</span>
+					<?php elseif($book->setds_status == 2): ?>
+						<span class="label label-warning">รอการผลิต</span>
+					<?php elseif($book->setds_status == 3): ?>
+						<span class="label label-info">กำลังอ่าน</span>
+					<?php endif; ?>
+					</div>
+
+				</div>
+			  </div>
+			</div>
+		</div>
+	   </a>
+		<?php endforeach; if ($__empty_1): ?>
+			<div class="alert alert-warning alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			  <strong>คำเตือน!</strong> ไม่พบสื่อที่คุณกำลังหา
+			</div>
+	 	<?php endif; ?> */ ?>
+	</div>
+	</div>
+
+	<div class="row">
+		<div class = "panel panel-default">
+				<div class = "panel-heading" style="font-size:1.5em">
+					จัดการ
+				</div>
+				<div class= "panel-body">
+					<div class="col-md-10 col-md-offset-1">
+
+						<div class = "col-md-3 icon">
+						  <a href="<?php echo URL::to('/book/add'); ?>">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="<?php echo asset('/img/Book.png'); ?>">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4>เพิ่มหนังสือ</h4>
+							</div>
+						  </a>
+						</div>
+						<div class = "col-md-3 icon text-center">
+						  <a href="<?php echo URL::to('/borrow'); ?>">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="<?php echo asset('/img/Clipboard.png'); ?>">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4>ยืมหนังสือ</h4>
+							</div>
+						  </a>
+						</div>
+						<div class = "col-md-3 icon text-center">
+						  <a href="<?php echo URL::to('/return'); ?>">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="<?php echo asset('/img/Pocket.png'); ?>">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4> คืนหนังสือ </h4>
+							</div>
+						  </a>
+						</div>
+						<div class = "col-md-3 icon text-center">
+							<div class = "col-md-10 col-md-offset-1">
+								<img class = "img-responsive" src="<?php echo asset('/img/Retina-Ready.png'); ?>">
+							</div>
+							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
+								<h4> จัดการผู้ใช้ </h4>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+
+	<div class = "row">
+		<div class = "col-md-offset-2 col-md-8">
+			<div class = "panel panel-default">
+				<div class = "panel-heading" style="font-size:1.5em">
+					หนังสือที่เพิ่มล่าสุด
+				</div>
+				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
+					<ul class="list_group">
+					<?php foreach($books_all as $book): ?>
+					   <a href="<?php echo url('book/'.$book->id); ?>">
+						<li class="list-group-item">
+
+							 <?php echo $book->id; ?> 
+							 <?php if($book->original_no!=null): ?>(<?php echo $book->original_no; ?>)<?php endif; ?>
+							  . <b><?php echo $book->title; ?> - <?php echo $book->author; ?> 
+							 <?php if($book->pub_year > 0): ?>(<?php echo $book->pub_year; ?>)<?php endif; ?> </b>
+
+						</li>
+					  </a>
+					<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('library.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

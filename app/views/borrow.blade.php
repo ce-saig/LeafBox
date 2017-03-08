@@ -5,24 +5,24 @@
 @section('body')
 
 
-<div class="container">
+<div class="container" style="width: auto;">
   <div class = "row">
     <div class = "col-md-12">
      <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">ระบบยืมหนังสือ</h3>
+      <span style="color:white;font-size: 24px">ระบบยืมหนังสือ</span>
       </div>
       <div class="panel-body">
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
             <div class="col-md-12">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchModal" style="margin-bottom:5px;">
                 ค้นหาหนังสือ
               </button>
               <table class="table table-striped table-hover">
                 <thead>
-                  <tr class="info">
+                  <tr class="warning">
                     <th>#</th>
                     <th>ชื่อหนังสือ</th>
                     <th>ID ของสื่อ</th>
@@ -68,12 +68,12 @@
 
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="col-md-12">
               <div class = "row">
-                <div class = "col-md-3" ><h4>ข้อมูลผู้ยืม</h4></div>
+                <div class = "col-md-4" ><h4>ข้อมูลผู้ยืม</h4></div>
                 <div class = "col-md-3">
-                  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
+                  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal" style="margin-bottom: 5px">
                     เลือกผู้ยืม
                   </button>
                 </div>
@@ -93,17 +93,17 @@
             <div class="col-md-12">
               <h4>สรุป</h4>
               <div class ="well">
-                <div class="form-inline">
+                <div class="form-inline" ng-controller = "BorrowController">
                   <div class="form-group input-group">
-                    <div class="input-group-addon">วันยืม : {{ date('d-m-').(date('Y') + 543); }}</div>
+                    <div class="input-group-addon">วันยืม : {{ date('Y-m-d') }}</div>
                     <div class="input-group-addon">วันคืน : </div>
-                    <input type="text" class="form-control" name="" id="datepicker"/>
+                    <div><input type="text" class="form-control" id="datepicker" uib-datepicker-popup="yyyy-MM-dd" ng-model="return_date" uib-datepicker-popup is-open="return_date_popup.opened" datepicker-options="dateOptions" ng-click="return_date_popup.opened = true"></div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
-              <a href="{{ url('/borrow/submit') }}" id="submit-media"><button type="button" class="btn btn-success pull-right">ทำรายการ</button></a>
+              <a href="{{ url('/borrow/submit') }}" id="submit-media"><button type="button" class="btn btn-success pull-right" style="margin-left:5px">ทำรายการ</button></a>
               <!-- TODO add jquery for refresh here -->
               <a href="{{ url('/borrow/clear') }}"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
             </div>
@@ -129,9 +129,13 @@
           <div class = "col-md-3">
             <select name = "search_type" class="form-control" id = "search_type" role="menu">
               <option value = "title" selected id="select_title">ชื่อ</option>
+              <option value = "book_type" >ประเภทหนังสือ</option>
               <option value = "author" >ชื่อผู้แต่ง</option>
               <option value = "translate" >ชื่อผู้แปล</option>
+              <option value = "publisher" >สำนักพิมพ์</option>
+              <option value = "pub_year" >ปีที่พิมพ์</option>
               <option value = "isbn" >ISBN</option>
+              <option value = "original_id" >ORIGINAL ID</option>
               <option value = "id" >ID</option>
             </select>
           </div>
@@ -153,7 +157,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <label class="pull-left" style="color: #ccc">*ตัวอักษรสีเทาคือถูกยืมแล้ว</label>
+        <label class="pull-left" style="color: #ccc"><strong>*ตัวอักษรสีเทาคือไม่สามารถยืมได้ เนื่องจากถูกยืมไปแล้วหรืออยู่ในระหว่างการปรับปรุง</strong></label>
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
       </div>
     </div>
@@ -224,14 +228,6 @@
 
   updateMediaAmount();
 
-  $(function() {
-  $("#datepicker").datepicker({
-              language:'th-th',
-              format: 'dd/mm/yyyy',
-              isBuddhist: true
-            });
-  });
-
   $('#submit-media').click(function(event) {
     event.preventDefault();
     if(!selectedMember || amountOfMedia == 0 || !$('#datepicker').val()) {
@@ -248,9 +244,11 @@
     }
     else {
       $.ajax({
-        type: "GET",
+        type: "POST",
         url: "{{ url('borrow/submit') }}",
+        data: {retdate: $('#datepicker').val()},
       }).done(function(data) {
+        console.log(data);
         if(data == "completed") {
           clearData();
           $('#form_completed').modal('show');
@@ -348,7 +346,7 @@
       $.ajax({
         type: "GET",
         url: "{{ url('borrow/book') }}/" + id,
-      }).done(function(data) {
+      }).success(function(data) {
         if(data['status']){
           var input_data = data['media'];
           var tr_table = $('<tr id="media-row_' + id + '"></tr>');
@@ -366,10 +364,10 @@
             type = "เดซี่";
           }
           else if(input_data['type'] == "CD") {
-            type = "CD";
+            type = "ซีดี";
           }
           else if(input_data['type'] == "DVD") {
-            type = "DVD";
+            type = "ดีวีดี";
           }
           tr_table.append('<td>'+type+'</td>');
           tr_table.append('<td><button type="button" class="btn btn-danger btn_delete" id="' + id + '">ลบ</button></td>');
@@ -447,52 +445,53 @@
     console.log(jsonArr);
     console.log("****");
     console.log(jsonArr.length);
-    console.log(jsonArr[0][0]);*/
+    console.log(jsonArr[0][0]);*/ 
     var media_amount = 0;
     for(var i=0; i<jsonArr.length; i++){
       //TODO when click same item should not add it to list
       for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
-        if(jsonArr[i][0][brailleIndex].reserved == 1) {  //add by oat
-          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
+        if(jsonArr[i][0][brailleIndex].reserved == 0) {  //add by oat 
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
         }
         else {
-          $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
+          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
         }
       }
 
     for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
-      if(jsonArr[i][1][cassetteIndex].reserved == 1) {
-        $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</tr><br>");
+      if(jsonArr[i][1][cassetteIndex].reserved == 0) {
+        $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
-        $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
+        $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</tr><br>");
       }
      }
 
      for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
-      if(jsonArr[i][2][cdIndex].reserved == 1) {
-          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
+      if(jsonArr[i][2][cdIndex].reserved == 0) {
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
         }
       else {
-          $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
+          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");        
       }
      }
 
      for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
-      if(jsonArr[i][3][daisyIndex].reserved == 1) {
-           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
+      if(jsonArr[i][3][daisyIndex].reserved == 0) {
+           $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
-           $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
+           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");        
+
       }
      }
 
      for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
-      if(jsonArr[i][4][dvdIndex].reserved == 1) {
-          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
+      if(jsonArr[i][4][dvdIndex].reserved == 0) {
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
-          $('.search-table').append("<tr class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td></tr><td class='isBorrowed' hidden>n</td><br>");
+          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
       }
      }
      media_amount += jsonArr[i][0].length + jsonArr[i][1].length + jsonArr[i][2].length + jsonArr[i][3].length + jsonArr[i][4].length;

@@ -3,10 +3,10 @@
 <title>ระบบคืนหนังสือ</title>
 @stop
 @section('body')
-<div class="container">
+<div class="container col-md-12">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">ระบบคืนหนังสือ</h3>
+      <span style="color:white;font-size: 24px">ระบบคืนหนังสือ</span>
     </div>
     <div class="panel-body">
       <div class="row">
@@ -17,12 +17,12 @@
                 <div class="input-group-addon">ระบุรหัสของสื่อ</div>
                 <input type="text" class="form-control" id="mid">
               </div>
-              <button type="submit" class="btn btn-info" id="add_btn">ค้น</button>
+              <button type="submit" class="btn btn-info btn-sm" id="add_btn">ค้นหาหนังสือ</button>
             </div>
             <br>
             <table class="table table-striped table-hover">
               <thead>
-                <tr class="info">
+                <tr class="success">
                   <th>#</th>
                   <th>ชื่อหนังสือ</th>
                   <th>ID ของสื่อ</th>
@@ -72,9 +72,9 @@
         <div class="col-md-4">
           <div class="col-md-12">
             <div class = "row">
-              <div class = "col-md-4" ><h4>ข้อมูลผู้ยืม</h4></div>&nbsp;
-              <div class = "col-md-4">
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal">
+              <div class = "col-md-5" ><h4>ข้อมูลผู้ยืม</h4></div>&nbsp;
+              <div class = "col-md-5">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#memberModal" style="margin-bottom: 5px;">
                   เลือกผู้ยืม
                 </button>
               </div>
@@ -94,13 +94,13 @@
           <div class="col-md-12">
             <h4>สรุป</h4>
             <div class ="well">
-              <div class="form-inline form-group input-group input-group-addon">วันคืน : {{ date('d-m-').(date('Y') + 543); }}</div>
+              <div class="form-inline form-group input-group input-group-addon">วันคืน : {{ date('Y-m-d') }}</div>
             </div>
           </div>
           <div class="col-md-12">
             <a href="/return/submit" id="submit-media"><button type="button" class="btn btn-success pull-right">คืน</button></a>
             <!-- TODO add jquery for refresh here -->
-            <a href="/return/clear"><button type="button" class="btn btn-danger pull-right del_btn">ล้าง</button></a>
+            <a href="/return/clear"><button type="button" class="btn btn-danger pull-right del_btn" style="margin-right:5px;">ล้าง</button></a>
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
 
-* {
+*{
   margin: 0;
 }
 html, body {
   height: 100%;
   background-color: #ecf0f1;
   margin-bottom: 100px;
+  font-family: 'Trirong', serif;
 }
 .wrapper {
   min-height: 100%;
@@ -16,15 +17,15 @@ html, body {
 }
 
 .footer {
-  height: 135px;
+  height: 145px;
   background-color: #34495e;
   color: #ecf0f1;
   padding-top: 10px;
 }
-
 .footer-img {
-  text-align: center;
+  text-align: right;
 }
+
 
 .panel-hover:hover {
 	border-style: solid;
@@ -53,6 +54,10 @@ html, body {
 
 a {
 	color : black;
+}
+
+p{
+  margin:0 0 0em;
 }
 
 .icon {
@@ -168,16 +173,72 @@ a {
 
 .paginate-control-left {
   position: absolute;
-  left: 0px;
+  left: -20px;
   top: 50%;
 }
 
 .paginate-control-right {
   position: absolute;
-  right: 0px;
+  right: -20px;
   top: 50%;
 }
 
 .add-media-prod {
   font-size: 16px;
 }
+
+.inputsize{
+  margin-top: 5px;
+}
+
+.labelisize{
+  font-size: 16px;
+  margin-top: 13px;
+}
+
+.labelisize1{
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.mediatable{
+  text-align: center;
+  width: 100px;
+}
+
+/* edit btn */
+.btn {
+  font-size:20px;
+}
+
+/* edit head panel big for font */
+
+
+/* edit head nav big for font */
+.nav>li {
+  font-size:1.2em;
+}
+
+/* edit title panel big for font */
+.panel-title {
+    font-size: 1.3em;
+}
+
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 90%;
+   max-width:1200px;
+  }
+}
+
+.sel_hover:hover{
+  color: white;
+  background-color: #34495e;
+}
+
+.li_lastbook:hover{
+  font-size: 16px;
+  color: white;
+  background-color: #34495e; 
+}
+

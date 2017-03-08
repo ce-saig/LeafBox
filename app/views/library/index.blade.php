@@ -11,9 +11,13 @@
 		<div class = "col-md-2">
 			<select name = "search_type" class="form-control" id = "search_type" role="menu">
 			    <option value = "title" >ชื่อ</option>
+			    <option value = "book_type" >ประเภทหนังสือ</option>
 			    <option value = "author" >ชื่อผู้แต่ง</option>
 			    <option value = "translate" >ชื่อผู้แปล</option>
+			    <option value = "publisher" >สำนักพิมพ์</option>
+			    <option value = "pub_year" >ปีที่พิมพ์</option>
 			    <option value = "isbn" >ISBN</option>
+			    <option value = "original_id" >ORIGINAL ID</option>
 			    <option value = "id" >ID</option>
 			 </select>
 		</div>
@@ -23,7 +27,7 @@
 			<input name = "search_value" id = "search_value" type = "text" class="form-control" placeholder = "ค้นหา" >
 		</div>
 		<div class = "col-md-2 col-xs-8 pull-right" >
-			<button  post-path="{{ url('/search/book') }}" class="btn btn-success btn-lg search_submit" >ค้นหา</button>
+			<button  post-path="{{ url('/search/book') }}" class="btn btn-success btn-lg search_submit" style="margin-top:-5px" >ค้นหา</button>
 			<span id="search-info" card-link-path="{{ url('book/') }}" ></span>
 		</div>
 
@@ -138,8 +142,8 @@
 	</div>
 
 	<div class="row">
-		<div class = "panel panel-default">
-				<div class = "panel-heading">
+		<div class = "panel panel-danger">
+				<div class = "panel-heading" style="font-size:1.5em">
 					จัดการ
 				</div>
 				<div class= "panel-body">
@@ -148,7 +152,7 @@
 						<div class = "col-md-3 icon">
 						  <a href="{{URL::to('/book/add')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Book.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/book-with-add-button.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4>เพิ่มหนังสือ</h4>
@@ -158,7 +162,7 @@
 						<div class = "col-md-3 icon text-center">
 						  <a href="{{URL::to('/borrow')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Clipboard.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/Book-b.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4>ยืมหนังสือ</h4>
@@ -168,7 +172,7 @@
 						<div class = "col-md-3 icon text-center">
 						  <a href="{{URL::to('/return')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Pocket.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/book-r.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4> คืนหนังสือ </h4>
@@ -176,12 +180,14 @@
 						  </a>
 						</div>
 						<div class = "col-md-3 icon text-center">
+						 <a href="{{URL::to('/borrower')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Retina-Ready.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/lecture.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
-								<h4> จัดการผู้ใช้ </h4>
+								<h4> จัดการผู้ยืม </h4>
 							</div>
+						</a>
 						</div>
 					</div>
 				</div>
@@ -190,20 +196,23 @@
 
 	<div class = "row">
 		<div class = "col-md-offset-2 col-md-8">
-			<div class = "panel panel-default">
-				<div class = "panel-heading">
+			<div class = "panel panel-primary">
+				<div class = "panel-heading" style="font-size:1.5em">
 					หนังสือที่เพิ่มล่าสุด
 				</div>
 				<div class= "panel-body" ng-controller="ProductionStatusController as bookCtrl">
 					<ul class="list_group">
 					@foreach($books_all as $book)
-					   <a href="{{ url('book/'.$book->id) }}">
-						<li class="list-group-item">
+					<a href="{{ url('book/'.$book->id) }}" style="text-decoration: none">
+						<li class="list-group-item li_lastbook">
 
-							 {{ $book->id }} . <b>{{ $book->title }} - {{ $book->author }} ({{ $book->pub_year }}) </b>
+							 {{ $book->id }} 
+							 @if($book->original_no!=null)({{$book->original_no}})@endif
+							  . <b>{{ $book->title }} - {{ $book->author }} 
+							 @if($book->pub_year > 0)({{ $book->pub_year }})@endif </b>
 
 						</li>
-					  </a>
+					</a>
 					@endforeach
 					</ul>
 				</div>

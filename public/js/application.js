@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 	function cardGenerate(input_response, card_path) {
 		var response = input_response
-		var mediatype = ['เบรลล์', 'คาสเซ็ท', 'DVD', 'CD', 'Daisy'];
+		var mediatype = ['เบรลล์ ', 'คาสเซ็ท ', 'ดีวีดี ', 'ซีดี ', 'เดซี่ '];
 		var status_attr_type = ['bm_status','setcs_status','setdvd_status','setcd_status','setds_status'];
 		$('.search_result').text('');
 
@@ -142,6 +142,7 @@ $(document).ready(function() {
 			panel_wrapper.attr('style', 'height: 150px;');
 			var panel_header = $('<div></div>').addClass('panel-heading');
 			panel_header.text( response[i].id + '.'+response[i].title +' - ' + response[i].author +' ('+response[i].pub_year+')');
+			panel_header.attr('style', 'font-size: 17px');
 			var panel_body = $('<div></div>').addClass('panel-body');
 			var panel_body_inner = $('<div></div>').addClass('label-status');
 			// TODO ********** : badge status node !!
@@ -175,16 +176,63 @@ $(document).ready(function() {
 
 	function badgeGenerator(status, label) {
 		console.log(status + " " + label);
-		if(status == 0){
-			return '<span class="label label-warning">ไม่ผลิต</span>';
-		}else if(status == 1){
-			return '<span class="label label-success">ผลิต</span>';
+		status_label = [{
+			0: 'ยังไม่ผลิต',
+	 		1: 'รอการผลิต',
+	 		2: 'รอพิมพ์',
+	 		3: 'กำลังพิมพ์',
+	 		4: 'ผลิตเสร็จ',
+	 		6: 'ไม่ทำการผลิต'
+		},
+		{
+			0: 'ยังไม่ผลิต',
+	 		1: 'รออ่าน',
+	 		2: 'อ่าน',
+	 		3: 'ทำต้นฉบับ',
+	 		4: 'ทำกล่อง',
+	 		6: 'ไม่ทำการผลิต'
+		},
+		{
+			0: 'ยังไม่ผลิต',
+	 		1: 'รออ่าน',
+	 		2: 'กำลังอ่าน',
+	 		3: 'รอการผลิต',
+	 		4: 'ผลิตเสร็จ',
+	 		6: 'ไม่ทำการผลิต'
+		},
+		{
+			0: 'ยังไม่ผลิต',
+	 		1: 'รออ่าน',
+	 		2: 'อ่าน',
+	 		3: 'ทำต้นฉบับ',
+	 		4: 'ทำกล่อง',
+	 		6: 'ไม่ทำการผลิต'
+		},
+		{
+			0: 'ยังไม่ผลิต',
+	 		1: 'รออ่าน',
+	 		2: 'อ่าน',
+	 		3: 'ทำต้นฉบับ',
+	 		4: 'ทำกล่อง',
+	 		6: 'ไม่ทำการผลิต'
+		}];
+		var op_tag = '<div class="label label-info">'; 
+		switch(status){
+			case 0: op_tag = '<div class="label label-warning">'; break;
+			case 1: op_tag = '<div class="label label-info">'; break;
+			case 2: op_tag = '<div class="label label-info">'; break;
+			case 3: op_tag = '<div class="label label-info">'; break;
+			case 4: op_tag = '<div class="label label-success">'; break;
+			case 6: op_tag = '<div class="label label-danger">'; break;			
 		}
-		else if((status == 2 && label == 'เบรลล์') || status == 3){
-			return '<span class="label label-info">กำลังผลิต</span>';
+		switch(label){
+			case 'เบรลล์ ': return op_tag+status_label[0][status]+'</div>'; break;
+			case 'คาสเซ็ท ': return op_tag+status_label[1][status]+'</div>'; break;
+			case 'เดซี่ ': return op_tag+status_label[2][status]+'</div>'; break;
+			case 'ซีดี ': return op_tag+status_label[3][status]+'</div>'; break;
+			case 'ดีวีดี ': return op_tag+status_label[4][status]+'</div>'; break;
 		}
-		else{
-			return '<span class="label label-info">จองอ่าน</span>';
-		}
+		
 	}
+
 });

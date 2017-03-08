@@ -6,8 +6,8 @@ app.factory('MediaService', function($rootScope, $resource, $http){
 		['braille', 'เบรลล์'],
 		['cassette', 'เทปคาสเซ็ท'],
 		['daisy', 'เดซี่'],
-		['cd', 'CD'],
-		['dvd', 'DVD']
+		['cd', 'ซีดี'],
+		['dvd', 'ดีวีดี']
 	]
 
 	return {

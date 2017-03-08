@@ -5,12 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
-	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 	<!-- Main custom Bootstrap style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
 	<!-- date-picker style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/datepicker.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
+
 	<!-- font-awesome package-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -20,12 +21,15 @@
 	@yield('head')
 
 	<style type="text/css">
-
+ @font-face {
+          font-family: Trirong;
+          src: url(fonts/Trirong.ttf);
+        }
 
     </style>
   </head>
   <body>
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default" ng-controller="BackupController">
      <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
          <span class="icon-bar"></span>
@@ -42,7 +46,8 @@
           <li><a href="{{URL::to('/borrow')}}">ระบบยืม</a></li>
           <li><a href="{{URL::to('/return')}}">ระบบคืน</a></li>
           <li><a href="{{URL::to('/borrower')}}">ระบบจัดการผู้ยืม</a></li>
-          <li><a href="{{URL::to('/report')}}">Report</a></li>
+          <li><a href="{{URL::to('/report')}}">รายงาน</a></li>
+          <li><a href="{{URL::to('/backup')}}">ระบบสำรองข้อมูล</a></li>
           
        </ul>
        <ul class="nav navbar-nav navbar-right">
@@ -114,9 +119,18 @@
   <div class= "col-md-2 footer-img">
     <img class = "img-logo" src="{{ asset('/img/logo.png') }}" >
   </div>
-  <div class = "col-md-10 ">
-    <p >ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</p>
-		<p> จัดทำโดย </p>
+  <div class = "col-md-5 ">
+    <h4 style="color:white;">ศูนย์เทคโนโลยีการศึกษาเพื่อคนตาบอด</h4>
+    <p>78/2 หมู่ 1 ต. บางตลาด ซ. ติวานนท์-ปากเกร็ด 1 ถ. ติวานนท์ อ. ปากเกร็ด จ. นนทบุรี 11120</p>
+    <p>โทรศัพท์ : 02-9625818-9, แฟกซ์ : 02-5836518
+อีเมล : Chanidapa_pp@hotmail.com</p>
+  </div>
+   
+  <div class="col-md-5" style="text-align: left;">
+    <h4 style="color:white; font-size:1.5em">มูลนิธิช่วยคนตาบอดแห่งประเทศไทย ในพระบรมราชินูปถัมภ์</h4>
+    <p>420 ถนนราชวิถี แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพมหานคร 10400</p>
+    <p>โทรศัพท์ 0-2354-8365-68 , 0-2354-8370-71 โทรสาร 0-2354-8369</p>
+    <p>อีเมล service@blind.or.th</p>
   </div>
 </div>
 </footer>
@@ -136,16 +150,24 @@
 <script src="{{ asset('js/angularjs/ext/ui-select/js/angular-sanitize.min.js') }}"></script>
 <script src="{{ asset('js/angularjs/ext/ui-select/js/select.min.js') }}"></script>
 
+<script src="{{ asset('js/angularjs/components/bookedit.component.js') }}"></script>
 <script src="{{ asset('js/angularjs/components/mediatab.component.js') }}"></script>
 <script src="{{ asset('js/angularjs/components/production-status.component.js') }}"></script>
 
 <!-- angular controller -->
+<script src="{{ asset('js/angularjs/controllers/BackupController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/BookViewController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/BookEditController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/BorrowController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ProductionStatusController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/ReportController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/MediaDetailEditController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailTabController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/modal_controllers/MediaModalController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/modal_controllers/ProductionModalController.js') }}"></script>
 
 <!-- angular service -->
+<script src="{{ asset('js/angularjs/services/BookService.js') }}"></script>
 <script src="{{ asset('js/angularjs/services/MediaService.js') }}"></script>
 <script src="{{ asset('js/angularjs/services/UserService.js') }}"></script>
 <script src="{{ asset('js/angularjs/services/DateTimeService.js') }}"></script>

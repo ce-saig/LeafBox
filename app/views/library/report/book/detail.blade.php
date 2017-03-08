@@ -183,7 +183,7 @@
       return "ปกติ";
     }
     else if(media == 1) {
-      return "เสีย";
+      return "ชำรุด";
     }
     else if(media == 2) {
       return "ซ่อม";

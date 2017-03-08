@@ -144,7 +144,7 @@ class ReturnController extends BaseController {
   public function postSubmitReturn()
   {
     $returnList = Session::get('list', array());
-    $dateReturned = (date("Y") + 543).date("-m-d H:i:s");
+    $dateReturned = (date("Y")).date("-m-d H:i:s");
     foreach ($returnList as $item) {
       // id form is "cd5" it's need to split to two parameter.
       $media_id = preg_replace("/[^0-9]/", "", $item['id']);
@@ -178,7 +178,7 @@ class ReturnController extends BaseController {
       $temp_media->reserved = 0;
       $temp_media->save();
 
-      $borrowed_rec->actual_returned = $dateReturned;
+      $borrowed_rec->actual_returned = date('Y-m-d H:i:s');
       $borrowed_rec->save();
     }
 
@@ -292,7 +292,7 @@ class ReturnController extends BaseController {
     // change sting of type to class
     $class_name = ucfirst($mediatype)."borrow";
     // create class from string
-    $borrows = $class_name::where('member_id', '=', $member_id)->get();
+    $borrows = $class_name::where('member_id', '=', $member_id)->where('actual_returned','=','0000-00-00 00:00:00')->get();
     // get session
     $returnList = Session::get('list', array());
     
@@ -324,7 +324,8 @@ class ReturnController extends BaseController {
       $list['no']      = count($returnList)+1;
       $list['title']   = $book['title'];
       // if Cd 
-      if($mediatype == 'cd')$media_type = 'Cd';
+      if($mediatype == 'cd')$media_type = 'CD';
+      if($mediatype == 'dvd')$media_type = 'DVD';
       $list['id']      = $media_type . $media->id;
       $list['item']    = $media;
       $list['type']    = $mediatype;

@@ -1,9 +1,9 @@
 <div role="tabpanel" class="tab-pane">
     <div  ng-repeat="(key, prods) in prodCollection">
-      <div class="panel panel-info">
+      <div class="panel panel-primary" style="min-height: 200px;margin-top: 10px">
         <div class="panel-heading">
           <div class="panel-title">
-            <% MediaService.convertToMediaLabel(key) %> <a class="pull-right" ng-click="addProdModal(key)"><h3 class="label label-primary add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            <% MediaService.convertToMediaLabel(key) %> <a class="pull-right" ng-click="addProdModal(key)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
           </div>
         </div>
         <div class="panel-body">
