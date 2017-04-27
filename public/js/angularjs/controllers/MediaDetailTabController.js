@@ -104,22 +104,27 @@ app.controller('MediaDetailTabController', function($rootScope, $scope, $uibModa
 			case 'braille':
 			$scope.tableHead = ['เบรลล์เซ็ทไอดี', 'เบรลล์เซ็ทไอดีเดิม', 'จำนวนหน้า', 'จำนวนตอน', 'ผู้ตรวจสอบ', 'ผู้ยืม'];
 			$scope.tableData = {pages: true, numpart: true, length: false, examiner: true};
+			$scope.media_code = 'B';
 			break;
 			case 'cassette':
 			$scope.tableHead = ['คาสเซ็ทเซ็ทไอดี', 'คาสเซ็ทเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
+			$scope.media_code = 'C';
 			break;
 			case 'cd':
 			$scope.tableHead = ['ซีดีเซ็ทไอดี', 'ซีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (แผ่น)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
+			$scope.media_code = 'CD';
 			break;
 			case 'daisy':
 			$scope.tableHead = ['เดซีเซ็ทไอดี', 'เดซี่เซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
+			$scope.media_code = 'D';
 			break;
 			default:
 			$scope.tableHead = ['ดีวีดีเซ็ทไอดี','ดีวีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
+			$scope.media_code = 'DVD';
 		}
 	}
 

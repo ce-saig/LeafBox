@@ -15,57 +15,62 @@
           <div class="row col-xs-12 col-md-12" style="margin-top: 15px">
             <h4>เลขลำดับ</h4>
           </div>
-          <div class="col-md-12">
-            <div class="row col-xs-6 col-sm-6 col-md-6">
-              <div class="form-group">
-                <label class="col-sm-4 col-md-5  control-label" style="margin-top: 10px">เลขอันดับ</label>
-                <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                  <input type="text" class="form-control" name="number">
-                </div>
-              </div>
-            </div>
-
-            <div class="row col-xs-6 col-sm-6 col-md-6 pull-right">
-              <div class="form-group">
-                <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ braille (b no.)</label>
-                <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                  <input type="text" class="form-control" name="b_no">
-                </div>
-              </div>
-            </div>
-
-            <div class="row col-xs-6 col-sm-6 col-md-6">
-              <div class="form-group">
-                <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ cassette (c no.)</label>
-                <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                  <input type="text" class="form-control" name="c_no">
-                </div>
-              </div>
-            </div>
-
-            <div class="row col-xs-6 col-sm-6 col-md-6 pull-right">
-              <div class="form-group">
-                <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ cd (cd no.)</label>
-                <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                  <input type="text" class="form-control" name="cd_no">
-                </div>
-              </div>
-            </div>
-
-            <div class="row col-xs-6 col-sm-6 col-md-6">
-              <div class="form-group">
-                <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ daisy (d no.)</label>
-                <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px">
-                  <input type="text" class="form-control" name="d_no">
-                </div>
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="col-md-12">
+              <div class="row col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-5  control-label" style="margin-top: 10px">เลขอันดับ</label>
+                  <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
+                    <input type="text" class="form-control" name="number">
+                  </div>
                 </div>
               </div>
 
               <div class="row col-xs-6 col-sm-6 col-md-6 pull-right">
                 <div class="form-group">
-                  <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ dvd (dvd no.)</label>
+                  <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ braille</label>
                   <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                    <input type="text" class="form-control" name="dvd_no">
+                    <input type="text" class="form-control" name="b_no">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12">
+              <div class="row col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ cassette</label>
+                  <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
+                    <input type="text" class="form-control" name="c_no">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row col-xs-6 col-sm-6 col-md-6 pull-right">
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ cd</label>
+                  <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
+                    <input type="text" class="form-control" name="cd_no">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12 col-lg-12">
+              <div class="row col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ daisy</label>
+                  <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px">
+                    <input type="text" class="form-control" name="d_no">
+                  </div>
+                  </div>
+                </div>
+
+                <div class="row col-xs-6 col-sm-6 col-md-6 pull-right">
+                  <div class="form-group">
+                    <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">เลขอันดับ dvd</label>
+                    <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
+                      <input type="text" class="form-control" name="dvd_no">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -141,14 +146,14 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">พิมพ์ครั้งที่</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="number" min="1" class="form-control" placeholder="เช่น 1" name="pub_no">
+                <input type="text" class="form-control" placeholder="เช่น 1" name="pub_no">
               </div>
             </div>
           </div>
 
           <div class="row col-xs-6 col-sm-6 col-md-6 pull-right">
             <div class="form-group">
-              <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">พ.ศ.</label>
+              <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ค.ศ.</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
                 <input type="number"  min="2000" max="{{date('Y')}}" class="form-control" placeholder="เช่น {{date('Y')}}" name="pub_year">
               </div>

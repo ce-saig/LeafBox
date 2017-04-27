@@ -9,7 +9,6 @@ app.factory('MediaService', function($rootScope, $resource, $http){
 		['cd', 'ซีดี'],
 		['dvd', 'ดีวีดี']
 	]
-
 	return {
 		BRAILLE: 0,
 		CASSETTE: 1,

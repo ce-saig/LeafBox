@@ -14,7 +14,7 @@ app.controller('BookViewController', function($rootScope, $scope, $uibModal, $lo
 			d_first = true;
 			if($scope.master_list.braille[0].original_no != null){
 				$scope.text_ori += 'B'+$scope.master_list.braille[0].original_no;
-				d_first = true;
+				d_first_ori = true;
 			}
 		}
 		if($scope.master_list.cassette[0] != null){
