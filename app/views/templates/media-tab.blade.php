@@ -10,7 +10,9 @@
             <tbody>
               <tr class = "hover table-body" ng-repeat="item in mediaCollection">
                 <td style="text-align: center" ng-click="editMediaModal(item)"><% item.id %><span ng-show="item.master == 1">*</span></td>
-                <td style="text-align: center" ng-click="editMediaModal(item)"><% item.original_no %></td>
+                <td style="text-align: center" ng-click="editMediaModal(item)">
+                  <span ng-show="item.original_no != null"><%media_code%></span><%item.original_no %>
+                </td>
                 <td style="text-align: center" ng-click="editMediaModal(item)" ng-show="isShowTableData('pages')"><% item.pages %></td>
                 <td style="text-align: center" ng-click="editMediaModal(item)" ng-show="isShowTableData('numpart')"><% item.numpart + ' ' + item.submedia_id %></td>
                 <td style="text-align: center" ng-click="editMediaModal(item)" ng-show="isShowTableData('length')"><% item.length %></td>

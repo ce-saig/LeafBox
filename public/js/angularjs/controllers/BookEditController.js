@@ -18,7 +18,9 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 				case $scope.products.string[4]: $scope.type = 'dvd';		$scope.master_prod = $scope.master_list['product_dvd'];	break;
 			}
 			$scope.master = $scope.master_list[$scope.type][0];
-			$scope.master_prod.finish_date = new Date($scope.master_prod.finish_date);		
+			if($scope.master_prod != null){
+				$scope.master_prod.finish_date = new Date($scope.master_prod.finish_date);		
+			}
 
 			if($scope.master === undefined){
 				$scope.no_master = true;
@@ -93,7 +95,9 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 
 	$scope.EditBook = function(){
 		$scope.book.regis_date 	 		 = $filter('date')($scope.book.regis_date,'yyyy-MM-dd HH:mm:ss');
-		$scope.master_prod.finish_date 	 = $filter('date')($scope.master_prod.finish_date,'yyyy-MM-dd HH:mm:ss');
+		if($scope.master_prod != null){
+			$scope.master_prod.finish_date 	 = $filter('date')($scope.master_prod.finish_date,'yyyy-MM-dd HH:mm:ss');
+		}
 		SetVariables("POST");
 		if($scope.master_prod != null){
 			$scope.book.prod_date = $scope.master_prod.finish_date;

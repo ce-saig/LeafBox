@@ -66,7 +66,7 @@
         <label for="input" class="control-label labelisize">พิมพ์ครั้งที่</label>
       </div>
       <div class="col-lg-6 col-lg-6">
-        <input name="pub_no" class="form-control inputsize" ng-model="book.pub_no" type="number" min="0">
+        <input name="pub_no" class="form-control inputsize" ng-model="book.pub_no" type="text">
       </div>
     </div>
 

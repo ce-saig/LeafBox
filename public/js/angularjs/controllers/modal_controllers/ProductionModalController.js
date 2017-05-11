@@ -100,7 +100,6 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 				dateDisabled: disabled,
 				formatYear: 'yy',
 				maxDate: new Date(2559, 9, 22),
-				minDate: $scope.action_date,
 				startingDay: 1
 			},
 			format: 'dd-MM-yyyy',
