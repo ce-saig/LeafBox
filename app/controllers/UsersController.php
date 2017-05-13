@@ -79,6 +79,11 @@ class UsersController extends \BaseController {
 		}
 	}
 
+	public function getUser($id){
+		$user = User::find($id);
+		return $user;
+	}
+
 	/**
 	 * Show the form for editing the specified resource.
 	 * GET /users/{id}/edit
@@ -100,10 +105,19 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		if(Request::ajax())
-		{
-
+		$user = User::find($id);
+		$user->name = Input::get('name');
+		$user->username = Input::get('username');
+		$user->email = Input::get('email');
+		$user->role = Input::get('role');
+		if(Input::get('password') != ""){
+			$user->password = Hash::make(Input::get('password'));
+			$user->updated_at = (date("Y")).date("-m-d H:i:s");
+			$user->save();
 		}
+		$user->updated_at = (date("Y")).date("-m-d H:i:s");
+		$user->save();
+		return $user;
 	}
 
 	/**

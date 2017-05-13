@@ -161,6 +161,7 @@
 <script src="{{ asset('js/angularjs/controllers/BorrowController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ProductionStatusController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ReportController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/UserController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailEditController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailTabController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/modal_controllers/MediaModalController.js') }}"></script>
