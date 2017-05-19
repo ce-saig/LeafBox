@@ -78,7 +78,7 @@
 				@else
 					<div class="well">
 						<i class="fa fa-exclamation-triangle"></i>
-						คุณไม่มีสิทธิในการจัดการผู้ใช้อื่น
+						คุณไม่มีสิทธิในการจัดการผู้ใช้อื่น ผู้ที่สามารถใช้งานในส่วนนี้ได้ต้องมีตำแหน่งเป็น <b>admin</b> เท่านั้น
 					</div>
 				@endif
 			</div>
@@ -128,7 +128,7 @@
 	        </div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+	      	<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
 	        <a type="button" class="btn btn-success" ng-click="AcceptEdit()" href="{{ url('user/'.Auth::user()->id) }}">ยืนยัน</a>
 	      </div>
 	    </div>
