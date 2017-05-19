@@ -17,16 +17,15 @@
 
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/select.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/selectize.default.min.css') }}" />
+  <style type="text/css">
+      @font-face {
+          font-family: Trirong;
+          src: url(/fonts/Trirong.ttf);
+        }
+    </style>
 
 	@yield('head')
 
-	<style type="text/css">
- @font-face {
-          font-family: Trirong;
-          src: url(fonts/Trirong.ttf);
-        }
-
-    </style>
   </head>
   <body>
     <div class="navbar navbar-default" ng-controller="BackupController">
@@ -161,6 +160,7 @@
 <script src="{{ asset('js/angularjs/controllers/BorrowController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ProductionStatusController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/ReportController.js') }}"></script>
+<script src="{{ asset('js/angularjs/controllers/UserController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailEditController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/MediaDetailTabController.js') }}"></script>
 <script src="{{ asset('js/angularjs/controllers/modal_controllers/MediaModalController.js') }}"></script>

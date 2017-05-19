@@ -138,6 +138,7 @@ Route::group(array('before' => 'auth'), function() {
   Route::group(array('prefix' => 'user/'), function()
   {
     Route::get('{id}','UsersController@show');
+    Route::post('/update/{id}','UsersController@update');
     Route::post('{id}/destroy','UsersController@destroy');
     Route::post('search', 'UsersController@searchUser');
   });
