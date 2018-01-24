@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS -->
 	<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 	<!-- Main custom Bootstrap style -->
   <link rel="stylesheet" type="text/css" href=" {{ asset('css/main.css') }}">
@@ -14,14 +14,14 @@
 
 	<!-- font-awesome package-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Prompt:400,700" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/select.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/selectize.default.min.css') }}" />
   <style type="text/css">
-      @font-face {
-          font-family: Trirong;
-          src: url(/fonts/Trirong.ttf);
-        }
+      body{
+        font-family: 'Prompt';
+      }
     </style>
 
 	@yield('head')
