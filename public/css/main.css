@@ -232,10 +232,19 @@ p{
   }
 }
 
+.sel_hover {
+  transition-duration: 0.3s;
+}
+
 .sel_hover:hover{
   color: white;
   background-color: #34495e;
 }
+
+.li_lastbook {
+  transition-duration: 0.3s;
+}
+
 
 .li_lastbook:hover{
   font-size: 16px;
