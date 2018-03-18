@@ -60,6 +60,7 @@ app.controller('BackupController', function($scope,$http,$window) {
 
 	$scope.Init = function(){
 		$http.get("/php/Files.php").success(function(data){
+					console.log(data)
       		$scope.files = [];
       		$scope.used_file == null;
       		var today = new Date();
