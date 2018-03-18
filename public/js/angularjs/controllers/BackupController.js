@@ -59,6 +59,7 @@ app.controller('BackupController', function($scope,$http,$window) {
 	}
 
 	$scope.Init = function(){
+		console.log('hello')
 		$http.get("/php/Files.php").success(function(data){
 			console.log(data)
       		$scope.files = [];
