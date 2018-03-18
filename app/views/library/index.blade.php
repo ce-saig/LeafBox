@@ -162,7 +162,7 @@
 						<div class = "col-md-3 icon text-center">
 						  <a href="{{URL::to('/borrow')}}">
 							<div class = "col-md-10 col-md-offset-1">
-								<img class = "img-responsive" src="{{ asset('/img/Book-b.png') }}">
+								<img class = "img-responsive" src="{{ asset('/img/book-b.png') }}">
 							</div>
 							<div class = "col-md-10 col-md-offset-1 text-center text-icon">
 								<h4>ยืมหนังสือ</h4>
