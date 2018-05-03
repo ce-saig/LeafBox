@@ -144,7 +144,6 @@
     <div class="col-xs-12 col-lg-2">
       <div class="col-lg-10">
         <input type="text" class="form-control inputsize" id="datepickerProd">
-        {{-- <input name="bm_date" class="form-control inputsize" ng-model ="master_prod.finish_date" uib-datepicker-popup is-open="master_date_popup.opened" datepicker-options="dateOptions" ng-click="master_date_popup.opened = true"> --}}
       </div>
     </div>
   </div>

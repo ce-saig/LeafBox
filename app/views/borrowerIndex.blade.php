@@ -249,7 +249,7 @@
 			while(data[index]) {
 				date_borrowed = data[index]['date_borrowed'];
 				date_returned = data[index]['actual_returned'];
-				$('#table-result-history').append("<tr><td>" + data[index]['book_name'] + "</td><td class='text-center'>" + data[index]['type'] + "</td><td class='text-center'>" + data[index]['typeID'] + "</td><td>" + date_borrowed.substring(0, 6) + (parseInt(date_borrowed.substring(6, 10))) + "</td><td>" + date_returned.substring(0, 6) + (parseInt(date_returned.substring(6, 10))) + "</td></tr>");
+				$('#table-result-history').append("<tr><td>" + data[index]['book_name'] + "</td><td class='text-center'>" + data[index]['type'] + "</td><td class='text-center'>" + data[index]['typeID'] + "</td><td>" + date_borrowed.substr(0, 2) + '/' + date_borrowed.substr(3, 2) + '/' + date_borrowed.substr(6, 4) + "</td><td>" + date_returned.substr(0, 2) + '/' + date_returned.substr(3, 2) + '/' + date_returned.substr(6, 4) + "</td></tr>");
 				index++;
 			}
 		});
@@ -274,7 +274,7 @@
 			while(data[index]) {
 				date_borrowed = data[index]['date_borrowed'];
 				due_date = data[index]['date_returned'];
-				$('#table-result-non-return').append("<tr><td>" + data[index]['book_name'] + "</td><td class='text-center'>" + data[index]['type'] + "</td><td class='text-center'>" + data[index]['typeID'] + "</td><td>" + date_borrowed.substring(0, 6) + (parseInt(date_borrowed.substring(6, 10))) + "</td><td>" + due_date.substring(0, 6) + (parseInt(due_date.substring(6, 10))) + "</td></tr>");
+				$('#table-result-non-return').append("<tr><td>" + data[index]['book_name'] + "</td><td class='text-center'>" + data[index]['type'] + "</td><td class='text-center'>" + data[index]['typeID'] + "</td><td>" + date_borrowed.substr(0, 2) + '/' + date_borrowed.substr(3, 2) + '/' + date_borrowed.substr(6, 4) + "</td><td>" + due_date.substr(0, 2) + '/' + due_date.substr(3, 2) + '/' + due_date.substr(6, 4) + "</td></tr>");
 				index++;
 			}
 		});

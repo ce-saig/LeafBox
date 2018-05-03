@@ -239,15 +239,16 @@
         $('#notify-error').append('<li>กรุณาเลือกผู้ยืม</li>');
       if(amountOfMedia == 0)
         $('#notify-error').append('<li>กรุณาเลือกสื่อ</li>');
-      if(!$('#datepicker').val())
+      if(!$("#datepicker").datepicker('getDate'))
         $('#notify-error').append('<li>กรุณาเลือกวันคืนสื่อ</li>');
       $('#notify').modal('show');
     }
     else {
+      var d = $("#datepicker").val()
       $.ajax({
         type: "POST",
         url: "{{ url('borrow/submit') }}",
-        data: {retdate: $('#datepicker').val()},
+        data: {retdate: parseInt(d.substr(6, 4) - 543) + '-' + d.substr(3, 2) + '-' + d.substr(0, 2)},
       }).done(function(data) {
         console.log(data);
         if(data == "completed") {

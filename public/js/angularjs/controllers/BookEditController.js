@@ -9,7 +9,7 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 	$scope.SelectMaster = function(){
 		$scope.BookService.getMaster(function(response){
 			$scope.master_list = response.data;
-			console.log(response.data);
+			// console.log(response.data);
 			switch($scope.prod_select){
 				case $scope.products.string[0]: $scope.type = 'braille';	$scope.master_prod = $scope.master_list['product_b'];	break;
 				case $scope.products.string[1]: $scope.type = 'cassette';	$scope.master_prod = $scope.master_list['product_c'];	break;
@@ -19,6 +19,7 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 			}
 			$scope.master = $scope.master_list[$scope.type][0];
 			if($scope.master_prod != null){
+				$("#datepickerProd").datepicker('setDate', new Date($scope.master_prod.finish_date))
 				$scope.master_prod.finish_date = new Date($scope.master_prod.finish_date);		
 			}
 
@@ -146,9 +147,6 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 			$("#datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
 			$("#datepickerProd").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
 			$("#datepicker").datepicker('setDate', new Date($scope.book.regis_date.substring(0, 10)))
-			if ($scope.master_prod) {
-				$("#datepickerProd").datepicker('setDate', new Date($scope.master_prod.finish_date))
-			}
 			$scope.book.pub_year += 543 
 			console.log(response);
 			SetVariables("GET");
