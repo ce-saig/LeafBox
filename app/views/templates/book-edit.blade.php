@@ -89,7 +89,7 @@
     </div>
 </div>
 <!-- Select Master -->
-<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 20px" ng-show="master">
+<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 20px">
   <div class="col-md-12">
     <h4>ต้นฉบับ</h4>
   </div>

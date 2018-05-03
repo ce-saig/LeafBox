@@ -54,10 +54,12 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 			m_id = 0; 
 		}else
 			m_id = $scope.master.id;
-		$scope.BookService.changeMaster({media_type:$scope.type, old_id:m_id, new_id:$scope.select_master.id},function(response){
-			$scope.SelectMaster();
-			console.log(response);
-		});
+			if (m_id != $scope.select_master.id) {
+				$scope.BookService.changeMaster({media_type:$scope.type, old_id:m_id, new_id:$scope.select_master.id},function(response){
+					$scope.SelectMaster();
+					console.log(response);
+				});
+			}
 	}
 
 	var SetVariables = function(mode){
