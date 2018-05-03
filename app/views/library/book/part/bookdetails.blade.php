@@ -61,7 +61,7 @@
 		<div class="col-xs-6 col-sm-2"><b>สถานะของเบรลล์</b></div>
 		<div class="col-xs-6 col-sm-2"><%BookProductionService.getProductionStatusLabel(0,master_list['product_b'].action)%></div>
 		<div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
-		<div class="col-xs-6 col-sm-2">{{($product['product_b'] == null || $product['product_b']->finish_date == "0000-00-00 00:00:00")? '-' :substr($product['product_b']->finish_date, 0,10)}}</div>
+		<div class="col-xs-6 col-sm-2">{{($product['product_b'] == null || $product['product_b']->finish_date == "0000-00-00 00:00:00")? '-' : substr($product['product_b']->finish_date,8,2) . '/' . substr($product['product_b']->finish_date,5,2) . '/' . (intval(substr($product['product_b']->finish_date,0,4)) + 543)}}</div>
 		<div class="col-xs-6 col-sm-2"><b>เบลล์ต้นฉบับ</b></div>
 		<div class="col-xs-6 col-sm-2"><%master_list['braille'][0].id%><span ng-show = "master_list['braille'][0] == null"> - </span>
 			<span ng-hide="master_list['braille'][0].original_no == null">(<%master_list['braille'][0].original_no%>)</span>
@@ -73,7 +73,7 @@
 		<div class="col-xs-6 col-sm-2"><b>สถานะของคาสเส็ท</b></div>
 		<div class="col-xs-6 col-sm-2"><%BookProductionService.getProductionStatusLabel(1,master_list['product_c'].action)%></div>
 		<div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
-		<div class="col-xs-6 col-sm-2">{{($product['product_c'] == null || $product['product_c']->finish_date == "0000-00-00 00:00:00")? '-' :substr($product['product_c']->finish_date, 0,10)}}</div>
+		<div class="col-xs-6 col-sm-2">{{($product['product_c'] == null || $product['product_c']->finish_date == "0000-00-00 00:00:00")? '-' : substr($product['product_c']->finish_date,8,2) . '/' . substr($product['product_c']->finish_date,5,2) . '/' . (intval(substr($product['product_c']->finish_date,0,4)) + 543)}}</div>
 		<div class="col-xs-6 col-sm-2"><b>คาสเซ็ทต้นฉบับ</b></div>
 		<div class="col-xs-6 col-sm-2"><%master_list['cassette'][0].id%><span ng-show = "master_list['cassette'][0] == null"> - </span>
 			<span ng-hide="master_list['cassette'][0].original_no == null">(<%master_list['cassette'][0].original_no%>)</span>
@@ -85,7 +85,7 @@
 		<div class="col-xs-6 col-sm-2"><b>สถานะของเดซี่</b></div>
 		<div class="col-xs-6 col-sm-2"><%BookProductionService.getProductionStatusLabel(2,master_list['product_d'].action)%></div>
 		<div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
-		<div class="col-xs-6 col-sm-2">{{($product['product_d'] == null || $product['product_d']->finish_date == "0000-00-00 00:00:00")? '-' :substr($product['product_d']->finish_date, 0,10)}}</div>
+		<div class="col-xs-6 col-sm-2">{{($product['product_d'] == null || $product['product_d']->finish_date == "0000-00-00 00:00:00")? '-' : substr($product['product_d']->finish_date,8,2) . '/' . substr($product['product_d']->finish_date,5,2) . '/' . (intval(substr($product['product_d']->finish_date,0,4)) + 543)}}</div>
 		<div class="col-xs-6 col-sm-2"><b>เดซี่ต้นฉบับ</b></div>
 		<div class="col-xs-6 col-sm-2"><%master_list['daisy'][0].id%><span ng-show = "master_list['daisy'][0] == null"> - </span>
 			<span ng-hide="master_list['daisy'][0].original_no == null">(<%master_list['daisy'][0].original_no%>)</span></div>
@@ -96,7 +96,7 @@
 		<div class="col-xs-6 col-sm-2"><b>สถานะของซีดี</b></div>
 		<div class="col-xs-6 col-sm-2"><%BookProductionService.getProductionStatusLabel(3,master_list['product_cd'].action)%></div>
 		<div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
-		<div class="col-xs-6 col-sm-2">{{($product['product_cd'] == null || $product['product_cd']->finish_date == "0000-00-00 00:00:00")? '-' :substr($product['product_cd']->finish_date, 0,10)}}</div>
+		<div class="col-xs-6 col-sm-2">{{($product['product_cd'] == null || $product['product_cd']->finish_date == "0000-00-00 00:00:00")? '-' : substr($product['product_cd']->finish_cdate,8,2) . '/' . substr($product['product_cd']->finish_cdate,5,2) . '/' . (intval(substr($product['product_cd']->finish_cdate,0,4)) + 543)}}</div>
 		<div class="col-xs-6 col-sm-2"><b>CDต้นฉบับ</b></div>
 		<div class="col-xs-6 col-sm-2"><%master_list['cd'][0].id%><span ng-show = "master_list['cd'][0] == null"> - </span>
 			<span ng-hide="master_list['cd'][0].original_no == null">(<%master_list['cd'][0].original_no%>)</span></div>
@@ -107,7 +107,7 @@
 		<div class="col-xs-6 col-sm-2"><b>สถานะของดีวีดี</b></div>
 		<div class="col-xs-6 col-sm-2"><%BookProductionService.getProductionStatusLabel(0,master_list['product_dvd'].action)%></div>
 		<div class="col-xs-6 col-sm-2"><b>เมื่อ</b></div>
-		<div class="col-xs-6 col-sm-2">{{($product['product_dvd'] == null || $product['product_dvd']->finish_date == "0000-00-00 00:00:00")? '-' : substr($product['product_dvd']->finish_date, 0,10)}}</div>
+		<div class="col-xs-6 col-sm-2">{{($product['product_dvd'] == null || $product['product_dvd']->finish_date == "0000-00-00 00:00:00")? '-' : substr($product['product_dvd']->finish_dvdate,8,2) . '/' . substr($product['product_dvd']->finish_dvdate,5,2) . '/' . (intval(substr($product['product_dvd']->finish_dvdate,0,4)) + 543)}}</div>
 		<div class="col-xs-6 col-sm-2"><b>DVDต้นฉบับ</b></div>
 		<div class="col-xs-6 col-sm-2"><%master_list['dvd'][0].id%><span ng-show = "master_list['dvd'][0] == null"> - </span>
 			<span ng-hide="master_list['dvd'][0].original_no == null">(<%master_list['dvd'][0].original_no%>)</span></div>

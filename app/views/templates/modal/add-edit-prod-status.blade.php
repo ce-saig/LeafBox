@@ -36,13 +36,13 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">*วันปฏิบัติ</label>
       <div class="col-sm-10" ng-click="datepicker.toggle(1)">
-        <input type="text" class="form-control" uib-datepicker-popup="<% datepicker.format %>" ng-model="formdata.act_date" is-open="datepicker.popup.action_date" datepicker-options="datepicker.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+        <input type="text" class="form-control inputsize" id="act-datepicker">
       </div>
     </div>
     <div class="form-group" ng-hide="formdata.status_number == 5">
       <label class="col-sm-2 control-label">วันเสร็จ</label>
       <div class="col-sm-10" ng-click="datepicker.toggle(2)">
-        <input type="text" class="form-control" uib-datepicker-popup="<% datepicker.format %>" ng-model="formdata.finish_date" is-open="datepicker.popup.finish_date" datepicker-options="datepicker.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+        <input type="text" class="form-control inputsize" id="finish-datepicker">
       </div>
     </div>
   </div>

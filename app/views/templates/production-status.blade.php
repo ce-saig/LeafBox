@@ -3,7 +3,7 @@
       <div class="panel panel-primary" style="min-height: 200px;margin-top: 10px">
         <div class="panel-heading">
           <div class="panel-title">
-            <% MediaService.convertToMediaLabel(key) %> <a class="pull-right" ng-click="addProdModal(key)"><h3 class="label label-warning add-media-prod"><i class="fa fa-plus fa-2"></i> เพิ่มสถานะการผลิต</h3></a>
+            <% MediaService.convertToMediaLabel(key) %> <a class="pull-right" ng-click="addProdModal(key)"><h3 class="label label-warning add-media-prod" style="cursor: pointer;"><i class="fa fa-plus fa-2" style="cursor: pointer;"></i> เพิ่มสถานะการผลิต</h3></a>
           </div>
         </div>
         <div class="panel-body">

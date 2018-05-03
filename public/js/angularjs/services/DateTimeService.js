@@ -5,8 +5,8 @@ app.factory('DateTimeService', function($filter){
 		convertToSQLFormat: function(date, includeTime = false) {
 			if(typeof date == 'string')
 				date = new Date(date);
-			date = $filter('date')(date, "dd/mm/yyyy") + " 00:00:00";
-			return date;
+			str = date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' 00:00:00'
+			return str;
 		},
 		convertToNormalFormat: function(date, includeTime = false) {
 			if(typeof date == 'string')
@@ -19,12 +19,12 @@ app.factory('DateTimeService', function($filter){
 			year = date.getFullYear();
 
 */		
-			date = date.toISOString();
+			date = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear() + 543)
 			if(includeTime)
-				return date.substring(0,10) + ' 00:00:00';
+				return date + ' 00:00:00';
 		//		return '' + day + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + sec;
 		//	return '' + day + '-' + month + '-' + year;
-			return date.substring(0,10);
+			return date;
 		}
 	}
 });

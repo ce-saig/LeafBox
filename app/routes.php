@@ -33,7 +33,7 @@ Route::group(array('before' => 'auth'), function() {
       Route::post('get_status', 'BookController@getLastProdStatus');
       Route::get('get_all_prod', 'BookController@getAllProd');
       Route::post('add', 'BookController@postProdAdd');
-      Route::post('edit', 'BookController@postProdedit');
+      Route::post('editMedia', 'BookController@postProdedit');
       Route::post('delete', 'BookController@deleteProd');
       Route::get('view', 'BookController@getProd');
 

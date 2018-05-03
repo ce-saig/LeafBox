@@ -36,8 +36,8 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 
 	$scope.getFormData = function() {
 		return {
-			act_date: DateTimeService.convertToSQLFormat($scope.formdata.act_date, true),
-			finish_date:  DateTimeService.convertToSQLFormat($scope.formdata.finish_date, true),
+			act_date: DateTimeService.convertToSQLFormat($("#act-datepicker").datepicker('getDate'), true),
+			finish_date:  DateTimeService.convertToSQLFormat($("#finish-datepicker").datepicker('getDate'), true),
 			media_type: MediaService.convertToMediaNumber(tunnel.media_type),
 			action: $scope.formdata.status_number,
 			actioner: $scope.formdata.actioner
@@ -61,6 +61,7 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 					tunnel.editProd(params);
 					$uibModalInstance.close();
 				}, function(error) {
+					console.log(error)
 					$scope.showNotification('เกิดปัญหาขึ้นบางอย่าง กรุณาติดต่อผู้ดูแลระบบ');
 				});
 			}
@@ -113,6 +114,8 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 		if(tunnel.mode == 'ADD') {
 			BookProductionService.getLastProductionStatus({'media_type': tunnel.media_type}
 				, function(response) {
+					$("#act-datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true, orientation: 'top'})
+					$("#finish-datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true, orientation: 'top'})
 					var next_status = parseInt(response.data.action_status) + 1;
 					if(next_status == 5) {
 						$scope.showNotification('กระบวนการผลิตเสร็จสิ้นแล้ว');
@@ -141,7 +144,13 @@ app.controller('ProductionModalController', function ($rootScope, $scope, $uibMo
 			$scope.formdata.actioner = tunnel.prod.actioner;
 			$scope.formdata.status_number = tunnel.prod.action;
 			$scope.formdata.finish_date = new Date(tunnel.prod.finish_date);
-			$scope.formdata.act_date = new Date(tunnel.prod.act_date);
+			$scope.formdata.act_date = tunnel.prod.act_date.substring(8, 10) + '/' + tunnel.prod.act_date.substring(5, 7) + '/' + tunnel.prod.act_date.substring(0, 4)
+			setTimeout(  function () {
+				$("#act-datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true, orientation: 'top'})
+				$("#act-datepicker").datepicker('setDate', new Date(tunnel.prod.act_date))
+				$("#finish-datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true, orientation: 'top'})
+				$("#finish-datepicker").datepicker('setDate', new Date(tunnel.prod.finish_date))
+			}, 250)
 			$scope.formdata.status_label = BookProductionService.getProductionStatusLabel(tunnel.media_type, tunnel.prod.action);
 			$scope.status_options = [{
 				status_number: tunnel.prod.action,

@@ -86,7 +86,7 @@ app.factory('BookProductionService', function($rootScope, $http, MediaService){
 		editProd(data, success, error) {
 			$http({
 				method: 'POST',
-				url: rootUrl + 'prod/edit',
+				url: rootUrl + 'prod/editMedia',
 				data: data
 			}).then(success, error);
 		}

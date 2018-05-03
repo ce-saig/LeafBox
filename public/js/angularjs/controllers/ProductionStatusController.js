@@ -10,6 +10,7 @@ app.controller('ProductionStatusController', function($rootScope, $scope, $uibMo
 	}
 
 	$scope.editProd = function(prod) {
+		console.log(prod)
 		var media_label = MediaService.convertToMediaLabel(prod.media_type, 'en');
 		for(var i = 0; i < $scope.prodCollection[media_label].length; i++) {
 			if($scope.prodCollection[media_label][i].id == prod.id) {
