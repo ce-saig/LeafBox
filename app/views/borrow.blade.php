@@ -295,10 +295,12 @@
   //$('#search-book').keyup(function(){
     $('#result').html('');
     if($('#search-book').val() != ''){
+      $('#result').append('<h4 class="text-center">กำลังค้นหา...</h4>')
       $.get('{{ url("borrow/search") }}',
         {keyword: $('#search-book').val(), status:$('#select_type').val(),type:$('#search_type').val()},
         function(data){
           // console.log(data);
+          $('#result').empty()
           if(data != "") {
             $('#not_found').hide();
             $('#result').append('<table class="table table-striped table-hover result-list"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-5">ชื่อหนังสือ</th><th class="col-sm-2">ยืม</th><td hidden></td></tr></thead><tbody class = "search-table"></tbody></table>');
