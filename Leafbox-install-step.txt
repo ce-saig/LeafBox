@@ -1,0 +1,28 @@
+Deploy Step
+1. Install Xampp
+    1) wget https://www.apachefriends.org/xampp-files/7.0.27/xampp-linux-x64-7.0.27-0-installer.run
+    2) chmod 755 xampp-linux-*-installer.run
+    3) sudo ./xampp-linux-*-installer.run
+2. Clone Project
+    1) cd /opt/lampp/htdocs
+    2) sudo git clone https://github.com/ce-saig/LeafBox
+    3) cd /opt/lampp/etc/
+    4) sudo nano httpd.conf
+    5) Change Direction to /htdocs/LeafBox/public
+3. Permission Grant for 
+    1) sudo chmod -R 777 /opt/lampp/htdocs
+4. Open phpmyadmin from outside
+    1) sudo nano /opt/lampp/etc/extra/httpd-xampp.conf
+    2) replace: Require local -> Require all granted
+5. Set Ubuntu to not case sensitive on mysql table name
+    1) sudo nano /opt/lampp/etc/my.cnf
+    2) insert to [mysqld] section: lower_case_table_names = 1 
+6. Add admin user
+    1) username: leafbox, password: {ko-hv,^]
+7. Run Server
+    1) sudo /opt/lampp/lampp start
+
+Ref:
+https://www.apachefriends.org/faq_linux.html
+https://stackoverflow.com/questions/43144325/failed-to-open-stream-permission-denied-in-opt-lampp-htdocs
+https://dba.stackexchange.com/questions/59407/how-to-make-mysql-table-name-case-insensitive-in-ubuntu
