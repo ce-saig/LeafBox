@@ -209,7 +209,7 @@
 							 {{ $book->id }} 
 							 @if($book->original_no!=null)({{$book->original_no}})@endif
 							  . <b>{{ $book->title }} - {{ $book->author }} 
-							 @if($book->pub_year > 0)({{ $book->pub_year }})@endif </b>
+							 @if($book->pub_year > 0)({{ $book->pub_year + 543 }})@endif </b>
 
 						</li>
 					</a>

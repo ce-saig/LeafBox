@@ -59,9 +59,7 @@ app.controller('BackupController', function($scope,$http,$window) {
 	}
 
 	$scope.Init = function(){
-		console.log('hello')
 		$http.get("/php/Files.php").success(function(data){
-			console.log(data)
       		$scope.files = [];
       		$scope.used_file == null;
       		var today = new Date();
@@ -69,7 +67,7 @@ app.controller('BackupController', function($scope,$http,$window) {
       		for(i=0;i<data.length-2;i++){
       			$scope.files[i] = {};
       			$scope.files[i].file = data[i+2];
-      			$scope.files[i].date = data[i+2].substring(9,11)+' / '+data[i+2].substring(6,8)+' / '+data[i+2].substring(1,5);
+      			$scope.files[i].date = data[i+2].substring(9,11)+' / '+data[i+2].substring(6,8)+' / '+(parseInt(data[i+2].substring(1,5))+543);
       			$scope.files[i].time = data[i+2].substring(13,15)+' : '+data[i+2].substring(16,18)+" : "+data[i+2].substring(19,21);
       			if($scope.files[i].file.indexOf('_used') > 0){
       				$scope.used_file = $scope.files[i].file;

@@ -94,9 +94,12 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 	}
 
 	$scope.EditBook = function(){
-		$scope.book.regis_date 	 		 = $filter('date')($scope.book.regis_date,'yyyy-MM-dd HH:mm:ss');
+		$scope.book.regis_date = $("#datepicker").datepicker('getDate')
+		$scope.book.pub_year -= 543
+		$scope.book.regis_date = $filter('date')($scope.book.regis_date,'yyyy-MM-dd HH:mm:ss');
 		if($scope.master_prod != null){
-			$scope.master_prod.finish_date 	 = $filter('date')($scope.master_prod.finish_date,'yyyy-MM-dd HH:mm:ss');
+			$scope.master_prod.finish_date = $("#datepickerProd").datepicker('getDate')
+			$scope.master_prod.finish_date = $filter('date')($scope.master_prod.finish_date,'yyyy-MM-dd HH:mm:ss');
 		}
 		SetVariables("POST");
 		if($scope.master_prod != null){
@@ -138,7 +141,13 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 
 		BookService.getBookByID(function(response) {
 			$scope.book = response.data;
-			$scope.book.regis_date = new Date($scope.book.regis_date.substring(0,10));
+			$("#datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
+			$("#datepickerProd").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
+			$("#datepicker").datepicker('setDate', new Date($scope.book.regis_date.substring(0, 10)))
+			if ($scope.master_prod) {
+				$("#datepickerProd").datepicker('setDate', new Date($scope.master_prod.finish_date))
+			}
+			$scope.book.pub_year += 543 
 			console.log(response);
 			SetVariables("GET");
 			$scope.SelectMaster();

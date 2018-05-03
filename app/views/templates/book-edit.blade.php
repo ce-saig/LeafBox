@@ -32,7 +32,7 @@
 <!-- Other Info-->
 <div class="col-md-12" style="padding-top: 20px">
   <div class="col-md-12">
-    <h4>รายละอียดหนังสือ</h4>
+    <h4>รายละเอียดหนังสือ</h4>
   </div>
   <div class="form-group col-sm-6 col-xs-6 col-md-4 col-lg-4" ng-repeat = "detail in details.string" ng-if="!$first">
     <div class="col-md-6">
@@ -48,7 +48,7 @@
         <label for="input" class="control-label labelisize">วันลงทะเบียน</label>
       </div>
       <div class="col-lg-6 col-lg-6">
-        <input name="regis_date" class="form-control inputsize" ng-model="book.regis_date" uib-datepicker-popup is-open="regis_date_popup.opened" datepicker-options="dateOptions" ng-click="regis_date_popup.opened = true">
+        <input type="text" class="form-control inputsize" id="datepicker">
       </div>
     </div>
 
@@ -89,7 +89,7 @@
     </div>
 </div>
 <!-- Select Master -->
-<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 20px">
+<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 20px" ng-show="master">
   <div class="col-md-12">
     <h4>ต้นฉบับ</h4>
   </div>
@@ -117,7 +117,8 @@
 </div>
 
 <!-- Product Master Edit-->
-<div class="col-md-12" style="font-size: 16px; padding-top: 20px;">
+
+<div class="col-md-12" style="font-size: 16px; padding-top: 20px;" ng-show="master">
   <div class="col-xs-12 col-md-12">
    <h4><%prod_select%></h4>
   </div>
@@ -142,11 +143,11 @@
     </div>
     <div class="col-xs-12 col-lg-2">
       <div class="col-lg-10">
-        <input name="bm_date" class="form-control inputsize" ng-model ="master_prod.finish_date" uib-datepicker-popup is-open="master_date_popup.opened" datepicker-options="dateOptions" ng-click="master_date_popup.opened = true">
+        <input type="text" class="form-control inputsize" id="datepickerProd">
+        {{-- <input name="bm_date" class="form-control inputsize" ng-model ="master_prod.finish_date" uib-datepicker-popup is-open="master_date_popup.opened" datepicker-options="dateOptions" ng-click="master_date_popup.opened = true"> --}}
       </div>
     </div>
   </div>
-
   <div class="form-group">
     <div class="col-xs-12 col-lg-1">
       <label for="input" class="control-label labelisize">ต้นฉบับ</label>
@@ -171,17 +172,10 @@
 </div>
 <div class="col-xs-12 col-md-12 text-center" style="margin-top: 20px;padding-top: 20px;">
   <button type="submit" class="btn btn-lg btn-danger pull-left" id="cancel-form">ยกเลิก</button>
-  <input class="btn btn-success pull-right" value="บันทึก" ng-click="EditBook()">
+  <button class="btn btn-success pull-right" ng-click="EditBook()">บันทึก</button>
 </div>
 
 <script type="text/javascript">
-  $(function() {
-    $(".datepicker").datepicker({
-      language:'th-th',
-      format: 'dd/mm/yyyy',
-      isBuddhist: false
-    });    
-  });
   $('#cancel-form').click(function() {
     window.history.back();
   });

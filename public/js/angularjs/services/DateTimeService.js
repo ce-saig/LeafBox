@@ -5,7 +5,7 @@ app.factory('DateTimeService', function($filter){
 		convertToSQLFormat: function(date, includeTime = false) {
 			if(typeof date == 'string')
 				date = new Date(date);
-			date = $filter('date')(date, "yyyy/MM/dd") + " 00:00:00";
+			date = $filter('date')(date, "dd/mm/yyyy") + " 00:00:00";
 			return date;
 		},
 		convertToNormalFormat: function(date, includeTime = false) {
@@ -18,7 +18,7 @@ app.factory('DateTimeService', function($filter){
 			month = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth();
 			year = date.getFullYear();
 
-*/			
+*/		
 			date = date.toISOString();
 			if(includeTime)
 				return date.substring(0,10) + ' 00:00:00';
