@@ -298,7 +298,7 @@
       $.get('{{ url("borrow/search") }}',
         {keyword: $('#search-book').val(), status:$('#select_type').val(),type:$('#search_type').val()},
         function(data){
-          console.log(data);
+          // console.log(data);
           if(data != "") {
             $('#not_found').hide();
             $('#result').append('<table class="table table-striped table-hover result-list"><thead><tr class="warning"><th class="col-sm-3">รหัสสื่อ</th><th class="col-sm-5">ชื่อหนังสือ</th><th class="col-sm-2">ยืม</th><td hidden></td></tr></thead><tbody class = "search-table"></tbody></table>');
@@ -453,47 +453,47 @@
       //TODO when click same item should not add it to list
       for(var brailleIndex = 0; brailleIndex<jsonArr[i][0].length; brailleIndex++){
         if(jsonArr[i][0][brailleIndex].reserved == 0) {  //add by oat 
-          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>n</td></tr><br>");
         }
         else {
-          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
+          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][0][brailleIndex].id + "> <td>" + jsonArr[i][0][brailleIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][0][brailleIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>y</td></tr><br>");
         }
       }
 
     for(var cassetteIndex = 0; cassetteIndex<jsonArr[i][1].length; cassetteIndex++){
       if(jsonArr[i][1][cassetteIndex].reserved == 0) {
-        $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
+        $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
-        $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</tr><br>");
+        $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][1][cassetteIndex].id + "> <td>" + jsonArr[i][1][cassetteIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected' hidden id='" + jsonArr[i][1][cassetteIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>y</tr><br>");
       }
      }
 
      for(var cdIndex = 0; cdIndex<jsonArr[i][2].length; cdIndex++){
       if(jsonArr[i][2][cdIndex].reserved == 0) {
-          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>n</td></tr><br>");        
         }
       else {
-          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");        
+          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][2][cdIndex].id + "> <td>" + jsonArr[i][2][cdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][2][cdIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>y</td></tr><br>");        
       }
      }
 
      for(var daisyIndex = 0; daisyIndex<jsonArr[i][3].length; daisyIndex++){
       if(jsonArr[i][3][daisyIndex].reserved == 0) {
-           $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
+           $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
-           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");        
+           $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][3][daisyIndex].id + "> <td>" + jsonArr[i][3][daisyIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][3][daisyIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>y</td></tr><br>");        
 
       }
      }
 
      for(var dvdIndex = 0; dvdIndex<jsonArr[i][4].length; dvdIndex++){
       if(jsonArr[i][4][dvdIndex].reserved == 0) {
-          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>n</td></tr><br>");        
+          $('.search-table').append("<tr style='font-weight:bold' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>n</td></tr><br>");        
       }
       else {
-          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='http://goo.gl/IPvYUj'></td><td class='isBorrowed' hidden>y</td></tr><br>");
+          $('.search-table').append("<tr style='color:#ccc' class = \"book_choose\" id=" + jsonArr[i][4][dvdIndex].id + "> <td>" + jsonArr[i][4][dvdIndex].id + "</td>  <td>"+jsonArr[i].title +"</td> <td><img class='media_selected'  hidden id='" + jsonArr[i][4][dvdIndex].id + "' src='{{ asset('/img/Retina-Ready.png') }}' width=20px;></td><td class='isBorrowed' hidden>y</td></tr><br>");
       }
      }
      media_amount += jsonArr[i][0].length + jsonArr[i][1].length + jsonArr[i][2].length + jsonArr[i][3].length + jsonArr[i][4].length;
