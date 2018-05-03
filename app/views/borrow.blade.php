@@ -95,9 +95,9 @@
               <div class ="well">
                 <div class="form-inline" ng-controller = "BorrowController">
                   <div class="form-group input-group">
-                    <div class="input-group-addon">วันยืม : {{ date('Y-m-d') }}</div>
+                    <div class="input-group-addon">วันยืม : {{ date('d/m/').(date('Y')+543) }}</div>
                     <div class="input-group-addon">วันคืน : </div>
-                    <div><input type="text" class="form-control" id="datepicker" uib-datepicker-popup="yyyy-MM-dd" ng-model="return_date" uib-datepicker-popup is-open="return_date_popup.opened" datepicker-options="dateOptions" ng-click="return_date_popup.opened = true"></div>
+                    <input type="text" class="form-control inputsize" id="datepicker" style="font-size: 13px; margin-top: 0px;">
                   </div>
                 </div>
               </div>
@@ -225,6 +225,7 @@
 <script type="text/javascript">
   var selectedMember = "{{ isset($member) }}";
   var amountOfMedia = "{{ count($borrow) }}";
+  $("#datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
 
   updateMediaAmount();
 

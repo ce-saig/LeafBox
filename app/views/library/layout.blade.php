@@ -18,6 +18,10 @@
 
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/select.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/selectize.default.min.css') }}" />
+  <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker-thai.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/locales/bootstrap-datepicker.th.js') }}"></script>
   <style type="text/css">
       body{
         font-family: 'Prompt';
@@ -135,7 +139,6 @@
 </footer>
 <!-- jQuery -->
 @section('script')
-<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
 
 <!-- angular module -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
