@@ -9,7 +9,7 @@
 <div class="panel panel-primary" style="color:black">
   <div class="panel-heading">
     <div class="panel-title">
-      <span style="color:white;font-size: 24px">รายงาน</span>
+      <span style="color:white;font-size: 24px">รายงาน <span ng-show="is_loading">(กำลังดาวน์โหลดข้อมูล...)</span></span>
     </div>
   </div>
   <div class="panel-body">

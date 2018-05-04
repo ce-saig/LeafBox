@@ -16,6 +16,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	$scope.loading = false;
 	$scope.hidedownload = true;
 	$scope.filter_enabled = [false,false,false,false];
+	$scope.is_loading = true
 
 	$scope.AutoSelect = function(index, type){
 		if(type=='BOOK'){
@@ -256,6 +257,9 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 		$scope.borrow_label 	= ["ชื่อหนังสือ", "ชนิดสื่อ", "เช็ทไอดีสื่อ", "จำนวนตอนทั้งหมด", "ผู้ยืม", "เมื่อ"];
 		$scope.media_label		= ['เช็ทไอดีสื่อ', 'ไอดีสื่อย่อย', 'ตอนที่', 'สถานะ', 'ชื่อหนังสือ', 'ชนิดสื่อ'];
 		$scope.medias.haveborrower = 2;
+		angular.element(document).ready(function () {
+			$scope.is_loading = false;
+		});
 		SetStyle();
 	}
 
