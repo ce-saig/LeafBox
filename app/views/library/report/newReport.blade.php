@@ -128,7 +128,7 @@
             <label ng-style="modal_style[2]" ng-click="ChangeTable(2)"> ตารางข้อมูลสื่อย่อย </label>
           </h3>
         </div>
-        <div class="modal-body text-center">  
+        <div class="modal-body text-center" style="height: 400px; overflow: scroll;">  
           <table class="table table-striped" ng-show="showtable==0 && !loading">
             <tr style="font-size: 18px;color: #4d4d4d">
               <th ng-repeat="th in table.header" class="text-left"><%th%></th>
