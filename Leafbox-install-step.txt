@@ -11,6 +11,7 @@ Deploy Step
     5) Change Direction to /htdocs/LeafBox/public
 3. Permission Grant for 
     1) sudo chmod -R 777 /opt/lampp/htdocs
+    2) sudo chmod -R 777 /opt/lampp/htdocs/LeafBox/public/php
 4. Open phpmyadmin from outside
     1) sudo nano /opt/lampp/etc/extra/httpd-xampp.conf
     2) replace: Require local -> Require all granted
