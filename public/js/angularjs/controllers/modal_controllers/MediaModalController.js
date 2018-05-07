@@ -139,11 +139,11 @@ app.controller('MediaModalController', function($rootScope, $scope, $uibModalIns
 			$scope.label.numpart_suff = 'ตลับ';
 			break;
 			case MediaService.DAISY:
-			$scope.label.numpart = 'จำนวนแทร็ก';
-			$scope.label.numpart_suff = 'ชิ้น';
+			$scope.label.numpart = 'จำนวนแผ่น';
+			$scope.label.numpart_suff = 'แผ่น';
 			break;
 			default:
-			$scope.label.numpart = 'จำนวนแทร็ก';
+			$scope.label.numpart = 'จำนวนแผ่น';
 			$scope.label.numpart_suff = 'แผ่น';
 		}
 	}

@@ -112,17 +112,17 @@ app.controller('MediaDetailTabController', function($rootScope, $scope, $uibModa
 			$scope.media_code = 'C';
 			break;
 			case 'cd':
-			$scope.tableHead = ['ซีดีเซ็ทไอดี', 'ซีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (แผ่น)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['ซีดีเซ็ทไอดี', 'ซีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (แผ่น)', 'จำนวนแทร็ค', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 			$scope.media_code = 'CD';
 			break;
 			case 'daisy':
-			$scope.tableHead = ['เดซีเซ็ทไอดี', 'เดซี่เซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['เดซีเซ็ทไอดี', 'เดซี่เซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (แผ่น)', 'จำนวนแทร็ค', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 			$scope.media_code = 'D';
 			break;
 			default:
-			$scope.tableHead = ['ดีวีดีเซ็ทไอดี','ดีวีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (ตลับ)', 'ความยาว(นาที)', 'ผู้ยืม'];
+			$scope.tableHead = ['ดีวีดีเซ็ทไอดี','ดีวีดีเซ็ทไอดีเดิม', 'จำนวนชิ้นย่อย (แผ่น)', 'จำนวนแทร็ค', 'ผู้ยืม'];
 			$scope.tableData = {pages: false, numpart: true, length: true, examiner: false};
 			$scope.media_code = 'DVD';
 		}

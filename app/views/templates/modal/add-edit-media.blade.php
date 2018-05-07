@@ -22,10 +22,15 @@
       <div class="col-md-6"><input type="number" class="form-control text-center" min=1 ng-model="formdata.numpart"></div>
       <label class="control-label"><% label.numpart_suff %></label>
     </div>
-    <div class="form-group" ng-show="getMediaNumber() != MediaService.BRAILLE">
+    <div class="form-group" ng-show="getMediaNumber() == MediaService.CASSETTE">
       <label class="control-label col-md-3">ความยาว</label>
       <div class="col-md-6"><input type="number" class="form-control text-center" min=1 ng-model="formdata.length"></div>
       <label class="control-label">นาที</label>
+    </div>
+    <div class="form-group" ng-show="getMediaNumber() != MediaService.BRAILLE && getMediaNumber() != MediaService.CASSETTE">
+      <label class="control-label col-md-3">จำนวนแทร็ค</label>
+      <div class="col-md-6"><input type="number" class="form-control text-center" min=1 ng-model="formdata.length"></div>
+      <label class="control-label">แทร็ค</label>
     </div>
     <div class="form-group" ng-show="getMediaNumber() == MediaService.BRAILLE">
       <label class="col-sm-3 control-label">ผู้ตรวจสอบ</label>
