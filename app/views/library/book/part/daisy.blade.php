@@ -6,7 +6,7 @@
         <tr>
           <th class="text-center">เดซีเซ็ทไอดี</th>
           <th class="text-center">จำนวนชิ้นย่อย</th>
-          <th class="text-center">ความยาว(นาที)</th>
+          <th class="text-center">จำนวนแทร็ค(แทร็ค)</th>
           <th class="text-center">ผู้ยืม</th>
         </tr>
        </thead>
