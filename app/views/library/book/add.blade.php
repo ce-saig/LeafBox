@@ -83,7 +83,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ชื่อเรื่อง</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="title" required>
+                <input type="text" class="form-control" tabindex="1" name="title" required>
               </div>
             </div>
           </div>  
@@ -92,7 +92,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ชื่อเรื่อง (อังกฤษ)</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="title_eng" required>
+                <input type="text" class="form-control" tabindex="2" name="title_eng">
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
             <div class="form-group">
               <label class="col-sm-4  col-md-5 control-label" style="margin-top: 10px">เลขไอดีเดิม</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="original_id">
+                <input type="text" class="form-control" tabindex="3" name="original_id">
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ISBN</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="isbn" placeholder="เช่น 903-246-542-1">
+                <input type="text" class="form-control" tabindex="4" name="isbn" placeholder="เช่น 903-246-542-1">
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px ">ผู้แต่ง</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="author">
+                <input type="text" class="form-control" tabindex="5" name="author">
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ผู้แปล</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="translate">
+                <input type="text" class="form-control" tabindex="6" name="translate">
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">สำนักพิมพ์</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" name="publisher">
+                <input type="text" class="form-control" tabindex="7" name="publisher">
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">พิมพ์ครั้งที่</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" placeholder="เช่น 1" name="pub_no">
+                <input type="text" class="form-control" tabindex="8" placeholder="เช่น 1" name="pub_no">
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">พ.ศ.</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="number" class="form-control" placeholder="เช่น {{date('Y') + 543}}" name="pub_year">
+                <input type="number" class="form-control" tabindex="9" placeholder="เช่น {{date('Y') + 543}}" name="pub_year">
               </div>
             </div>
           </div>
@@ -164,7 +164,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ทะเบียนการผลิต</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" placeholder="เช่น รท.4531" name="produce_no">
+                <input type="text" class="form-control" placeholder="เช่น รท.4531" tabindex="10" name="produce_no">
               </div>
             </div>
           </div>
@@ -173,7 +173,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">ประเภทหนังสือ</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" placeholder="เช่น ประเภทAAA" name="book_type">
+                <input type="text" class="form-control" placeholder="เช่น ประเภทAAA" tabindex="11" name="book_type">
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@
             <div class="form-group">
               <label class="col-sm-4 col-md-5 control-label" style="margin-top: 10px">หนังสือระดับ</label>
               <div class="col-xs-12 col-sm-8 col-md-7" style="margin-top: 2px ">
-                <input type="text" class="form-control" placeholder="เช่น ม.3" name="grade">
+                <input type="text" class="form-control" placeholder="เช่น ม.3" tabindex="12" name="grade">
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@
             <div class="form-group">
               <label class="col-sm-2 col-md-2 control-label" style="margin-top: 10px">เนื้อเรื่องย่อ</label>
               <div class="col-xs-10 col-sm-10 col-md-10" style="margin-top: 2px ">
-                <textarea rows="4" class="form-control" name="abstract"></textarea>
+                <textarea rows="4" class="form-control" name="abstract" tabindex="13"></textarea>
               </div>
             </div>
           </div>
