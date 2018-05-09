@@ -33,11 +33,37 @@ class MediaController extends Controller{
   }
 
   public function countMedia($bid){
-    $data['braille'] = Braille::where('book_id', '=',$bid)->count();
-    $data['cassette'] = Cassette::where('book_id', '=',$bid)->count();
-    $data['cd'] = CD::where('book_id', '=',$bid)->count();
-    $data['daisy'] = Daisy::where('book_id', '=',$bid)->count();
-    $data['dvd'] = DVD::where('book_id', '=',$bid)->count();
+    $braille = Braille::where('book_id', '=', $bid)->get();
+    $cassette = Cassette::where('book_id', '=', $bid)->get();
+    $cd = CD::where('book_id', '=', $bid)->get();
+    $daisy = Daisy::where('book_id', '=', $bid)->get();
+    $dvd = DVD::where('book_id', '=', $bid)->get();
+    $braille_total = 0;
+    $cassette_total = 0;
+    $cd_total = 0;
+    $daisy_total = 0;
+    $dvd_total = 0;
+    foreach($braille as $b) {
+      $braille_total = Brailledetail::where('braille_id', '=', $b->id)->count();
+    }
+    foreach($cassette as $c) {
+      $cassette_total = Cassettedetail::where('cassette_id', '=', $c->id)->count();
+    }
+    foreach($cd as $cd_) {
+      $cd_total = CDdetail::where('cd_id', '=', $cd_->id)->count();
+    }
+    foreach($daisy as $d) {
+      $daisy_total = Daisydetail::where('daisy_id', '=', $daisy->id)->count();
+    }
+    foreach($dvd as $dvd_) {
+      $dvd_total = DVDdetail::where('dvd_id', '=', $dvd_->id)->count();
+    }
+    $data['braille'] = array(count($braille), $braille_total);
+    $data['cassette'] = array(count($cassette), $cassette_total);
+    $data['cd'] = array(count($cd), $cd_total);
+    $data['daisy'] = array(count($daisy), $daisy_total);
+    $data['dvd'] = array(count($dvd), $dvd_total);
+    
     return $data;
   }
 

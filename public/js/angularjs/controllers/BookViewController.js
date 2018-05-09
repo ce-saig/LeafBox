@@ -67,6 +67,7 @@ app.controller('BookViewController', function($rootScope, $scope, $uibModal, $lo
 
 		$scope.BookService.countMedia(function(response){ 
 			$scope.count = response.data;
+			console.log($scope.count)
 		});
 
 		$scope.BookService.getBookByID(function(response){

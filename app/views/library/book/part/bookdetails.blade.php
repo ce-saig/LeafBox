@@ -45,15 +45,15 @@
 		<div class="col-xs-6 col-sm-2"><b>ลำดับดีวีดี</b></div>
 		<div class="col-xs-6 col-sm-4"><%book.dvd_no%></div>
 		<div class="col-xs-6 col-sm-2"><b>จำนวนหนังสือเบรลล์</b></div>
-		<div class="col-xs-6 col-sm-4"><%count['braille']%> ชุด</div>
+		<div class="col-xs-6 col-sm-4"><%count['braille'][1]%> เล่ม (<%count['braille'][0]%> ชุด)</div>
 		<div class="col-xs-6 col-sm-2"><b>จำนวนเทปคาสเส็ท</b></div>
-		<div class="col-xs-6 col-sm-4"><%count['cassette']%> ชุด</div>
+		<div class="col-xs-6 col-sm-4"><%count['cassette'][1]%> ม้วน (<%count['cassette'][0]%> ชุด)</div>
 		<div class="col-xs-6 col-sm-2"><b>จำนวนเดซี่</b></div>
-		<div class="col-xs-6 col-sm-4"><%count['daisy']%> ชุด</div>
+		<div class="col-xs-6 col-sm-4"><%count['daisy'][1]%> แผ่น (<%count['daisy'][0]%> ชุด)</div>
 		<div class="col-xs-6 col-sm-2"><b>จำนวนซีดี</b></div>
-		<div class="col-xs-6 col-sm-4"><%count['cd']%> ชุด</div>
+		<div class="col-xs-6 col-sm-4"><%count['cd'][1]%> แผ่น (<%count['cd'][0]%> ชุด)</div>
 		<div class="col-xs-6 col-sm-2"><b>จำนวนดีวีดี</b></div>
-		<div class="col-xs-6 col-sm-4"><%count['dvd']%> ชุด</div>
+		<div class="col-xs-6 col-sm-4"><%count['dvd'][1]%> แผ่น (<%count['dvd'][0]%> ชุด)</div>
 	</div>
 	<hr class="col-xs-12 col-md-12">
 	<div class="col-xs-12 col-md-12 col-lg-12">
