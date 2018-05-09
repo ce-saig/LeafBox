@@ -49,14 +49,14 @@ class MediaController extends Controller{
     foreach($cassette as $c) {
       $cassette_total = Cassettedetail::where('cassette_id', '=', $c->id)->count();
     }
-    foreach($cd as $cd_) {
-      $cd_total = CDdetail::where('cd_id', '=', $cd_->id)->count();
+    foreach($cd as $c) {
+      $cd_total = Cddetail::where('cd_id', '=', $c->id)->count();
     }
     foreach($daisy as $d) {
-      $daisy_total = Daisydetail::where('daisy_id', '=', $daisy->id)->count();
+      $daisy_total = Daisydetail::where('daisy_id', '=', $d->id)->count();
     }
-    foreach($dvd as $dvd_) {
-      $dvd_total = DVDdetail::where('dvd_id', '=', $dvd_->id)->count();
+    foreach($dvd as $d) {
+      $dvd_total = Dvddetail::where('dvd_id', '=', $d->id)->count();
     }
     $data['braille'] = array(count($braille), $braille_total);
     $data['cassette'] = array(count($cassette), $cassette_total);
