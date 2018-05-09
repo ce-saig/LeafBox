@@ -24,7 +24,7 @@
             </select>
           </div>
           <div class="col-md-2 form-label" style="margin-top: 7px;font-size: 16px">วันที่แก้ไข</div>
-          <div class="col-md-2"><input type="text" class="form-control" ng-model="all_date" uib-datepicker-popup is-open="all_date_popup.opened" datepicker-options="dateOptions" ng-click="all_date_popup.opened = true"></div>
+          <div class="col-md-2"><input type="text" class="form-control" id="all-date"></div>
           <div class="col-md-2 form-label" style="margin-top: 7px;font-size: 16px">หมายเหตุ</div>
           <div class="col-md-3"><input type="text" class="form-control" ng-model="all_notes"></div>
         </div>
@@ -46,7 +46,7 @@
               <td style="padding-top: 15px"><% detail.part %> / <% media.numpart %></td>
               <td><select class="form-control" ng-options="st as st.label for st in status track by st.id" ng-model="selected_status[$index]" 
               ng-init="selected_status[$index] = status[detail.status]" ng-change="SelectStatus($index)"></select></td>
-              <td><input type="text" class="form-control" ng-model = "detail.date" uib-datepicker-popup is-open="date_popup[$index].opened" datepicker-options="dateOptions" ng-click="date_popup[$index].opened = true" ng-disabled="media.reserved==1"></td>
+              <td><input type="text" class="form-control" id="<%'date-picker-' + $index%>"></td>
               <td><input type="text" class="form-control" ng-model="detail.note"></td>
             </tr>
           </table>

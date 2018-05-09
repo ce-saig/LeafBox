@@ -146,7 +146,7 @@ app.controller('BookEditController', function($rootScope, $scope, $filter, $uibM
 			$scope.book = response.data;
 			$("#datepicker").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
 			$("#datepickerProd").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true});
-			$("#datepicker").datepicker('setDate', new Date($scope.book.regis_date.substring(0, 10)))
+			$("#datepicker").datepicker('setDate', new Date($scope.book.regis_date.substring(0, 10)));
 			$scope.book.pub_year += 543 
 			console.log(response);
 			SetVariables("GET");

@@ -6,41 +6,31 @@ app.controller('MediaDetailEditController', function($rootScope, $scope, $filter
 						{id:2, label:"รอซ่อม"},
 						{id:3, label:"หาย"}
 					];
-	$scope.tableheader = ["ไอดี",'ตอนที่','สถานะ','วันแก้ไข','หมายเหตุ'];
 	$scope.selected_status = [];
-	$scope.all_date = new Date();
 	$scope.all_notes= "";
 
 	// Date Picker
 	var InitDatePicker  = function(){
-		$scope.all_date_popup = { opened: false };
-		$scope.date_popup = [];
-		for(i=0;i<$scope.details.length;i++){
-			$scope.date_popup[i] = { opened: false };
-			$scope.details[i].date = new Date($scope.details[i].date.substring(0,10));
-		}
+		setTimeout(() => {
+			for(i=0;i<$scope.details.length;i++){
+				$("#date-picker-" + i).datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true, orientation: 'top'});
+				$("#date-picker-" + i).datepicker('setDate', new Date($scope.details[i].date.substring(0,10)));
+				if ($scope.media.reserved==1) {
+					$("#date-picker-" + i).prop('disabled', true);
+				}
+			}
+		}, 250);
+		$("#all-date").datepicker({ language:'th-th', format: 'dd/mm/yyyy', isBuddhist: true, orientation: 'top'});
+		$("#all-date").datepicker('setDate', new Date());
 	};
-
-	$scope.dateOptions = {
-	    dateDisabled: Disabled,
-	    formatYear: 'yy',
-	    maxDate: new Date(3000, 5, 22),
-	    minDate: new Date(1950, 5, 22),
-	};
-
-	function Disabled(data){
-	    var date = data.date,
-	    mode = data.mode;
-	    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-	}
-  	// End Date Picker
 
 	$scope.EditAll = function(){
 		for(i=0;i<$scope.details.length;i++){
 			if($scope.media.reserved == 0)
 				$scope.selected_status[i] = $scope.all_selected_status;
-			if($scope.all_date != "")
-				$scope.details[i].date = $scope.all_date;
+			if($("#all-date").datepicker('getDate') != "")
+				$scope.details[i].date = $("#all-date").datepicker('getDate');
+				$("#date-picker-" + i).datepicker('setDate', $scope.details[i].date)
 			if($scope.all_notes != "")
 				$scope.details[i].note = $scope.all_notes;
 		}
@@ -58,7 +48,7 @@ app.controller('MediaDetailEditController', function($rootScope, $scope, $filter
  				if($scope.details[i].status != 0)
  					isReserved = true;
  			}
-			$scope.details[i].date 	 = $filter('date')($scope.details[i].date,'yyyy-MM-dd HH:mm:ss');
+			$scope.details[i].date 	 = $filter('date')($("#date-picker-" + i).datepicker('getDate'),'yyyy-MM-dd HH:mm:ss');
 		}
 		if($scope.media.reserved != 1){
 			if(isReserved == true){
@@ -71,12 +61,21 @@ app.controller('MediaDetailEditController', function($rootScope, $scope, $filter
 			$scope.InitMediaType($scope.media_type);
 			$scope.all_selected_status = $scope.status[0];
 			$scope.all_notes = "";
-			$scope.all_date = new Date();
-			
 		});
 	};
 
 	var InitCondition = function(){
+		switch ($scope.media_type) {
+			case 'braille':
+				$scope.tableheader = ["ไอดี",'ตอนที่','สถานะ','วันแก้ไข','หมายเหตุ'];
+				break;
+			case 'cassette':
+				$scope.tableheader = ["ไอดี",'ม้วนที่','สถานะ','วันแก้ไข','หมายเหตุ'];
+				break;
+			default:
+				$scope.tableheader = ["ไอดี",'แผ่นที่','สถานะ','วันแก้ไข','หมายเหตุ'];
+				break;
+		}
 		switch($scope.media.reserved){
 			case 0:
 				$scope.panelclass = "panel panel-success";
@@ -104,5 +103,18 @@ app.controller('MediaDetailEditController', function($rootScope, $scope, $filter
 			InitDatePicker();
 			InitCondition();
 		});
+	}
+});
+
+app.directive('onFinishRender', function ($timeout) {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attr) {
+			if (scope.$last === true) {
+				$timeout(function () {
+					scope.$emit('ngRepeatFinished');
+				});
+			}
+		}
 	}
 });
