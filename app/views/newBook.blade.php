@@ -53,7 +53,7 @@
 									<td><input type="number" min="1" class="form-control" placeholder=""name="pub_no"></td>
 								</tr>
 								<td>พ.ศ.</td>
-									<td><input type="number"  min="1" max=<?= date("Y") ?> class="form-control" placeholder=""name="pub_year"></td>
+									<td><input type="number"  min="1" max=<?= date("Y") ?> class="form-control" placeholder="" name="pub_year"></td>
 								</tr>
 								<td>สำนักพิมพ์</td>
 									<td><input type="text" class="form-control" placeholder="Publisher"name="publisher"></td>

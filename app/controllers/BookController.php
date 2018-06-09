@@ -34,7 +34,7 @@ class BookController extends Controller{
     $Book->book_type = Input::get('book_type');
     $Book->produce_no = Input::get('produce_no');
     $Book->pub_no = Input::get('pub_no');
-    $Book->pub_year = Input::get('pub_year');
+    $Book->pub_year = (Input::get('pub_year') - 543);
     $Book->publisher = Input::get('publisher');
     $Book->regis_date = (date("Y")).date("-m-d H:i:s");
     $Book->created_at = (date("Y")).date("-m-d H:i:s");
