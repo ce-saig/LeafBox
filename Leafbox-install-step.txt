@@ -22,6 +22,7 @@ Deploy Step
     1) username: leafbox, password: {ko-hv,^]
 7. Run Server
     1) sudo /opt/lampp/lampp start
+8. shell import sql command: "mysql -u root -p leafbox < file.sql"
 
 Ref:
 https://www.apachefriends.org/faq_linux.html
