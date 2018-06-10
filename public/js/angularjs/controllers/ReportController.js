@@ -135,19 +135,19 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      		var count = [];
 	      		// set count[id] default to 0
 	      		for(i=0;i<response.length;i++){
-	 				for(j=0;j<response[i].length;j++){
+	 						for(j=0;j<response[i].length;j++){
 	      				count[response[i][j].id] = 0;
 	      			}
 	      		}
 	      		// count[id]++ when detect same book
 	      		for(i=0;i<response.length;i++){
-	 				for(j=0;j<response[i].length;j++){
+	 						for(j=0;j<response[i].length;j++){
 	      				count[response[i][j].id]++;
 	      			}
 	      		}
 	      		// push book that count[id] == enabled_count (all filter have this book)
 	      		for(i=0;i<response.length;i++){
-	 				for(j=0;j<response[i].length;j++){
+	 						for(j=0;j<response[i].length;j++){
 	      				if(count[response[i][j].id] == enabled_count){
 	      					temp.push(response[i][j]);
 	      				}
@@ -156,8 +156,8 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      		// delete same book
 	      		data[0] = temp[0];
 	      		for(i=1;i<temp.length;i++){
-	 				var have = false;
-	 				for(j=0;j<data.length;j++){
+	 						var have = false;
+	 						for(j=0;j<data.length;j++){
 	      				if(data[j].id == temp[i].id){
 	      					have = true;
 	      				}
@@ -165,10 +165,13 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
 	      			if(have == false){
 	      				data.push(temp[i]);
 	      			}
-	      		}
+						}
 	      	}else{
 	      		data = response[0];
-	      	}   
+	      	}
+					data.forEach(d=> {
+						d.pub_year += 543
+					}) 
 	      	$scope.report.book = data;
       		$http.post("/report/create_report_media",{media : $scope.medias, books : data, borrowers : $scope.borrowers}).success(function(response){
       			console.log(response);
@@ -182,7 +185,7 @@ app.controller('ReportController', function($scope,$http,$window, BookProduction
       		$http.post("/report/create_report_prod",{books : data}).success(function(response){
       			$scope.report.prod = response;
       			thread_prod = true;
-				if(thread_media == true){
+						if(thread_media == true){
       				$scope.loading = false;
       			}
     		});			
