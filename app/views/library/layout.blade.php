@@ -16,7 +16,6 @@
 	<link rel="stylesheet" src="{{ asset('css/font-awesome.min.css')}}">
   <link src="{{ asset('fonts/Prompt-Bold.ttf') }}" rel="stylesheet">
   <link src="{{ asset('fonts/Prompt-Regular.ttf') }}" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Prompt:400,700" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/select.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/selectize.default.min.css') }}" />
