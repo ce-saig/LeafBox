@@ -13,7 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 
 	<!-- font-awesome package-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" src="{{ asset('css/font-awesome.min.css')}}">
+  <link src="{{ asset('fonts/Prompt-Bold.ttf') }}" rel="stylesheet">
+  <link src="{{ asset('fonts/Prompt-Regular.ttf') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Prompt:400,700" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('js/angularjs/ext/ui-select/css/select.min.css') }}" />
@@ -141,12 +143,12 @@
 @section('script')
 
 <!-- angular module -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
-<script src="https://code.angularjs.org/1.5.5/angular-sanitize.js"></script>
-<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
+<script src="{{ asset('js/angularjs/angular.js') }}"></script>
+<script src="{{ asset('js/angularjs/angular-animate.js') }}"></script>
+<script src="{{ asset('js/angularjs/angular-resource.js') }}"></script>
+<script src="{{ asset('js/angularjs/angular-route.js') }}"></script>
+<script src="{{ asset('js/angularjs/angular-sanitize.js') }}"></script>
+<script src="{{ asset('js/angularjs/ui-bootstrap-tpls-2.0.1.js') }}"></script>
 <script src="{{ asset('js/angularjs/app.js') }}"></script>
 
 <script src="{{ asset('js/angularjs/ext/ui-select/js/angular-sanitize.min.js') }}"></script>
