@@ -135,7 +135,7 @@
             </tr>
             <tr ng-repeat="book in report.book" class="text-left">
               <td ng-show="columns.enabled[0]">
-                <%book.id%> <span ng-show="book.original_no!=''">(<%book.original_no%>)</span>
+                <%book.id%> <span ng-show="book.original_no">(<%book.original_no%>)</span>
               </td>
               <td ng-show="columns.enabled[1]"><% book.title    %></td> 
               <td ng-show="columns.enabled[2]"><% book.author   %></td>
