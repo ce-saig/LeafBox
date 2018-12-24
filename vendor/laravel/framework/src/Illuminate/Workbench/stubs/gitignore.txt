@@ -1,4 +1,5 @@
 /vendor
+/public/php/backup_files
 composer.phar
 composer.lock
 .DS_Store
